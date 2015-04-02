@@ -1,6 +1,7 @@
 package com.braintreepayments.cardform.view;
 
 import android.annotation.TargetApi;
+import android.app.Activity;
 import android.content.Context;
 import android.os.Build.VERSION_CODES;
 import android.os.Bundle;
@@ -10,6 +11,7 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnFocusChangeListener;
+import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
@@ -75,6 +77,8 @@ public class CardForm extends LinearLayout implements
     private void init() {
         inflate(getContext(), R.layout.bt_card_form_fields, this);
 
+        setVisibility(GONE);
+
         mCardNumber = (CardEditText) findViewById(R.id.bt_card_form_card_number);
         mExpirationView = (MonthYearEditText) findViewById(R.id.bt_card_form_expiration);
         mCvvView = (CvvEditText) findViewById(R.id.bt_card_form_cvv);
@@ -91,17 +95,14 @@ public class CardForm extends LinearLayout implements
         mPostalCode.setOnClickListener(this);
 
         mCardNumber.setOnCardTypeChangedListener(this);
-
-        setRequiredFields(true, true, true, true,
-                getContext().getString(R.string.bt_default_action_label));
     }
 
     /**
      * Set the required fields for the {@link com.braintreepayments.cardform.view.CardForm}.
-     * If {@link #setRequiredFields(boolean, boolean, boolean, boolean, String)} is not called,
-     * {@link com.braintreepayments.cardform.view.CardForm} defaults to all fields required
-     * and a label of "Purchase"
+     * If {@link #setRequiredFields(android.app.Activity, boolean, boolean, boolean, boolean, String)}
+     * is not called, the form will not be visible.
      *
+     * @param activity Used to set {@link android.view.WindowManager.LayoutParams#FLAG_SECURE} to prevent screenshots
      * @param cardNumberRequired {@code true} to show and require a credit card number, {@code false} otherwise
      * @param expirationRequired {@code true} to show and require an expiration date, {@code false} otherwise
      * @param cvvRequired {@code true} to show and require a cvv, {@code false} otherwise
@@ -109,8 +110,12 @@ public class CardForm extends LinearLayout implements
      * @param imeActionLabel the {@link java.lang.String} to display to the user to submit the form
      *   from the keyboard
      */
-    public void setRequiredFields(boolean cardNumberRequired, boolean expirationRequired,
-            boolean cvvRequired, boolean postalCodeRequired, String imeActionLabel) {
+    public void setRequiredFields(Activity activity, boolean cardNumberRequired,
+                                  boolean expirationRequired, boolean cvvRequired,
+                                  boolean postalCodeRequired, String imeActionLabel) {
+        activity.getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE,
+                WindowManager.LayoutParams.FLAG_SECURE);
+
         mCardNumberRequired = cardNumberRequired;
         mExpirationRequired = expirationRequired;
         mCvvRequired = cvvRequired;
@@ -153,6 +158,8 @@ public class CardForm extends LinearLayout implements
         }
 
         mCardNumber.setOnCardTypeChangedListener(this);
+
+        setVisibility(VISIBLE);
     }
 
     private void setIMEOptionsForLastEditTestField(EditText editText, String imeActionLabel) {
@@ -404,5 +411,4 @@ public class CardForm extends LinearLayout implements
         }
         return false;
     }
-
 }

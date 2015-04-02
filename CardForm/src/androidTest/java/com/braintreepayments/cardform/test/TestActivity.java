@@ -8,6 +8,7 @@ import com.braintreepayments.cardform.view.CardForm;
 
 public class TestActivity extends Activity {
 
+    public static final String SETUP_FORM = "setup_form";
     public static final String CREDIT_CARD = "credit_card";
     public static final String EXPIRATION = "expiration";
     public static final String CVV = "cvv";
@@ -21,12 +22,16 @@ public class TestActivity extends Activity {
 
         mCardForm = new CardForm(this);
         mCardForm.setId(android.R.id.custom);
-        mCardForm.setRequiredFields(
-                getIntent().getBooleanExtra(CREDIT_CARD, true),
-                getIntent().getBooleanExtra(EXPIRATION, true),
-                getIntent().getBooleanExtra(CVV, true),
-                getIntent().getBooleanExtra(POSTAL_CODE, true),
-                "Purchase");
+
+        if (getIntent().getBooleanExtra(SETUP_FORM, false)) {
+            mCardForm.setRequiredFields(this,
+                    getIntent().getBooleanExtra(CREDIT_CARD, true),
+                    getIntent().getBooleanExtra(EXPIRATION, true),
+                    getIntent().getBooleanExtra(CVV, true),
+                    getIntent().getBooleanExtra(POSTAL_CODE, true),
+                    "Purchase");
+        }
+
         mCardForm.onRestoreInstanceState(savedInstanceState);
         ((FrameLayout) findViewById(android.R.id.content)).addView(mCardForm);
     }
@@ -36,5 +41,4 @@ public class TestActivity extends Activity {
         super.onSaveInstanceState(outState);
         mCardForm.onSaveInstanceState(outState);
     }
-
 }

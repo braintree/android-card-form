@@ -30,6 +30,7 @@ public class TestActivityTestCase extends ActivityInstrumentationTestCase2<TestA
     public void setupCardForm(boolean cardNumberRequired, boolean expirationRequired,
             boolean cvvRequired, boolean postalCodeRequired) {
         Intent intent = new Intent(mContext, TestActivity.class)
+                .putExtra(TestActivity.SETUP_FORM, true)
                 .putExtra(TestActivity.CREDIT_CARD, cardNumberRequired)
                 .putExtra(TestActivity.EXPIRATION, expirationRequired)
                 .putExtra(TestActivity.CVV, cvvRequired)
