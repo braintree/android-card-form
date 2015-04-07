@@ -27,6 +27,9 @@ import com.braintreepayments.cardform.utils.CardType;
 import com.braintreepayments.cardform.view.CardEditText.OnCardTypeChangedListener;
 import com.braintreepayments.cardform.view.FloatingLabelEditText.OnTextChangedListener;
 
+import static android.os.Build.VERSION.SDK_INT;
+import static android.os.Build.VERSION_CODES.ICE_CREAM_SANDWICH;
+
 public class CardForm extends LinearLayout implements
         OnCardTypeChangedListener, OnFocusChangeListener, OnClickListener,
         OnTextChangedListener, OnEditorActionListener {
@@ -113,8 +116,10 @@ public class CardForm extends LinearLayout implements
     public void setRequiredFields(Activity activity, boolean cardNumberRequired,
                                   boolean expirationRequired, boolean cvvRequired,
                                   boolean postalCodeRequired, String imeActionLabel) {
-        activity.getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE,
-                WindowManager.LayoutParams.FLAG_SECURE);
+        if (SDK_INT >= ICE_CREAM_SANDWICH) {
+            activity.getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE,
+                    WindowManager.LayoutParams.FLAG_SECURE);
+        }
 
         mCardNumberRequired = cardNumberRequired;
         mExpirationRequired = expirationRequired;
