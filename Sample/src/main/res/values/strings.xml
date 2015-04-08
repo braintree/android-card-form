@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">Card Form Sample</string>
+    <string name="purchase">Purchase</string>
+    <string name="valid">Form is valid</string>
+    <string name="invalid">Form is invalid</string>
+</resources>

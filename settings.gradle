@@ -1,1 +1,1 @@
-include ':CardForm'
+include ':CardForm', ':Sample'

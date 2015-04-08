@@ -1,0 +1,18 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 22
+    buildToolsVersion '22.0.0'
+
+    defaultConfig {
+        applicationId 'com.braintreepayments.sample'
+        minSdkVersion 15
+        targetSdkVersion 22
+        versionCode 20
+        versionName '1.4.0'
+    }
+}
+
+dependencies {
+    compile project(':CardForm')
+}
