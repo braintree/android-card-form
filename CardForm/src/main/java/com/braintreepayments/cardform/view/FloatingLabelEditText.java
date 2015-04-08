@@ -19,7 +19,6 @@ import android.view.inputmethod.EditorInfo;
 import com.braintreepayments.cardform.R;
 
 import static android.os.Build.VERSION.SDK_INT;
-import static android.os.Build.VERSION_CODES.HONEYCOMB;
 import static android.os.Build.VERSION_CODES.ICE_CREAM_SANDWICH;
 import static android.os.Build.VERSION_CODES.JELLY_BEAN_MR1;
 
@@ -72,13 +71,7 @@ public abstract class FloatingLabelEditText extends ErrorEditText implements
         mRightToLeftLanguage = isRightToLeftLanguage();
         addTextChangedListener(this);
         mPreviousTextLength = getText().length();
-        if (SDK_INT >= HONEYCOMB) {
-            setupAnimations();
-        }
-    }
 
-    @TargetApi(HONEYCOMB)
-    private void setupAnimations() {
         Resources res = getResources();
         mHorizontalTextOffset = res.getDimension(R.dimen.bt_floating_edit_text_horizontal_offset);
 
@@ -219,9 +212,8 @@ public abstract class FloatingLabelEditText extends ErrorEditText implements
         mPreviousTextLength = text.length();
     }
 
-    @TargetApi(HONEYCOMB)
     protected void handleTextColorOnFocus(boolean hasFocus) {
-        if (SDK_INT >= HONEYCOMB && Looper.myLooper() != null) {
+        if (Looper.myLooper() != null) {
             if (hasFocus) {
                 mFocusColorAnimator.start();
             } else {

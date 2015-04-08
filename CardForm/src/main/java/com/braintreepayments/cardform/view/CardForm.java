@@ -65,7 +65,6 @@ public class CardForm extends LinearLayout implements
         init();
     }
 
-    @TargetApi(VERSION_CODES.HONEYCOMB)
     public CardForm(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init();

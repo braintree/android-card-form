@@ -5,7 +5,7 @@ import android.text.TextUtils;
 import java.util.Calendar;
 
 /**
- * Class provided as a convenience to {@link com.braintreepayments.api.dropin.view.MonthYearEditText} to
+ * Class provided as a convenience to {@link com.braintreepayments.cardform.view.MonthYearEditText} to
  * make testing easier.
  */
 public class DateValidator {

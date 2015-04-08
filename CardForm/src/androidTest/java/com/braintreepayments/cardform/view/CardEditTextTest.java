@@ -52,6 +52,7 @@ public class CardEditTextTest extends AndroidTestCase {
         helper("62", "40 8888 8888 8885", R.drawable.bt_card_highlighted, 4, 8, 12);
     }
 
+    /* helpers */
     private void helper(String start, String end, int drawable, int... spans) {
         assertHintIs(R.drawable.bt_card_highlighted);
         type(start).assertHintIs(drawable);
@@ -85,5 +86,4 @@ public class CardEditTextTest extends AndroidTestCase {
         }
         return this;
     }
-
 }
