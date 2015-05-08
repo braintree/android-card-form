@@ -9,7 +9,7 @@ In your `build.gradle`:
 
 ```groovy
 dependencies {
-    compile project('com.braintreepayments:card-form:1.+')
+    compile project('com.braintreepayments:card-form:1.4.0')
 }
 ```
 
