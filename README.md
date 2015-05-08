@@ -57,6 +57,8 @@ Additionally `CardForm` has 3 available listeners that can be set on it.
 * `CardForm#setOnCardFormSubmitListener` called when the form should be submitted.
 * `CardForm#setOnFormFieldFocusedListener` called when a field in the form is focused.
 
+## [Change Log)[CHANGELOG.md]
+
 ## License
 
 Card Form is open source and available under the MIT license. See the [LICENSE](LICENSE) file for more info.
