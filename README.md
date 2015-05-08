@@ -57,7 +57,7 @@ Additionally `CardForm` has 3 available listeners that can be set on it.
 * `CardForm#setOnCardFormSubmitListener` called when the form should be submitted.
 * `CardForm#setOnFormFieldFocusedListener` called when a field in the form is focused.
 
-## [Change Log)[CHANGELOG.md]
+## [Change Log](CHANGELOG.md)
 
 ## License
 
