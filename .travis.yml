@@ -1,7 +1,8 @@
 language: android
 jdk: oraclejdk7
-email:
-  - external-ci-notifications+android-card-form@getbraintree.com
+notifications:
+  email:
+    - external-ci-notifications+android-card-form@getbraintree.com
 sudo: false
 android:
   components:
