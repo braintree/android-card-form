@@ -18,6 +18,10 @@ android {
     }
 }
 
+sdkManager {
+    emulatorVersion 'android-22'
+}
+
 dependencies {
     androidTestCompile 'com.android.support.test.espresso:espresso-core:2.0'
     androidTestCompile 'com.google.dexmaker:dexmaker-mockito:1.1'
