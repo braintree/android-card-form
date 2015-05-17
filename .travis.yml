@@ -6,6 +6,15 @@ notifications:
 sudo: false
 android:
   components:
+    - build-tools-22.0.1
+    - android-22
+    - sys-img-armeabi-v7a-android-15
+    - sys-img-armeabi-v7a-android-16
+    - sys-img-armeabi-v7a-android-17
+    - sys-img-armeabi-v7a-android-18
+    - sys-img-armeabi-v7a-android-19
+    - sys-img-armeabi-v7a-android-21
+    - sys-img-armeabi-v7a-android-22
     - extra-android-support
     - extra-android-m2repository
 env:
@@ -20,13 +29,10 @@ env:
     - ANDROID_SDKS=android-16 ANDROID_TARGET=android-16 ANDROID_ABI=armeabi-v7a
     - ANDROID_SDKS=android-15 ANDROID_TARGET=android-15 ANDROID_ABI=armeabi-v7a
 before_script:
-  - ./gradlew assembleDebug || true
-  - ./gradlew assembleDebug || true
-  - ./gradlew assembleDebug || true
   - echo no | android create avd --force -n android-card-form-test -t $ANDROID_TARGET --abi $ANDROID_ABI
   - emulator -avd android-card-form-test -no-skin -no-audio -no-window &
   - adb wait-for-device
   - while [[ `adb shell pm path android` == 'Error'* ]]; do sleep 2; done
   - sleep 300 # wait an additional 5 minutes for emulator to finish startup
   - adb shell input keyevent 82 &
-script: ./gradlew --info :CardForm:connectedAndroidTest
+script: ./gradlew --info clean lint :CardForm:connectedAndroidTest

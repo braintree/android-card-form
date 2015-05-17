@@ -1,4 +1,3 @@
-apply plugin: 'android-sdk-manager'
 apply plugin: 'com.android.library'
 
 android {
@@ -21,10 +20,6 @@ android {
     adbOptions {
         timeOutInMs 30000 // 30 seconds
     }
-}
-
-sdkManager {
-    emulatorVersion 'android-22'
 }
 
 dependencies {
