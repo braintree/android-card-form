@@ -1,26 +1,34 @@
 package com.braintreepayments.cardform.view;
 
-import android.test.AndroidTestCase;
+import android.test.UiThreadTest;
 import android.text.Editable;
 
+import com.braintreepayments.cardform.R;
+import com.braintreepayments.cardform.test.TestActivityTestCase;
 import com.braintreepayments.cardform.utils.CardType;
 
-public class CvvEditTextTest extends AndroidTestCase {
-    private CvvEditText view;
+public class CvvEditTextTest extends TestActivityTestCase {
+    private CvvEditText mView;
 
     @Override
-    protected void setUp() throws Exception {
-        view = new CvvEditText(getContext());
+    public void setUp() throws Exception {
+        super.setUp();
+
+        setupCardForm();
+        mView = (CvvEditText) mActivity.findViewById(R.id.bt_card_form_cvv);
+        assertNotNull(mView);
     }
 
+    @UiThreadTest
     public void testDefaultLimitIs3() {
         type("123").assertTextIs("123");
         type("4").assertTextIs("123");
     }
 
+    @UiThreadTest
     public void testCustomLimits() {
         for (CardType type : CardType.values()) {
-            view.setCardType(type);
+            mView.setCardType(type);
             if (type == CardType.AMEX) {
                 type("1234").assertTextIs("1234");
                 type("5").assertTextIs("1234");
@@ -33,7 +41,7 @@ public class CvvEditTextTest extends AndroidTestCase {
     }
 
     private CvvEditTextTest type(String text) {
-        Editable editable = view.getText();
+        Editable editable = mView.getText();
         for (char c : text.toCharArray()) {
             editable.append(c);
         }
@@ -41,11 +49,11 @@ public class CvvEditTextTest extends AndroidTestCase {
     }
 
     private void clearText() {
-        view.getText().clear();
+        mView.getText().clear();
     }
 
     private CvvEditTextTest assertTextIs(String expected) {
-        assertEquals(expected, view.getText().toString());
+        assertEquals(expected, mView.getText().toString());
         return this;
     }
 

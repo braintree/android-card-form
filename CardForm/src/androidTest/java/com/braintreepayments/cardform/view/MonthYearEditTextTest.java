@@ -1,19 +1,26 @@
 package com.braintreepayments.cardform.view;
 
-import android.test.AndroidTestCase;
+import android.test.UiThreadTest;
 import android.text.Editable;
 import android.text.Spanned;
 
-public class MonthYearEditTextTest extends AndroidTestCase {
+import com.braintreepayments.cardform.R;
+import com.braintreepayments.cardform.test.TestActivityTestCase;
 
-    private MonthYearEditText view;
+public class MonthYearEditTextTest extends TestActivityTestCase {
+
+    private MonthYearEditText mView;
 
     @Override
-    protected void setUp() throws Exception {
+    public void setUp() throws Exception {
         super.setUp();
-        view = new MonthYearEditText(getContext());
+
+        setupCardForm();
+        mView = (MonthYearEditText) mActivity.findViewById(R.id.bt_card_form_expiration);
+        assertNotNull(mView);
     }
 
+    @UiThreadTest
     public void testTyping_2_through_9_addsPrefix_0() {
         for (int i = 2; i <= 9; i++) {
             setText(String.valueOf(i));
@@ -21,6 +28,7 @@ public class MonthYearEditTextTest extends AndroidTestCase {
         }
     }
 
+    @UiThreadTest
     public void testTyping_0_or_1_doesntAddPrefix_0() {
         setText("0");
         assertTextIs("0");
@@ -29,6 +37,7 @@ public class MonthYearEditTextTest extends AndroidTestCase {
         assertTextIs("1");
     }
 
+    @UiThreadTest
     public void testCanOnlyTypeNumeric() {
         type('-');
         assertTextIs("");
@@ -37,56 +46,61 @@ public class MonthYearEditTextTest extends AndroidTestCase {
         assertTextIs("05");
     }
 
+    @UiThreadTest
     public void testTypingNumbersWithoutSlashWorks() {
         type('1', '2', '1', '8');
         assertTextIs("1218");
     }
 
+    @UiThreadTest
     public void testAddsSlashForYou() {
         setText("1218");
 
-        Spanned spanned = view.getText();
+        Spanned spanned = mView.getText();
 
-        SlashSpan[] appendSlashSpan = spanned.getSpans(0, view.getText().toString().length(), SlashSpan.class);
+        SlashSpan[] appendSlashSpan = spanned.getSpans(0, mView.getText().toString().length(), SlashSpan.class);
         assertEquals(1, appendSlashSpan.length);
     }
 
+    @UiThreadTest
     public void testMaxLengthIsSix() {
         type('1', '2', '2', '0', '0', '1', '5');
         assertTextIs("122001");
     }
 
+    @UiThreadTest
     public void testGetMonth() {
-        assertEquals("getMonth() should be \"\" if text is empty", "", view.getMonth());
+        assertEquals("getMonth() should be \"\" if text is empty", "", mView.getMonth());
 
         setText("1");
-        assertEquals("", view.getMonth());
+        assertEquals("", mView.getMonth());
         setText("01");
-        assertEquals("01", view.getMonth());
+        assertEquals("01", mView.getMonth());
         setText("0218");
-        assertEquals("02", view.getMonth());
+        assertEquals("02", mView.getMonth());
         setText("032018");
-        assertEquals("03", view.getMonth());
+        assertEquals("03", mView.getMonth());
     }
 
+    @UiThreadTest
     public void testGetYear() {
-        assertEquals("getYear() should be \"\" if text is empty", "", view.getYear());
+        assertEquals("getYear() should be \"\" if text is empty", "", mView.getYear());
 
         setText("01");
-        assertEquals("", view.getYear());
+        assertEquals("", mView.getYear());
 
         type('1');
-        assertEquals("getYear() doesn't return unformatted years", "", view.getYear());
+        assertEquals("getYear() doesn't return unformatted years", "", mView.getYear());
 
         type('8');
-        assertEquals("18", view.getYear());
+        assertEquals("18", mView.getYear());
 
         setText("012018");
-        assertEquals("getYear() will return 4-digit years", "2018", view.getYear());
+        assertEquals("getYear() will return 4-digit years", "2018", mView.getYear());
     }
 
     private MonthYearEditTextTest type(char... chars) {
-        Editable editable = view.getText();
+        Editable editable = mView.getText();
         for (char c : chars) {
             editable.append(c);
         }
@@ -94,7 +108,7 @@ public class MonthYearEditTextTest extends AndroidTestCase {
     }
 
     private MonthYearEditTextTest type(char c) {
-        view.getText().append(c);
+        mView.getText().append(c);
         return this;
     }
 
@@ -103,12 +117,12 @@ public class MonthYearEditTextTest extends AndroidTestCase {
     }
 
     private String getString() {
-        return view.getText().toString();
+        return mView.getText().toString();
     }
 
     /** Clears the field and types the text as if it were new/untouched. */
     private void setText(CharSequence seq) {
-        view.setText("");
-        view.setText(seq);
+        mView.setText("");
+        mView.setText(seq);
     }
 }

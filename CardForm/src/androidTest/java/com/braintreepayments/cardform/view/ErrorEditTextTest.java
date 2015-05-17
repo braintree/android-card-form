@@ -1,51 +1,63 @@
 package com.braintreepayments.cardform.view;
 
 import android.graphics.drawable.Drawable;
-import android.test.AndroidTestCase;
-import android.widget.EditText;
+import android.test.UiThreadTest;
 
-public class ErrorEditTextTest extends AndroidTestCase {
+import com.braintreepayments.cardform.R;
+import com.braintreepayments.cardform.test.TestActivityTestCase;
 
-    private ErrorEditText view;
+public class ErrorEditTextTest extends TestActivityTestCase {
+
+    private ErrorEditText mView;
 
     @Override
-    protected void setUp() {
-        view = new ErrorEditText(getContext());
+    public void setUp() throws Exception {
+        super.setUp();
+
+        setupCardForm();
+        mView = (ErrorEditText) mActivity.findViewById(R.id.bt_card_form_card_number);
+        assertNotNull(mView);
     }
 
+    @UiThreadTest
     public void testIsErrorIsTrueWhenErrorIsSet() {
-        view.setError();
-        assertTrue(view.isError());
+        mView.setError();
+        assertTrue(mView.isError());
     }
 
+    @UiThreadTest
     public void testDefautlsToNoError() {
-        assertFalse(view.isError());
+        assertFalse(mView.isError());
     }
 
+    @UiThreadTest
     public void testClearsErrorStateOnClearError() {
-        view.setError();
-        view.clearError();
-        assertFalse(view.isError());
+        mView.setError();
+        mView.clearError();
+        assertFalse(mView.isError());
     }
 
+    @UiThreadTest
     public void testUsesErrorSelectorWhenErrorIsSet() {
-        Drawable startingDrawable = view.getBackground();
-        view.setError();
-        assertNotSame(startingDrawable, view.getBackground());
+        Drawable startingDrawable = mView.getBackground();
+        mView.setError();
+        assertNotSame(startingDrawable, mView.getBackground());
     }
 
+    @UiThreadTest
     public void testUsesDefaultSelectorWhenErrorIsCleared() {
-        view.setError();
-        Drawable errorDrawable = view.getBackground();
-        view.clearError();
-        assertNotSame(errorDrawable, view.getBackground());
+        mView.setError();
+        Drawable errorDrawable = mView.getBackground();
+        mView.clearError();
+        assertNotSame(errorDrawable, mView.getBackground());
     }
 
+    @UiThreadTest
     public void testClearsErrorOnTextChange() {
-        view.setError();
-        Drawable errorDrawable = view.getBackground();
-        view.onTextChanged("4", 0, 0, 1);
-        assertNotSame(errorDrawable, view.getBackground());
-        assertFalse(view.isError());
+        mView.setError();
+        Drawable errorDrawable = mView.getBackground();
+        mView.onTextChanged("4", 0, 0, 1);
+        assertNotSame(errorDrawable, mView.getBackground());
+        assertFalse(mView.isError());
     }
 }

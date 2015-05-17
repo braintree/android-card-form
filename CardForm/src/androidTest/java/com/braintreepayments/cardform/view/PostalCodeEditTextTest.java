@@ -1,23 +1,31 @@
 package com.braintreepayments.cardform.view;
 
-import android.test.AndroidTestCase;
+import android.test.UiThreadTest;
 
-public class PostalCodeEditTextTest extends AndroidTestCase {
+import com.braintreepayments.cardform.R;
+import com.braintreepayments.cardform.test.TestActivityTestCase;
 
-    private PostalCodeEditText view;
+public class PostalCodeEditTextTest extends TestActivityTestCase {
+
+    private PostalCodeEditText mView;
 
     @Override
-    protected void setUp() throws Exception {
+    public void setUp() throws Exception {
         super.setUp();
-        view = new PostalCodeEditText(getContext());
+
+        setupCardForm();
+        mView = (PostalCodeEditText) mActivity.findViewById(R.id.bt_card_form_postal_code);
+        assertNotNull(mView);
     }
 
+    @UiThreadTest
     public void testInvalidIfEmpty() {
-        assertFalse(view.isValid());
+        assertFalse(mView.isValid());
     }
 
+    @UiThreadTest
     public void testValidIfNotEmpty() {
-        view.setText("12345");
-        assertTrue(view.isValid());
+        mView.setText("12345");
+        assertTrue(mView.isValid());
     }
 }
