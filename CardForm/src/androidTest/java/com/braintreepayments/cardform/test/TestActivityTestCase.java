@@ -3,6 +3,7 @@ package com.braintreepayments.cardform.test;
 import android.app.KeyguardManager;
 import android.content.Context;
 import android.content.Intent;
+import android.os.SystemClock;
 import android.test.ActivityInstrumentationTestCase2;
 
 public class TestActivityTestCase extends ActivityInstrumentationTestCase2<TestActivity> {
@@ -36,6 +37,10 @@ public class TestActivityTestCase extends ActivityInstrumentationTestCase2<TestA
                 .putExtra(TestActivity.CVV, cvvRequired)
                 .putExtra(TestActivity.POSTAL_CODE, postalCodeRequired);
         setActivityIntent(intent);
+
         mActivity = getActivity();
+
+        // prevent flaky tests on CI when activity is slow to start
+        SystemClock.sleep(250);
     }
 }
