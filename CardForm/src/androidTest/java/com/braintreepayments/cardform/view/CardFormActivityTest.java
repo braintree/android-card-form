@@ -243,7 +243,7 @@ public class CardFormActivityTest extends TestActivityTestCase {
     public void testMarksPostalCodeWhenFocusChangesAndPostalCodeBlank() {
         setupCardForm();
 
-        onView(withId(R.id.bt_card_form_postal_code)).perform(click());
+        onView(withId(R.id.bt_card_form_postal_code)).perform(click(), closeSoftKeyboard());
         ErrorEditText postalEditText = (ErrorEditText) mActivity.findViewById(R.id.bt_card_form_postal_code);
         assertTrue(postalEditText.isFocused());
         assertFalse(postalEditText.isError());
