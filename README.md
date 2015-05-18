@@ -3,6 +3,8 @@
 Card Form is a ready made card form layout that can be included in your app making it easy to
 accept credit and debit cards.
 
+[![Build Status](https://travis-ci.org/braintree/android-card-form.svg?branch=master)](https://travis-ci.org/braintree/android-card-form)
+
 ## Adding It To Your Project
 
 In your `build.gradle`:
