@@ -6,6 +6,7 @@ import android.text.InputFilter;
 import android.text.InputFilter.LengthFilter;
 import android.text.InputType;
 import android.text.Spanned;
+import android.text.TextWatcher;
 import android.util.AttributeSet;
 
 import com.braintreepayments.cardform.utils.DateValidator;
@@ -14,7 +15,7 @@ import com.braintreepayments.cardform.utils.DateValidator;
  * An {@link android.widget.EditText} for entering dates, used for card expiration dates.
  * Will automatically format input as it is entered.
  */
-public class MonthYearEditText extends FloatingLabelEditText {
+public class MonthYearEditText extends FloatingLabelEditText implements TextWatcher {
 
     private boolean mChangeWasAddition;
 
@@ -37,6 +38,7 @@ public class MonthYearEditText extends FloatingLabelEditText {
         setInputType(InputType.TYPE_CLASS_NUMBER);
         InputFilter[] filters = { new LengthFilter(6) };
         setFilters(filters);
+        addTextChangedListener(this);
     }
 
     /**
@@ -94,10 +96,8 @@ public class MonthYearEditText extends FloatingLabelEditText {
             addDateSlash(editable);
         }
 
-        super.afterTextChanged(editable);
-
         if ((getSelectionStart() == 4 && !editable.toString().endsWith("20")) || (getSelectionStart() == 6)) {
-            focusNext();
+            focusNextView();
         }
     }
 
@@ -122,4 +122,7 @@ public class MonthYearEditText extends FloatingLabelEditText {
         Editable editable = getText();
         return editable != null ? editable.toString() : "";
     }
+
+    @Override
+    public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
 }

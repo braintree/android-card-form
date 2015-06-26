@@ -1,12 +1,13 @@
 package com.braintreepayments.cardform.view;
 
 import android.content.Context;
+import android.graphics.Rect;
 import android.text.Editable;
 import android.text.InputFilter;
 import android.text.InputFilter.LengthFilter;
 import android.text.InputType;
+import android.text.TextWatcher;
 import android.util.AttributeSet;
-import android.view.View;
 
 import com.braintreepayments.cardform.R;
 import com.braintreepayments.cardform.utils.CardType;
@@ -14,7 +15,7 @@ import com.braintreepayments.cardform.utils.CardType;
 /**
  * An {@link android.widget.EditText} that displays a CVV hint for a given Card type when focused.
  */
-public class CvvEditText extends FloatingLabelEditText {
+public class CvvEditText extends FloatingLabelEditText implements TextWatcher {
 
     private static final int DEFAULT_MAX_LENGTH = 3;
 
@@ -39,6 +40,7 @@ public class CvvEditText extends FloatingLabelEditText {
     private void init() {
         setInputType(InputType.TYPE_CLASS_NUMBER);
         setFilters(new InputFilter[]{new LengthFilter(DEFAULT_MAX_LENGTH)});
+        addTextChangedListener(this);
     }
 
     /**
@@ -70,7 +72,6 @@ public class CvvEditText extends FloatingLabelEditText {
 
     @Override
     public void afterTextChanged(Editable editable) {
-        super.afterTextChanged(editable);
         if (mCardType == null) { return; }
 
         if (mCardType.getSecurityCodeLength() == editable.length() &&
@@ -78,17 +79,17 @@ public class CvvEditText extends FloatingLabelEditText {
             validate();
 
             if (isValid()) {
-                focusNext();
+                focusNextView();
             }
         }
     }
 
     @Override
-    public void onFocusChange(View v, boolean hasFocus) {
-        super.onFocusChange(v, hasFocus);
+    protected void onFocusChanged(boolean focused, int direction, Rect previouslyFocusedRect) {
+        super.onFocusChanged(focused, direction, previouslyFocusedRect);
 
         int cvvResource = 0;
-        if (hasFocus || mAlwaysDisplayHint) {
+        if (focused || mAlwaysDisplayHint) {
             if (mCardType == null) {
                 cvvResource = R.drawable.bt_cvv_highlighted;
             } else {
@@ -116,4 +117,6 @@ public class CvvEditText extends FloatingLabelEditText {
         }
     }
 
+    @Override
+    public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
 }

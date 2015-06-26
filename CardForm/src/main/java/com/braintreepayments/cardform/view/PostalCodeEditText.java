@@ -35,5 +35,4 @@ public class PostalCodeEditText extends FloatingLabelEditText {
     public boolean isValid() {
         return getText().toString().length() > 0;
     }
-
 }

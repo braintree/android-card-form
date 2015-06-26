@@ -1,7 +1,15 @@
 package com.braintreepayments.cardform.view;
 
 import android.content.Context;
+import android.content.res.TypedArray;
+import android.graphics.Canvas;
+import android.graphics.Paint;
+import android.graphics.Rect;
+import android.os.Build;
 import android.util.AttributeSet;
+import android.util.TypedValue;
+import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 
 import com.braintreepayments.cardform.R;
@@ -11,27 +19,92 @@ import com.braintreepayments.cardform.R;
  */
 public class ErrorEditText extends EditText {
 
+    private Paint mPaint;
+    private int mPaddingBottom;
+    private int mActiveUnderlineThickness;
+    private int mInactiveUnderlineThickness;
     private boolean mError;
+    private int mInactiveColor;
+    private int mPrimaryColor;
+    private int mErrorColor;
 
     public ErrorEditText(Context context) {
         super(context);
-        mError = false;
+        init();
     }
 
     public ErrorEditText(Context context, AttributeSet attrs) {
         super(context, attrs);
-        mError = false;
+        init();
     }
 
     public ErrorEditText(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
+        init();
+    }
+
+    private void init() {
+        mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        mPaddingBottom = dp2px(8);
+        mActiveUnderlineThickness = dp2px(2);
+        mInactiveUnderlineThickness = dp2px(1);
         mError = false;
+
+        mInactiveColor = getResources().getColor(R.color.bt_light_gray);
+        mErrorColor = getResources().getColor(R.color.bt_red);
+
+        TypedValue primaryColorTypedValue = new TypedValue();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            getContext().getTheme().resolveAttribute(android.R.attr.colorPrimary, primaryColorTypedValue, true);
+            mPrimaryColor = primaryColorTypedValue.data;
+        } else {
+            int colorPrimaryId = getResources().getIdentifier("colorPrimary", "attr", getContext().getPackageName());
+            getContext().getTheme().resolveAttribute(colorPrimaryId, primaryColorTypedValue, true);
+            mPrimaryColor = primaryColorTypedValue.data;
+            if (mPrimaryColor == 0) {
+                mPrimaryColor = getResources().getColor(R.color.bt_blue);
+            }
+        }
+
+        TypedArray themeArray = getContext().getTheme().obtainStyledAttributes(new int[]{android.R.attr.editTextColor});
+        try {
+            int index = 0;
+            int defaultColourValue = 0;
+            setTextColor(themeArray.getColor(index, defaultColourValue));
+        } catch (RuntimeException ignored) {
+            setTextColor(getResources().getColor(R.color.bt_black));
+        } finally {
+            themeArray.recycle();
+        }
     }
 
     @Override
     public void onTextChanged(CharSequence text, int start, int lengthBefore, int lengthAfter) {
         super.onTextChanged(text, start, lengthBefore, lengthAfter);
-        clearError();
+        setError(false);
+    }
+
+    @Override
+    protected void onFocusChanged(boolean focused, int direction, Rect previouslyFocusedRect) {
+        super.onFocusChanged(focused, direction, previouslyFocusedRect);
+        if(!focused && !isValid()) {
+            setError(true);
+        }
+    }
+
+    /**
+     * Request focus for the next view.
+     */
+    @SuppressWarnings("ResourceType")
+    public void focusNextView() {
+        if (getImeActionId() == EditorInfo.IME_ACTION_GO) {
+            return;
+        }
+
+        View next = focusSearch(View.FOCUS_FORWARD);
+        if (next != null) {
+            next.requestFocus();
+        }
     }
 
     /**
@@ -42,30 +115,73 @@ public class ErrorEditText extends EditText {
     }
 
     /**
-     * Set a visual indication that the {@link android.widget.EditText} contains an error
-     * and track the error state.
+     * Controls the error state of this {@link ErrorEditText} and sets a visual indication that the
+     * {@link ErrorEditText} contains an error.
+     *
+     * @param error {@code true} to mark this {@link ErrorEditText} as an error, {@code false} to
+     *                          mark it as valid.
      */
-    public void setError() {
-        mError = true;
-        setBackground(R.drawable.bt_field_error_selector);
+    public void setError(boolean error) {
+        mError = error;
     }
 
     /**
-     * Remove the visual indication of an error and track the error state.
+     * Override this method validation logic
+     *
+     * @return {@code true}
      */
-    public void clearError() {
-        mError = false;
-        setBackground(R.drawable.bt_field_selector);
+    public boolean isValid() {
+        return true;
     }
 
-    private void setBackground(int backgroundResourceId) {
-        int paddingBottom = getPaddingBottom();
-        int paddingLeft = getPaddingLeft();
-        int paddingRight = getPaddingRight();
-        int paddingTop = getPaddingTop();
-
-        setBackgroundResource(backgroundResourceId);
-        setPadding(paddingLeft, paddingTop, paddingRight, paddingBottom);
+    /**
+     * Check if the {@link ErrorEditText} is valid and set the correct error state and visual
+     * indication on it.
+     */
+    public void validate() {
+        if (isValid()) {
+            setError(false);
+        } else {
+            setError(true);
+        }
     }
 
+    @Override
+    protected void onDraw(Canvas canvas) {
+        super.onDraw(canvas);
+
+        int endX = getRight();
+        int startY = getBottom() - mPaddingBottom - mActiveUnderlineThickness;
+
+        if (mError) {
+            mPaint.setColor(mErrorColor);
+            canvas.drawRect(0, startY, endX, startY + mActiveUnderlineThickness, mPaint);
+        } else if (!isEnabled()) {
+            mPaint.setColor(mInactiveColor & 0x00ffffff | 0x44000000);
+            canvas.drawRect(0, startY, endX, startY + mInactiveUnderlineThickness, mPaint);
+        } else if (hasFocus()) {
+            mPaint.setColor(mPrimaryColor);
+            canvas.drawRect(0, startY, endX, startY + mActiveUnderlineThickness, mPaint);
+        } else {
+            mPaint.setColor(mInactiveColor & 0x00ffffff | 0x1E000000);
+            canvas.drawRect(0, startY, endX, startY + mInactiveUnderlineThickness, mPaint);
+        }
+    }
+
+    protected int getPrimaryColor() {
+        return mPrimaryColor;
+    }
+
+    protected int getInactiveColor() {
+        return mInactiveColor;
+    }
+
+    protected int getErrorColor() {
+        return mErrorColor;
+    }
+
+    protected int dp2px(float dp) {
+        return Math.round(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp,
+                getResources().getDisplayMetrics()));
+    }
 }

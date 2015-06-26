@@ -5,37 +5,23 @@ import android.animation.ValueAnimator;
 import android.animation.ValueAnimator.AnimatorUpdateListener;
 import android.annotation.TargetApi;
 import android.content.Context;
-import android.content.res.Resources;
 import android.graphics.Canvas;
+import android.graphics.Rect;
 import android.os.Looper;
-import android.text.Editable;
 import android.text.TextPaint;
-import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.view.View;
-import android.view.View.OnFocusChangeListener;
-import android.view.inputmethod.EditorInfo;
-
-import com.braintreepayments.cardform.R;
 
 import static android.os.Build.VERSION.SDK_INT;
 import static android.os.Build.VERSION_CODES.ICE_CREAM_SANDWICH;
 import static android.os.Build.VERSION_CODES.JELLY_BEAN_MR1;
 
 /**
- * Parent {@link android.widget.EditText} for displaying floating hints when text has been entered.
+ * {@link android.widget.EditText} for displaying floating hints when text has been entered.
  */
-public abstract class FloatingLabelEditText extends ErrorEditText implements
-        OnFocusChangeListener, TextWatcher {
+public class FloatingLabelEditText extends ErrorEditText {
 
     private static final int ANIMATION_DURATION_MILLIS = 300;
-
-    public interface OnTextChangedListener {
-        public void onTextChanged(Editable editable);
-    }
-
-    private OnFocusChangeListener mOnFocusChangeListener;
-    private OnTextChangedListener mOnTextChangedListener;
 
     private TextPaint mHintPaint = new TextPaint();
     private ValueAnimator mHintAnimator;
@@ -47,7 +33,6 @@ public abstract class FloatingLabelEditText extends ErrorEditText implements
     private int mAnimatedHintColor;
     private int mHintAlpha;
 
-    private float mHorizontalTextOffset;
     private int mPreviousTextLength;
 
     protected boolean mRightToLeftLanguage;
@@ -69,11 +54,7 @@ public abstract class FloatingLabelEditText extends ErrorEditText implements
 
     private void init() {
         mRightToLeftLanguage = isRightToLeftLanguage();
-        addTextChangedListener(this);
         mPreviousTextLength = getText().length();
-
-        Resources res = getResources();
-        mHorizontalTextOffset = res.getDimension(R.dimen.bt_floating_edit_text_horizontal_offset);
 
         final float textSize = getTextSize();
         mHintAnimator = ValueAnimator.ofFloat(textSize * 1.75f, textSize);
@@ -86,8 +67,6 @@ public abstract class FloatingLabelEditText extends ErrorEditText implements
         });
         mHintAnimator.setDuration(ANIMATION_DURATION_MILLIS);
 
-        int inactiveColor = res.getColor(R.color.bt_light_gray);
-        int activeColor = res.getColor(R.color.bt_blue);
         AnimatorUpdateListener animatorUpdateListener = new AnimatorUpdateListener() {
             @Override
             public void onAnimationUpdate(ValueAnimator animation) {
@@ -96,12 +75,12 @@ public abstract class FloatingLabelEditText extends ErrorEditText implements
             }
         };
 
-        mFocusColorAnimator = ValueAnimator.ofInt(inactiveColor, activeColor);
+        mFocusColorAnimator = ValueAnimator.ofInt(getInactiveColor(), getPrimaryColor());
         mFocusColorAnimator.setEvaluator(new ArgbEvaluator());
         mFocusColorAnimator.addUpdateListener(animatorUpdateListener);
         mFocusColorAnimator.setDuration(ANIMATION_DURATION_MILLIS);
 
-        mInactiveColorAnimator = ValueAnimator.ofInt(activeColor, inactiveColor);
+        mInactiveColorAnimator = ValueAnimator.ofInt(getPrimaryColor(), getInactiveColor());
         mInactiveColorAnimator.setEvaluator(new ArgbEvaluator());
         mInactiveColorAnimator.addUpdateListener(animatorUpdateListener);
         mInactiveColorAnimator.setDuration(ANIMATION_DURATION_MILLIS);
@@ -114,63 +93,17 @@ public abstract class FloatingLabelEditText extends ErrorEditText implements
                 invalidate();
             }
         });
-
-        setOnFocusChangeListener(this);
-    }
-
-    /**
-     * Set a listener to receive a callback when focus on this {@link com.braintreepayments.cardform.view.FloatingLabelEditText}
-     * changes
-     * @param listener the listener to call
-     */
-    public void setFocusChangeListener(OnFocusChangeListener listener) {
-        mOnFocusChangeListener = listener;
-    }
-
-    /**
-     * Set a listener to receive a callback when text changes in this
-     * {@link com.braintreepayments.cardform.view.FloatingLabelEditText}
-     * @param listener the listener to call
-     */
-    public void setTextChangedListener(OnTextChangedListener listener) {
-        mOnTextChangedListener = listener;
     }
 
     @Override
-    public void onFocusChange(View v, boolean hasFocus){
-        handleTextColorOnFocus(hasFocus);
-        setErrorOnFocusChange(hasFocus);
-
-        if (mOnFocusChangeListener != null) {
-            mOnFocusChangeListener.onFocusChange(v, hasFocus);
-        }
-    }
-
-    protected void setErrorOnFocusChange(boolean hasFocus) {
-        if(!hasFocus && !isValid()) {
-            setError();
-        }
-    }
-
-    @SuppressWarnings("ResourceType")
-    public void focusNext() {
-        if (getImeActionId() == EditorInfo.IME_ACTION_GO) {
-            return;
-        }
-
-        View next = focusSearch(View.FOCUS_FORWARD);
-        if (next != null) {
-            next.requestFocus();
-        }
-    }
-
-    public abstract boolean isValid();
-
-    public void validate() {
-        if (isValid()) {
-            clearError();
-        } else {
-            setError();
+    protected void onFocusChanged(boolean focused, int direction, Rect previouslyFocusedRect) {
+        super.onFocusChanged(focused, direction, previouslyFocusedRect);
+        if (Looper.myLooper() != null) {
+            if (focused) {
+                mFocusColorAnimator.start();
+            } else {
+                mInactiveColorAnimator.start();
+            }
         }
     }
 
@@ -180,21 +113,10 @@ public abstract class FloatingLabelEditText extends ErrorEditText implements
 
         if (getText().length() > 0) {
             mHintPaint.setColor(mAnimatedHintColor);
-            mHintPaint.setTextSize(getPaint().getTextSize() * 2 / 3);
+            mHintPaint.setTextSize(getPaint().getTextSize() * 3 / 4);
             mHintPaint.setAlpha(mHintAlpha);
 
-            String hint = getHint().toString();
-            canvas.drawText(hint, mHorizontalTextOffset, mAnimatedHintHeight, mHintPaint);
-        }
-    }
-
-    @Override
-    public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-
-    @Override
-    public void afterTextChanged(Editable editable) {
-        if (mOnTextChangedListener != null) {
-            mOnTextChangedListener.onTextChanged(editable);
+            canvas.drawText(getHint().toString(), 0, mAnimatedHintHeight, mHintPaint);
         }
     }
 
@@ -210,16 +132,6 @@ public abstract class FloatingLabelEditText extends ErrorEditText implements
             }
         }
         mPreviousTextLength = text.length();
-    }
-
-    protected void handleTextColorOnFocus(boolean hasFocus) {
-        if (Looper.myLooper() != null) {
-            if (hasFocus) {
-                mFocusColorAnimator.start();
-            } else {
-                mInactiveColorAnimator.start();
-            }
-        }
     }
 
     @TargetApi(JELLY_BEAN_MR1)

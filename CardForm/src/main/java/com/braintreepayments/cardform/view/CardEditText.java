@@ -6,6 +6,7 @@ import android.text.InputFilter;
 import android.text.InputFilter.LengthFilter;
 import android.text.InputType;
 import android.text.Spanned;
+import android.text.TextWatcher;
 import android.util.AttributeSet;
 
 import com.braintreepayments.cardform.R;
@@ -14,9 +15,9 @@ import com.braintreepayments.cardform.utils.CardType;
 /**
  * An {@link android.widget.EditText} that displays Card icons based on the number entered.
  */
-public class CardEditText extends FloatingLabelEditText {
+public class CardEditText extends FloatingLabelEditText implements TextWatcher {
 
-    public static interface OnCardTypeChangedListener {
+    public interface OnCardTypeChangedListener {
         void onCardTypeChanged(CardType cardType);
     }
 
@@ -41,6 +42,7 @@ public class CardEditText extends FloatingLabelEditText {
     private void init() {
         setInputType(InputType.TYPE_CLASS_NUMBER);
         setCardIcon(R.drawable.bt_card_highlighted);
+        addTextChangedListener(this);
     }
 
     /**
@@ -74,13 +76,11 @@ public class CardEditText extends FloatingLabelEditText {
             addSpans(editable, mCardType.getSpaceIndices());
         }
 
-        super.afterTextChanged(editable);
-
         if (mCardType.getMaxCardLength() == getSelectionStart()) {
             validate();
 
             if (isValid()) {
-                focusNext();
+                focusNextView();
             }
         }
     }
@@ -123,4 +123,6 @@ public class CardEditText extends FloatingLabelEditText {
         }
     }
 
+    @Override
+    public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
 }

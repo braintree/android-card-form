@@ -1,6 +1,5 @@
 package com.braintreepayments.cardform.view;
 
-import android.graphics.drawable.Drawable;
 import android.test.UiThreadTest;
 
 import com.braintreepayments.cardform.R;
@@ -21,43 +20,25 @@ public class ErrorEditTextTest extends TestActivityTestCase {
 
     @UiThreadTest
     public void testIsErrorIsTrueWhenErrorIsSet() {
-        mView.setError();
+        mView.setError(true);
         assertTrue(mView.isError());
     }
 
     @UiThreadTest
-    public void testDefautlsToNoError() {
+    public void testDefaultsToNoError() {
         assertFalse(mView.isError());
     }
 
     @UiThreadTest
-    public void testClearsErrorStateOnClearError() {
-        mView.setError();
-        mView.clearError();
+    public void testClearsErrorStateOnSetErrorFalse() {
+        mView.setError(false);
         assertFalse(mView.isError());
-    }
-
-    @UiThreadTest
-    public void testUsesErrorSelectorWhenErrorIsSet() {
-        Drawable startingDrawable = mView.getBackground();
-        mView.setError();
-        assertNotSame(startingDrawable, mView.getBackground());
-    }
-
-    @UiThreadTest
-    public void testUsesDefaultSelectorWhenErrorIsCleared() {
-        mView.setError();
-        Drawable errorDrawable = mView.getBackground();
-        mView.clearError();
-        assertNotSame(errorDrawable, mView.getBackground());
     }
 
     @UiThreadTest
     public void testClearsErrorOnTextChange() {
-        mView.setError();
-        Drawable errorDrawable = mView.getBackground();
+        mView.setError(true);
         mView.onTextChanged("4", 0, 0, 1);
-        assertNotSame(errorDrawable, mView.getBackground());
         assertFalse(mView.isError());
     }
 }
