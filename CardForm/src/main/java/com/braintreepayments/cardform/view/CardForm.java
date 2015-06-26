@@ -4,7 +4,6 @@ import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Build.VERSION_CODES;
-import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
@@ -33,11 +32,6 @@ import static android.os.Build.VERSION_CODES.ICE_CREAM_SANDWICH;
 public class CardForm extends LinearLayout implements
         OnCardTypeChangedListener, OnFocusChangeListener, OnClickListener, OnEditorActionListener,
         TextWatcher {
-
-    private static final String EXTRA_CARD_NUMBER_TEXT = "com.braintreepayments.cardform.EXTRA_CARD_NUMBER_TEXT";
-    private static final String EXTRA_CVV_TEXT = "com.braintreepayments.cardform.EXTRA_CVV_TEXT";
-    private static final String EXTRA_EXPIRATION_TEXT = "com.braintreepayments.cardform.EXTRA_EXPIRATION_TEXT";
-    private static final String EXTRA_POSTAL_CODE_TEXT = "com.braintreepayments.cardform.EXTRA_POSTAL_CODE_TEXT";
 
     private CardEditText mCardNumber;
     private MonthYearEditText mExpirationView;
@@ -195,37 +189,6 @@ public class CardForm extends LinearLayout implements
      */
     public void setOnFormFieldFocusedListener(OnCardFormFieldFocusedListener listener) {
         mOnCardFormFieldFocusedListener = listener;
-    }
-
-    /**
-     * Call {@link #onRestoreInstanceState(android.os.Bundle)} when resuming after an event such
-     * as a rotation
-     * @param savedInstanceState from {@link android.app.Activity#onCreate(android.os.Bundle)}
-     */
-    public void onRestoreInstanceState(Bundle savedInstanceState) {
-        if (savedInstanceState != null) {
-            restoreText(savedInstanceState, mCardNumber, EXTRA_CARD_NUMBER_TEXT);
-            restoreText(savedInstanceState, mCvvView, EXTRA_CVV_TEXT);
-            restoreText(savedInstanceState, mExpirationView, EXTRA_EXPIRATION_TEXT);
-            restoreText(savedInstanceState, mPostalCode, EXTRA_POSTAL_CODE_TEXT);
-        }
-    }
-
-    /**
-     * Call when saving instance state before an event such as a rotation
-     * @param outState from {@link android.app.Activity#onSaveInstanceState(android.os.Bundle)}
-     */
-    public void onSaveInstanceState(Bundle outState) {
-        outState.putCharSequence(EXTRA_CARD_NUMBER_TEXT, mCardNumber.getText());
-        outState.putCharSequence(EXTRA_CVV_TEXT, mCvvView.getText());
-        outState.putCharSequence(EXTRA_EXPIRATION_TEXT, mExpirationView.getText());
-        outState.putCharSequence(EXTRA_POSTAL_CODE_TEXT, mPostalCode.getText());
-    }
-
-    private void restoreText(Bundle savedInstanceState, TextView view, String extra) {
-        if (savedInstanceState.containsKey(extra)) {
-            view.setText(savedInstanceState.getCharSequence(extra));
-        }
     }
 
     /**

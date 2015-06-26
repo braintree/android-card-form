@@ -35,10 +35,6 @@ CardForm cardForm = (CardForm) findViewById(R.id.bt_card_form);
 cardForm.setRequiredFields(true, true, false, false, "Purchase");
 ```
 
-During rotation `CardForm#onSaveInstanceState(Bundle outState)` should be called with the `Bundle`
-received in `Activity#onSaveInstanceState`. Likewise during creation `CardForm#onRestoreInstanceState(Bundle savedInstanceState)`
-should be called with the `Bundle` received in `Activity#onCreate`.
-
 To access the values in the form, there are getters for each field:
 
 ```java

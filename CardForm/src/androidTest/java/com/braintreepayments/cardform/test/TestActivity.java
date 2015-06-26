@@ -14,17 +14,15 @@ public class TestActivity extends Activity {
     public static final String CVV = "cvv";
     public static final String POSTAL_CODE = "postal_code";
 
-    private CardForm mCardForm;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mCardForm = new CardForm(this);
-        mCardForm.setId(android.R.id.custom);
+        CardForm cardForm = new CardForm(this);
+        cardForm.setId(android.R.id.custom);
 
         if (getIntent().getBooleanExtra(SETUP_FORM, false)) {
-            mCardForm.setRequiredFields(this,
+            cardForm.setRequiredFields(this,
                     getIntent().getBooleanExtra(CREDIT_CARD, true),
                     getIntent().getBooleanExtra(EXPIRATION, true),
                     getIntent().getBooleanExtra(CVV, true),
@@ -32,13 +30,6 @@ public class TestActivity extends Activity {
                     "Purchase");
         }
 
-        mCardForm.onRestoreInstanceState(savedInstanceState);
-        ((FrameLayout) findViewById(android.R.id.content)).addView(mCardForm);
-    }
-
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        mCardForm.onSaveInstanceState(outState);
+        ((FrameLayout) findViewById(android.R.id.content)).addView(cardForm);
     }
 }
