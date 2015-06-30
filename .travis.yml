@@ -8,6 +8,8 @@ android:
   components:
     - build-tools-22.0.1
     - android-22
+    - sys-img-armeabi-v7a-android-10
+    - sys-img-armeabi-v7a-android-14
     - sys-img-armeabi-v7a-android-15
     - sys-img-armeabi-v7a-android-16
     - sys-img-armeabi-v7a-android-17
@@ -28,6 +30,8 @@ env:
     - ANDROID_SDKS=android-17 ANDROID_TARGET=android-17 ANDROID_ABI=armeabi-v7a
     - ANDROID_SDKS=android-16 ANDROID_TARGET=android-16 ANDROID_ABI=armeabi-v7a
     - ANDROID_SDKS=android-15 ANDROID_TARGET=android-15 ANDROID_ABI=armeabi-v7a
+    - ANDROID_SDKS=android-14 ANDROID_TARGET=android-14 ANDROID_ABI=armeabi-v7a
+    - ANDROID_SDKS=android-10 ANDROID_TARGET=android-10 ANDROID_ABI=armeabi-v7a
 before_script:
   - echo no | android create avd --force -n android-card-form-test -t $ANDROID_TARGET --abi $ANDROID_ABI
   - emulator -avd android-card-form-test -no-skin -no-audio -no-window &
