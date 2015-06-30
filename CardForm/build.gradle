@@ -1,4 +1,6 @@
 apply plugin: 'com.android.library'
+apply plugin: 'maven'
+apply plugin: 'signing'
 
 android {
     compileSdkVersion 22
@@ -25,4 +27,77 @@ android {
 dependencies {
     androidTestCompile 'com.android.support.test.espresso:espresso-core:2.0'
     androidTestCompile 'com.google.dexmaker:dexmaker-mockito:1.1'
+}
+
+/* maven release */
+task javadocs(type: Javadoc) {
+    source = android.sourceSets.main.java.srcDirs
+    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+}
+
+task javadocsJar(type: Jar, dependsOn: javadocs) {
+    classifier = 'javadoc'
+    from javadocs.destinationDir
+}
+
+task sourcesJar(type: Jar) {
+    classifier = 'sources'
+    from android.sourceSets.main.java.srcDirs
+}
+
+artifacts {
+    archives javadocsJar
+    archives sourcesJar
+}
+
+signing {
+    sign configurations.archives
+}
+
+def sonatypeUsername = System.properties.containsKey('sonatypeUsername') ? System.properties['sonatypeUsername'] : ''
+def sonatypePassword = System.properties.containsKey('sonatypePassword') ? System.properties['sonatypePassword'] : ''
+
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
+
+            repository(url: 'https://oss.sonatype.org/service/local/staging/deploy/maven2/') {
+                authentication(userName: sonatypeUsername, password: sonatypePassword)
+            }
+
+            pom.setArtifactId 'card-form'
+
+            pom.project {
+                name 'card-form'
+                groupId = 'com.braintreepayments'
+                version = "${android.defaultConfig.versionName}"
+                packaging 'aar'
+                description 'A ready-made card form layout that can be included in your Android app, making it easy to accept credit and debit cards.'
+
+                url 'https://github.com/braintree/android-card-form'
+
+                scm {
+                    url 'scm:git@github.com:braintree/android-card-form.git'
+                    connection 'scm:git@github.com:braintree/android-card-form.git'
+                    developerConnection 'scm:git@github.com:braintree/android-card-form.git'
+                }
+
+                developers {
+                    developer {
+                        id 'devs'
+                        name 'Braintree Payments'
+                    }
+                }
+
+                licenses {
+                    license {
+                        name 'MIT'
+                        url 'http://opensource.org/licenses/MIT'
+                        distribution 'repo'
+                    }
+                }
+            }
+        }
+    }
 }
