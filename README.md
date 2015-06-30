@@ -11,7 +11,7 @@ In your `build.gradle`:
 
 ```groovy
 dependencies {
-    compile project('com.braintreepayments:card-form:1.4.0')
+    compile project('com.braintreepayments:card-form:2.0.0')
 }
 ```
 
@@ -26,13 +26,12 @@ Card Form is a LinearLayout that you can add to your layout:
     android:layout_height="match_parent" />
 ```
 
-To change which fields are required for the user to enter, use
-`CardForm#setRequiredFields(boolean cardNumberRequired, boolean expirationRequired, boolean cvvRequired, boolean postalCodeRequired, String imeActionLabel)`.
-By default all fields are required.
+To initialize the view and change which fields are required for the user to enter, use
+`CardForm#setRequiredFields(Activity activity, boolean cardNumberRequired, boolean expirationRequired, boolean cvvRequired, boolean postalCodeRequired, String imeActionLabel)`.
 
 ```java
 CardForm cardForm = (CardForm) findViewById(R.id.bt_card_form);
-cardForm.setRequiredFields(true, true, false, false, "Purchase");
+cardForm.setRequiredFields(Activity.this, true, true, false, false, "Purchase");
 ```
 
 To access the values in the form, there are getters for each field:
@@ -45,15 +44,21 @@ cardForm.getCvv();
 cardForm.getPostalCode();
 ```
 
-To check if `CardForm` is valid simply call `CardForm#isValid()`. To validate each required field
-and show the user which fields are incorrect, call `CardForm#validate()`. There are also setters
-for each field that allow you to set if they are valid or not and display an error to the user.
+To check if `CardForm` is valid call `CardForm#isValid()`. To validate each required field
+and show the user which fields are incorrect, call `CardForm#validate()`.
 
-Additionally `CardForm` has 3 available listeners that can be set on it.
+Additionally `CardForm` has 3 available listeners:
 
 * `CardForm#setOnCardFormValidListener` called when the form changes state from valid to invalid or invalid to valid.
 * `CardForm#setOnCardFormSubmitListener` called when the form should be submitted.
 * `CardForm#setOnFormFieldFocusedListener` called when a field in the form is focused.
+
+## Styling
+
+All card form inputs use the `colorPrimary` theme attribute, when present, to set their focused color.
+For more information on the `colorPrimary` attribute, see [Using the Material Theme](https://developer.android.com/training/material/theme.html).
+
+The included [sample app](https://github.com/braintree/android-card-form/tree/master/Sample) has examples of a Holo theme, Material light theme and Material dark theme.
 
 ## [Change Log](CHANGELOG.md)
 
