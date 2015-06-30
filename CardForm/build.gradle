@@ -1,6 +1,7 @@
 apply plugin: 'com.android.library'
 apply plugin: 'maven'
 apply plugin: 'signing'
+apply plugin: 'io.codearte.nexus-staging'
 
 android {
     compileSdkVersion 22
@@ -52,6 +53,10 @@ artifacts {
 
 signing {
     sign configurations.archives
+}
+
+nexusStaging {
+    packageGroup = "com.braintreepayments"
 }
 
 def sonatypeUsername = System.properties.containsKey('sonatypeUsername') ? System.properties['sonatypeUsername'] : ''
