@@ -1,5 +1,10 @@
 # Android Card Form Release Notes
 
+## 2.0.1
+
+* Fixes
+  * Use `colorAccent` instead of `colorPrimary` for the focused color of `EditText`s. Fixes [#1](https://github.com/braintree/android-card-form/issues/1).
+
 ## 2.0.0
 
 * Material design updates
