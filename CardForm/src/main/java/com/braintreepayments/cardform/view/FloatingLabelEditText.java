@@ -82,12 +82,12 @@ public class FloatingLabelEditText extends ErrorEditText {
             }
         };
 
-        mFocusColorAnimator = ValueAnimator.ofInt(getInactiveColor(), getPrimaryColor());
+        mFocusColorAnimator = ValueAnimator.ofInt(getInactiveColor(), getFocusedColor());
         mFocusColorAnimator.setEvaluator(new ArgbEvaluator());
         mFocusColorAnimator.addUpdateListener(animatorUpdateListener);
         mFocusColorAnimator.setDuration(ANIMATION_DURATION_MILLIS);
 
-        mInactiveColorAnimator = ValueAnimator.ofInt(getPrimaryColor(), getInactiveColor());
+        mInactiveColorAnimator = ValueAnimator.ofInt(getFocusedColor(), getInactiveColor());
         mInactiveColorAnimator.setEvaluator(new ArgbEvaluator());
         mInactiveColorAnimator.addUpdateListener(animatorUpdateListener);
         mInactiveColorAnimator.setDuration(ANIMATION_DURATION_MILLIS);

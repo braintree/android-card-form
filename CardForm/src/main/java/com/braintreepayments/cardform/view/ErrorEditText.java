@@ -24,8 +24,8 @@ public class ErrorEditText extends EditText {
     private int mActiveUnderlineThickness;
     private int mInactiveUnderlineThickness;
     private boolean mError;
+    private int mFocusedColor;
     private int mInactiveColor;
-    private int mPrimaryColor;
     private int mErrorColor;
 
     public ErrorEditText(Context context) {
@@ -53,16 +53,16 @@ public class ErrorEditText extends EditText {
         mInactiveColor = getResources().getColor(R.color.bt_light_gray);
         mErrorColor = getResources().getColor(R.color.bt_red);
 
-        TypedValue primaryColorTypedValue = new TypedValue();
+        TypedValue colorAccentTypedValue = new TypedValue();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            getContext().getTheme().resolveAttribute(android.R.attr.colorPrimary, primaryColorTypedValue, true);
-            mPrimaryColor = primaryColorTypedValue.data;
+            getContext().getTheme().resolveAttribute(android.R.attr.colorAccent, colorAccentTypedValue, true);
+            mFocusedColor = colorAccentTypedValue.data;
         } else {
-            int colorPrimaryId = getResources().getIdentifier("colorPrimary", "attr", getContext().getPackageName());
-            getContext().getTheme().resolveAttribute(colorPrimaryId, primaryColorTypedValue, true);
-            mPrimaryColor = primaryColorTypedValue.data;
-            if (mPrimaryColor == 0) {
-                mPrimaryColor = getResources().getColor(R.color.bt_blue);
+            int colorPrimaryId = getResources().getIdentifier("colorAccent", "attr", getContext().getPackageName());
+            getContext().getTheme().resolveAttribute(colorPrimaryId, colorAccentTypedValue, true);
+            mFocusedColor = colorAccentTypedValue.data;
+            if (mFocusedColor == 0) {
+                mFocusedColor = getResources().getColor(R.color.bt_blue);
             }
         }
 
@@ -166,7 +166,7 @@ public class ErrorEditText extends EditText {
             mPaint.setColor(mInactiveColor & 0x00ffffff | 0x44000000);
             canvas.drawRect(0, startY, endX, startY + mInactiveUnderlineThickness, mPaint);
         } else if (hasFocus()) {
-            mPaint.setColor(mPrimaryColor);
+            mPaint.setColor(mFocusedColor);
             canvas.drawRect(0, startY, endX, startY + mActiveUnderlineThickness, mPaint);
         } else {
             mPaint.setColor(mInactiveColor & 0x00ffffff | 0x1E000000);
@@ -174,8 +174,8 @@ public class ErrorEditText extends EditText {
         }
     }
 
-    protected int getPrimaryColor() {
-        return mPrimaryColor;
+    protected int getFocusedColor() {
+        return mFocusedColor;
     }
 
     protected int getInactiveColor() {

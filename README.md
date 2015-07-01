@@ -55,8 +55,8 @@ Additionally `CardForm` has 3 available listeners:
 
 ## Styling
 
-All card form inputs use the `colorPrimary` theme attribute, when present, to set their focused color.
-For more information on the `colorPrimary` attribute, see [Using the Material Theme](https://developer.android.com/training/material/theme.html).
+All card form inputs use the `colorAccent` theme attribute, when present, to set their focused color.
+For more information on the `colorAccent` attribute, see [Using the Material Theme](https://developer.android.com/training/material/theme.html).
 
 The included [sample app](https://github.com/braintree/android-card-form/tree/master/Sample) has examples of a Holo theme, Material light theme and Material dark theme.
 
