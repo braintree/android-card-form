@@ -74,7 +74,7 @@ public class CardFormActivityTest extends TestActivityTestCase {
     public void testCorrectCardHintsAreDisplayed() {
         setupCardForm();
 
-        onView(withHint(R.string.bt_form_hint_card_number))
+        onView(withId(R.id.bt_card_form_card_number))
                 .check(theIconHintIs(mContext, R.drawable.bt_card_highlighted))
                 .perform(typeText("4")).check(theIconHintIs(mContext, R.drawable.bt_visa))
                 .perform(clearText())
@@ -93,13 +93,12 @@ public class CardFormActivityTest extends TestActivityTestCase {
     public void testCvvHintsShowAndDisappearOnClick() throws InterruptedException {
         setupCardForm();
 
-        onView(withHint(R.string.bt_form_hint_cvv))
-                .check(assertHintsAre(null, null, null, null))
-                .perform(click())
+        onView(withId(R.id.bt_card_form_cvv)).check(assertHintsAre(null, null, null, null))
+                .perform(click(), closeSoftKeyboard())
                 .check(theIconHintIs(mContext, R.drawable.bt_cvv_highlighted))
                 .perform(typeText("123"), closeSoftKeyboard());
-        onView(withHint(R.string.bt_form_hint_postal_code)).perform(typeText("12345"), closeSoftKeyboard());
-        onView(withHint(R.string.bt_form_hint_cvv))
+        onView(withId(R.id.bt_card_form_postal_code)).perform(typeText("12345"), closeSoftKeyboard());
+        onView(withId(R.id.bt_card_form_cvv))
                 .check(assertHintsAre(null, null, null, null)); // check that the hint is gone after defocusing
     }
 
