@@ -13,7 +13,6 @@ import android.util.AttributeSet;
 import android.view.View;
 
 import static android.os.Build.VERSION.SDK_INT;
-import static android.os.Build.VERSION_CODES.HONEYCOMB;
 import static android.os.Build.VERSION_CODES.ICE_CREAM_SANDWICH;
 import static android.os.Build.VERSION_CODES.JELLY_BEAN_MR1;
 
@@ -56,13 +55,7 @@ public class FloatingLabelEditText extends ErrorEditText {
     private void init() {
         mRightToLeftLanguage = isRightToLeftLanguage();
         mPreviousTextLength = getText().length();
-        if (SDK_INT >= HONEYCOMB) {
-            setupAnimations();
-        }
-    }
 
-    @TargetApi(HONEYCOMB)
-    private void setupAnimations() {
         final float textSize = getTextSize();
         mHintAnimator = ValueAnimator.ofFloat(textSize * 1.75f, textSize);
         mHintAnimator.addUpdateListener(new AnimatorUpdateListener() {
@@ -105,8 +98,12 @@ public class FloatingLabelEditText extends ErrorEditText {
     @Override
     protected void onFocusChanged(boolean focused, int direction, Rect previouslyFocusedRect) {
         super.onFocusChanged(focused, direction, previouslyFocusedRect);
-        if (SDK_INT >= HONEYCOMB) {
-            handleTextColorOnFocus(focused);
+        if (Looper.myLooper() != null) {
+            if (focused) {
+                mFocusColorAnimator.start();
+            } else {
+                mInactiveColorAnimator.start();
+            }
         }
     }
 
@@ -135,17 +132,6 @@ public class FloatingLabelEditText extends ErrorEditText {
             }
         }
         mPreviousTextLength = text.length();
-    }
-
-    @TargetApi(HONEYCOMB)
-    protected void handleTextColorOnFocus(boolean focused) {
-        if (Looper.myLooper() != null) {
-            if (focused) {
-                mFocusColorAnimator.start();
-            } else {
-                mInactiveColorAnimator.start();
-            }
-        }
     }
 
     @TargetApi(JELLY_BEAN_MR1)
