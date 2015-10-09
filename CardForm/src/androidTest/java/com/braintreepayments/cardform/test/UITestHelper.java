@@ -24,7 +24,7 @@ public class UITestHelper {
             /**
              * The delay time to allow the soft keyboard to dismiss.
              */
-            private static final long KEYBOARD_DISMISSAL_DELAY_MILLIS = 200L;
+            private static final long KEYBOARD_DISMISSAL_DELAY_MILLIS = 1000L;
 
             /**
              * The real {@link CloseKeyboardAction} instance.

@@ -98,7 +98,7 @@ public class CardFormActivityTest extends TestActivityTestCase {
                 .perform(click())
                 .check(theIconHintIs(mContext, R.drawable.bt_cvv_highlighted))
                 .perform(typeText("123"), closeSoftKeyboard());
-        onView(withHint(R.string.bt_form_hint_postal_code)).perform(typeText("12345"));
+        onView(withHint(R.string.bt_form_hint_postal_code)).perform(typeText("12345"), closeSoftKeyboard());
         onView(withHint(R.string.bt_form_hint_cvv))
                 .check(assertHintsAre(null, null, null, null)); // check that the hint is gone after defocusing
     }
@@ -187,7 +187,7 @@ public class CardFormActivityTest extends TestActivityTestCase {
     public void testMarksCardNumberAsErrorWhenFocusChangesAndCardNumberFailsValidation() {
         setupCardForm();
 
-        onView(withId(R.id.bt_card_form_card_number)).perform(typeText("4"));
+        onView(withId(R.id.bt_card_form_card_number)).perform(typeText("4"), closeSoftKeyboard());
         ErrorEditText cardEditText = (ErrorEditText) mActivity.findViewById(R.id.bt_card_form_card_number);
         assertTrue(cardEditText.isFocused());
         assertFalse(cardEditText.isError());
