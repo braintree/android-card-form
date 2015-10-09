@@ -15,10 +15,6 @@ android {
         testInstrumentationRunner 'android.support.test.runner.AndroidJUnitRunner'
     }
 
-    packagingOptions {
-        exclude 'LICENSE.txt'
-    }
-
     // required to fix build failures on travis
     adbOptions {
         timeOutInMs 30000 // 30 seconds
