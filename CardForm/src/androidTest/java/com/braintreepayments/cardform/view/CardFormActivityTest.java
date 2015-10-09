@@ -94,7 +94,7 @@ public class CardFormActivityTest extends TestActivityTestCase {
         setupCardForm();
 
         onView(withId(R.id.bt_card_form_cvv)).check(assertHintsAre(null, null, null, null))
-                .perform(click(), closeSoftKeyboard())
+                .perform(click())
                 .check(theIconHintIs(mContext, R.drawable.bt_cvv_highlighted))
                 .perform(typeText("123"), closeSoftKeyboard());
         onView(withId(R.id.bt_card_form_postal_code)).perform(typeText("12345"), closeSoftKeyboard());

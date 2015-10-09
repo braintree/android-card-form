@@ -6,6 +6,10 @@ import android.content.Intent;
 import android.os.SystemClock;
 import android.test.ActivityInstrumentationTestCase2;
 
+import static android.support.test.espresso.Espresso.onView;
+import static com.braintreepayments.cardform.test.Matchers.withId;
+import static com.braintreepayments.cardform.test.UITestHelper.closeSoftKeyboard;
+
 public class TestActivityTestCase extends ActivityInstrumentationTestCase2<TestActivity> {
 
     protected Context mContext;
@@ -42,5 +46,7 @@ public class TestActivityTestCase extends ActivityInstrumentationTestCase2<TestA
 
         // prevent flaky tests on CI when activity is slow to start
         SystemClock.sleep(250);
+
+        onView(withId(R.id.bt_card_form_card_number)).perform(closeSoftKeyboard());
     }
 }
