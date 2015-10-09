@@ -95,7 +95,7 @@ public class ErrorEditText extends EditText {
     /**
      * Request focus for the next view.
      */
-    @SuppressWarnings("ResourceType")
+    @SuppressWarnings({ "ResourceType", "WrongConstant" })
     public void focusNextView() {
         if (getImeActionId() == EditorInfo.IME_ACTION_GO) {
             return;
