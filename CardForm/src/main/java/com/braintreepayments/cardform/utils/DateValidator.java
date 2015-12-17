@@ -83,6 +83,10 @@ public class DateValidator {
             }
         }
 
+        if (year > currentYear + MAXIMUM_VALID_YEAR_DIFFERENCE) {
+            return false;
+        }
+
         return true;
     }
 

@@ -63,6 +63,11 @@ public class DateValidatorTest extends TestCase {
         assertInvalid("05","2013");
     }
 
+    public void testYearTooFarInTheFutureIsInvalid() {
+        assertInvalid("05","36");
+        assertInvalid("05","2036");
+    }
+
     public void testYearWrapping() {
         Calendar endOfCenturyCalendar = Calendar.getInstance();
         endOfCenturyCalendar.set(Calendar.YEAR, 2095);
@@ -78,7 +83,7 @@ public class DateValidatorTest extends TestCase {
         // with prefix-zeros should now fail.
         assertInvalid("01","01");
         assertInvalid("01","05");
-        assertValid("01","94");
+        assertInvalid("01","94");
     }
 
     private void assertValid(String month, String year) {
