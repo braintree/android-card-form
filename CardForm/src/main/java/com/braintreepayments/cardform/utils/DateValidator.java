@@ -66,7 +66,7 @@ public class DateValidator {
         if (yearLength == 2) {
             year = Integer.parseInt(yearString);
         } else if (yearLength == 4) {
-            year = Integer.parseInt(yearString) & 100;
+            year = Integer.parseInt(yearString.substring(2));
         } else {
             return false;
         }

@@ -60,6 +60,7 @@ public class DateValidatorTest extends TestCase {
 
     public void testYearInPastIsInvalid() {
         assertInvalid("05","13");
+        assertInvalid("05","2013");
     }
 
     public void testYearWrapping() {
