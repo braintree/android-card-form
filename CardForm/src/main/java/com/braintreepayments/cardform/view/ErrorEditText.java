@@ -9,6 +9,8 @@ import android.os.Build;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 
@@ -23,6 +25,7 @@ public class ErrorEditText extends EditText {
     private int mPaddingBottom;
     private int mActiveUnderlineThickness;
     private int mInactiveUnderlineThickness;
+    private Animation mErrorAnimator;
     private boolean mError;
     private int mFocusedColor;
     private int mInactiveColor;
@@ -48,6 +51,7 @@ public class ErrorEditText extends EditText {
         mPaddingBottom = dp2px(8);
         mActiveUnderlineThickness = dp2px(2);
         mInactiveUnderlineThickness = dp2px(1);
+        mErrorAnimator = AnimationUtils.loadAnimation(getContext(), R.anim.bt_error_animation);
         mError = false;
 
         mInactiveColor = getResources().getColor(R.color.bt_light_gray);
@@ -123,6 +127,10 @@ public class ErrorEditText extends EditText {
      */
     public void setError(boolean error) {
         mError = error;
+
+        if (mErrorAnimator != null && error) {
+            startAnimation(mErrorAnimator);
+        }
     }
 
     /**
