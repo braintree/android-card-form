@@ -1,11 +1,14 @@
 package com.braintreepayments.cardform.view;
 
+import android.Manifest;
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.os.Build;
+import android.os.Vibrator;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.View;
@@ -130,6 +133,10 @@ public class ErrorEditText extends EditText {
 
         if (mErrorAnimator != null && error) {
             startAnimation(mErrorAnimator);
+            if (hasVibrationPermission()) {
+                ((Vibrator) getContext().getSystemService(Context.VIBRATOR_SERVICE))
+                        .vibrate(10);
+            }
         }
     }
 
@@ -191,5 +198,10 @@ public class ErrorEditText extends EditText {
     protected int dp2px(float dp) {
         return Math.round(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp,
                 getResources().getDisplayMetrics()));
+    }
+
+    private boolean hasVibrationPermission() {
+        return (getContext().getPackageManager().checkPermission(Manifest.permission.VIBRATE,
+                getContext().getPackageName()) == PackageManager.PERMISSION_GRANTED);
     }
 }
