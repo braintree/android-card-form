@@ -19,7 +19,6 @@ import static com.braintreepayments.cardform.test.TestCardNumbers.AMEX;
 import static com.braintreepayments.cardform.test.TestCardNumbers.INVALID_AMEX;
 import static com.braintreepayments.cardform.test.TestCardNumbers.INVALID_VISA;
 import static com.braintreepayments.cardform.test.TestCardNumbers.VISA;
-import static com.braintreepayments.cardform.test.UITestHelper.closeSoftKeyboard;
 import static com.braintreepayments.cardform.test.UITestHelper.rotateToLandscape;
 import static com.braintreepayments.cardform.test.UITestHelper.rotateToPortrait;
 import static org.hamcrest.Matchers.not;
@@ -96,8 +95,8 @@ public class CardFormActivityTest extends TestActivityTestCase {
         onView(withId(R.id.bt_card_form_cvv)).check(assertHintsAre(null, null, null, null))
                 .perform(click())
                 .check(theIconHintIs(mContext, R.drawable.bt_cvv_highlighted))
-                .perform(typeText("123"), closeSoftKeyboard());
-        onView(withId(R.id.bt_card_form_postal_code)).perform(typeText("12345"), closeSoftKeyboard());
+                .perform(typeText("123"));
+        onView(withId(R.id.bt_card_form_postal_code)).perform(typeText("12345"));
         onView(withId(R.id.bt_card_form_cvv))
                 .check(assertHintsAre(null, null, null, null)); // check that the hint is gone after defocusing
     }
@@ -105,10 +104,10 @@ public class CardFormActivityTest extends TestActivityTestCase {
     public void testCardNumberAdvancesToExpirationWhenCompleteAndValid() {
         setupCardForm();
 
-        onView(withId(R.id.bt_card_form_card_number)).perform(typeText(VISA), closeSoftKeyboard());
+        onView(withId(R.id.bt_card_form_card_number)).perform(typeText(VISA));
         onView(withId(R.id.bt_card_form_expiration)).check(matches(hasFocus()));
 
-        onView(withId(R.id.bt_card_form_card_number)).perform(clearText(), typeText(AMEX), closeSoftKeyboard());
+        onView(withId(R.id.bt_card_form_card_number)).perform(clearText(), typeText(AMEX));
         onView(withId(R.id.bt_card_form_expiration)).check(matches(hasFocus()));
     }
 
@@ -117,13 +116,11 @@ public class CardFormActivityTest extends TestActivityTestCase {
 
         CardEditText cardEditText =
                 (CardEditText) mActivity.findViewById(R.id.bt_card_form_card_number);
-        onView(withId(R.id.bt_card_form_card_number)).perform(typeText(INVALID_VISA),
-                closeSoftKeyboard());
+        onView(withId(R.id.bt_card_form_card_number)).perform(typeText(INVALID_VISA));
         assertTrue(cardEditText.isError());
         onView(withId(R.id.bt_card_form_card_number)).check(matches(hasFocus()));
 
-        onView(withId(R.id.bt_card_form_card_number)).perform(clearText(), typeText(
-                INVALID_AMEX), closeSoftKeyboard());
+        onView(withId(R.id.bt_card_form_card_number)).perform(clearText(), typeText(INVALID_AMEX));
         assertTrue(cardEditText.isError());
         onView(withId(R.id.bt_card_form_card_number)).check(matches(hasFocus()));
     }
@@ -131,11 +128,10 @@ public class CardFormActivityTest extends TestActivityTestCase {
     public void testExpirationAdvancesToCvvWhenComplete() {
         setupCardForm();
 
-        onView(withId(R.id.bt_card_form_expiration)).perform(typeText("0616"), closeSoftKeyboard());
+        onView(withId(R.id.bt_card_form_expiration)).perform(typeText("0616"));
         onView(withId(R.id.bt_card_form_cvv)).check(matches(hasFocus()));
 
-        onView(withId(R.id.bt_card_form_expiration)).perform(clearText(), typeText("062015"),
-                closeSoftKeyboard());
+        onView(withId(R.id.bt_card_form_expiration)).perform(clearText(), typeText("062015"));
         onView(withId(R.id.bt_card_form_expiration)).check(matches(withText("062015")));
         onView(withId(R.id.bt_card_form_cvv)).check(matches(withText("")));
         onView(withId(R.id.bt_card_form_cvv)).check(matches(hasFocus()));
@@ -144,13 +140,13 @@ public class CardFormActivityTest extends TestActivityTestCase {
     public void testCvvAdvancesToPostalWhenComplete() {
         setupCardForm();
 
-        onView(withId(R.id.bt_card_form_card_number)).perform(typeText(VISA), closeSoftKeyboard());
-        onView(withId(R.id.bt_card_form_cvv)).perform(typeText("123"), closeSoftKeyboard());
+        onView(withId(R.id.bt_card_form_card_number)).perform(typeText(VISA));
+        onView(withId(R.id.bt_card_form_cvv)).perform(typeText("123"));
         onView(withId(R.id.bt_card_form_postal_code)).check(matches(hasFocus()));
         onView(withId(R.id.bt_card_form_cvv)).check(matches(withText("123")));
 
-        onView(withId(R.id.bt_card_form_card_number)).perform(clearText(), typeText(AMEX), closeSoftKeyboard());
-        onView(withId(R.id.bt_card_form_cvv)).perform(clearText(), typeText("1234"), closeSoftKeyboard());
+        onView(withId(R.id.bt_card_form_card_number)).perform(clearText(), typeText(AMEX));
+        onView(withId(R.id.bt_card_form_cvv)).perform(clearText(), typeText("1234"));
         onView(withId(R.id.bt_card_form_postal_code)).check(matches(hasFocus()));
         onView(withId(R.id.bt_card_form_cvv)).check(matches(withText("1234")));
     }
@@ -166,11 +162,10 @@ public class CardFormActivityTest extends TestActivityTestCase {
         try {
             setupCardForm();
 
-            onView(withId(R.id.bt_card_form_card_number)).perform(typeText(VISA), closeSoftKeyboard());
-            onView(withId(R.id.bt_card_form_expiration)).perform(typeText("1220"), closeSoftKeyboard());
-            onView(withId(R.id.bt_card_form_cvv)).perform(typeText("123"), closeSoftKeyboard());
-            onView(withId(R.id.bt_card_form_postal_code)).perform(typeText("12345"),
-                    closeSoftKeyboard());
+            onView(withId(R.id.bt_card_form_card_number)).perform(typeText(VISA));
+            onView(withId(R.id.bt_card_form_expiration)).perform(typeText("1220"));
+            onView(withId(R.id.bt_card_form_cvv)).perform(typeText("123"));
+            onView(withId(R.id.bt_card_form_postal_code)).perform(typeText("12345"));
 
             rotateToLandscape(this);
 
@@ -186,12 +181,12 @@ public class CardFormActivityTest extends TestActivityTestCase {
     public void testMarksCardNumberAsErrorWhenFocusChangesAndCardNumberFailsValidation() {
         setupCardForm();
 
-        onView(withId(R.id.bt_card_form_card_number)).perform(typeText("4"), closeSoftKeyboard());
+        onView(withId(R.id.bt_card_form_card_number)).perform(typeText("4"));
         ErrorEditText cardEditText = (ErrorEditText) mActivity.findViewById(R.id.bt_card_form_card_number);
         assertTrue(cardEditText.isFocused());
         assertFalse(cardEditText.isError());
 
-        onView(withId(R.id.bt_card_form_expiration)).perform(click(), closeSoftKeyboard());
+        onView(withId(R.id.bt_card_form_expiration)).perform(click());
         assertFalse(cardEditText.isFocused());
         assertTrue(cardEditText.isError());
     }
@@ -199,12 +194,12 @@ public class CardFormActivityTest extends TestActivityTestCase {
     public void testMarksExpirationAsErrorWhenFocusChangesAndExpirationFailsValidation() {
         setupCardForm();
 
-        onView(withId(R.id.bt_card_form_expiration)).perform(typeText("1"), closeSoftKeyboard());
+        onView(withId(R.id.bt_card_form_expiration)).perform(typeText("1"));
         ErrorEditText expirationEditText = (ErrorEditText) mActivity.findViewById(R.id.bt_card_form_expiration);
         assertTrue(expirationEditText.isFocused());
         assertFalse(expirationEditText.isError());
 
-        onView(withId(R.id.bt_card_form_card_number)).perform(click(), closeSoftKeyboard());
+        onView(withId(R.id.bt_card_form_card_number)).perform(click());
         assertFalse(expirationEditText.isFocused());
         assertTrue(expirationEditText.isError());
     }
@@ -212,7 +207,7 @@ public class CardFormActivityTest extends TestActivityTestCase {
     public void testMarksCvvAsErrorWhenFocusChangesAndCvvNotProperLength() {
         setupCardForm();
 
-        onView(withId(R.id.bt_card_form_cvv)).perform(typeText("1"), closeSoftKeyboard());
+        onView(withId(R.id.bt_card_form_cvv)).perform(typeText("1"));
         ErrorEditText cvvEditText = (ErrorEditText) mActivity.findViewById(R.id.bt_card_form_cvv);
         assertTrue(cvvEditText.isFocused());
         assertFalse(cvvEditText.isError());
@@ -225,15 +220,14 @@ public class CardFormActivityTest extends TestActivityTestCase {
     public void testMarksCvvAsErrorWhenCardChangesToAmex() {
         setupCardForm();
 
-        onView(withId(R.id.bt_card_form_cvv)).perform(typeText("111"), closeSoftKeyboard());
+        onView(withId(R.id.bt_card_form_cvv)).perform(typeText("111"));
         onView(withId(R.id.bt_card_form_card_number)).perform(click());
         ErrorEditText cvvEditText = (ErrorEditText) mActivity.findViewById(R.id.bt_card_form_cvv);
         assertFalse(cvvEditText.isFocused());
         assertFalse(cvvEditText.isError());
 
-        onView(withId(R.id.bt_card_form_card_number)).perform(typeText(AMEX),
-                closeSoftKeyboard());
-        onView(withId(R.id.bt_card_form_cvv)).perform(click(), closeSoftKeyboard());
+        onView(withId(R.id.bt_card_form_card_number)).perform(typeText(AMEX));
+        onView(withId(R.id.bt_card_form_cvv)).perform(click());
         onView(withId(R.id.bt_card_form_card_number)).perform(click());
         assertFalse(cvvEditText.isFocused());
         assertTrue(cvvEditText.isError());
@@ -242,7 +236,7 @@ public class CardFormActivityTest extends TestActivityTestCase {
     public void testMarksPostalCodeWhenFocusChangesAndPostalCodeBlank() {
         setupCardForm();
 
-        onView(withId(R.id.bt_card_form_postal_code)).perform(click(), closeSoftKeyboard());
+        onView(withId(R.id.bt_card_form_postal_code)).perform(click());
         ErrorEditText postalEditText = (ErrorEditText) mActivity.findViewById(R.id.bt_card_form_postal_code);
         assertTrue(postalEditText.isFocused());
         assertFalse(postalEditText.isError());
