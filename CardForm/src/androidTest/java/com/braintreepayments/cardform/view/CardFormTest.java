@@ -97,6 +97,74 @@ public class CardFormTest extends TestActivityTestCase {
     }
 
     @UiThreadTest
+    public void testSetsFocusDownIdForCardNumberIfExpirationIsNextField() {
+        setRequiredFields(true, true, false, false);
+
+        assertEquals(R.id.bt_card_form_expiration,
+                mCardForm.findViewById(R.id.bt_card_form_card_number).getNextFocusDownId());
+    }
+
+    @UiThreadTest
+    public void testSetsFocusDownIdForCardNumberIfCvvIsNextField() {
+        setRequiredFields(true, false, true, false);
+
+        assertEquals(R.id.bt_card_form_cvv, mCardForm.findViewById(R.id.bt_card_form_card_number).getNextFocusDownId());
+    }
+
+    @UiThreadTest
+    public void testSetsFocusDownIdForCardNumberIfPostalIsNextField() {
+        setRequiredFields(true, false, false, true);
+
+        assertEquals(R.id.bt_card_form_postal_code,
+                mCardForm.findViewById(R.id.bt_card_form_card_number).getNextFocusDownId());
+    }
+
+    @UiThreadTest
+    public void testDoesNotSetFocusDownIdForCardNumberIfNoNextField() {
+        setRequiredFields(true, false, false, false);
+
+        assertEquals(View.NO_ID, mCardForm.findViewById(R.id.bt_card_form_card_number).getNextFocusDownId());
+    }
+
+    @UiThreadTest
+    public void testSetsFocusDownIdForExpirationIfCvvIsNextField() {
+        setRequiredFields(true, true, true, false);
+
+        assertEquals(R.id.bt_card_form_cvv,
+                mCardForm.findViewById(R.id.bt_card_form_expiration).getNextFocusDownId());
+    }
+
+    @UiThreadTest
+    public void testSetsFocusDownIdForExpirationIfPostalIsNextField() {
+        setRequiredFields(true, true, false, true);
+
+        assertEquals(R.id.bt_card_form_postal_code,
+                mCardForm.findViewById(R.id.bt_card_form_expiration).getNextFocusDownId());
+    }
+
+    @UiThreadTest
+    public void testDoesNotSetFocusDownIdForExpirationIfNoNextField() {
+        setRequiredFields(true, true, false, false);
+
+        assertEquals(View.NO_ID, mCardForm.findViewById(R.id.bt_card_form_expiration).getNextFocusDownId());
+    }
+
+    @UiThreadTest
+    public void testSetsFocusDownIdForCvvIfPostalIsNextField() {
+        setRequiredFields(true, true, true, true);
+
+        assertEquals(R.id.bt_card_form_postal_code,
+                mCardForm.findViewById(R.id.bt_card_form_cvv).getNextFocusDownId());
+    }
+
+    @UiThreadTest
+    public void testDoesNotSetFocusDownIdForCvvIfNoNextField() {
+        setRequiredFields(true, true, true, false);
+
+        assertEquals(View.NO_ID, mCardForm.findViewById(R.id.bt_card_form_cvv).getNextFocusDownId());
+    }
+
+    @UiThreadTest
     public void testSetEnabledSetsStateCorrectly() {
         setRequiredFields(true, true, true, true);
 

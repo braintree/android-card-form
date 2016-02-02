@@ -106,9 +106,8 @@ public class CardForm extends LinearLayout implements
      * @param imeActionLabel the {@link java.lang.String} to display to the user to submit the form
      *   from the keyboard
      */
-    public void setRequiredFields(Activity activity, boolean cardNumberRequired,
-                                  boolean expirationRequired, boolean cvvRequired,
-                                  boolean postalCodeRequired, String imeActionLabel) {
+    public void setRequiredFields(Activity activity, boolean cardNumberRequired, boolean expirationRequired,
+                                  boolean cvvRequired, boolean postalCodeRequired, String imeActionLabel) {
         if (SDK_INT >= ICE_CREAM_SANDWICH) {
             activity.getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE,
                     WindowManager.LayoutParams.FLAG_SECURE);
@@ -119,28 +118,44 @@ public class CardForm extends LinearLayout implements
         mCvvRequired = cvvRequired;
         mPostalCodeRequired = postalCodeRequired;
 
-        if (cardNumberRequired) {
+        if (mCardNumberRequired) {
             mCardNumber.addTextChangedListener(this);
+
+            if (mExpirationRequired) {
+                mCardNumber.setNextFocusDownId(mExpirationView.getId());
+            } else if (mCvvRequired) {
+                mCardNumber.setNextFocusDownId(mCvvView.getId());
+            } else if (mPostalCodeRequired) {
+                mCardNumber.setNextFocusDownId(mPostalCode.getId());
+            }
         } else {
             mCardNumber.setVisibility(View.GONE);
         }
 
-        if (expirationRequired) {
+        if (mExpirationRequired) {
             mExpirationView.addTextChangedListener(this);
+
+            if (mCvvRequired) {
+                mExpirationView.setNextFocusDownId(mCvvView.getId());
+            } else if (mPostalCodeRequired) {
+                mExpirationView.setNextFocusDownId(mPostalCode.getId());
+            }
         } else {
             mExpirationView.setVisibility(View.GONE);
         }
 
-        if (cvvRequired || postalCodeRequired) {
+        if (mCvvRequired || mPostalCodeRequired) {
             mExpirationView.setImeOptions(EditorInfo.IME_ACTION_NEXT);
         } else {
             setIMEOptionsForLastEditTestField(mExpirationView, imeActionLabel);
         }
 
-        if (cvvRequired) {
+        if (mCvvRequired) {
             mCvvView.addTextChangedListener(this);
-            if (postalCodeRequired) {
+
+            if (mPostalCodeRequired) {
                 mCvvView.setImeOptions(EditorInfo.IME_ACTION_NEXT);
+                mCvvView.setNextFocusDownId(mPostalCode.getId());
             } else {
                 setIMEOptionsForLastEditTestField(mCvvView, imeActionLabel);
             }

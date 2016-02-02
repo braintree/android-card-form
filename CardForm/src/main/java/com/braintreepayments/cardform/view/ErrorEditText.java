@@ -101,13 +101,7 @@ public class ErrorEditText extends EditText {
             return;
         }
 
-        View next;
-        try {
-            next = focusSearch(View.FOCUS_FORWARD);
-        } catch (IllegalArgumentException e) {
-            next = focusSearch(View.FOCUS_DOWN);
-        }
-
+        View next = focusSearch(View.FOCUS_DOWN);
         if (next != null) {
             next.requestFocus();
         }
