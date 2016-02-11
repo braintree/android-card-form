@@ -111,7 +111,7 @@ public class CardFormActivityTest extends TestActivityTestCase {
         onView(withId(R.id.bt_card_form_expiration)).check(matches(hasFocus()));
     }
 
-    public void testCardNumberDoesntAdvanceWhenCompleteAndInvalid() {
+    public void testCardNumberDoesNotAdvanceWhenCompleteAndInvalid() {
         setupCardForm();
 
         CardEditText cardEditText =
@@ -131,10 +131,21 @@ public class CardFormActivityTest extends TestActivityTestCase {
         onView(withId(R.id.bt_card_form_expiration)).perform(typeText("0616"));
         onView(withId(R.id.bt_card_form_cvv)).check(matches(hasFocus()));
 
-        onView(withId(R.id.bt_card_form_expiration)).perform(clearText(), typeText("062015"));
-        onView(withId(R.id.bt_card_form_expiration)).check(matches(withText("062015")));
+        onView(withId(R.id.bt_card_form_expiration)).perform(clearText(), typeText("062019"));
+        onView(withId(R.id.bt_card_form_expiration)).check(matches(withText("062019")));
         onView(withId(R.id.bt_card_form_cvv)).check(matches(withText("")));
         onView(withId(R.id.bt_card_form_cvv)).check(matches(hasFocus()));
+    }
+
+    public void testExpirationDoesNotAdvanceWhenCompleteAndInvalid() {
+        setupCardForm();
+
+        onView(withId(R.id.bt_card_form_expiration)).perform(typeText("0812"));
+        onView(withId(R.id.bt_card_form_expiration)).check(matches(hasFocus()));
+
+        onView(withId(R.id.bt_card_form_expiration)).perform(clearText(), typeText("082012"));
+        onView(withId(R.id.bt_card_form_expiration)).check(matches(withText("082012")));
+        onView(withId(R.id.bt_card_form_expiration)).check(matches(hasFocus()));
     }
 
     public void testCvvAdvancesToPostalWhenComplete() {

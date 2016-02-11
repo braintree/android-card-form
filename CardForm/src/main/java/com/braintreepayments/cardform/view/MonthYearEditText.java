@@ -96,7 +96,8 @@ public class MonthYearEditText extends FloatingLabelEditText implements TextWatc
             addDateSlash(editable);
         }
 
-        if ((getSelectionStart() == 4 && !editable.toString().endsWith("20")) || (getSelectionStart() == 6)) {
+        if (((getSelectionStart() == 4 && !editable.toString().endsWith("20")) || getSelectionStart() == 6)
+                && isValid()) {
             focusNextView();
         }
     }
