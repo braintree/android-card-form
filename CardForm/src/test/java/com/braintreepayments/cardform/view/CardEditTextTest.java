@@ -62,12 +62,17 @@ public class CardEditTextTest {
 
     @Test
     public void testMaestro() {
-        helper("5018", "0000 0000 0009", R.drawable.bt_maestro, 4, 8, 12);
+        helper("5018", "0000 0000 0000123", R.drawable.bt_maestro, 4, 8, 12);
     }
 
     @Test
     public void testUnionPay() {
-        helper("62", "40 8888 8888 8885", R.drawable.bt_card_highlighted, 4, 8, 12);
+        helper("62", "40 8888 8888 8885123", R.drawable.bt_card_highlighted, 4, 8, 12);
+    }
+
+    @Test
+    public void testUnknown() {
+        helper("1", "111 1111 1111 1111111", R.drawable.bt_card_highlighted, 4, 8, 12);
     }
 
     /* helpers */
@@ -75,6 +80,14 @@ public class CardEditTextTest {
         assertHintIs(R.drawable.bt_card_highlighted);
         type(start).assertHintIs(drawable);
         type(end).assertSpansAt(spans);
+        assertCharacterMaxLengthHit();
+    }
+
+    private void assertCharacterMaxLengthHit() {
+        Editable text = mView.getText();
+        int maxLength = text.length();
+        type("1111");
+        assertEquals("Able to write more characters than max length", maxLength, text.length());
     }
 
     private void assertSpansAt(int... indices) {

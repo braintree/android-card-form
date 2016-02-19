@@ -21,7 +21,7 @@ public class CardEditText extends FloatingLabelEditText implements TextWatcher {
         void onCardTypeChanged(CardType cardType);
     }
 
-    private CardType mCardType = CardType.UNKNOWN;
+    private CardType mCardType;
     private OnCardTypeChangedListener mOnCardTypeChangedListener;
 
     public CardEditText(Context context) {
@@ -43,6 +43,7 @@ public class CardEditText extends FloatingLabelEditText implements TextWatcher {
         setInputType(InputType.TYPE_CLASS_NUMBER);
         setCardIcon(R.drawable.bt_card_highlighted);
         addTextChangedListener(this);
+        updateCardType();
     }
 
     /**
