@@ -1,17 +1,22 @@
 package com.braintreepayments.cardform.utils;
 
-import junit.framework.TestCase;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.robolectric.RobolectricGradleTestRunner;
 
 import java.util.Calendar;
 
-public class DateValidatorTest extends TestCase {
+import static junit.framework.Assert.assertFalse;
+import static junit.framework.Assert.assertTrue;
+
+@RunWith(RobolectricGradleTestRunner.class)
+public class DateValidatorTest {
 
     private DateValidator mValidator;
 
-    @Override
-    protected void setUp() throws Exception {
-        super.setUp();
-
+    @Before
+    public void setup() {
         // Tests assume the current date is May 7th, 2014, unless otherwise stated.
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.YEAR, 2014);
@@ -21,24 +26,29 @@ public class DateValidatorTest extends TestCase {
         mValidator = new DateValidator(calendar);
     }
 
-    public void testMonthIsRequired() {
+    @Test
+    public void monthIsRequired() {
         assertInvalid("","18");
         assertInvalid("","2018");
     }
 
-    public void testYearIsRequired() {
+    @Test
+    public void yearIsRequired() {
         assertInvalid("01","");
     }
 
-    public void testLeadingZeroNotRequiredForMonth() {
+    @Test
+    public void leadingZeroNotRequiredForMonth() {
         assertValid("7","18");
     }
 
-    public void testLeadingZeroRequiredForYear() {
+    @Test
+    public void leadingZeroRequiredForYear() {
         assertInvalid("11","7");
     }
 
-    public void testMonthEdgeCases() {
+    @Test
+    public void monthEdgeCases() {
         assertInvalid("00","18");
         assertInvalid("13","18");
 
@@ -46,29 +56,35 @@ public class DateValidatorTest extends TestCase {
         assertValid("12","18");
     }
 
-    public void testPastMonthInCurrentYearIsInvalid() {
+    @Test
+    public void pastMonthInCurrentYearIsInvalid() {
         assertInvalid("04","14");
     }
 
-    public void testCurrentMonthAndYearIsValid() {
+    @Test
+    public void currentMonthAndYearIsValid() {
         assertValid("05","14");
     }
 
-    public void testFutureMonthInCurrentYearIsValid() {
+    @Test
+    public void futureMonthInCurrentYearIsValid() {
         assertValid("06","14");
     }
 
-    public void testYearInPastIsInvalid() {
+    @Test
+    public void yearInPastIsInvalid() {
         assertInvalid("05","13");
         assertInvalid("05","2013");
     }
 
-    public void testYearTooFarInTheFutureIsInvalid() {
+    @Test
+    public void yearTooFarInTheFutureIsInvalid() {
         assertInvalid("05","36");
         assertInvalid("05","2036");
     }
 
-    public void testYearWrapping() {
+    @Test
+    public void yearWrapping() {
         Calendar endOfCenturyCalendar = Calendar.getInstance();
         endOfCenturyCalendar.set(Calendar.YEAR, 2095);
         endOfCenturyCalendar.set(Calendar.MONTH, Calendar.NOVEMBER);
@@ -86,6 +102,7 @@ public class DateValidatorTest extends TestCase {
         assertInvalid("01","94");
     }
 
+    /* helpers */
     private void assertValid(String month, String year) {
         assertTrue(mValidator.isValidHelper(month, year));
     }
@@ -93,5 +110,4 @@ public class DateValidatorTest extends TestCase {
     private void assertInvalid(String month, String year) {
         assertFalse(mValidator.isValidHelper(month, year));
     }
-
 }

@@ -1,35 +1,40 @@
 package com.braintreepayments.cardform.view;
 
-import android.test.UiThreadTest;
 import android.text.Editable;
 import android.text.Spanned;
 
 import com.braintreepayments.cardform.R;
-import com.braintreepayments.cardform.test.TestActivityTestCase;
+import com.braintreepayments.cardform.test.TestActivity;
 
-public class MonthYearEditTextTest extends TestActivityTestCase {
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.robolectric.Robolectric;
+import org.robolectric.RobolectricGradleTestRunner;
+
+import static junit.framework.Assert.assertEquals;
+
+@RunWith(RobolectricGradleTestRunner.class)
+public class MonthYearEditTextTest {
 
     private MonthYearEditText mView;
 
-    @Override
-    public void setUp() throws Exception {
-        super.setUp();
-
-        setupCardForm();
-        mView = (MonthYearEditText) mActivity.findViewById(R.id.bt_card_form_expiration);
-        assertNotNull(mView);
+    @Before
+    public void setup() {
+        mView = (MonthYearEditText) Robolectric.setupActivity(TestActivity.class)
+                .findViewById(R.id.bt_card_form_expiration);
     }
 
-    @UiThreadTest
-    public void testTyping_2_through_9_addsPrefix_0() {
+    @Test
+    public void typing_2_through_9_addsPrefix_0() {
         for (int i = 2; i <= 9; i++) {
             setText(String.valueOf(i));
             assertTextIs("0" + i);
         }
     }
 
-    @UiThreadTest
-    public void testTyping_0_or_1_doesntAddPrefix_0() {
+    @Test
+    public void typing_0_or_1_doesntAddPrefix_0() {
         setText("0");
         assertTextIs("0");
 
@@ -37,8 +42,8 @@ public class MonthYearEditTextTest extends TestActivityTestCase {
         assertTextIs("1");
     }
 
-    @UiThreadTest
-    public void testCanOnlyTypeNumeric() {
+    @Test
+    public void canOnlyTypeNumeric() {
         type('-');
         assertTextIs("");
 
@@ -46,14 +51,14 @@ public class MonthYearEditTextTest extends TestActivityTestCase {
         assertTextIs("05");
     }
 
-    @UiThreadTest
-    public void testTypingNumbersWithoutSlashWorks() {
+    @Test
+    public void typingNumbersWithoutSlashWorks() {
         type('1', '2', '1', '8');
         assertTextIs("1218");
     }
 
-    @UiThreadTest
-    public void testAddsSlashForYou() {
+    @Test
+    public void addsSlashForYou() {
         setText("1218");
 
         Spanned spanned = mView.getText();
@@ -62,14 +67,14 @@ public class MonthYearEditTextTest extends TestActivityTestCase {
         assertEquals(1, appendSlashSpan.length);
     }
 
-    @UiThreadTest
-    public void testMaxLengthIsSix() {
+    @Test
+    public void maxLengthIsSix() {
         type('1', '2', '2', '0', '0', '1', '5');
         assertTextIs("122001");
     }
 
-    @UiThreadTest
-    public void testGetMonth() {
+    @Test
+    public void getMonth() {
         assertEquals("getMonth() should be \"\" if text is empty", "", mView.getMonth());
 
         setText("1");
@@ -82,8 +87,8 @@ public class MonthYearEditTextTest extends TestActivityTestCase {
         assertEquals("03", mView.getMonth());
     }
 
-    @UiThreadTest
-    public void testGetYear() {
+    @Test
+    public void getYear() {
         assertEquals("getYear() should be \"\" if text is empty", "", mView.getYear());
 
         setText("01");
@@ -99,6 +104,7 @@ public class MonthYearEditTextTest extends TestActivityTestCase {
         assertEquals("getYear() will return 4-digit years", "2018", mView.getYear());
     }
 
+    /* helpers */
     private MonthYearEditTextTest type(char... chars) {
         Editable editable = mView.getText();
         for (char c : chars) {
@@ -113,11 +119,7 @@ public class MonthYearEditTextTest extends TestActivityTestCase {
     }
 
     private void assertTextIs(String expected) {
-        assertEquals(expected, getString());
-    }
-
-    private String getString() {
-        return mView.getText().toString();
+        assertEquals(expected, mView.getText().toString());
     }
 
     /** Clears the field and types the text as if it were new/untouched. */

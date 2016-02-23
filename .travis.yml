@@ -8,30 +8,7 @@ android:
   components:
     - build-tools-23.0.1
     - android-23
-    - android-22
-    - sys-img-armeabi-v7a-android-15
-    - sys-img-armeabi-v7a-android-16
-    - sys-img-armeabi-v7a-android-17
-    - sys-img-armeabi-v7a-android-18
-    - sys-img-armeabi-v7a-android-19
-    - sys-img-armeabi-v7a-android-21
-    - sys-img-armeabi-v7a-android-22
-    - extra-android-support
-    - extra-android-m2repository
 env:
   global:
     - TERM=dumb
-  matrix:
-    - ANDROID_SDKS=android-22 ANDROID_TARGET=android-22 ANDROID_ABI=armeabi-v7a
-    - ANDROID_SDKS=android-21 ANDROID_TARGET=android-21 ANDROID_ABI=armeabi-v7a
-    - ANDROID_SDKS=android-19 ANDROID_TARGET=android-19 ANDROID_ABI=armeabi-v7a
-    - ANDROID_SDKS=android-18 ANDROID_TARGET=android-18 ANDROID_ABI=armeabi-v7a
-    - ANDROID_SDKS=android-17 ANDROID_TARGET=android-17 ANDROID_ABI=armeabi-v7a
-    - ANDROID_SDKS=android-16 ANDROID_TARGET=android-16 ANDROID_ABI=armeabi-v7a
-    - ANDROID_SDKS=android-15 ANDROID_TARGET=android-15 ANDROID_ABI=armeabi-v7a
-before_script:
-  - echo no | android create avd --force -n android-card-form-test -t $ANDROID_TARGET --abi $ANDROID_ABI
-  - emulator -avd android-card-form-test -no-audio -no-window &
-  - android-wait-for-emulator
-  - adb shell input keyevent 82 &
-script: ./gradlew --info clean lint :CardForm:connectedAndroidTest
+script: ./gradlew --info clean lint test

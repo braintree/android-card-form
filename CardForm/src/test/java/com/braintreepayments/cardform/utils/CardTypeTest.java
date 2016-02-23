@@ -1,6 +1,8 @@
 package com.braintreepayments.cardform.utils;
 
-import junit.framework.TestCase;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.robolectric.RobolectricGradleTestRunner;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -9,7 +11,12 @@ import java.util.Map;
 import java.util.Set;
 import java.util.regex.Pattern;
 
-public class CardTypeTest extends TestCase {
+import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertTrue;
+import static junit.framework.Assert.fail;
+
+@RunWith(RobolectricGradleTestRunner.class)
+public class CardTypeTest {
 
     private static final int MIN_MIN_CARD_LENGTH = 12;
     private static final int MAX_MAX_CARD_LENGTH = 19;
@@ -17,8 +24,7 @@ public class CardTypeTest extends TestCase {
     private static final int MIN_SECURITY_CODE_LENGTH = 3;
     private static final int MAX_SECURITY_CODE_LENGTH = 4;
 
-    // ref: https://www.braintreepayments.com/docs/ruby/reference/sandbox
-    private static final Map<String, CardType> SAMPLE_CARDS = new HashMap<String, CardType>();
+    private static final Map<String, CardType> SAMPLE_CARDS = new HashMap<>();
 
     static {
         // Visa
@@ -57,7 +63,8 @@ public class CardTypeTest extends TestCase {
         SAMPLE_CARDS.put("6240888888888885", CardType.UNION_PAY);
     }
 
-    public void testAllParametersSane() {
+    @Test
+    public void allParametersSane() {
         for (final CardType cardType : CardType.values()) {
             final int minCardLength = cardType.getMinCardLength();
             assertTrue(String.format("%s: Min card length %s too small",
@@ -95,7 +102,8 @@ public class CardTypeTest extends TestCase {
         }
     }
 
-    public void testSampleCards() {
+    @Test
+    public void sampleCards() {
         for (final Map.Entry<String, CardType> entry : SAMPLE_CARDS.entrySet()) {
             final String cardNumber = entry.getKey();
             final CardType cardType = entry.getValue();
@@ -108,7 +116,8 @@ public class CardTypeTest extends TestCase {
         }
     }
 
-    public void testAllCardsTested() {
+    @Test
+    public void allCardsTested() {
         // It's just so meta.
         final Set<CardType> allCards = new HashSet<CardType>();
         Collections.addAll(allCards, CardType.values());
@@ -130,5 +139,4 @@ public class CardTypeTest extends TestCase {
             fail(msgBuilder.toString());
         }
     }
-
 }

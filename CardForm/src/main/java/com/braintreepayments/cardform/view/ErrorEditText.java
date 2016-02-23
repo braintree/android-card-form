@@ -65,9 +65,14 @@ public class ErrorEditText extends EditText {
             getContext().getTheme().resolveAttribute(android.R.attr.colorAccent, colorAccentTypedValue, true);
             mFocusedColor = colorAccentTypedValue.data;
         } else {
-            int colorPrimaryId = getResources().getIdentifier("colorAccent", "attr", getContext().getPackageName());
-            getContext().getTheme().resolveAttribute(colorPrimaryId, colorAccentTypedValue, true);
-            mFocusedColor = colorAccentTypedValue.data;
+            try {
+                int colorPrimaryId = getResources().getIdentifier("colorAccent", "attr", getContext().getPackageName());
+                getContext().getTheme().resolveAttribute(colorPrimaryId, colorAccentTypedValue, true);
+                mFocusedColor = colorAccentTypedValue.data;
+            } catch (Exception e) {
+                mFocusedColor = 0;
+            }
+
             if (mFocusedColor == 0) {
                 mFocusedColor = getResources().getColor(R.color.bt_blue);
             }
@@ -201,7 +206,12 @@ public class ErrorEditText extends EditText {
     }
 
     private boolean hasVibrationPermission() {
-        return (getContext().getPackageManager().checkPermission(Manifest.permission.VIBRATE,
-                getContext().getPackageName()) == PackageManager.PERMISSION_GRANTED);
+        // temporary workaround until https://github.com/robolectric/robolectric/pull/2047 is released
+        try {
+            return (getContext().getPackageManager().checkPermission(Manifest.permission.VIBRATE,
+                    getContext().getPackageName()) == PackageManager.PERMISSION_GRANTED);
+        } catch (NullPointerException e) {
+            return false;
+        }
     }
 }
