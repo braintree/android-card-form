@@ -58,9 +58,11 @@ public class CardTypeTest {
 
         // Maestro
         SAMPLE_CARDS.put("5018000000000009", CardType.MAESTRO);
+        SAMPLE_CARDS.put("5018000000000000122", CardType.MAESTRO);
 
-        // Unionpay
+        // Union Pay
         SAMPLE_CARDS.put("6240888888888885", CardType.UNION_PAY);
+        SAMPLE_CARDS.put("6240888888888885127", CardType.UNION_PAY);
     }
 
     @Test

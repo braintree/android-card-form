@@ -62,12 +62,12 @@ public class CardEditTextTest {
 
     @Test
     public void testMaestro() {
-        helper("5018", "0000 0000 0000123", R.drawable.bt_maestro, 4, 8, 12);
+        helper("5018", "0000 0000 0000122", R.drawable.bt_maestro, 4, 8, 12);
     }
 
     @Test
     public void testUnionPay() {
-        helper("62", "40 8888 8888 8885123", R.drawable.bt_card_highlighted, 4, 8, 12);
+        helper("62", "40 8888 8888 8885127", R.drawable.bt_card_highlighted, 4, 8, 12);
     }
 
     @Test
