@@ -19,7 +19,7 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <com.braintreepayments.cardform.view.MonthYearEditText
+        <com.braintreepayments.cardform.view.ExpirationDateEditText
             style="@style/bt_card_form_field"
             android:id="@+id/bt_card_form_expiration"
             android:hint="@string/bt_form_hint_expiration" />

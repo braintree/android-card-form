@@ -245,7 +245,7 @@ public class CardFormTest {
     public void cardNumberAdvancesToExpirationWhenCompleteAndValid() {
         setRequiredFields(true, true, true, true);
         CardEditText card = (CardEditText) mCardForm.findViewById(R.id.bt_card_form_card_number);
-        MonthYearEditText expiration = (MonthYearEditText) mCardForm.findViewById(R.id.bt_card_form_expiration);
+        ExpirationDateEditText expiration = (ExpirationDateEditText) mCardForm.findViewById(R.id.bt_card_form_expiration);
         card.requestFocus();
         assertTrue(card.hasFocus());
         assertFalse(expiration.hasFocus());
@@ -270,7 +270,7 @@ public class CardFormTest {
     @Test
     public void expirationAdvancesToCvvWhenComplete() {
         setRequiredFields(true, true, true, true);
-        MonthYearEditText expiration = (MonthYearEditText) mCardForm.findViewById(R.id.bt_card_form_expiration);
+        ExpirationDateEditText expiration = (ExpirationDateEditText) mCardForm.findViewById(R.id.bt_card_form_expiration);
         CvvEditText cvv = (CvvEditText) mCardForm.findViewById(R.id.bt_card_form_cvv);
         expiration.requestFocus();
         assertTrue(expiration.hasFocus());
@@ -284,7 +284,7 @@ public class CardFormTest {
     @Test
     public void expirationDoesNotAdvanceWhenCompleteAndInvalid() {
         setRequiredFields(true, true, true, true);
-        MonthYearEditText expiration = (MonthYearEditText) mCardForm.findViewById(R.id.bt_card_form_expiration);
+        ExpirationDateEditText expiration = (ExpirationDateEditText) mCardForm.findViewById(R.id.bt_card_form_expiration);
         expiration.requestFocus();
         assertTrue(expiration.hasFocus());
 
@@ -529,7 +529,7 @@ public class CardFormTest {
     @Test
     public void marksExpirationAsErrorWhenFocusChangesAndExpirationFailsValidation() {
         setRequiredFields(true, true, true, true);
-        MonthYearEditText expiration = (MonthYearEditText) mActivity.findViewById(R.id.bt_card_form_expiration);
+        ExpirationDateEditText expiration = (ExpirationDateEditText) mActivity.findViewById(R.id.bt_card_form_expiration);
         expiration.requestFocus();
 
         setText(expiration, "1");

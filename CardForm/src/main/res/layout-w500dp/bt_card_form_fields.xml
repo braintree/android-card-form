@@ -16,7 +16,7 @@
             android:imeOptions="actionNext"
             android:hint="@string/bt_form_hint_card_number" />
 
-        <com.braintreepayments.cardform.view.MonthYearEditText
+        <com.braintreepayments.cardform.view.ExpirationDateEditText
             style="@style/bt_card_form_field_landscape"
             android:id="@+id/bt_card_form_expiration"
             android:hint="@string/bt_form_hint_expiration" />

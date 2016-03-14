@@ -34,8 +34,8 @@ public class CardForm extends LinearLayout implements
         TextWatcher {
 
     private CardEditText mCardNumber;
-    private MonthYearEditText mExpirationView;
-    private CvvEditText mCvvView;
+    private ExpirationDateEditText mExpiration;
+    private CvvEditText mCvv;
     private PostalCodeEditText mPostalCode;
 
     private boolean mCardNumberRequired;
@@ -77,18 +77,18 @@ public class CardForm extends LinearLayout implements
         setVisibility(GONE);
 
         mCardNumber = (CardEditText) findViewById(R.id.bt_card_form_card_number);
-        mExpirationView = (MonthYearEditText) findViewById(R.id.bt_card_form_expiration);
-        mCvvView = (CvvEditText) findViewById(R.id.bt_card_form_cvv);
+        mExpiration = (ExpirationDateEditText) findViewById(R.id.bt_card_form_expiration);
+        mCvv = (CvvEditText) findViewById(R.id.bt_card_form_cvv);
         mPostalCode = (PostalCodeEditText) findViewById(R.id.bt_card_form_postal_code);
 
         mCardNumber.setOnFocusChangeListener(this);
-        mExpirationView.setOnFocusChangeListener(this);
-        mCvvView.setOnFocusChangeListener(this);
+        mExpiration.setOnFocusChangeListener(this);
+        mCvv.setOnFocusChangeListener(this);
         mPostalCode.setOnFocusChangeListener(this);
 
         mCardNumber.setOnClickListener(this);
-        mExpirationView.setOnClickListener(this);
-        mCvvView.setOnClickListener(this);
+        mExpiration.setOnClickListener(this);
+        mCvv.setOnClickListener(this);
         mPostalCode.setOnClickListener(this);
 
         mCardNumber.setOnCardTypeChangedListener(this);
@@ -124,9 +124,9 @@ public class CardForm extends LinearLayout implements
             mCardNumber.addTextChangedListener(this);
 
             if (mExpirationRequired) {
-                mCardNumber.setNextFocusDownId(mExpirationView.getId());
+                mCardNumber.setNextFocusDownId(mExpiration.getId());
             } else if (mCvvRequired) {
-                mCardNumber.setNextFocusDownId(mCvvView.getId());
+                mCardNumber.setNextFocusDownId(mCvv.getId());
             } else if (mPostalCodeRequired) {
                 mCardNumber.setNextFocusDownId(mPostalCode.getId());
             }
@@ -135,36 +135,36 @@ public class CardForm extends LinearLayout implements
         }
 
         if (mExpirationRequired) {
-            mExpirationView.setVisibility(View.VISIBLE);
-            mExpirationView.addTextChangedListener(this);
+            mExpiration.setVisibility(View.VISIBLE);
+            mExpiration.addTextChangedListener(this);
 
             if (mCvvRequired) {
-                mExpirationView.setNextFocusDownId(mCvvView.getId());
+                mExpiration.setNextFocusDownId(mCvv.getId());
             } else if (mPostalCodeRequired) {
-                mExpirationView.setNextFocusDownId(mPostalCode.getId());
+                mExpiration.setNextFocusDownId(mPostalCode.getId());
             }
         } else {
-            mExpirationView.setVisibility(View.GONE);
+            mExpiration.setVisibility(View.GONE);
         }
 
         if (mCvvRequired || mPostalCodeRequired) {
-            mExpirationView.setImeOptions(EditorInfo.IME_ACTION_NEXT);
+            mExpiration.setImeOptions(EditorInfo.IME_ACTION_NEXT);
         } else {
-            setIMEOptionsForLastEditTestField(mExpirationView, imeActionLabel);
+            setIMEOptionsForLastEditTestField(mExpiration, imeActionLabel);
         }
 
         if (mCvvRequired) {
-            mCvvView.setVisibility(View.VISIBLE);
-            mCvvView.addTextChangedListener(this);
+            mCvv.setVisibility(View.VISIBLE);
+            mCvv.addTextChangedListener(this);
 
             if (mPostalCodeRequired) {
-                mCvvView.setImeOptions(EditorInfo.IME_ACTION_NEXT);
-                mCvvView.setNextFocusDownId(mPostalCode.getId());
+                mCvv.setImeOptions(EditorInfo.IME_ACTION_NEXT);
+                mCvv.setNextFocusDownId(mPostalCode.getId());
             } else {
-                setIMEOptionsForLastEditTestField(mCvvView, imeActionLabel);
+                setIMEOptionsForLastEditTestField(mCvv, imeActionLabel);
             }
         } else {
-            mCvvView.setVisibility(View.GONE);
+            mCvv.setVisibility(View.GONE);
         }
 
         if (postalCodeRequired) {
@@ -226,8 +226,8 @@ public class CardForm extends LinearLayout implements
      */
     public void setEnabled(boolean enabled) {
         mCardNumber.setEnabled(enabled);
-        mExpirationView.setEnabled(enabled);
-        mCvvView.setEnabled(enabled);
+        mExpiration.setEnabled(enabled);
+        mCvv.setEnabled(enabled);
         mPostalCode.setEnabled(enabled);
     }
 
@@ -240,10 +240,10 @@ public class CardForm extends LinearLayout implements
             valid = valid && mCardNumber.isValid();
         }
         if (mExpirationRequired) {
-            valid = valid && mExpirationView.isValid();
+            valid = valid && mExpiration.isValid();
         }
         if (mCvvRequired) {
-            valid = valid && mCvvView.isValid();
+            valid = valid && mCvv.isValid();
         }
         if (mPostalCodeRequired) {
             valid = valid && mPostalCode.isValid();
@@ -259,10 +259,10 @@ public class CardForm extends LinearLayout implements
             mCardNumber.validate();
         }
         if (mExpirationRequired) {
-            mExpirationView.validate();
+            mExpiration.validate();
         }
         if (mCvvRequired) {
-            mCvvView.validate();
+            mCvv.validate();
         }
         if (mPostalCodeRequired) {
             mPostalCode.validate();
@@ -284,9 +284,9 @@ public class CardForm extends LinearLayout implements
      */
     public void setExpirationError() {
         if (mExpirationRequired) {
-            mExpirationView.setError(true);
+            mExpiration.setError(true);
             if (!mCardNumberRequired || !mCardNumber.isFocused()) {
-                requestEditTextFocus(mExpirationView);
+                requestEditTextFocus(mExpiration);
             }
         }
     }
@@ -296,10 +296,10 @@ public class CardForm extends LinearLayout implements
      */
     public void setCvvError() {
         if (mCvvRequired) {
-            mCvvView.setError(true);
+            mCvv.setError(true);
             if ((!mCardNumberRequired && !mExpirationRequired) ||
-                (!mCardNumber.isFocused() && !mExpirationView.isFocused())) {
-                requestEditTextFocus(mCvvView);
+                (!mCardNumber.isFocused() && !mExpiration.isFocused())) {
+                requestEditTextFocus(mCvv);
             }
         }
     }
@@ -311,7 +311,7 @@ public class CardForm extends LinearLayout implements
         if (mPostalCodeRequired) {
             mPostalCode.setError(true);
             if ((!mCardNumberRequired && !mExpirationRequired && !mCvvRequired) ||
-                (!mCardNumber.isFocused() && !mExpirationView.isFocused() && !mCvvView.isFocused())) {
+                (!mCardNumber.isFocused() && !mExpiration.isFocused() && !mCvv.isFocused())) {
                 requestEditTextFocus(mPostalCode);
             }
         }
@@ -343,7 +343,7 @@ public class CardForm extends LinearLayout implements
      * field. If no month has been specified, an empty string is returned.
      */
     public String getExpirationMonth() {
-        return mExpirationView.getMonth();
+        return mExpiration.getMonth();
     }
 
     /**
@@ -351,14 +351,14 @@ public class CardForm extends LinearLayout implements
      * If no year has been specified, an empty string is returned.
      */
     public String getExpirationYear() {
-        return mExpirationView.getYear();
+        return mExpiration.getYear();
     }
 
     /**
      * @return the text in the cvv field
      */
     public String getCvv() {
-        return mCvvView.getText().toString();
+        return mCvv.getText().toString();
     }
 
     /**
@@ -370,7 +370,7 @@ public class CardForm extends LinearLayout implements
 
     @Override
     public void onCardTypeChanged(CardType cardType) {
-        mCvvView.setCardType(cardType);
+        mCvv.setCardType(cardType);
 
         if (mOnCardTypeChangedListener != null) {
             mOnCardTypeChangedListener.onCardTypeChanged(cardType);

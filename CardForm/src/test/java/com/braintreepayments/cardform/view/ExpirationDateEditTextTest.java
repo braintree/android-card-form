@@ -15,13 +15,13 @@ import org.robolectric.RobolectricGradleTestRunner;
 import static junit.framework.Assert.assertEquals;
 
 @RunWith(RobolectricGradleTestRunner.class)
-public class MonthYearEditTextTest {
+public class ExpirationDateEditTextTest {
 
-    private MonthYearEditText mView;
+    private ExpirationDateEditText mView;
 
     @Before
     public void setup() {
-        mView = (MonthYearEditText) Robolectric.setupActivity(TestActivity.class)
+        mView = (ExpirationDateEditText) Robolectric.setupActivity(TestActivity.class)
                 .findViewById(R.id.bt_card_form_expiration);
     }
 
@@ -105,7 +105,7 @@ public class MonthYearEditTextTest {
     }
 
     /* helpers */
-    private MonthYearEditTextTest type(char... chars) {
+    private ExpirationDateEditTextTest type(char... chars) {
         Editable editable = mView.getText();
         for (char c : chars) {
             editable.append(c);
@@ -113,7 +113,7 @@ public class MonthYearEditTextTest {
         return this;
     }
 
-    private MonthYearEditTextTest type(char c) {
+    private ExpirationDateEditTextTest type(char c) {
         mView.getText().append(c);
         return this;
     }

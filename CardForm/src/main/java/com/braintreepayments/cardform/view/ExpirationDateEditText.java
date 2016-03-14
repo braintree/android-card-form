@@ -15,21 +15,21 @@ import com.braintreepayments.cardform.utils.DateValidator;
  * An {@link android.widget.EditText} for entering dates, used for card expiration dates.
  * Will automatically format input as it is entered.
  */
-public class MonthYearEditText extends FloatingLabelEditText implements TextWatcher {
+public class ExpirationDateEditText extends FloatingLabelEditText implements TextWatcher {
 
     private boolean mChangeWasAddition;
 
-    public MonthYearEditText(Context context) {
+    public ExpirationDateEditText(Context context) {
         super(context);
         init();
     }
 
-    public MonthYearEditText(Context context, AttributeSet attrs) {
+    public ExpirationDateEditText(Context context, AttributeSet attrs) {
         super(context, attrs);
         init();
     }
 
-    public MonthYearEditText(Context context, AttributeSet attrs, int defStyle) {
+    public ExpirationDateEditText(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         init();
     }
