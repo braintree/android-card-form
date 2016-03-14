@@ -7,7 +7,6 @@ import android.annotation.TargetApi;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Rect;
-import android.os.Looper;
 import android.text.TextPaint;
 import android.util.AttributeSet;
 import android.view.View;
@@ -98,12 +97,10 @@ public class FloatingLabelEditText extends ErrorEditText {
     @Override
     protected void onFocusChanged(boolean focused, int direction, Rect previouslyFocusedRect) {
         super.onFocusChanged(focused, direction, previouslyFocusedRect);
-        if (Looper.myLooper() != null) {
-            if (focused) {
-                mFocusColorAnimator.start();
-            } else {
-                mInactiveColorAnimator.start();
-            }
+        if (focused) {
+            mFocusColorAnimator.start();
+        } else {
+            mInactiveColorAnimator.start();
         }
     }
 
@@ -124,7 +121,7 @@ public class FloatingLabelEditText extends ErrorEditText {
     @TargetApi(ICE_CREAM_SANDWICH)
     public void onTextChanged(CharSequence text, int start, int lengthBefore, int lengthAfter) {
         super.onTextChanged(text, start, lengthBefore, lengthAfter);
-        if (SDK_INT >= ICE_CREAM_SANDWICH && Looper.myLooper() != null) {
+        if (SDK_INT >= ICE_CREAM_SANDWICH) {
             if (mPreviousTextLength == 0 && text.length() > 0 && !mHintAnimator.isStarted()) {
                 mHintAnimator.start();
                 mFocusColorAnimator.start();
