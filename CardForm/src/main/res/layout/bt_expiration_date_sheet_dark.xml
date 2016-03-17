@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:id="@+id/bt_expiration_date_sheet"
+              android:layout_width="match_parent"
+              android:layout_height="@dimen/bt_expiration_date_sheet_height"
+              android:orientation="horizontal"
+              android:layout_gravity="bottom|center"
+              android:weightSum="10"
+              android:background="@color/bt_expiration_date_sheet_background_dark">
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_weight="7">
+
+        <TextView
+            style="@style/bt_expiration_date_dialog_label"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/bt_white_54"
+            android:text="@string/bt_month"/>
+
+        <GridView
+            style="@style/bt_expiration_date_dialog_grid_view"
+            android:id="@+id/bt_expiration_month_grid_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="1dp"
+        android:layout_height="match_parent"
+        android:background="@color/bt_white_12" />
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_weight="3">
+
+        <TextView
+            style="@style/bt_expiration_date_dialog_label"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/bt_white_54"
+            android:text="@string/bt_year" />
+
+        <GridView
+            style="@style/bt_expiration_date_dialog_year_grid_view"
+            android:id="@+id/bt_expiration_year_grid_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scrollbarThumbVertical="@color/bt_white_54"
+            android:scrollbarTrackVertical="@color/bt_white_12" />
+
+    </LinearLayout>
+
+</LinearLayout>

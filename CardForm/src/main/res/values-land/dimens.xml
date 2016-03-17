@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="bt_expiration_date_sheet_height">160dp</dimen>
+    <dimen name="bt_expiration_date_sheet_top_bottom_margin">8dp</dimen>
+    <dimen name="bt_expiration_date_sheet_label_padding_top">8dp</dimen>
+</resources>

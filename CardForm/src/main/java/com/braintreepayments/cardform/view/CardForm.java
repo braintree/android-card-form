@@ -134,6 +134,7 @@ public class CardForm extends LinearLayout implements
             mCardNumber.setVisibility(View.GONE);
         }
 
+        mExpiration.useExpirationDateDialogForEntry(activity, true);
         if (mExpirationRequired) {
             mExpiration.setVisibility(View.VISIBLE);
             mExpiration.addTextChangedListener(this);
@@ -327,8 +328,7 @@ public class CardForm extends LinearLayout implements
      * Attempt to close the soft keyboard. Will have no effect if the keyboard is not open.
      */
     public void closeSoftKeyboard() {
-        ((InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE))
-                .hideSoftInputFromWindow(getWindowToken(), 0);
+        mCardNumber.closeSoftKeyboard();
     }
 
     /**

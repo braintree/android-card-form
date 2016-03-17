@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.Editable;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -73,6 +74,7 @@ public class CardFormTest {
         Window window = mock(Window.class);
         Activity activity = mock(Activity.class);
         when(activity.getWindow()).thenReturn(window);
+        when(activity.getLayoutInflater()).thenReturn(mock(LayoutInflater.class));
         mCardForm.setRequiredFields(activity, true, true, true, true, "test");
 
         verify(window).setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);

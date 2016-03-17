@@ -1,23 +1,22 @@
 package com.braintreepayments.cardform.view;
 
-import android.Manifest;
 import android.content.Context;
-import android.content.pm.PackageManager;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.os.Build;
-import android.os.Vibrator;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
 import com.braintreepayments.cardform.R;
+import com.braintreepayments.cardform.utils.VibrationHelper;
 
 /**
  * Parent {@link android.widget.EditText} for storing and displaying error states.
@@ -107,16 +106,17 @@ public class ErrorEditText extends EditText {
     /**
      * Request focus for the next view.
      */
-    @SuppressWarnings({ "ResourceType", "WrongConstant" })
-    public void focusNextView() {
+    public View focusNextView() {
         if (getImeActionId() == EditorInfo.IME_ACTION_GO) {
-            return;
+            return null;
         }
 
         View next = focusSearch(View.FOCUS_DOWN);
-        if (next != null) {
-            next.requestFocus();
+        if (next != null && next.requestFocus()) {
+            return next;
         }
+
+        return null;
     }
 
     /**
@@ -138,10 +138,7 @@ public class ErrorEditText extends EditText {
 
         if (mErrorAnimator != null && error) {
             startAnimation(mErrorAnimator);
-            if (hasVibrationPermission()) {
-                ((Vibrator) getContext().getSystemService(Context.VIBRATOR_SERVICE))
-                        .vibrate(10);
-            }
+            VibrationHelper.vibrate(getContext(), 10);
         }
     }
 
@@ -164,6 +161,14 @@ public class ErrorEditText extends EditText {
         } else {
             setError(true);
         }
+    }
+
+    /**
+     * Attempt to close the soft keyboard. Will have no effect if the keyboard is not open.
+     */
+    public void closeSoftKeyboard() {
+        ((InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE))
+                .hideSoftInputFromWindow(getWindowToken(), 0);
     }
 
     @Override
@@ -203,15 +208,5 @@ public class ErrorEditText extends EditText {
     protected int dp2px(float dp) {
         return Math.round(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp,
                 getResources().getDisplayMetrics()));
-    }
-
-    private boolean hasVibrationPermission() {
-        // temporary workaround until https://github.com/robolectric/robolectric/pull/2047 is released
-        try {
-            return (getContext().getPackageManager().checkPermission(Manifest.permission.VIBRATE,
-                    getContext().getPackageName()) == PackageManager.PERMISSION_GRANTED);
-        } catch (NullPointerException e) {
-            return false;
-        }
     }
 }

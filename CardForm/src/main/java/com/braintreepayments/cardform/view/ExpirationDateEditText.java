@@ -1,6 +1,9 @@
 package com.braintreepayments.cardform.view;
 
+import android.app.Activity;
 import android.content.Context;
+import android.graphics.Rect;
+import android.os.Build;
 import android.text.Editable;
 import android.text.InputFilter;
 import android.text.InputFilter.LengthFilter;
@@ -8,16 +11,23 @@ import android.text.InputType;
 import android.text.Spanned;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
+import android.view.View;
+import android.widget.EditText;
 
 import com.braintreepayments.cardform.utils.DateValidator;
+
+import java.lang.reflect.Method;
 
 /**
  * An {@link android.widget.EditText} for entering dates, used for card expiration dates.
  * Will automatically format input as it is entered.
  */
-public class ExpirationDateEditText extends FloatingLabelEditText implements TextWatcher {
+public class ExpirationDateEditText extends FloatingLabelEditText implements TextWatcher, View.OnClickListener {
 
     private boolean mChangeWasAddition;
+    private OnClickListener mClickListener;
+    private boolean mUseExpirationDateDialog = false;
+    private ExpirationDateDialog mExpirationDateDialog;
 
     public ExpirationDateEditText(Context context) {
         super(context);
@@ -39,6 +49,48 @@ public class ExpirationDateEditText extends FloatingLabelEditText implements Tex
         InputFilter[] filters = { new LengthFilter(6) };
         setFilters(filters);
         addTextChangedListener(this);
+        super.setOnClickListener(this);
+    }
+
+    public void useExpirationDateDialogForEntry(Activity activity, boolean useExpirationDateDialog) {
+        mExpirationDateDialog = ExpirationDateDialog.create(activity, this);
+        mUseExpirationDateDialog = useExpirationDateDialog;
+        setShowKeyboardOnFocus(!useExpirationDateDialog);
+    }
+
+    @Override
+    public void setOnClickListener(OnClickListener l) {
+        mClickListener = l;
+    }
+
+    @Override
+    public void onClick(View v) {
+        if (mUseExpirationDateDialog) {
+            mExpirationDateDialog.show();
+        }
+
+        if (mClickListener != null) {
+            mClickListener.onClick(v);
+        }
+    }
+
+    @Override
+    protected void onFocusChanged(boolean focused, int direction, Rect previouslyFocusedRect) {
+        super.onFocusChanged(focused, direction, previouslyFocusedRect);
+
+        if (focused && mUseExpirationDateDialog) {
+            mExpirationDateDialog.show();
+        } else if (mUseExpirationDateDialog) {
+            mExpirationDateDialog.dismiss();
+        }
+    }
+
+    @Override
+    protected void onDetachedFromWindow() {
+        super.onDetachedFromWindow();
+        if (mExpirationDateDialog.isShowing()) {
+            mExpirationDateDialog.dismiss();
+        }
     }
 
     /**
@@ -99,6 +151,28 @@ public class ExpirationDateEditText extends FloatingLabelEditText implements Tex
         if (((getSelectionStart() == 4 && !editable.toString().endsWith("20")) || getSelectionStart() == 6)
                 && isValid()) {
             focusNextView();
+        }
+    }
+
+    private void setShowKeyboardOnFocus(boolean showKeyboardOnFocus) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            setShowSoftInputOnFocus(showKeyboardOnFocus);
+        } else {
+            try {
+                // API 16-21
+                final Method method = EditText.class.getMethod("setShowSoftInputOnFocus", boolean.class);
+                method.setAccessible(true);
+                method.invoke(this, showKeyboardOnFocus);
+            } catch (Exception e) {
+                try {
+                    // API 15
+                    final Method method = EditText.class.getMethod("setSoftInputShownOnFocus", boolean.class);
+                    method.setAccessible(true);
+                    method.invoke(this, showKeyboardOnFocus);
+                } catch (Exception e1) {
+                    mUseExpirationDateDialog = false;
+                }
+            }
         }
     }
 
