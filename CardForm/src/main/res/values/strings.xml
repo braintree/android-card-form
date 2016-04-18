@@ -1,12 +1,12 @@
 <?xml version="1.0"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="bt_form_hint_card_number">Card Number</string>
     <string name="bt_form_hint_expiration">Expiration</string>
     <string name="bt_form_hint_cvv">CVV</string>
     <string name="bt_form_hint_postal_code">Postal Code</string>
 
-    <string name="bt_month">Month</string>
-    <string name="bt_year">Year</string>
+    <string name="bt_month" tools:ignore="MissingTranslation">Month</string>
+    <string name="bt_year" tools:ignore="MissingTranslation">Year</string>
 
     <string name="bt_default_action_label">Purchase</string>
 </resources>
