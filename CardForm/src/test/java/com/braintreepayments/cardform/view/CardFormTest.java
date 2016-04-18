@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.Editable;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -40,6 +39,7 @@ import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertFalse;
 import static junit.framework.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -72,10 +72,9 @@ public class CardFormTest {
     @Test
     public void setRequiredFieldsSetsFlagSecure() {
         Window window = mock(Window.class);
-        Activity activity = mock(Activity.class);
-        when(activity.getWindow()).thenReturn(window);
-        when(activity.getLayoutInflater()).thenReturn(mock(LayoutInflater.class));
-        mCardForm.setRequiredFields(activity, true, true, true, true, "test");
+        mActivity = spy(mActivity);
+        when(mActivity.getWindow()).thenReturn(window);
+        mCardForm.setRequiredFields(mActivity, true, true, true, true, "test");
 
         verify(window).setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
     }
