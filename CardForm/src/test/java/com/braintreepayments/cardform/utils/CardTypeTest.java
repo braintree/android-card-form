@@ -111,10 +111,9 @@ public class CardTypeTest {
             final CardType cardType = entry.getValue();
             final CardType actualType = CardType.forCardNumber(cardNumber);
 
-            assertEquals(String.format("CardType.forAccountNumber failed for %s", cardNumber),
-                    cardType, actualType);
+            assertEquals(String.format("CardType.forAccountNumber failed for %s", cardNumber), cardType, actualType);
             assertTrue(String.format("%s: Luhn check failed for [%s]", cardType, cardNumber),
-                    CardUtils.isLuhnValid(cardNumber));
+                    CardType.isLuhnValid(cardNumber));
         }
     }
 

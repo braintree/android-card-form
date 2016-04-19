@@ -48,8 +48,8 @@ public enum CardType {
             12, 19,
             3);
 
-    private static final int[] AMEX_SPACE_INDICES = {4, 10};
-    private static final int[] DEFAULT_SPACE_INDICES = {4, 8, 12};
+    private static final int[] AMEX_SPACE_INDICES = { 4, 10 };
+    private static final int[] DEFAULT_SPACE_INDICES = { 4, 8, 12 };
 
     private final Pattern mPattern;
     private final int mFrontResource;
@@ -57,13 +57,29 @@ public enum CardType {
     private final int mMaxCardLength;
     private final int mSecurityCodeLength;
 
-    private CardType(String regex, int frontResource, int minCardLength, int maxCardLength,
-            int securityCodeLength) {
+    CardType(String regex, int frontResource, int minCardLength, int maxCardLength, int securityCodeLength) {
         mPattern = Pattern.compile(regex);
         mFrontResource = frontResource;
         mMinCardLength = minCardLength;
         mMaxCardLength = maxCardLength;
         mSecurityCodeLength = securityCodeLength;
+    }
+
+    /**
+     * Returns the card type matching this account, or {@link com.braintreepayments.cardform.utils.CardType#UNKNOWN}
+     * for no match.
+     * <p/>
+     * A partial account type may be given, with the caveat that it may not have enough digits to
+     * match.
+     */
+    public static CardType forCardNumber(String cardNumber) {
+        for (final CardType cardType : values()) {
+            final Pattern pattern = cardType.getPattern();
+            if (pattern.matcher(cardNumber).matches()) {
+                return cardType;
+            }
+        }
+        return UNKNOWN;
     }
 
     /**
@@ -130,6 +146,35 @@ public enum CardType {
     }
 
     /**
+     * Performs the Luhn check on the given card number.
+     *
+     * @param cardNumber a String consisting of numeric digits (only).
+     * @return {@code true} if the sequence passes the checksum
+     * @throws IllegalArgumentException if {@code cardNumber} contained a non-digit (where {@link
+     * Character#isDefined(char)} is {@code false}).
+     * @see <a href="http://en.wikipedia.org/wiki/Luhn_algorithm">Luhn Algorithm (Wikipedia)</a>
+     */
+    public static boolean isLuhnValid(String cardNumber) {
+        final String reversed = new StringBuffer(cardNumber).reverse().toString();
+        final int len = reversed.length();
+        int oddSum = 0;
+        int evenSum = 0;
+        for (int i = 0; i < len; i++) {
+            final char c = reversed.charAt(i);
+            if (!Character.isDigit(c)) {
+                throw new IllegalArgumentException(String.format("Not a digit: '%s'", c));
+            }
+            final int digit = Character.digit(c, 10);
+            if (i % 2 == 0) {
+                oddSum += digit;
+            } else {
+                evenSum += digit / 5 + (2 * digit) % 10;
+            }
+        }
+        return (oddSum + evenSum) % 10 == 0;
+    }
+
+    /**
      * @param cardNumber The card number to validate.
      * @return {@code true} if this card number is locally valid.
      */
@@ -144,24 +189,6 @@ public enum CardType {
         } else if (!mPattern.matcher(cardNumber).matches()) {
             return false;
         }
-        return CardUtils.isLuhnValid(cardNumber);
+        return isLuhnValid(cardNumber);
     }
-
-    /**
-     * Returns the card type matching this account, or {@link com.braintreepayments.cardform.utils.CardType#UNKNOWN}
-     * for no match.
-     * <p/>
-     * A partial account type may be given, with the caveat that it may not have enough digits to
-     * match.
-     */
-    public static CardType forCardNumber(String cardNumber) {
-        for (final CardType cardType : values()) {
-            final Pattern pattern = cardType.getPattern();
-            if (pattern.matcher(cardNumber).matches()) {
-                return cardType;
-            }
-        }
-        return UNKNOWN;
-    }
-
 }
