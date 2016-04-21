@@ -134,7 +134,7 @@ public class CardForm extends LinearLayout implements
             mCardNumber.setVisibility(View.GONE);
         }
 
-        mExpiration.useExpirationDateDialogForEntry(activity, true);
+        mExpiration.useDialogForExpirationDateEntry(activity, true);
         if (mExpirationRequired) {
             mExpiration.setVisibility(View.VISIBLE);
             mExpiration.addTextChangedListener(this);
@@ -185,6 +185,17 @@ public class CardForm extends LinearLayout implements
         editText.setImeOptions(EditorInfo.IME_ACTION_GO);
         editText.setImeActionLabel(imeActionLabel, EditorInfo.IME_ACTION_GO);
         editText.setOnEditorActionListener(this);
+    }
+
+    /**
+     * Use to enable or disable entry of the expiration date using a dialog. Defaults to using the dialog.
+     *
+     * @param activity used as the parent activity for the dialog
+     * @param useDialog {@code false} to use a numeric keyboard to enter the expiration date, {@code true} to use a
+     *        custom dialog to enter the expiration date. Defaults to {@code true}.
+     */
+    public void useDialogForExpirationDateEntry(Activity activity, boolean useDialog) {
+        mExpiration.useDialogForExpirationDateEntry(activity, useDialog);
     }
 
     /**
