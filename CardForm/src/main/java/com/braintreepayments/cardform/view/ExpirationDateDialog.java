@@ -179,7 +179,7 @@ public class ExpirationDateDialog extends Dialog implements DialogInterface.OnSh
                         ((InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE))
                                 .showSoftInput(focusedView, 0);
                     }
-                }, 10);
+                }, getContext().getResources().getInteger(android.R.integer.config_shortAnimTime));
             }
         }
     }
