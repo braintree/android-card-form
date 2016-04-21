@@ -1,4 +1,4 @@
-package com.braintreepayments.cardform.view;
+package com.braintreepayments.cardform.utils;
 
 import android.content.Context;
 import android.graphics.drawable.ShapeDrawable;
@@ -10,8 +10,6 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.braintreepayments.cardform.R;
-import com.braintreepayments.cardform.utils.ExpirationDateDialogTheme;
-import com.braintreepayments.cardform.utils.VibrationHelper;
 
 import java.util.ArrayList;
 import java.util.List;
