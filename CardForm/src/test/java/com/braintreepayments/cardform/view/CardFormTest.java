@@ -11,6 +11,7 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.braintreepayments.cardform.OnCardFormFieldFocusedListener;
 import com.braintreepayments.cardform.OnCardFormValidListener;
 import com.braintreepayments.cardform.R;
 import com.braintreepayments.cardform.test.TestActivity;
@@ -624,6 +625,25 @@ public class CardFormTest {
         setText((EditText) mCardForm.findViewById(R.id.bt_card_form_card_number), VISA);
 
         assertTrue(wasCalled.get());
+    }
+
+    @Test
+    public void onFormFieldFocusedListenerIsCalledWhenFieldIsFocused() {
+        setRequiredFields(true, true, true, true);
+        final AtomicInteger called = new AtomicInteger(0);
+        mCardForm.setOnFormFieldFocusedListener(new OnCardFormFieldFocusedListener() {
+            @Override
+            public void onCardFormFieldFocused(View field) {
+                called.getAndIncrement();
+            }
+        });
+
+        mCardForm.findViewById(R.id.bt_card_form_card_number).requestFocus();
+        mCardForm.findViewById(R.id.bt_card_form_expiration).requestFocus();
+        mCardForm.findViewById(R.id.bt_card_form_cvv).requestFocus();
+        mCardForm.findViewById(R.id.bt_card_form_postal_code).requestFocus();
+
+        assertEquals(4, called.get());
     }
 
     @Test
