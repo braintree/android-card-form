@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.braintreepayments.cardform.OnCardFormValidListener;
 import com.braintreepayments.cardform.R;
 import com.braintreepayments.cardform.test.TestActivity;
+import com.braintreepayments.cardform.utils.CardType;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -24,6 +25,7 @@ import org.robolectric.RuntimeEnvironment;
 import org.robolectric.util.ActivityController;
 
 import java.lang.reflect.Field;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import static com.braintreepayments.cardform.test.Assertions.assertBitmapsEqual;
@@ -605,6 +607,23 @@ public class CardFormTest {
         setText(((EditText) mCardForm.findViewById(R.id.bt_card_form_cvv)), "12");
 
         assertEquals(2, counter.get());
+    }
+
+    @Test
+    public void onCardTypeChangeListenerIsCalledWhenCardTypeChanges() {
+        setRequiredFields(true, false, false, false);
+        final AtomicBoolean wasCalled = new AtomicBoolean(false);
+        mCardForm.setOnCardTypeChangedListener(new CardEditText.OnCardTypeChangedListener() {
+            @Override
+            public void onCardTypeChanged(CardType cardType) {
+                assertEquals(CardType.VISA, cardType);
+                wasCalled.set(true);
+            }
+        });
+
+        setText((EditText) mCardForm.findViewById(R.id.bt_card_form_card_number), VISA);
+
+        assertTrue(wasCalled.get());
     }
 
     @Test

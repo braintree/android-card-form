@@ -48,6 +48,7 @@ public class CardForm extends LinearLayout implements
     private OnCardFormValidListener mOnCardFormValidListener;
     private OnCardFormSubmitListener mOnCardFormSubmitListener;
     private OnCardFormFieldFocusedListener mOnCardFormFieldFocusedListener;
+    private OnCardTypeChangedListener mOnCardTypeChangedListener;
 
     public CardForm(Context context) {
         super(context);
@@ -211,6 +212,14 @@ public class CardForm extends LinearLayout implements
     }
 
     /**
+     * Set the listener to receive a callback when the {@link com.braintreepayments.cardform.utils.CardType} changes.
+     * @param listener to receive the callback
+     */
+    public void setOnCardTypeChangedListener(OnCardTypeChangedListener listener) {
+        mOnCardTypeChangedListener = listener;
+    }
+
+    /**
      * Set {@link android.widget.EditText} fields as enabled or disabled
      * @param enabled {@code true} to enable all required fields, {@code false} to disable all
      * required fields
@@ -362,6 +371,10 @@ public class CardForm extends LinearLayout implements
     @Override
     public void onCardTypeChanged(CardType cardType) {
         mCvvView.setCardType(cardType);
+
+        if (mOnCardTypeChangedListener != null) {
+            mOnCardTypeChangedListener.onCardTypeChanged(cardType);
+        }
     }
 
     @Override
