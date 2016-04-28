@@ -115,6 +115,20 @@ public class CardFormTest {
         assertEquals(View.VISIBLE, mCardForm.findViewById(R.id.bt_card_form_postal_code).getVisibility());
     }
 
+    @Test
+    public void repeatedCallsToSetRequireFieldsSetCorrectVisibility() {
+        setRequiredFields(false, false, false, false);
+        assertEquals(View.GONE, mCardForm.findViewById(R.id.bt_card_form_card_number).getVisibility());
+        assertEquals(View.GONE, mCardForm.findViewById(R.id.bt_card_form_expiration).getVisibility());
+        assertEquals(View.GONE, mCardForm.findViewById(R.id.bt_card_form_cvv).getVisibility());
+        assertEquals(View.GONE, mCardForm.findViewById(R.id.bt_card_form_postal_code).getVisibility());
+
+        setRequiredFields(true, true, true, true);
+        assertEquals(View.VISIBLE, mCardForm.findViewById(R.id.bt_card_form_card_number).getVisibility());
+        assertEquals(View.VISIBLE, mCardForm.findViewById(R.id.bt_card_form_expiration).getVisibility());
+        assertEquals(View.VISIBLE, mCardForm.findViewById(R.id.bt_card_form_cvv).getVisibility());
+        assertEquals(View.VISIBLE, mCardForm.findViewById(R.id.bt_card_form_postal_code).getVisibility());
+    }
 
     @Test
     public void setsIMEActionAsGoForExpirationIfCvvAndPostalAreNotPresent() {

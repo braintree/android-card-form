@@ -119,6 +119,7 @@ public class CardForm extends LinearLayout implements
         mPostalCodeRequired = postalCodeRequired;
 
         if (mCardNumberRequired) {
+            mCardNumber.setVisibility(View.VISIBLE);
             mCardNumber.addTextChangedListener(this);
 
             if (mExpirationRequired) {
@@ -133,6 +134,7 @@ public class CardForm extends LinearLayout implements
         }
 
         if (mExpirationRequired) {
+            mExpirationView.setVisibility(View.VISIBLE);
             mExpirationView.addTextChangedListener(this);
 
             if (mCvvRequired) {
@@ -151,6 +153,7 @@ public class CardForm extends LinearLayout implements
         }
 
         if (mCvvRequired) {
+            mCvvView.setVisibility(View.VISIBLE);
             mCvvView.addTextChangedListener(this);
 
             if (mPostalCodeRequired) {
@@ -164,6 +167,7 @@ public class CardForm extends LinearLayout implements
         }
 
         if (postalCodeRequired) {
+            mPostalCode.setVisibility(View.VISIBLE);
             mPostalCode.addTextChangedListener(this);
             setIMEOptionsForLastEditTestField(mPostalCode, imeActionLabel);
         } else {
