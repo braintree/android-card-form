@@ -56,6 +56,7 @@ public class ExpirationDateEditText extends FloatingLabelEditText implements Tex
         mExpirationDateDialog = ExpirationDateDialog.create(activity, this);
         mUseExpirationDateDialog = useExpirationDateDialog;
         setShowKeyboardOnFocus(!useExpirationDateDialog);
+        setCursorVisible(!useExpirationDateDialog);
     }
 
     @Override
