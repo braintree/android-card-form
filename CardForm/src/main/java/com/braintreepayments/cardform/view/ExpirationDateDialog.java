@@ -25,17 +25,18 @@ import com.braintreepayments.cardform.utils.ExpirationDateDialogTheme;
 import com.braintreepayments.cardform.utils.ExpirationDateItemAdapter;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
 
 public class ExpirationDateDialog extends Dialog implements DialogInterface.OnShowListener {
 
-    private static final String[] MONTHS = new String[] { "01", "02", "03", "04", "05", "06", "07",
-            "08", "09", "10", "11", "12"};
+    private static final List<String> MONTHS = Arrays.asList("01", "02", "03", "04", "05", "06", "07", "08", "09", "10",
+            "11", "12");
     private final int CURRENT_MONTH = Calendar.getInstance().get(Calendar.MONTH) + 1; // months are 0 indexed
     private final int CURRENT_YEAR = Calendar.getInstance().get(Calendar.YEAR);
-    private final String[] mYears = new String[10];
+    private final List<String> mYears = new ArrayList<>();
 
     private int mAnimationDelay;
     private ExpirationDateEditText mEditText;
@@ -86,8 +87,8 @@ public class ExpirationDateDialog extends Dialog implements DialogInterface.OnSh
 
         setOnShowListener(this);
 
-        for (int i = 0; i < mYears.length; i++) {
-            mYears[i] = Integer.toString(CURRENT_YEAR + i);
+        for (int i = 0; i < 10; i++) {
+            mYears.add(Integer.toString(CURRENT_YEAR + i));
         }
 
         final ExpirationDateItemAdapter monthAdapter = new ExpirationDateItemAdapter(getContext(), mTheme, MONTHS);
@@ -102,7 +103,7 @@ public class ExpirationDateDialog extends Dialog implements DialogInterface.OnSh
                 mSelectedMonth = position;
                 setExpirationDate();
 
-                if (Integer.parseInt(MONTHS[position]) < CURRENT_MONTH) {
+                if (Integer.parseInt(MONTHS.get(position)) < CURRENT_MONTH) {
                     yearAdapter.setDisabled(Collections.singletonList(0));
                 } else {
                     yearAdapter.setDisabled(new ArrayList<Integer>());
@@ -119,10 +120,10 @@ public class ExpirationDateDialog extends Dialog implements DialogInterface.OnSh
                 mSelectedYear = position;
                 setExpirationDate();
 
-                if (Integer.parseInt(mYears[position]) == CURRENT_YEAR) {
+                if (Integer.parseInt(mYears.get(position)) == CURRENT_YEAR) {
                     List<Integer> disabledMonths = new ArrayList<>();
-                    for (int i = 0; i < MONTHS.length; i++) {
-                        if (Integer.parseInt(MONTHS[i]) < CURRENT_MONTH) {
+                    for (int i = 0; i < MONTHS.size(); i++) {
+                        if (Integer.parseInt(MONTHS.get(i)) < CURRENT_MONTH) {
                             disabledMonths.add(i);
                         }
                     }
@@ -133,22 +134,14 @@ public class ExpirationDateDialog extends Dialog implements DialogInterface.OnSh
             }
         });
 
-        String currentMonth = mEditText.getMonth();
-        for (int i = 0; i < MONTHS.length; i++) {
-            if (MONTHS[i].equals(currentMonth)) {
-                mSelectedMonth = i;
-                monthAdapter.setSelected(mSelectedMonth);
-                break;
-            }
+        mSelectedMonth = MONTHS.indexOf(mEditText.getMonth());
+        if (mSelectedMonth >= 0) {
+            monthAdapter.setSelected(mSelectedMonth);
         }
 
-        String currentYear = mEditText.getYear();
-        for (int i = 0; i < mYears.length; i++) {
-            if (mYears[i].equals(currentYear)) {
-                mSelectedYear = i;
-                yearAdapter.setSelected(mSelectedYear);
-                break;
-            }
+        mSelectedYear = mYears.indexOf(mEditText.getYear());
+        if (mSelectedYear >= 0) {
+            yearAdapter.setSelected(mSelectedYear);
         }
     }
 
@@ -173,13 +166,13 @@ public class ExpirationDateDialog extends Dialog implements DialogInterface.OnSh
         if (mSelectedMonth == -1) {
             expirationDate = "  ";
         } else {
-            expirationDate = MONTHS[mSelectedMonth];
+            expirationDate = MONTHS.get(mSelectedMonth);
         }
 
         if (mSelectedYear == -1) {
             expirationDate += "    ";
         } else {
-            expirationDate += mYears[mSelectedYear];
+            expirationDate += mYears.get(mSelectedYear);
         }
 
         mEditText.setText(expirationDate);

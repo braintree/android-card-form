@@ -20,7 +20,7 @@ public class ExpirationDateItemAdapter extends ArrayAdapter<String> {
     private ShapeDrawable mSelectedItemBackground;
     private AdapterView.OnItemClickListener mOnItemClickListener;
     private int mSelectedPosition = -1;
-    private List<Integer> mDisablePositions = new ArrayList<>();
+    private List<Integer> mDisabledPositions = new ArrayList<>();
 
     public ExpirationDateItemAdapter(Context context, int resource) {
         super(context, resource);
@@ -46,7 +46,7 @@ public class ExpirationDateItemAdapter extends ArrayAdapter<String> {
         super(context, resource, textViewResourceId, objects);
     }
 
-    public ExpirationDateItemAdapter(Context context, ExpirationDateDialogTheme theme, String[] objects) {
+    public ExpirationDateItemAdapter(Context context, ExpirationDateDialogTheme theme, List<String> objects) {
         super(context, R.layout.bt_expiration_date_item, objects);
         mTheme = theme;
 
@@ -66,7 +66,7 @@ public class ExpirationDateItemAdapter extends ArrayAdapter<String> {
     }
 
     public void setDisabled(List<Integer> disabledPositions) {
-        mDisablePositions = disabledPositions;
+        mDisabledPositions = disabledPositions;
         notifyDataSetChanged();
     }
 
@@ -80,7 +80,7 @@ public class ExpirationDateItemAdapter extends ArrayAdapter<String> {
         } else {
             view.setBackgroundResource(android.R.color.transparent);
 
-            if (mDisablePositions.contains(position)) {
+            if (mDisabledPositions.contains(position)) {
                 view.setTextColor(mTheme.getItemDisabledTextColor());
                 view.setEnabled(false);
             } else {
