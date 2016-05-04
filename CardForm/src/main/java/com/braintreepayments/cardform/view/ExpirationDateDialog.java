@@ -37,6 +37,7 @@ public class ExpirationDateDialog extends Dialog implements DialogInterface.OnSh
     private final int CURRENT_YEAR = Calendar.getInstance().get(Calendar.YEAR);
     private final String[] mYears = new String[10];
 
+    private int mAnimationDelay;
     private ExpirationDateEditText mEditText;
     private ExpirationDateDialogTheme mTheme;
     private boolean mHasSelectedMonth;
@@ -68,6 +69,8 @@ public class ExpirationDateDialog extends Dialog implements DialogInterface.OnSh
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        mAnimationDelay = getContext().getResources().getInteger(android.R.integer.config_shortAnimTime);
 
         if (mTheme == ExpirationDateDialogTheme.LIGHT) {
             setContentView(R.layout.bt_expiration_date_sheet_light);
@@ -104,7 +107,6 @@ public class ExpirationDateDialog extends Dialog implements DialogInterface.OnSh
                 }
             }
         });
-
 
         GridView yearsGridView = (GridView) findViewById(R.id.bt_expiration_year_grid_view);
         yearsGridView.setAdapter(yearAdapter);
@@ -149,6 +151,16 @@ public class ExpirationDateDialog extends Dialog implements DialogInterface.OnSh
     }
 
     @Override
+    public void show() {
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                ExpirationDateDialog.super.show();
+            }
+        }, mAnimationDelay);
+    }
+
+    @Override
     public void onShow(DialogInterface dialog) {
         mHasSelectedMonth = false;
         mHasSelectedYear = false;
@@ -179,7 +191,7 @@ public class ExpirationDateDialog extends Dialog implements DialogInterface.OnSh
                         ((InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE))
                                 .showSoftInput(focusedView, 0);
                     }
-                }, getContext().getResources().getInteger(android.R.integer.config_shortAnimTime));
+                }, mAnimationDelay);
             }
         }
     }
@@ -208,7 +220,7 @@ public class ExpirationDateDialog extends Dialog implements DialogInterface.OnSh
                             ((InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE))
                                     .showSoftInput(selectedView, 0);
                         }
-                    }, getContext().getResources().getInteger(android.R.integer.config_shortAnimTime));
+                    }, mAnimationDelay);
                 }
             }
 

@@ -66,6 +66,7 @@ public class ExpirationDateEditText extends FloatingLabelEditText implements Tex
     @Override
     public void onClick(View v) {
         if (mUseExpirationDateDialog) {
+            closeSoftKeyboard();
             mExpirationDateDialog.show();
         }
 
@@ -79,6 +80,7 @@ public class ExpirationDateEditText extends FloatingLabelEditText implements Tex
         super.onFocusChanged(focused, direction, previouslyFocusedRect);
 
         if (focused && mUseExpirationDateDialog) {
+            closeSoftKeyboard();
             mExpirationDateDialog.show();
         } else if (mUseExpirationDateDialog) {
             mExpirationDateDialog.dismiss();
