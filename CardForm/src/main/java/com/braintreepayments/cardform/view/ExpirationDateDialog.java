@@ -58,9 +58,16 @@ public class ExpirationDateDialog extends Dialog implements DialogInterface.OnSh
     }
 
     public static ExpirationDateDialog create(Activity activity, ExpirationDateEditText editText) {
-        ExpirationDateDialog dialog = new ExpirationDateDialog(activity, R.style.bt_expiration_date_dialog_sheet);
+        ExpirationDateDialogTheme theme = ExpirationDateDialogTheme.detectTheme(activity);
+        ExpirationDateDialog dialog;
+        if (theme == ExpirationDateDialogTheme.LIGHT) {
+            dialog = new ExpirationDateDialog(activity, R.style.bt_expiration_date_dialog_light);
+        } else {
+            dialog = new ExpirationDateDialog(activity, R.style.bt_expiration_date_dialog_dark);
+        }
+
         dialog.setOwnerActivity(activity);
-        dialog.mTheme = ExpirationDateDialogTheme.detectTheme(activity);
+        dialog.mTheme = theme;
         dialog.mEditText = editText;
 
         return dialog;
@@ -69,14 +76,9 @@ public class ExpirationDateDialog extends Dialog implements DialogInterface.OnSh
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.bt_expiration_date_sheet);
 
         mAnimationDelay = getContext().getResources().getInteger(android.R.integer.config_shortAnimTime);
-
-        if (mTheme == ExpirationDateDialogTheme.LIGHT) {
-            setContentView(R.layout.bt_expiration_date_sheet_light);
-        } else {
-            setContentView(R.layout.bt_expiration_date_sheet_dark);
-        }
 
         getWindow().setLayout(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         getWindow().setGravity(Gravity.BOTTOM);

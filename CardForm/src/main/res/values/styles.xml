@@ -29,16 +29,35 @@
         <item name="android:windowAnimationStyle">@style/bt_expiration_date_dialog_sheet_animation</item>
     </style>
 
+    <style name="bt_expiration_date_dialog_light" parent="bt_expiration_date_dialog_sheet">
+        <item name="bt_expiration_date_sheet_background">@color/bt_expiration_date_sheet_background_light</item>
+        <item name="bt_expiration_date_dialog_label">@color/bt_black_54</item>
+        <item name="bt_expiration_date_dialog_divider">@color/bt_black_12</item>
+        <item name="bt_expiration_date_scrollbar_thumb_vertical">@color/bt_black_54</item>
+        <item name="bt_expiration_date_scrollbar_track_vertical">@color/bt_black_12</item>
+    </style>
+
+    <style name="bt_expiration_date_dialog_dark" parent="bt_expiration_date_dialog_sheet">
+        <item name="bt_expiration_date_sheet_background">@color/bt_expiration_date_sheet_background_dark</item>
+        <item name="bt_expiration_date_dialog_label">@color/bt_white_54</item>
+        <item name="bt_expiration_date_dialog_divider">@color/bt_white_12</item>
+        <item name="bt_expiration_date_scrollbar_thumb_vertical">@color/bt_white_54</item>
+        <item name="bt_expiration_date_scrollbar_track_vertical">@color/bt_white_12</item>
+    </style>
+
     <style name="bt_expiration_date_dialog_sheet_animation">
         <item name="android:windowEnterAnimation">@anim/bt_expiration_date_dialog_open</item>
         <item name="android:windowExitAnimation">@anim/bt_expiration_date_dialog_close</item>
     </style>
 
     <style name="bt_expiration_date_dialog_label">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
         <item name="android:gravity">center_horizontal</item>
         <item name="android:paddingTop">@dimen/bt_expiration_date_sheet_label_padding_top</item>
         <item name="android:paddingBottom">@dimen/bt_expiration_date_sheet_label_padding_bottom</item>
         <item name="android:textSize">12sp</item>
+        <item name="android:textColor">?attr/bt_expiration_date_dialog_label</item>
     </style>
 
     <style name="bt_expiration_date_dialog_grid_view">
