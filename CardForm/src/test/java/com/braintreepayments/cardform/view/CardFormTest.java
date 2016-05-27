@@ -1,6 +1,7 @@
 package com.braintreepayments.cardform.view;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.Editable;
@@ -28,6 +29,9 @@ import org.robolectric.util.ActivityController;
 import java.lang.reflect.Field;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
+
+import io.card.payment.CardIOActivity;
+import io.card.payment.CreditCard;
 
 import static com.braintreepayments.cardform.test.Assertions.assertBitmapsEqual;
 import static com.braintreepayments.cardform.test.TestCardNumbers.AMEX;
@@ -735,6 +739,89 @@ public class CardFormTest {
         assertEquals("1220", ((EditText) mActivity.findViewById(R.id.bt_card_form_expiration)).getText().toString());
         assertEquals("123", ((EditText) mActivity.findViewById(R.id.bt_card_form_cvv)).getText().toString());
         assertEquals("12345", ((EditText) mActivity.findViewById(R.id.bt_card_form_postal_code)).getText().toString());
+    }
+
+    @Test
+    public void handleCardIOResponse_doesNothingIfDataIsNull() {
+        setRequiredFields(true, true, true, true);
+
+        mCardForm.handleCardIOResponse(null);
+
+        assertEquals("", ((EditText) mActivity.findViewById(R.id.bt_card_form_card_number)).getText().toString());
+        assertEquals("", ((EditText) mActivity.findViewById(R.id.bt_card_form_expiration)).getText().toString());
+        assertEquals("", ((EditText) mActivity.findViewById(R.id.bt_card_form_cvv)).getText().toString());
+        assertEquals("", ((EditText) mActivity.findViewById(R.id.bt_card_form_postal_code)).getText().toString());
+    }
+
+    @Test
+    public void handleCardIOResponse_doesNothingIfNoCardIOResponseIsPresent() {
+        setRequiredFields(true, true, true, true);
+
+        mCardForm.handleCardIOResponse(new Intent());
+
+        assertEquals("", ((EditText) mActivity.findViewById(R.id.bt_card_form_card_number)).getText().toString());
+        assertEquals("", ((EditText) mActivity.findViewById(R.id.bt_card_form_expiration)).getText().toString());
+        assertEquals("", ((EditText) mActivity.findViewById(R.id.bt_card_form_cvv)).getText().toString());
+        assertEquals("", ((EditText) mActivity.findViewById(R.id.bt_card_form_postal_code)).getText().toString());
+    }
+
+    @Test
+    public void handleCardIOResponse_setsCardNumber() {
+        setRequiredFields(true, true, true, true);
+        Intent intent = new Intent()
+                .putExtra(CardIOActivity.EXTRA_SCAN_RESULT, new CreditCard(VISA, 0, 0, "", "", ""));
+
+        mCardForm.handleCardIOResponse(intent);
+
+        assertEquals(VISA, ((EditText) mActivity.findViewById(R.id.bt_card_form_card_number)).getText().toString());
+        assertTrue(mCardForm.findViewById(R.id.bt_card_form_expiration).hasFocus());
+    }
+
+    @Test
+    public void handleCardIOResponse_doesNotSetCardNumberIfCardNumberNotRequired() {
+        setRequiredFields(false, true, true, true);
+        Intent intent = new Intent()
+                .putExtra(CardIOActivity.EXTRA_SCAN_RESULT, new CreditCard(VISA, 0, 0, "", "", ""));
+
+        mCardForm.handleCardIOResponse(intent);
+
+        assertEquals("", ((EditText) mActivity.findViewById(R.id.bt_card_form_card_number)).getText().toString());
+    }
+
+    @Test
+    public void handleCardIOResponse_setsExpirationDate() {
+        setRequiredFields(true, true, true, true);
+        Intent intent = new Intent()
+                .putExtra(CardIOActivity.EXTRA_SCAN_RESULT, new CreditCard(VISA, 12, 2020, "", "", ""));
+
+        mCardForm.handleCardIOResponse(intent);
+
+        assertEquals("12/2020", ((EditText) mActivity.findViewById(R.id.bt_card_form_expiration)).getText().toString());
+        assertTrue(mCardForm.findViewById(R.id.bt_card_form_cvv).hasFocus());
+    }
+
+    @Test
+    public void handleCardIOResponse_doesNotSetExpirationDateIfExpirationDateInvalid() {
+        setRequiredFields(true, true, true, true);
+        Intent intent = new Intent()
+                .putExtra(CardIOActivity.EXTRA_SCAN_RESULT, new CreditCard(VISA, 12, 2000, "", "", ""));
+
+        mCardForm.handleCardIOResponse(intent);
+
+        assertEquals("", ((EditText) mActivity.findViewById(R.id.bt_card_form_expiration)).getText().toString());
+        assertTrue(mCardForm.findViewById(R.id.bt_card_form_expiration).hasFocus());
+    }
+
+    @Test
+    public void handleCardIOResponse_doesNotSetExpirationDateIfExpirationDateNotRequired() {
+        setRequiredFields(true, false, true, true);
+        Intent intent = new Intent()
+                .putExtra(CardIOActivity.EXTRA_SCAN_RESULT, new CreditCard(VISA, 12, 2020, "", "", ""));
+
+        mCardForm.handleCardIOResponse(intent);
+
+        assertEquals("", ((EditText) mActivity.findViewById(R.id.bt_card_form_expiration)).getText().toString());
+        assertTrue(mCardForm.findViewById(R.id.bt_card_form_cvv).hasFocus());
     }
 
     /* helpers */

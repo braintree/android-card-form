@@ -3,6 +3,7 @@ package com.braintreepayments.cardform.view;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Build.VERSION_CODES;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -19,6 +20,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
 
+import com.braintreepayments.cardform.CardScanningFragment;
 import com.braintreepayments.cardform.OnCardFormFieldFocusedListener;
 import com.braintreepayments.cardform.OnCardFormSubmitListener;
 import com.braintreepayments.cardform.OnCardFormValidListener;
@@ -26,12 +28,14 @@ import com.braintreepayments.cardform.R;
 import com.braintreepayments.cardform.utils.CardType;
 import com.braintreepayments.cardform.view.CardEditText.OnCardTypeChangedListener;
 
+import io.card.payment.CardIOActivity;
+import io.card.payment.CreditCard;
+
 import static android.os.Build.VERSION.SDK_INT;
 import static android.os.Build.VERSION_CODES.ICE_CREAM_SANDWICH;
 
-public class CardForm extends LinearLayout implements
-        OnCardTypeChangedListener, OnFocusChangeListener, OnClickListener, OnEditorActionListener,
-        TextWatcher {
+public class CardForm extends LinearLayout implements OnCardTypeChangedListener, OnFocusChangeListener, OnClickListener,
+        OnEditorActionListener, TextWatcher {
 
     private CardEditText mCardNumber;
     private ExpirationDateEditText mExpiration;
@@ -179,6 +183,48 @@ public class CardForm extends LinearLayout implements
         mCardNumber.setOnCardTypeChangedListener(this);
 
         setVisibility(VISIBLE);
+    }
+
+    /**
+     * Check if card scanning is available.
+     *
+     * Card scanning requires the card.io dependency and camera support.
+     *
+     * @return {@code true} if available, {@code false} otherwise.
+     */
+    public boolean isCardScanningAvailable() {
+        try {
+            return CardIOActivity.canReadCardWithCamera();
+        } catch (NoClassDefFoundError e) {
+            return false;
+        }
+    }
+
+    /**
+     * Launches card.io card scanning is {@link #isCardScanningAvailable()} is {@code true}.
+     *
+     * @param activity
+     */
+    public void scanCard(Activity activity) {
+        if (isCardScanningAvailable()) {
+            CardScanningFragment.requestScan(activity, this);
+        }
+    }
+
+    public void handleCardIOResponse(Intent data) {
+        if (data != null && data.hasExtra(CardIOActivity.EXTRA_SCAN_RESULT)) {
+            CreditCard scanResult = data.getParcelableExtra(CardIOActivity.EXTRA_SCAN_RESULT);
+
+            if (mCardNumberRequired) {
+                mCardNumber.setText(scanResult.cardNumber);
+                mCardNumber.focusNextView();
+            }
+
+            if (scanResult.isExpiryValid() && mExpirationRequired) {
+                mExpiration.setText(scanResult.expiryMonth + scanResult.expiryYear);
+                mExpiration.focusNextView();
+            }
+        }
     }
 
     private void setIMEOptionsForLastEditTestField(EditText editText, String imeActionLabel) {
