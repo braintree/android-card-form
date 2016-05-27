@@ -796,7 +796,7 @@ public class CardFormTest {
 
         mCardForm.handleCardIOResponse(intent);
 
-        assertEquals("12/2020", ((EditText) mActivity.findViewById(R.id.bt_card_form_expiration)).getText().toString());
+        assertEquals("122020", ((EditText) mActivity.findViewById(R.id.bt_card_form_expiration)).getText().toString());
         assertTrue(mCardForm.findViewById(R.id.bt_card_form_cvv).hasFocus());
     }
 

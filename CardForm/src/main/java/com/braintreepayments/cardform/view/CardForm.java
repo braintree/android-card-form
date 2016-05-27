@@ -221,7 +221,7 @@ public class CardForm extends LinearLayout implements OnCardTypeChangedListener,
             }
 
             if (scanResult.isExpiryValid() && mExpirationRequired) {
-                mExpiration.setText(scanResult.expiryMonth + scanResult.expiryYear);
+                mExpiration.setText(Integer.toString(scanResult.expiryMonth) + Integer.toString(scanResult.expiryYear));
                 mExpiration.focusNextView();
             }
         }
