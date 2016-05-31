@@ -47,11 +47,12 @@ cardForm.getPostalCode();
 To check if `CardForm` is valid call `CardForm#isValid()`. To validate each required field
 and show the user which fields are incorrect, call `CardForm#validate()`.
 
-Additionally `CardForm` has 3 available listeners:
+Additionally `CardForm` has 4 available listeners:
 
 * `CardForm#setOnCardFormValidListener` called when the form changes state from valid to invalid or invalid to valid.
 * `CardForm#setOnCardFormSubmitListener` called when the form should be submitted.
 * `CardForm#setOnFormFieldFocusedListener` called when a field in the form is focused.
+* `CardForm#setOnCardTypeChangedListener` called when the `CardType` in the form changes.
 
 ## Styling
 
