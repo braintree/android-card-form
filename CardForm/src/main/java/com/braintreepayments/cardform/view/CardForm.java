@@ -85,15 +85,10 @@ public class CardForm extends LinearLayout implements OnCardTypeChangedListener,
         mCvv = (CvvEditText) findViewById(R.id.bt_card_form_cvv);
         mPostalCode = (PostalCodeEditText) findViewById(R.id.bt_card_form_postal_code);
 
-        mCardNumber.setOnFocusChangeListener(this);
-        mExpiration.setOnFocusChangeListener(this);
-        mCvv.setOnFocusChangeListener(this);
-        mPostalCode.setOnFocusChangeListener(this);
-
-        mCardNumber.setOnClickListener(this);
-        mExpiration.setOnClickListener(this);
-        mCvv.setOnClickListener(this);
-        mPostalCode.setOnClickListener(this);
+        setListeners(mCardNumber);
+        setListeners(mExpiration);
+        setListeners(mCvv);
+        setListeners(mPostalCode);
 
         mCardNumber.setOnCardTypeChangedListener(this);
     }
@@ -123,9 +118,13 @@ public class CardForm extends LinearLayout implements OnCardTypeChangedListener,
         mCvvRequired = cvvRequired;
         mPostalCodeRequired = postalCodeRequired;
 
+        resetField(mCardNumber);
+        resetField(mExpiration);
+        resetField(mCvv);
+        resetField(mPostalCode);
+
         if (mCardNumberRequired) {
             mCardNumber.setVisibility(View.VISIBLE);
-            mCardNumber.addTextChangedListener(this);
 
             if (mExpirationRequired) {
                 mCardNumber.setNextFocusDownId(mExpiration.getId());
@@ -133,27 +132,18 @@ public class CardForm extends LinearLayout implements OnCardTypeChangedListener,
                 mCardNumber.setNextFocusDownId(mCvv.getId());
             } else if (mPostalCodeRequired) {
                 mCardNumber.setNextFocusDownId(mPostalCode.getId());
-            } else {
-                mCardNumber.setNextFocusDownId(NO_ID);
             }
-        } else {
-            mCardNumber.setVisibility(View.GONE);
         }
 
         mExpiration.useDialogForExpirationDateEntry(activity, true);
         if (mExpirationRequired) {
             mExpiration.setVisibility(View.VISIBLE);
-            mExpiration.addTextChangedListener(this);
 
             if (mCvvRequired) {
                 mExpiration.setNextFocusDownId(mCvv.getId());
             } else if (mPostalCodeRequired) {
                 mExpiration.setNextFocusDownId(mPostalCode.getId());
-            } else {
-                mExpiration.setNextFocusDownId(NO_ID);
             }
-        } else {
-            mExpiration.setVisibility(View.GONE);
         }
 
         if (mCvvRequired || mPostalCodeRequired) {
@@ -164,28 +154,19 @@ public class CardForm extends LinearLayout implements OnCardTypeChangedListener,
 
         if (mCvvRequired) {
             mCvv.setVisibility(View.VISIBLE);
-            mCvv.addTextChangedListener(this);
 
             if (mPostalCodeRequired) {
                 mCvv.setImeOptions(EditorInfo.IME_ACTION_NEXT);
                 mCvv.setNextFocusDownId(mPostalCode.getId());
             } else {
-                mCvv.setNextFocusDownId(NO_ID);
                 setIMEOptionsForLastEditTestField(mCvv, imeActionLabel);
             }
-        } else {
-            mCvv.setVisibility(View.GONE);
         }
 
         if (postalCodeRequired) {
             mPostalCode.setVisibility(View.VISIBLE);
-            mPostalCode.addTextChangedListener(this);
             setIMEOptionsForLastEditTestField(mPostalCode, imeActionLabel);
-        } else {
-            mPostalCode.setVisibility(View.GONE);
         }
-
-        mCardNumber.setOnCardTypeChangedListener(this);
 
         setVisibility(VISIBLE);
     }
@@ -230,6 +211,17 @@ public class CardForm extends LinearLayout implements OnCardTypeChangedListener,
                 mExpiration.focusNextView();
             }
         }
+    }
+
+    private void setListeners(EditText editText) {
+        editText.setOnFocusChangeListener(this);
+        editText.setOnClickListener(this);
+        editText.addTextChangedListener(this);
+    }
+
+    private void resetField(EditText editText) {
+        editText.setVisibility(View.GONE);
+        editText.setNextFocusDownId(NO_ID);
     }
 
     private void setIMEOptionsForLastEditTestField(EditText editText, String imeActionLabel) {
