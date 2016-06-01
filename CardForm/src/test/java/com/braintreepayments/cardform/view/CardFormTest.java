@@ -139,11 +139,56 @@ public class CardFormTest {
     }
 
     @Test
+    public void setsIMEActionAsGoForCardNumberIfNoOtherFieldsAreRequired() {
+        setRequiredFields(true, false, false, false);
+
+        assertEquals(EditorInfo.IME_ACTION_GO,
+                ((TextView) mCardForm.findViewById(R.id.bt_card_form_card_number)).getImeOptions());
+    }
+
+    @Test
+    public void repeatedCallsToSetRequiredFieldsSetsIMEActionAsGoForCardNumberIfNoOtherFieldsAreRequired() {
+        setRequiredFields(true, true, false, false);
+        setRequiredFields(true, false, false, false);
+
+        assertEquals(EditorInfo.IME_ACTION_GO,
+                ((TextView) mCardForm.findViewById(R.id.bt_card_form_card_number)).getImeOptions());
+        assertEquals(EditorInfo.IME_ACTION_NONE,
+                ((TextView) mCardForm.findViewById(R.id.bt_card_form_expiration)).getImeOptions());
+    }
+
+    @Test
+    public void setsIMEActionAsNextForCardNumberIfAnyOtherFieldIsRequired() {
+        setRequiredFields(true, true, false, false);
+        assertEquals(EditorInfo.IME_ACTION_NEXT,
+                ((TextView) mCardForm.findViewById(R.id.bt_card_form_card_number)).getImeOptions());
+
+        setRequiredFields(true, false, true, false);
+        assertEquals(EditorInfo.IME_ACTION_NEXT,
+                ((TextView) mCardForm.findViewById(R.id.bt_card_form_card_number)).getImeOptions());
+
+        setRequiredFields(true, false, false, true);
+        assertEquals(EditorInfo.IME_ACTION_NEXT,
+                ((TextView) mCardForm.findViewById(R.id.bt_card_form_card_number)).getImeOptions());
+    }
+
+    @Test
     public void setsIMEActionAsGoForExpirationIfCvvAndPostalAreNotPresent() {
         setRequiredFields(true, true, false, false);
 
         assertEquals(EditorInfo.IME_ACTION_GO,
                 ((TextView) mCardForm.findViewById(R.id.bt_card_form_expiration)).getImeOptions());
+    }
+
+    @Test
+    public void repeatedCallsToSetRequiredFieldsSetsIMEActionAsGoForExpirationIfCvvAndPostalAreNotPresent() {
+        setRequiredFields(true, true, true, true);
+        setRequiredFields(true, true, false, false);
+
+        assertEquals(EditorInfo.IME_ACTION_GO,
+                ((TextView) mCardForm.findViewById(R.id.bt_card_form_expiration)).getImeOptions());
+        assertEquals(EditorInfo.IME_ACTION_NONE,
+                ((TextView) mCardForm.findViewById(R.id.bt_card_form_postal_code)).getImeOptions());
     }
 
     @Test
@@ -157,6 +202,19 @@ public class CardFormTest {
     }
 
     @Test
+    public void repeatedCallsToSetRequiredFieldsSetsIMEActionAsGoForCvvIfCvvIsPresentAndPostalIsNot() {
+        setRequiredFields(true, true, true, true);
+        setRequiredFields(true, true, true, false);
+
+        assertEquals(EditorInfo.IME_ACTION_NEXT,
+                ((TextView) mCardForm.findViewById(R.id.bt_card_form_expiration)).getImeOptions());
+        assertEquals(EditorInfo.IME_ACTION_GO,
+                ((TextView) mCardForm.findViewById(R.id.bt_card_form_cvv)).getImeOptions());
+        assertEquals(EditorInfo.IME_ACTION_NONE,
+                ((TextView) mCardForm.findViewById(R.id.bt_card_form_postal_code)).getImeOptions());
+    }
+
+    @Test
     public void setsIMEActionAsGoForPostalAndNextForExpirationIfCvvIsNotPresent() {
         setRequiredFields(true, true, false, true);
 
@@ -167,7 +225,33 @@ public class CardFormTest {
     }
 
     @Test
+    public void repeatedCallsToSetRequiredFieldsSetsIMEActionAsGoForPostalAndNextForExpirationIfCvvIsNotPresent() {
+        setRequiredFields(true, true, true, true);
+        setRequiredFields(true, true, false, true);
+
+        assertEquals(EditorInfo.IME_ACTION_NEXT,
+                ((TextView) mCardForm.findViewById(R.id.bt_card_form_expiration)).getImeOptions());
+        assertEquals(EditorInfo.IME_ACTION_GO,
+                ((TextView) mCardForm.findViewById(R.id.bt_card_form_postal_code)).getImeOptions());
+        assertEquals(EditorInfo.IME_ACTION_NONE,
+                ((TextView) mCardForm.findViewById(R.id.bt_card_form_cvv)).getImeOptions());
+    }
+
+    @Test
     public void setsIMEActionAsGoForPostalCodeIfCvvAndPostalArePresent() {
+        setRequiredFields(true, true, true, true);
+
+        assertEquals(EditorInfo.IME_ACTION_NEXT,
+                ((TextView) mCardForm.findViewById(R.id.bt_card_form_expiration)).getImeOptions());
+        assertEquals(EditorInfo.IME_ACTION_NEXT,
+                ((TextView) mCardForm.findViewById(R.id.bt_card_form_cvv)).getImeOptions());
+        assertEquals(EditorInfo.IME_ACTION_GO,
+                ((TextView) mCardForm.findViewById(R.id.bt_card_form_postal_code)).getImeOptions());
+    }
+
+    @Test
+    public void repeatedCallsToSetRequiredFieldsSetsIMEActionAsGoForPostalCodeIfCvvAndPostalArePresent() {
+        setRequiredFields(true, true, false, false);
         setRequiredFields(true, true, true, true);
 
         assertEquals(EditorInfo.IME_ACTION_NEXT,

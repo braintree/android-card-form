@@ -133,6 +133,12 @@ public class CardForm extends LinearLayout implements OnCardTypeChangedListener,
             } else if (mPostalCodeRequired) {
                 mCardNumber.setNextFocusDownId(mPostalCode.getId());
             }
+
+            if (mExpirationRequired || mCvvRequired || mPostalCodeRequired) {
+                mCardNumber.setImeOptions(EditorInfo.IME_ACTION_NEXT);
+            } else {
+                setIMEOptionsForLastEditTestField(mCardNumber, imeActionLabel);
+            }
         }
 
         mExpiration.useDialogForExpirationDateEntry(activity, true);
@@ -144,12 +150,12 @@ public class CardForm extends LinearLayout implements OnCardTypeChangedListener,
             } else if (mPostalCodeRequired) {
                 mExpiration.setNextFocusDownId(mPostalCode.getId());
             }
-        }
 
-        if (mCvvRequired || mPostalCodeRequired) {
-            mExpiration.setImeOptions(EditorInfo.IME_ACTION_NEXT);
-        } else {
-            setIMEOptionsForLastEditTestField(mExpiration, imeActionLabel);
+            if (mCvvRequired || mPostalCodeRequired) {
+                mExpiration.setImeOptions(EditorInfo.IME_ACTION_NEXT);
+            } else {
+                setIMEOptionsForLastEditTestField(mExpiration, imeActionLabel);
+            }
         }
 
         if (mCvvRequired) {
@@ -163,7 +169,7 @@ public class CardForm extends LinearLayout implements OnCardTypeChangedListener,
             }
         }
 
-        if (postalCodeRequired) {
+        if (mPostalCodeRequired) {
             mPostalCode.setVisibility(View.VISIBLE);
             setIMEOptionsForLastEditTestField(mPostalCode, imeActionLabel);
         }
@@ -222,6 +228,9 @@ public class CardForm extends LinearLayout implements OnCardTypeChangedListener,
     private void resetField(EditText editText) {
         editText.setVisibility(View.GONE);
         editText.setNextFocusDownId(NO_ID);
+        editText.setImeOptions(EditorInfo.IME_ACTION_NONE);
+        editText.setImeActionLabel(null, EditorInfo.IME_ACTION_NONE);
+        editText.setOnEditorActionListener(null);
     }
 
     private void setIMEOptionsForLastEditTestField(EditText editText, String imeActionLabel) {
