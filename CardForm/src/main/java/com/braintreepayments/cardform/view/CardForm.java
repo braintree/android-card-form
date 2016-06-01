@@ -133,6 +133,8 @@ public class CardForm extends LinearLayout implements OnCardTypeChangedListener,
                 mCardNumber.setNextFocusDownId(mCvv.getId());
             } else if (mPostalCodeRequired) {
                 mCardNumber.setNextFocusDownId(mPostalCode.getId());
+            } else {
+                mCardNumber.setNextFocusDownId(NO_ID);
             }
         } else {
             mCardNumber.setVisibility(View.GONE);
@@ -147,6 +149,8 @@ public class CardForm extends LinearLayout implements OnCardTypeChangedListener,
                 mExpiration.setNextFocusDownId(mCvv.getId());
             } else if (mPostalCodeRequired) {
                 mExpiration.setNextFocusDownId(mPostalCode.getId());
+            } else {
+                mExpiration.setNextFocusDownId(NO_ID);
             }
         } else {
             mExpiration.setVisibility(View.GONE);
@@ -166,6 +170,7 @@ public class CardForm extends LinearLayout implements OnCardTypeChangedListener,
                 mCvv.setImeOptions(EditorInfo.IME_ACTION_NEXT);
                 mCvv.setNextFocusDownId(mPostalCode.getId());
             } else {
+                mCvv.setNextFocusDownId(NO_ID);
                 setIMEOptionsForLastEditTestField(mCvv, imeActionLabel);
             }
         } else {
