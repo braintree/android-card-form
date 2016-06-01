@@ -16,4 +16,5 @@ android {
 dependencies {
     compile project(':CardForm')
     compile 'com.android.support:appcompat-v7:23.3.0'
+    compile 'com.squareup.leakcanary:leakcanary-android:1.4-beta2'
 }
