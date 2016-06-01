@@ -1,7 +1,6 @@
 package com.braintreepayments.cardform.utils;
 
 import android.app.Activity;
-import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
@@ -14,11 +13,14 @@ public enum ExpirationDateDialogTheme {
     LIGHT(R.color.bt_black_87, R.color.bt_white_87, R.color.bt_black_38),
     DARK(R.color.bt_white_87, R.color.bt_black_87, R.color.bt_white_38);
 
-    private int mItemTextColor;
-    private int mItemInverseTextColor;
-    private int mItemDisabledTextColor;
+    private final int mItemTextColor;
+    private final int mItemInverseTextColor;
+    private final int mItemDisabledTextColor;
 
-    private Context mContext;
+    private int mResolvedItemTextColor;
+    private int mResolvedItemInverseTextColor;
+    private int mResolvedItemDisabledTextColor;
+    private int mResolvedSelectedItemBackground;
 
     ExpirationDateDialogTheme(int itemTextColor, int itemInverseTextColor, int itemDisabledTextColor) {
         mItemTextColor = itemTextColor;
@@ -44,40 +46,40 @@ public enum ExpirationDateDialogTheme {
             theme = ExpirationDateDialogTheme.DARK;
         }
 
-        theme.setContext(activity);
+        theme.mResolvedItemTextColor = activity.getResources().getColor(theme.mItemTextColor);
+        theme.mResolvedItemInverseTextColor = getColor(activity, "textColorPrimaryInverse", theme.mItemInverseTextColor);
+        theme.mResolvedItemDisabledTextColor = activity.getResources().getColor(theme.mItemDisabledTextColor);
+        theme.mResolvedSelectedItemBackground = getColor(activity, "colorAccent", R.color.bt_blue);
+
         return theme;
     }
 
     public int getItemTextColor() {
-        return mContext.getResources().getColor(mItemTextColor);
+        return mResolvedItemTextColor;
     }
 
     public int getItemInvertedTextColor() {
-        return getColor("textColorPrimaryInverse", mItemInverseTextColor);
+        return mResolvedItemInverseTextColor;
     }
 
     public int getItemDisabledTextColor() {
-        return mContext.getResources().getColor(mItemDisabledTextColor);
+        return mResolvedItemDisabledTextColor;
     }
 
     public int getSelectedItemBackground() {
-        return getColor("colorAccent", R.color.bt_blue);
+        return mResolvedSelectedItemBackground;
     }
 
-    private int getColor(String attr, int fallbackColor) {
+    private static int getColor(Activity activity, String attr, int fallbackColor) {
         TypedValue color = new TypedValue();
         try {
-            int colorId = mContext.getResources().getIdentifier(attr, "attr", mContext.getPackageName());
-            if (mContext.getTheme().resolveAttribute(colorId, color, true)) {
+            int colorId = activity.getResources().getIdentifier(attr, "attr", activity.getPackageName());
+            if (activity.getTheme().resolveAttribute(colorId, color, true)) {
                 return color.data;
             }
         } catch (Exception ignored) {}
 
-        return mContext.getResources().getColor(fallbackColor);
-    }
-
-    private void setContext(Context context) {
-        mContext = context;
+        return activity.getResources().getColor(fallbackColor);
     }
 }
 
