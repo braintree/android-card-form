@@ -54,6 +54,30 @@ Additionally `CardForm` has 4 available listeners:
 * `CardForm#setOnFormFieldFocusedListener` called when a field in the form is focused.
 * `CardForm#setOnCardTypeChangedListener` called when the `CardType` in the form changes.
 
+### card.io
+
+The card form is compatible with [card.io](https://github.com/card-io/card.io-Android-SDK).
+
+To use card.io, add the dependency in your `build.gradle`:
+
+```groovy
+dependencies {
+    compile 'io.card:android-sdk:[5.3.0,6.0.0)'
+}
+```
+
+Check if card.io is available for use:
+
+```java
+cardForm.isCardScanningAvailable();
+```
+
+Scan a card:
+
+```java
+cardForm.scanCard(activity);
+```
+
 ## Styling
 
 All card form inputs use the `colorAccent` theme attribute, when present, to set their focused color.
