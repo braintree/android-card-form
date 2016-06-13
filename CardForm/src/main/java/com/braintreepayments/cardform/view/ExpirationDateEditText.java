@@ -26,7 +26,7 @@ public class ExpirationDateEditText extends FloatingLabelEditText implements Tex
 
     private boolean mChangeWasAddition;
     private OnClickListener mClickListener;
-    private boolean mUseExpirationDateDialog = false;
+    private boolean mUseExpirationDateDialog = true;
     private ExpirationDateDialog mExpirationDateDialog;
 
     public ExpirationDateEditText(Context context) {
@@ -49,14 +49,20 @@ public class ExpirationDateEditText extends FloatingLabelEditText implements Tex
         InputFilter[] filters = { new LengthFilter(6) };
         setFilters(filters);
         addTextChangedListener(this);
+        setShowKeyboardOnFocus(!mUseExpirationDateDialog);
+        setCursorVisible(!mUseExpirationDateDialog);
         super.setOnClickListener(this);
     }
 
-    public void useDialogForExpirationDateEntry(Activity activity, boolean useExpirationDateDialog) {
+    protected void setActivity(Activity activity) {
+        mExpirationDateDialog = ExpirationDateDialog.create(activity, this);
+    }
+
+    protected void useDialogForExpirationDateEntry(Activity activity, boolean useExpirationDateDialog) {
         mExpirationDateDialog = ExpirationDateDialog.create(activity, this);
         mUseExpirationDateDialog = useExpirationDateDialog;
-        setShowKeyboardOnFocus(!useExpirationDateDialog);
-        setCursorVisible(!useExpirationDateDialog);
+        setShowKeyboardOnFocus(!mUseExpirationDateDialog);
+        setCursorVisible(!mUseExpirationDateDialog);
     }
 
     @Override

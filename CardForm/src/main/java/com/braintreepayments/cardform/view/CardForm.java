@@ -141,7 +141,7 @@ public class CardForm extends LinearLayout implements OnCardTypeChangedListener,
             }
         }
 
-        mExpiration.useDialogForExpirationDateEntry(activity, true);
+        mExpiration.setActivity(activity);
         if (mExpirationRequired) {
             mExpiration.setVisibility(View.VISIBLE);
 
