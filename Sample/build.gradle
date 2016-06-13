@@ -8,8 +8,8 @@ android {
         applicationId 'com.braintreepayments.sample'
         minSdkVersion 15
         targetSdkVersion 23
-        versionCode 24
-        versionName '2.1.1'
+        versionCode 27
+        versionName '2.3.1'
     }
 }
 
