@@ -78,7 +78,7 @@ public class CardFormTest {
         Window window = mock(Window.class);
         mActivity = spy(mActivity);
         when(mActivity.getWindow()).thenReturn(window);
-        mCardForm.setRequiredFields(mActivity, true, true, true, true, "test");
+        mCardForm.setRequiredFields(mActivity, true, true, true, true, true, "test");
 
         verify(window).setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
     }
@@ -500,25 +500,25 @@ public class CardFormTest {
 
     @Test
     public void isValidOnlyValidatesRequiredFields() {
-        setRequiredFields(true, false, false, false);
+        setRequiredFields(false, true, false, false, false);
         assertFalse(mCardForm.isValid());
         setText(((EditText) mCardForm.findViewById(R.id.bt_card_form_card_number)), VISA);
         assertTrue(mCardForm.isValid());
         assertFalse(((ErrorEditText) mCardForm.findViewById(R.id.bt_card_form_card_number)).isError());
 
-        setRequiredFields(false, true, false, false);
+        setRequiredFields(false, false, true, false, false);
         assertFalse(mCardForm.isValid());
         setText(((EditText) mCardForm.findViewById(R.id.bt_card_form_expiration)), "1230");
         assertTrue(mCardForm.isValid());
         assertFalse(((ErrorEditText) mCardForm.findViewById(R.id.bt_card_form_expiration)).isError());
 
-        setRequiredFields(false, false, true, false);
+        setRequiredFields(false, false, false, true, false);
         assertFalse(mCardForm.isValid());
         setText(((EditText) mCardForm.findViewById(R.id.bt_card_form_cvv)), "123");
         assertTrue(mCardForm.isValid());
         assertFalse(((ErrorEditText) mCardForm.findViewById(R.id.bt_card_form_cvv)).isError());
 
-        setRequiredFields(false, false, false, true);
+        setRequiredFields(false, false, false, false, true);
         assertFalse(mCardForm.isValid());
         setText(((EditText) mCardForm.findViewById(R.id.bt_card_form_postal_code)), "12345");
         assertTrue(mCardForm.isValid());
@@ -755,7 +755,7 @@ public class CardFormTest {
 
     @Test
     public void onCardFormValidListenerOnlyCalledOnValidityChange() {
-        setRequiredFields(true, true, true, true);
+        setRequiredFields(true, true, true, true, true);
         final AtomicInteger counter = new AtomicInteger(0);
         mCardForm.setOnCardFormValidListener(new OnCardFormValidListener() {
             @Override
@@ -764,6 +764,7 @@ public class CardFormTest {
             }
         });
 
+        setText(((EditText) mCardForm.findViewById(R.id.bt_card_form_card_name)), "Jim Jam");
         setText(((EditText) mCardForm.findViewById(R.id.bt_card_form_card_number)), VISA);
         setText(((EditText) mCardForm.findViewById(R.id.bt_card_form_expiration)), "0925");
         setText(((EditText) mCardForm.findViewById(R.id.bt_card_form_cvv)), "123");
@@ -940,7 +941,7 @@ public class CardFormTest {
 
     @Test
     public void handleCardIOResponse_doesNotSetCardNumberIfCardNumberNotRequired() {
-        setRequiredFields(false, true, true, true);
+        setRequiredFields( false, true, true, true);
         Intent intent = new Intent()
                 .putExtra(CardIOActivity.EXTRA_SCAN_RESULT, new CreditCard(VISA, 0, 0, "", "", ""));
 
@@ -986,9 +987,16 @@ public class CardFormTest {
     }
 
     /* helpers */
-    private void setRequiredFields(boolean cardNumberRequired, boolean expirationRequired, boolean cvvRequired,
+    private void setRequiredFields(boolean cardNameRequired, boolean cardNumberRequired, boolean expirationRequired, boolean cvvRequired,
                                    boolean postalCodeRequired) {
-        mCardForm.setRequiredFields(mActivity, cardNumberRequired, expirationRequired,
+        mCardForm.setRequiredFields(mActivity, cardNameRequired, cardNumberRequired, expirationRequired,
+                cvvRequired, postalCodeRequired, "test");
+    }
+    //helper to test without name
+    private void setRequiredFields( boolean cardNumberRequired, boolean expirationRequired, boolean cvvRequired,
+                                    boolean postalCodeRequired) {
+        boolean cardNameRequired = true;
+        mCardForm.setRequiredFields(mActivity,cardNameRequired, cardNumberRequired, expirationRequired,
                 cvvRequired, postalCodeRequired, "test");
     }
 
