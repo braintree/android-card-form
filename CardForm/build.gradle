@@ -2,6 +2,9 @@ apply plugin: 'com.android.library'
 apply plugin: 'maven'
 apply plugin: 'signing'
 apply plugin: 'io.codearte.nexus-staging'
+apply plugin: 'com.github.dcendents.android-maven'
+
+group='com.github.dhavalsharma'
 
 android {
     compileSdkVersion 23
@@ -11,7 +14,7 @@ android {
         minSdkVersion 15
         targetSdkVersion 23
         versionCode 27
-        versionName '2.3.1'
+        versionName '2.3.2'
     }
 
     testOptions {
