@@ -9,6 +9,16 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+        <com.braintreepayments.cardform.view.CardNameEditText
+            style="@style/bt_card_form_field"
+            android:id="@+id/bt_card_form_card_name"
+            android:imeOptions="actionNext"
+            android:hint="@string/bt_form_hint_card_name" />
+    </FrameLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
         <com.braintreepayments.cardform.view.CardEditText
             style="@style/bt_card_form_field"
             android:id="@+id/bt_card_form_card_number"
