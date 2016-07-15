@@ -17,6 +17,7 @@ import android.widget.EditText;
 
 import com.braintreepayments.cardform.R;
 import com.braintreepayments.cardform.utils.VibrationHelper;
+import com.braintreepayments.cardform.utils.ViewUtils;
 
 /**
  * Parent {@link android.widget.EditText} for storing and displaying error states.
@@ -50,9 +51,9 @@ public class ErrorEditText extends EditText {
 
     private void init() {
         mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        mPaddingBottom = dp2px(8);
-        mActiveUnderlineThickness = dp2px(2);
-        mInactiveUnderlineThickness = dp2px(1);
+        mPaddingBottom = ViewUtils.dp2px(getContext(), 8);
+        mActiveUnderlineThickness = ViewUtils.dp2px(getContext(), 2);
+        mInactiveUnderlineThickness = ViewUtils.dp2px(getContext(), 1);
         mErrorAnimator = AnimationUtils.loadAnimation(getContext(), R.anim.bt_error_animation);
         mError = false;
 
@@ -203,10 +204,5 @@ public class ErrorEditText extends EditText {
 
     protected int getErrorColor() {
         return mErrorColor;
-    }
-
-    protected int dp2px(float dp) {
-        return Math.round(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp,
-                getResources().getDisplayMetrics()));
     }
 }
