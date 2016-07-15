@@ -21,6 +21,7 @@ public class CardEditText extends FloatingLabelEditText implements TextWatcher {
         void onCardTypeChanged(CardType cardType);
     }
 
+    private boolean mDisplayCardIcon = true;
     private CardType mCardType;
     private OnCardTypeChangedListener mOnCardTypeChangedListener;
 
@@ -44,6 +45,19 @@ public class CardEditText extends FloatingLabelEditText implements TextWatcher {
         setCardIcon(R.drawable.bt_card_highlighted);
         addTextChangedListener(this);
         updateCardType();
+    }
+
+    /**
+     * Enable or disable showing card type icons as part of the {@link CardEditText}. Defaults to {@code true}.
+     *
+     * @param display {@code true} to display card type icons, {@code false} to never display card type icons.
+     */
+    public void setDisplayCardTypeIcon(boolean display) {
+        mDisplayCardIcon = display;
+
+        if (!mDisplayCardIcon) {
+            setCardIcon(-1);
+        }
     }
 
     /**
@@ -117,7 +131,9 @@ public class CardEditText extends FloatingLabelEditText implements TextWatcher {
     }
 
     private void setCardIcon(int icon) {
-        if(mRightToLeftLanguage) {
+        if (!mDisplayCardIcon) {
+            setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
+        } else if (mRightToLeftLanguage) {
             setCompoundDrawablesWithIntrinsicBounds(icon, 0, 0, 0);
         } else {
             setCompoundDrawablesWithIntrinsicBounds(0, 0, icon, 0);

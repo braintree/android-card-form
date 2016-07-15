@@ -251,6 +251,15 @@ public class CardForm extends LinearLayout implements OnCardTypeChangedListener,
     }
 
     /**
+     * Enable or disable showing card type icons as part of the {@link CardEditText}. Defaults to {@code true}.
+     *
+     * @param display {@code true} to display card type icons, {@code false} to never display card type icons.
+     */
+    public void displayCardTypeIcons(boolean display) {
+        mCardNumber.setDisplayCardTypeIcon(display);
+    }
+
+    /**
      * Set the listener to receive a callback when the card form becomes valid or invalid
      * @param listener to receive the callback
      */
