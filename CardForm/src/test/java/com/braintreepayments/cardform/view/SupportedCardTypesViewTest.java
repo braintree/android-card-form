@@ -13,6 +13,8 @@ import java.util.Arrays;
 import java.util.List;
 
 import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertFalse;
+import static junit.framework.Assert.assertTrue;
 
 @RunWith(RobolectricGradleTestRunner.class)
 public class SupportedCardTypesViewTest {
@@ -34,5 +36,25 @@ public class SupportedCardTypesViewTest {
         assertEquals(CardType.JCB.getFrontResource(), allSpans.get(5).getResourceId());
         assertEquals(CardType.MAESTRO.getFrontResource(), allSpans.get(6).getResourceId());
         assertEquals(CardType.UNION_PAY.getFrontResource(), allSpans.get(7).getResourceId());
+    }
+
+    @Test
+    public void setSelectedCardTypes_disablesNonSelectedCardTypes() {
+        SupportedCardTypesView supportedCardTypesView = new SupportedCardTypesView(RuntimeEnvironment.application);
+        supportedCardTypesView.setSupportedCardTypes(CardType.VISA, CardType.MASTERCARD, CardType.DISCOVER,
+                CardType.AMEX, CardType.DINERS_CLUB, CardType.JCB, CardType.MAESTRO, CardType.UNION_PAY);
+
+        supportedCardTypesView.setSelected(CardType.VISA);
+
+        List<PaddedImageSpan> allSpans = Arrays.asList(new SpannableString(supportedCardTypesView.getText())
+                .getSpans(0, supportedCardTypesView.length(), PaddedImageSpan.class));
+        assertFalse(allSpans.get(0).isDisabled());
+        assertTrue(allSpans.get(1).isDisabled());
+        assertTrue(allSpans.get(2).isDisabled());
+        assertTrue(allSpans.get(3).isDisabled());
+        assertTrue(allSpans.get(4).isDisabled());
+        assertTrue(allSpans.get(5).isDisabled());
+        assertTrue(allSpans.get(6).isDisabled());
+        assertTrue(allSpans.get(7).isDisabled());
     }
 }

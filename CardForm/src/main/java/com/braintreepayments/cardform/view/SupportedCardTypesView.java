@@ -11,10 +11,16 @@ import android.widget.TextView;
 
 import com.braintreepayments.cardform.utils.CardType;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 /**
  * Display a set of icons for a list of supported card types.
  */
 public class SupportedCardTypesView extends TextView {
+
+    private List<CardType> mSupportedCardTypes;
 
     public SupportedCardTypesView(Context context) {
         super(context);
@@ -41,10 +47,25 @@ public class SupportedCardTypesView extends TextView {
     public void setSupportedCardTypes(CardType... cardTypes) {
         setLayoutParams();
 
+        mSupportedCardTypes = new ArrayList<>();
+
         SpannableString spannableString = new SpannableString(new String(new char[cardTypes.length]));
         PaddedImageSpan span;
         for (int i = 0; i < cardTypes.length; i++) {
+            mSupportedCardTypes.add(i, cardTypes[i]);
             span = new PaddedImageSpan(getContext(), cardTypes[i].getFrontResource());
+            spannableString.setSpan(span, i, i + 1, SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE);
+        }
+
+        setText(spannableString);
+    }
+
+    public void setSelected(CardType... cardTypes) {
+        SpannableString spannableString = new SpannableString(new String(new char[mSupportedCardTypes.size()]));
+        PaddedImageSpan span;
+        for (int i = 0; i < mSupportedCardTypes.size(); i++) {
+            span = new PaddedImageSpan(getContext(), mSupportedCardTypes.get(i).getFrontResource());
+            span.setDisabled(!Arrays.asList(cardTypes).contains(mSupportedCardTypes.get(i)));
             spannableString.setSpan(span, i, i + 1, SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE);
         }
 

@@ -27,7 +27,7 @@ public enum CardType {
             R.drawable.bt_maestro, 12, 19, 3),
     UNION_PAY("^62\\d*",
             R.drawable.bt_card_highlighted, 16, 19, 3),
-    UNKNOWN("",
+    UNKNOWN("\\d*",
             R.drawable.bt_card_highlighted, 12, 19, 3);
 
     private static final int[] AMEX_SPACE_INDICES = { 4, 10 };
@@ -55,9 +55,8 @@ public enum CardType {
      * match.
      */
     public static CardType forCardNumber(String cardNumber) {
-        for (final CardType cardType : values()) {
-            final Pattern pattern = cardType.getPattern();
-            if (pattern.matcher(cardNumber).matches()) {
+        for (CardType cardType : values()) {
+            if (cardType.getPattern().matcher(cardNumber).matches()) {
                 return cardType;
             }
         }

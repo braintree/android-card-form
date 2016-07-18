@@ -8,11 +8,16 @@ import android.widget.Toast;
 
 import com.braintreepayments.cardform.OnCardFormSubmitListener;
 import com.braintreepayments.cardform.utils.CardType;
+import com.braintreepayments.cardform.view.CardEditText;
 import com.braintreepayments.cardform.view.CardForm;
 import com.braintreepayments.cardform.view.SupportedCardTypesView;
 
-public class BaseCardFormActivity extends Activity implements OnCardFormSubmitListener {
+public class BaseCardFormActivity extends Activity implements OnCardFormSubmitListener, CardEditText.OnCardTypeChangedListener {
 
+    private static final CardType[] SUPPORTED_CARD_TYPES = { CardType.VISA, CardType.MASTERCARD, CardType.DISCOVER,
+                CardType.AMEX, CardType.DINERS_CLUB, CardType.JCB, CardType.MAESTRO, CardType.UNION_PAY };
+
+    private SupportedCardTypesView mSupportCardTypesView;
     private CardForm mCardForm;
 
     @Override
@@ -20,13 +25,22 @@ public class BaseCardFormActivity extends Activity implements OnCardFormSubmitLi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.card_form);
 
-        SupportedCardTypesView supportedCardTypesView = (SupportedCardTypesView) findViewById(R.id.supported_card_types);
-        supportedCardTypesView.setSupportedCardTypes(CardType.VISA, CardType.MASTERCARD, CardType.DISCOVER,
-                CardType.AMEX, CardType.DINERS_CLUB, CardType.JCB, CardType.MAESTRO, CardType.UNION_PAY);
+        mSupportCardTypesView = (SupportedCardTypesView) findViewById(R.id.supported_card_types);
+        mSupportCardTypesView.setSupportedCardTypes(SUPPORTED_CARD_TYPES);
 
         mCardForm = (CardForm) findViewById(R.id.card_form);
         mCardForm.setRequiredFields(this, true, true, true, true, getString(R.string.purchase));
         mCardForm.setOnCardFormSubmitListener(this);
+        mCardForm.setOnCardTypeChangedListener(this);
+    }
+
+    @Override
+    public void onCardTypeChanged(CardType cardType) {
+        if (cardType == CardType.UNKNOWN) {
+            mSupportCardTypesView.setSupportedCardTypes(SUPPORTED_CARD_TYPES);
+        } else {
+            mSupportCardTypesView.setSelected(cardType);
+        }
     }
 
     @Override
