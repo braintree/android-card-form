@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:tools="http://schemas.android.com/tools"
-      xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:app="http://schemas.android.com/apk/res-auto">
     <item android:id="@+id/card_io_item"
           android:title="@string/scan_with_card_io"
           android:icon="@android:drawable/ic_menu_camera"
-          android:showAsAction="always"
-          tools:ignore="AppCompatResource"/>
+          app:showAsAction="always"/>
 </menu>

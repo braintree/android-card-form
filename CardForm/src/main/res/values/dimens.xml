@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
+    <dimen name="bt_margin">16dp</dimen>
     <dimen name="bt_landscape_max_width">500dp</dimen>
     <dimen name="bt_floating_edit_text_horizontal_offset">12dp</dimen>
     <dimen name="bt_input_text_size">16sp</dimen>

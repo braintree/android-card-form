@@ -8,7 +8,9 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.Robolectric;
 import org.robolectric.RobolectricGradleTestRunner;
+import org.robolectric.RuntimeEnvironment;
 
+import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertFalse;
 import static junit.framework.Assert.assertTrue;
 
@@ -32,5 +34,10 @@ public class PostalCodeEditTextTest {
     public void validIfNotEmpty() {
         mView.setText("12345");
         assertTrue(mView.isValid());
+    }
+
+    @Test
+    public void getErrorMessage_returnsErrorMessageWhenEmpty() {
+        assertEquals(RuntimeEnvironment.application.getString(R.string.bt_postal_code_required), mView.getErrorMessage());
     }
 }

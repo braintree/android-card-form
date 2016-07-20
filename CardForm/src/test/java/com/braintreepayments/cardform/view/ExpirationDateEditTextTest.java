@@ -11,6 +11,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.Robolectric;
 import org.robolectric.RobolectricGradleTestRunner;
+import org.robolectric.RuntimeEnvironment;
 
 import static junit.framework.Assert.assertEquals;
 
@@ -104,7 +105,18 @@ public class ExpirationDateEditTextTest {
         assertEquals("getYear() will return 4-digit years", "2018", mView.getYear());
     }
 
-    /* helpers */
+    @Test
+    public void getErrorMessage_returnsErrorMessageWhenEmpty() {
+        assertEquals(RuntimeEnvironment.application.getString(R.string.bt_expiration_required), mView.getErrorMessage());
+    }
+
+    @Test
+    public void getErrorMessage_returnsErrorMessageWhenNotEmpty() {
+        type('4');
+
+        assertEquals(RuntimeEnvironment.application.getString(R.string.bt_expiration_invalid), mView.getErrorMessage());
+    }
+
     private ExpirationDateEditTextTest type(char... chars) {
         Editable editable = mView.getText();
         for (char c : chars) {

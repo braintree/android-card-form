@@ -6,6 +6,7 @@ import android.text.Editable;
 import android.text.InputFilter;
 import android.text.InputFilter.LengthFilter;
 import android.text.InputType;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
 
@@ -15,7 +16,7 @@ import com.braintreepayments.cardform.utils.CardType;
 /**
  * An {@link android.widget.EditText} that displays a CVV hint for a given Card type when focused.
  */
-public class CvvEditText extends FloatingLabelEditText implements TextWatcher {
+public class CvvEditText extends ErrorEditText implements TextWatcher {
 
     private static final int DEFAULT_MAX_LENGTH = 3;
 
@@ -97,7 +98,7 @@ public class CvvEditText extends FloatingLabelEditText implements TextWatcher {
             }
         }
 
-        if(mRightToLeftLanguage) {
+        if(isRightToLeftLanguage()) {
             setCompoundDrawablesWithIntrinsicBounds(cvvResource, 0, 0, 0);
         } else {
             setCompoundDrawablesWithIntrinsicBounds(0, 0, cvvResource, 0);
@@ -107,6 +108,15 @@ public class CvvEditText extends FloatingLabelEditText implements TextWatcher {
     @Override
     public boolean isValid() {
         return getText().toString().length() == getSecurityCodeLength();
+    }
+
+    @Override
+    public String getErrorMessage() {
+        if (TextUtils.isEmpty(getText())) {
+            return getContext().getString(R.string.bt_cvv_required);
+        } else {
+            return getContext().getString(R.string.bt_cvv_invalid);
+        }
     }
 
     private int getSecurityCodeLength() {

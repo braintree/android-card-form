@@ -11,6 +11,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.Robolectric;
 import org.robolectric.RobolectricGradleTestRunner;
+import org.robolectric.RuntimeEnvironment;
 
 import static junit.framework.Assert.assertEquals;
 
@@ -46,7 +47,18 @@ public class CvvEditTextTest {
         }
     }
 
-    /* helpers */
+    @Test
+    public void getErrorMessage_returnsErrorMessageWhenEmpty() {
+        assertEquals(RuntimeEnvironment.application.getString(R.string.bt_cvv_required), mView.getErrorMessage());
+    }
+
+    @Test
+    public void getErrorMessage_returnsErrorMessageWhenNotEmpty() {
+        type("4");
+
+        assertEquals(RuntimeEnvironment.application.getString(R.string.bt_cvv_invalid), mView.getErrorMessage());
+    }
+
     private CvvEditTextTest type(String text) {
         Editable editable = mView.getText();
         for (char c : text.toCharArray()) {

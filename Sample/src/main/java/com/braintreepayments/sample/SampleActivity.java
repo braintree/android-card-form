@@ -15,14 +15,11 @@ public class SampleActivity extends Activity {
 
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.holo_theme_form:
-                startActivity(new Intent(this, HoloThemeActivity.class));
-                break;
             case R.id.material_light_theme_form:
-                startActivity(new Intent(this, MaterialLightThemeActivity.class));
+                startActivity(new Intent(this, LightThemeActivity.class));
                 break;
             case R.id.material_dark_theme_form:
-                startActivity(new Intent(this, MaterialDarkThemeActivity.class));
+                startActivity(new Intent(this, DarkThemeActivity.class));
             default:
                 break;
         }

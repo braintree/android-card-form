@@ -19,14 +19,11 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".HoloThemeActivity"
-            android:theme="@android:style/Theme.Holo.Light" />
+        <activity android:name=".LightThemeActivity"
+            android:theme="@style/LightTheme" />
 
-        <activity android:name=".MaterialLightThemeActivity"
-            android:theme="@style/MaterialLightTheme" />
-
-        <activity android:name=".MaterialDarkThemeActivity"
-            android:theme="@style/MaterialDarkTheme" />
+        <activity android:name=".DarkThemeActivity"
+            android:theme="@style/DarkTheme" />
 
     </application>
 

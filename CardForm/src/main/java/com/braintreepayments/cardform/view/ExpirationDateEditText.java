@@ -9,11 +9,13 @@ import android.text.InputFilter;
 import android.text.InputFilter.LengthFilter;
 import android.text.InputType;
 import android.text.Spanned;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.EditText;
 
+import com.braintreepayments.cardform.R;
 import com.braintreepayments.cardform.utils.DateValidator;
 
 import java.lang.reflect.Method;
@@ -22,7 +24,7 @@ import java.lang.reflect.Method;
  * An {@link android.widget.EditText} for entering dates, used for card expiration dates.
  * Will automatically format input as it is entered.
  */
-public class ExpirationDateEditText extends FloatingLabelEditText implements TextWatcher, View.OnClickListener {
+public class ExpirationDateEditText extends ErrorEditText implements TextWatcher, View.OnClickListener {
 
     private boolean mChangeWasAddition;
     private OnClickListener mClickListener;
@@ -135,6 +137,15 @@ public class ExpirationDateEditText extends FloatingLabelEditText implements Tex
     }
 
     @Override
+    public String getErrorMessage() {
+        if (TextUtils.isEmpty(getText())) {
+            return getContext().getString(R.string.bt_expiration_required);
+        } else {
+            return getContext().getString(R.string.bt_expiration_invalid);
+        }
+    }
+
+    @Override
     public void onTextChanged(CharSequence text, int start, int lengthBefore, int lengthAfter) {
         super.onTextChanged(text, start, lengthBefore, lengthAfter);
         mChangeWasAddition = lengthAfter > lengthBefore;
@@ -153,7 +164,7 @@ public class ExpirationDateEditText extends FloatingLabelEditText implements Tex
             editable.removeSpan(span);
         }
 
-        if (!mRightToLeftLanguage) {
+        if (!isRightToLeftLanguage()) {
             addDateSlash(editable);
         }
 

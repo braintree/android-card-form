@@ -1,12 +1,20 @@
 <?xml version="1.0"?>
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
     <string name="bt_form_hint_card_number">Card Number</string>
     <string name="bt_form_hint_expiration">Expiration</string>
     <string name="bt_form_hint_cvv">CVV</string>
     <string name="bt_form_hint_postal_code">Postal Code</string>
 
-    <string name="bt_month" tools:ignore="MissingTranslation">Month</string>
-    <string name="bt_year" tools:ignore="MissingTranslation">Year</string>
+    <string name="bt_month">Month</string>
+    <string name="bt_year">Year</string>
 
     <string name="bt_default_action_label">Purchase</string>
+
+    <string name="bt_card_number_required">Card number is required</string>
+    <string name="bt_card_number_invalid">Card number is invalid</string>
+    <string name="bt_cvv_required">CVV is required</string>
+    <string name="bt_cvv_invalid">CVV is invalid</string>
+    <string name="bt_expiration_required">Expiration date is required</string>
+    <string name="bt_expiration_invalid">Expiration date is invalid</string>
+    <string name="bt_postal_code_required">Postal code is required</string>
 </resources>

@@ -98,7 +98,18 @@ public class CardEditTextTest {
         assertNull(mView.getCompoundDrawables()[3]);
     }
 
-    /* helpers */
+    @Test
+    public void getErrorMessage_returnsErrorMessageWhenEmpty() {
+        assertEquals(RuntimeEnvironment.application.getString(R.string.bt_card_number_required), mView.getErrorMessage());
+    }
+
+    @Test
+    public void getErrorMessage_returnsErrorMessageWhenNotEmpty() {
+        type("4");
+
+        assertEquals(RuntimeEnvironment.application.getString(R.string.bt_card_number_invalid), mView.getErrorMessage());
+    }
+
     private void helper(String start, String end, int drawable, int... spans) {
         assertCardIconIs(R.drawable.bt_card_highlighted);
         type(start).assertCardIconIs(drawable);

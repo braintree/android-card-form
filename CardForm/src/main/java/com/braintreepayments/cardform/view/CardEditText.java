@@ -6,6 +6,7 @@ import android.text.InputFilter;
 import android.text.InputFilter.LengthFilter;
 import android.text.InputType;
 import android.text.Spanned;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
 
@@ -15,7 +16,7 @@ import com.braintreepayments.cardform.utils.CardType;
 /**
  * An {@link android.widget.EditText} that displays Card icons based on the number entered.
  */
-public class CardEditText extends FloatingLabelEditText implements TextWatcher {
+public class CardEditText extends ErrorEditText implements TextWatcher {
 
     public interface OnCardTypeChangedListener {
         void onCardTypeChanged(CardType cardType);
@@ -87,7 +88,7 @@ public class CardEditText extends FloatingLabelEditText implements TextWatcher {
         updateCardType();
         setCardIcon(mCardType.getFrontResource());
 
-        if (!mRightToLeftLanguage) {
+        if (!isRightToLeftLanguage()) {
             addSpans(editable, mCardType.getSpaceIndices());
         }
 
@@ -103,6 +104,15 @@ public class CardEditText extends FloatingLabelEditText implements TextWatcher {
     @Override
     public boolean isValid() {
         return mCardType.validate(getText().toString());
+    }
+
+    @Override
+    public String getErrorMessage() {
+        if (TextUtils.isEmpty(getText())) {
+            return getContext().getString(R.string.bt_card_number_required);
+        } else {
+            return getContext().getString(R.string.bt_card_number_invalid);
+        }
     }
 
     private void updateCardType() {
@@ -133,7 +143,7 @@ public class CardEditText extends FloatingLabelEditText implements TextWatcher {
     private void setCardIcon(int icon) {
         if (!mDisplayCardIcon) {
             setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
-        } else if (mRightToLeftLanguage) {
+        } else if (isRightToLeftLanguage()) {
             setCompoundDrawablesWithIntrinsicBounds(icon, 0, 0, 0);
         } else {
             setCompoundDrawablesWithIntrinsicBounds(0, 0, icon, 0);

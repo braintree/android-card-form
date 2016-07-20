@@ -345,9 +345,9 @@ public class CardForm extends LinearLayout implements OnCardTypeChangedListener,
     /**
      * Set visual indicator on card number to indicate error
      */
-    public void setCardNumberError() {
+    public void setCardNumberError(String errorMessage) {
         if (mCardNumberRequired) {
-            mCardNumber.setError(true);
+            mCardNumber.setError(errorMessage);
             requestEditTextFocus(mCardNumber);
         }
     }
@@ -355,9 +355,9 @@ public class CardForm extends LinearLayout implements OnCardTypeChangedListener,
     /**
      * Set visual indicator on expiration to indicate error
      */
-    public void setExpirationError() {
+    public void setExpirationError(String errorMessage) {
         if (mExpirationRequired) {
-            mExpiration.setError(true);
+            mExpiration.setError(errorMessage);
             if (!mCardNumberRequired || !mCardNumber.isFocused()) {
                 requestEditTextFocus(mExpiration);
             }
@@ -367,9 +367,9 @@ public class CardForm extends LinearLayout implements OnCardTypeChangedListener,
     /**
      * Set visual indicator on cvv to indicate error
      */
-    public void setCvvError() {
+    public void setCvvError(String errorMessage) {
         if (mCvvRequired) {
-            mCvv.setError(true);
+            mCvv.setError(errorMessage);
             if ((!mCardNumberRequired && !mExpirationRequired) ||
                 (!mCardNumber.isFocused() && !mExpiration.isFocused())) {
                 requestEditTextFocus(mCvv);
@@ -380,9 +380,9 @@ public class CardForm extends LinearLayout implements OnCardTypeChangedListener,
     /**
      * Set visual indicator on postal code to indicate error
      */
-    public void setPostalCodeError() {
+    public void setPostalCodeError(String errorMessage) {
         if (mPostalCodeRequired) {
-            mPostalCode.setError(true);
+            mPostalCode.setError(errorMessage);
             if ((!mCardNumberRequired && !mExpirationRequired && !mCvvRequired) ||
                 (!mCardNumber.isFocused() && !mExpiration.isFocused() && !mCvv.isFocused())) {
                 requestEditTextFocus(mPostalCode);

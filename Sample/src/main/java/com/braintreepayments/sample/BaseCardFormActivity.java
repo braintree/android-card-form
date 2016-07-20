@@ -1,7 +1,7 @@
 package com.braintreepayments.sample;
 
-import android.app.Activity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -12,7 +12,8 @@ import com.braintreepayments.cardform.view.CardEditText;
 import com.braintreepayments.cardform.view.CardForm;
 import com.braintreepayments.cardform.view.SupportedCardTypesView;
 
-public class BaseCardFormActivity extends Activity implements OnCardFormSubmitListener, CardEditText.OnCardTypeChangedListener {
+public class BaseCardFormActivity extends AppCompatActivity implements OnCardFormSubmitListener,
+        CardEditText.OnCardTypeChangedListener {
 
     private static final CardType[] SUPPORTED_CARD_TYPES = { CardType.VISA, CardType.MASTERCARD, CardType.DISCOVER,
                 CardType.AMEX, CardType.DINERS_CLUB, CardType.JCB, CardType.MAESTRO, CardType.UNION_PAY };
