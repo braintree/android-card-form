@@ -73,11 +73,12 @@ public class CardFormTest {
     }
 
     @Test
-    public void setRequiredFieldsSetsFlagSecure() {
+    public void setup_setsFlagSecure() {
         Window window = mock(Window.class);
         mActivity = spy(mActivity);
         when(mActivity.getWindow()).thenReturn(window);
-        mCardForm.setRequiredFields(mActivity, true, true, true, true, "test");
+
+        mCardForm.setup(mActivity);
 
         verify(window).setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
     }
@@ -1035,8 +1036,11 @@ public class CardFormTest {
 
     private void setRequiredFields(boolean cardNumberRequired, boolean expirationRequired, boolean cvvRequired,
                                    boolean postalCodeRequired) {
-        mCardForm.setRequiredFields(mActivity, cardNumberRequired, expirationRequired,
-                cvvRequired, postalCodeRequired, "test");
+        mCardForm.cardRequired(cardNumberRequired)
+                .expirationRequired(expirationRequired)
+                .cvvRequired(cvvRequired)
+                .postalCodeRequired(postalCodeRequired)
+                .setup(mActivity);
     }
 
     private void setText(EditText editText, String text) {

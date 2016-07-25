@@ -30,7 +30,12 @@ public class BaseCardFormActivity extends AppCompatActivity implements OnCardFor
         mSupportCardTypesView.setSupportedCardTypes(SUPPORTED_CARD_TYPES);
 
         mCardForm = (CardForm) findViewById(R.id.card_form);
-        mCardForm.setRequiredFields(this, true, true, true, true, getString(R.string.purchase));
+        mCardForm.cardRequired(true)
+                .expirationRequired(true)
+                .cvvRequired(true)
+                .postalCodeRequired(true)
+                .actionLabel(getString(R.string.purchase))
+                .setup(this);
         mCardForm.setOnCardFormSubmitListener(this);
         mCardForm.setOnCardTypeChangedListener(this);
     }

@@ -46,6 +46,7 @@ public class CardForm extends LinearLayout implements OnCardTypeChangedListener,
     private boolean mExpirationRequired;
     private boolean mCvvRequired;
     private boolean mPostalCodeRequired;
+    private String mActionLabel;
 
     private boolean mValid = false;
 
@@ -94,29 +95,62 @@ public class CardForm extends LinearLayout implements OnCardTypeChangedListener,
     }
 
     /**
-     * Set the required fields for the {@link com.braintreepayments.cardform.view.CardForm}.
-     * If {@link #setRequiredFields(android.app.Activity, boolean, boolean, boolean, boolean, String)}
-     * is not called, the form will not be visible.
+     * @param required {@code true} to show and require a credit card number, {@code false} otherwise
+     * @return {@link CardForm} for method chaining
+     */
+    public CardForm cardRequired(boolean required) {
+        mCardNumberRequired = required;
+        return this;
+    }
+
+    /**
+     * @param required {@code true} to show and require an expiration date, {@code false} otherwise
+     * @return {@link CardForm} for method chaining
+     */
+    public CardForm expirationRequired(boolean required) {
+        mExpirationRequired = required;
+        return this;
+    }
+
+    /**
+     * @param required {@code true} to show and require a cvv, {@code false} otherwise
+     * @return {@link CardForm} for method chaining
+     */
+    public CardForm cvvRequired(boolean required) {
+        mCvvRequired = required;
+        return this;
+    }
+
+    /**
+     * @param required {@code true} to show and require a postal code, {@code false} otherwise
+     * @return {@link CardForm} for method chaining
+     */
+    public CardForm postalCodeRequired(boolean required) {
+        mPostalCodeRequired = required;
+        return this;
+    }
+
+    /**
+     * @param actionLabel the {@link java.lang.String} to display to the user to submit the form from the keyboard
+     * @return {@link CardForm} for method chaining
+     */
+    public CardForm actionLabel(String actionLabel) {
+        mActionLabel = actionLabel;
+        return this;
+    }
+
+    /**
+     * Sets up the card form for display to the user using the values provided in {@link CardForm#cardRequired(boolean)},
+     * {@link CardForm#expirationRequired(boolean)}, ect. If {@link #setup(android.app.Activity)} is not called,
+     * the form will not be visible.
      *
      * @param activity Used to set {@link android.view.WindowManager.LayoutParams#FLAG_SECURE} to prevent screenshots
-     * @param cardNumberRequired {@code true} to show and require a credit card number, {@code false} otherwise
-     * @param expirationRequired {@code true} to show and require an expiration date, {@code false} otherwise
-     * @param cvvRequired {@code true} to show and require a cvv, {@code false} otherwise
-     * @param postalCodeRequired {@code true} to show and require a postal code, {@code false} otherwise
-     * @param imeActionLabel the {@link java.lang.String} to display to the user to submit the form
-     *   from the keyboard
      */
-    public void setRequiredFields(Activity activity, boolean cardNumberRequired, boolean expirationRequired,
-                                  boolean cvvRequired, boolean postalCodeRequired, String imeActionLabel) {
+    public void setup(Activity activity) {
         if (SDK_INT >= ICE_CREAM_SANDWICH) {
             activity.getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE,
                     WindowManager.LayoutParams.FLAG_SECURE);
         }
-
-        mCardNumberRequired = cardNumberRequired;
-        mExpirationRequired = expirationRequired;
-        mCvvRequired = cvvRequired;
-        mPostalCodeRequired = postalCodeRequired;
 
         resetField(mCardNumber);
         resetField(mExpiration);
@@ -137,7 +171,7 @@ public class CardForm extends LinearLayout implements OnCardTypeChangedListener,
             if (mExpirationRequired || mCvvRequired || mPostalCodeRequired) {
                 mCardNumber.setImeOptions(EditorInfo.IME_ACTION_NEXT);
             } else {
-                setIMEOptionsForLastEditTestField(mCardNumber, imeActionLabel);
+                setIMEOptionsForLastEditTestField(mCardNumber, mActionLabel);
             }
         }
 
@@ -154,7 +188,7 @@ public class CardForm extends LinearLayout implements OnCardTypeChangedListener,
             if (mCvvRequired || mPostalCodeRequired) {
                 mExpiration.setImeOptions(EditorInfo.IME_ACTION_NEXT);
             } else {
-                setIMEOptionsForLastEditTestField(mExpiration, imeActionLabel);
+                setIMEOptionsForLastEditTestField(mExpiration, mActionLabel);
             }
         }
 
@@ -165,13 +199,13 @@ public class CardForm extends LinearLayout implements OnCardTypeChangedListener,
                 mCvv.setImeOptions(EditorInfo.IME_ACTION_NEXT);
                 mCvv.setNextFocusDownId(mPostalCode.getId());
             } else {
-                setIMEOptionsForLastEditTestField(mCvv, imeActionLabel);
+                setIMEOptionsForLastEditTestField(mCvv, mActionLabel);
             }
         }
 
         if (mPostalCodeRequired) {
             mPostalCode.setVisibility(View.VISIBLE);
-            setIMEOptionsForLastEditTestField(mPostalCode, imeActionLabel);
+            setIMEOptionsForLastEditTestField(mPostalCode, mActionLabel);
         }
 
         setVisibility(VISIBLE);
@@ -270,6 +304,7 @@ public class CardForm extends LinearLayout implements OnCardTypeChangedListener,
     /**
      * Set the listener to receive a callback when the card form should be submitted.
      * Triggered from a keyboard by a {@link android.view.inputmethod.EditorInfo#IME_ACTION_GO} event
+     *
      * @param listener to receive the callback
      */
     public void setOnCardFormSubmitListener(OnCardFormSubmitListener listener) {
@@ -278,6 +313,7 @@ public class CardForm extends LinearLayout implements OnCardTypeChangedListener,
 
     /**
      * Set the listener to receive a callback when a field is focused
+     *
      * @param listener to receive the callback
      */
     public void setOnFormFieldFocusedListener(OnCardFormFieldFocusedListener listener) {
@@ -286,6 +322,7 @@ public class CardForm extends LinearLayout implements OnCardTypeChangedListener,
 
     /**
      * Set the listener to receive a callback when the {@link com.braintreepayments.cardform.utils.CardType} changes.
+     *
      * @param listener to receive the callback
      */
     public void setOnCardTypeChangedListener(OnCardTypeChangedListener listener) {
@@ -294,8 +331,8 @@ public class CardForm extends LinearLayout implements OnCardTypeChangedListener,
 
     /**
      * Set {@link android.widget.EditText} fields as enabled or disabled
-     * @param enabled {@code true} to enable all required fields, {@code false} to disable all
-     * required fields
+     *
+     * @param enabled {@code true} to enable all required fields, {@code false} to disable all required fields
      */
     public void setEnabled(boolean enabled) {
         mCardNumber.setEnabled(enabled);
