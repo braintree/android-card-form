@@ -912,6 +912,19 @@ public class CardFormTest {
     }
 
     @Test
+    public void showsTheCorrectCvvHintForAmex() {
+        setRequiredFields(true, true, true, true);
+        CvvEditText cvv = (CvvEditText) mCardForm.findViewById(R.id.bt_card_form_cvv);
+        assertFalse(cvv.hasFocus());
+
+        assertIconHintIs(cvv, 0);
+
+        setText((EditText) mCardForm.findViewById(R.id.bt_card_form_card_number), "37");
+        cvv.requestFocus();
+        assertIconHintIs(cvv, R.drawable.bt_cid_highlighted);
+    }
+
+    @Test
     public void valuesAreRestored() {
         setRequiredFields(true, true, true, true);
 

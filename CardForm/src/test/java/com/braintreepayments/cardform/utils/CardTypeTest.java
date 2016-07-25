@@ -100,6 +100,8 @@ public class CardTypeTest {
                     cardType.getFrontResource() != 0);
             assertTrue(String.format("%s: No cvv resource declared", cardType),
                     cardType.getSecurityCodeResource() != 0);
+            assertTrue(String.format("%s: No Security code resource declared", cardType),
+                    cardType.getSecurityCodeName() != 0);
 
             if (cardType != CardType.UNKNOWN) {
                 final Pattern pattern = cardType.getPattern();

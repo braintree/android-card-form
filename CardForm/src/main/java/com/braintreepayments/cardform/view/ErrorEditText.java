@@ -63,6 +63,20 @@ public class ErrorEditText extends TextInputEditText {
     }
 
     /**
+     * Sets the hint on the {@link TextInputLayout} if this view is a child of a {@link TextInputLayout}, otherwise
+     * sets the hint on this {@link android.widget.EditText}.
+     *
+     * @param hint The string resource to use as the hint.
+     */
+    public void setFieldHint(int hint) {
+        if (getParent() instanceof TextInputLayout) {
+            ((TextInputLayout) getParent()).setHint(getContext().getString(hint));
+        } else {
+            setHint(hint);
+        }
+    }
+
+    /**
      * Request focus for the next view.
      */
     public View focusNextView() {

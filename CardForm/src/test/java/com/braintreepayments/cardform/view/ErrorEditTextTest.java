@@ -1,11 +1,16 @@
 package com.braintreepayments.cardform.view;
 
+import android.support.design.widget.TextInputLayout;
+
+import com.braintreepayments.cardform.R;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricGradleTestRunner;
 import org.robolectric.RuntimeEnvironment;
 
+import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertFalse;
 import static junit.framework.Assert.assertNull;
 import static junit.framework.Assert.assertTrue;
@@ -18,6 +23,24 @@ public class ErrorEditTextTest {
     @Before
     public void setup() {
         mView = new ErrorEditText(RuntimeEnvironment.application);
+    }
+
+    @Test
+    public void setFieldHint_setsHintWhenParentViewIsATextInputLayout() {
+        TextInputLayout parent = new TextInputLayout(RuntimeEnvironment.application);
+        parent.addView(mView);
+
+        mView.setFieldHint(R.string.bt_form_hint_cvv);
+
+        assertEquals(parent.getHint(), "CVV");
+        assertNull(mView.getHint());
+    }
+
+    @Test
+    public void setFieldHint_setsHint() {
+        mView.setFieldHint(R.string.bt_form_hint_cvv);
+
+        assertEquals(mView.getHint(), "CVV");
     }
 
     @Test

@@ -1,5 +1,6 @@
 package com.braintreepayments.cardform.view;
 
+import android.support.design.widget.TextInputLayout;
 import android.text.Editable;
 
 import com.braintreepayments.cardform.R;
@@ -44,6 +45,16 @@ public class CvvEditTextTest {
                 type("4").assertTextIs("123");
             }
             mView.getText().clear();
+        }
+    }
+
+    @Test
+    public void showsTheCorrectCvvTextHintsForAllCardTypes() {
+        for (CardType type : CardType.values()) {
+            mView.setCardType(type);
+
+            assertEquals(RuntimeEnvironment.application.getString(type.getSecurityCodeName()),
+                    ((TextInputLayout) mView.getParent()).getHint());
         }
     }
 

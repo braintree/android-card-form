@@ -12,23 +12,41 @@ import java.util.regex.Pattern;
 public enum CardType {
 
     VISA("^4\\d*",
-            R.drawable.bt_visa, 16, 16, 3),
+            R.drawable.bt_visa,
+            16, 16,
+            3, R.string.bt_cvv),
     MASTERCARD("^(5[1-5]|222[1-9]|22[3-9]|2[3-6]|27[0-1]|2720)\\d*",
-            R.drawable.bt_mastercard, 16, 16, 3),
+            R.drawable.bt_mastercard,
+            16, 16,
+            3, R.string.bt_cvc),
     DISCOVER("^(6011|65|64[4-9]|622)\\d*",
-            R.drawable.bt_discover, 16, 16, 3),
+            R.drawable.bt_discover,
+            16, 16,
+            3, R.string.bt_cid),
     AMEX("^3[47]\\d*",
-            R.drawable.bt_amex, 15, 15, 4),
+            R.drawable.bt_amex,
+            15, 15,
+            4, R.string.bt_cid),
     DINERS_CLUB("^(36|38|30[0-5])\\d*",
-            R.drawable.bt_diners, 14, 14, 3),
+            R.drawable.bt_diners,
+            14, 14,
+            3, R.string.bt_cvv),
     JCB("^35\\d*",
-            R.drawable.bt_jcb, 16, 16, 3),
+            R.drawable.bt_jcb,
+            16, 16,
+            3, R.string.bt_cvv),
     MAESTRO("^(5018|5020|5038|6304|6703|6759|676[1-3])\\d*",
-            R.drawable.bt_maestro, 12, 19, 3),
+            R.drawable.bt_maestro,
+            12, 19,
+            3, R.string.bt_cvc),
     UNION_PAY("^62\\d*",
-            R.drawable.bt_card_highlighted, 16, 19, 3),
+            R.drawable.bt_card_highlighted,
+            16, 19,
+            3, R.string.bt_cvn),
     UNKNOWN("\\d*",
-            R.drawable.bt_card_highlighted, 12, 19, 3);
+            R.drawable.bt_card_highlighted,
+            12, 19,
+            3, R.string.bt_cvv);
 
     private static final int[] AMEX_SPACE_INDICES = { 4, 10 };
     private static final int[] DEFAULT_SPACE_INDICES = { 4, 8, 12 };
@@ -38,13 +56,16 @@ public enum CardType {
     private final int mMinCardLength;
     private final int mMaxCardLength;
     private final int mSecurityCodeLength;
+    private final int mSecurityCodeName;
 
-    CardType(String regex, int frontResource, int minCardLength, int maxCardLength, int securityCodeLength) {
+    CardType(String regex, int frontResource, int minCardLength, int maxCardLength, int securityCodeLength,
+             int securityCodeName) {
         mPattern = Pattern.compile(regex);
         mFrontResource = frontResource;
         mMinCardLength = minCardLength;
         mMaxCardLength = maxCardLength;
         mSecurityCodeLength = securityCodeLength;
+        mSecurityCodeName = securityCodeName;
     }
 
     /**
@@ -86,6 +107,13 @@ public enum CardType {
         } else {
             return R.drawable.bt_cvv_highlighted;
         }
+    }
+
+    /**
+     * @return The android resource id for the security code name for this card type.
+     */
+    public int getSecurityCodeName() {
+        return mSecurityCodeName;
     }
 
     /**

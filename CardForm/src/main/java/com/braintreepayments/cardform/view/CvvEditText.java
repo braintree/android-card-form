@@ -53,8 +53,11 @@ public class CvvEditText extends ErrorEditText implements TextWatcher {
      */
     public void setCardType(CardType cardType) {
         mCardType = cardType;
+        setFieldHint(mCardType.getSecurityCodeName());
+
         InputFilter[] filters = {new LengthFilter(cardType.getSecurityCodeLength())};
         setFilters(filters);
+
         invalidate();
     }
 
