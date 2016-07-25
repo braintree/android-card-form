@@ -80,10 +80,14 @@ cardForm.scanCard(activity);
 
 ## Styling
 
-All card form inputs use the `colorAccent` theme attribute, when present, to set their focused color.
-For more information on the `colorAccent` attribute, see [Using the Material Theme](https://developer.android.com/training/material/theme.html).
+The card form uses the [Android Design Support Library](http://android-developers.blogspot.com/2015/05/android-design-support-library.html)
+for styling and floating labels. All card form inputs use the `colorAccent` theme attribute, when present,
+to set their focused color. For more information on the `colorAccent` attribute, see
+[Using the Material Theme](https://developer.android.com/training/material/theme.html).
 
-The included [sample app](https://github.com/braintree/android-card-form/tree/master/Sample) has examples of a Holo theme, Material light theme and Material dark theme.
+The included [sample app](https://github.com/braintree/android-card-form/tree/master/Sample) has examples with a light theme and dark theme.
+
+Any `Activity` using the card form must use a style that is a Theme.AppCompat theme or descendant (defines `android.support.v7.appcompat.R.attr.colorPrimary`).
 
 ## [Releases](https://github.com/braintree/android-card-form/releases)
 
