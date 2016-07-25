@@ -4,16 +4,12 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricGradleTestRunner;
 
-import java.util.Collections;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
-import java.util.Set;
 import java.util.regex.Pattern;
 
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertTrue;
-import static junit.framework.Assert.fail;
 
 @RunWith(RobolectricGradleTestRunner.class)
 public class CardTypeTest {
@@ -40,6 +36,14 @@ public class CardTypeTest {
         // Mastercard
         SAMPLE_CARDS.put("5555555555554444", CardType.MASTERCARD);
         SAMPLE_CARDS.put("5105105105105100", CardType.MASTERCARD);
+        SAMPLE_CARDS.put("2221000000000009", CardType.MASTERCARD);
+        SAMPLE_CARDS.put("2223000048400011", CardType.MASTERCARD);
+        SAMPLE_CARDS.put("2230000000000008", CardType.MASTERCARD);
+        SAMPLE_CARDS.put("2300000000000003", CardType.MASTERCARD);
+        SAMPLE_CARDS.put("2500000000000001", CardType.MASTERCARD);
+        SAMPLE_CARDS.put("2600000000000000", CardType.MASTERCARD);
+        SAMPLE_CARDS.put("2700000000000009", CardType.MASTERCARD);
+        SAMPLE_CARDS.put("2720990000000007", CardType.MASTERCARD);
 
         // Discover
         SAMPLE_CARDS.put("6011111111111117", CardType.DISCOVER);
@@ -63,6 +67,9 @@ public class CardTypeTest {
         // Union Pay
         SAMPLE_CARDS.put("6240888888888885", CardType.UNION_PAY);
         SAMPLE_CARDS.put("6240888888888885127", CardType.UNION_PAY);
+
+        // Unknown
+        SAMPLE_CARDS.put("2721000000000004", CardType.UNKNOWN);
     }
 
     @Test
@@ -114,30 +121,6 @@ public class CardTypeTest {
             assertEquals(String.format("CardType.forAccountNumber failed for %s", cardNumber), cardType, actualType);
             assertTrue(String.format("%s: Luhn check failed for [%s]", cardType, cardNumber),
                     CardType.isLuhnValid(cardNumber));
-        }
-    }
-
-    @Test
-    public void allCardsTested() {
-        // It's just so meta.
-        final Set<CardType> allCards = new HashSet<CardType>();
-        Collections.addAll(allCards, CardType.values());
-        allCards.remove(CardType.UNKNOWN);
-
-        final Set<CardType> testCards = new HashSet<CardType>();
-        testCards.addAll(SAMPLE_CARDS.values());
-
-        if (!allCards.equals(testCards)) {
-            allCards.removeAll(testCards);
-            StringBuilder msgBuilder = new StringBuilder();
-            msgBuilder.append("Found ")
-                    .append(allCards.size())
-                    .append(" CardType(s) not tested by SAMPLE_CARDS: ");
-            for (final CardType missing : allCards) {
-                msgBuilder.append(missing)
-                        .append(' ');
-            }
-            fail(msgBuilder.toString());
         }
     }
 }
