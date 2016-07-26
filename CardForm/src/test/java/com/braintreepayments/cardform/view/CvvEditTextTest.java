@@ -15,6 +15,7 @@ import org.robolectric.RobolectricGradleTestRunner;
 import org.robolectric.RuntimeEnvironment;
 
 import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertTrue;
 
 @RunWith(RobolectricGradleTestRunner.class)
 public class CvvEditTextTest {
@@ -46,6 +47,14 @@ public class CvvEditTextTest {
             }
             mView.getText().clear();
         }
+    }
+
+    @Test
+    public void allowsEmptyCvvForUnionPay() {
+        mView.setCardType(CardType.UNIONPAY);
+        mView.getText().clear();
+
+        assertTrue(mView.isValid());
     }
 
     @Test

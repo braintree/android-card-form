@@ -110,7 +110,8 @@ public class CvvEditText extends ErrorEditText implements TextWatcher {
 
     @Override
     public boolean isValid() {
-        return getText().toString().length() == getSecurityCodeLength();
+        return (getText().toString().length() == getSecurityCodeLength() ||
+                (getText().toString().length() == 0 && mCardType == CardType.UNIONPAY));
     }
 
     @Override
