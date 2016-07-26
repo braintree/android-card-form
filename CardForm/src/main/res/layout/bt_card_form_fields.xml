@@ -49,4 +49,14 @@
 
     </android.support.design.widget.TextInputLayout>
 
+    <android.support.design.widget.TextInputLayout
+        style="@style/bt_text_input_layout">
+
+        <com.braintreepayments.cardform.view.MobileNumberEditText
+            style="@style/bt_card_form_field"
+            android:id="@+id/bt_card_form_mobile_number"
+            android:hint="@string/bt_form_hint_mobile_number"/>
+
+    </android.support.design.widget.TextInputLayout>
+
 </LinearLayout>

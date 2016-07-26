@@ -34,6 +34,7 @@ public class BaseCardFormActivity extends AppCompatActivity implements OnCardFor
                 .expirationRequired(true)
                 .cvvRequired(true)
                 .postalCodeRequired(true)
+                .mobileNumberRequired(true)
                 .actionLabel(getString(R.string.purchase))
                 .setup(this);
         mCardForm.setOnCardFormSubmitListener(this);

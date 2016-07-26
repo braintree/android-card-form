@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build.VERSION_CODES;
+import android.telephony.PhoneNumberUtils;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
@@ -41,11 +42,13 @@ public class CardForm extends LinearLayout implements OnCardTypeChangedListener,
     private ExpirationDateEditText mExpiration;
     private CvvEditText mCvv;
     private PostalCodeEditText mPostalCode;
+    private MobileNumberEditText mMobileNumber;
 
     private boolean mCardNumberRequired;
     private boolean mExpirationRequired;
     private boolean mCvvRequired;
     private boolean mPostalCodeRequired;
+    private boolean mMobileNumberRequired;
     private String mActionLabel;
 
     private boolean mValid = false;
@@ -85,11 +88,13 @@ public class CardForm extends LinearLayout implements OnCardTypeChangedListener,
         mExpiration = (ExpirationDateEditText) findViewById(R.id.bt_card_form_expiration);
         mCvv = (CvvEditText) findViewById(R.id.bt_card_form_cvv);
         mPostalCode = (PostalCodeEditText) findViewById(R.id.bt_card_form_postal_code);
+        mMobileNumber = (MobileNumberEditText) findViewById(R.id.bt_card_form_mobile_number);
 
         setListeners(mCardNumber);
         setListeners(mExpiration);
         setListeners(mCvv);
         setListeners(mPostalCode);
+        setListeners(mMobileNumber);
 
         mCardNumber.setOnCardTypeChangedListener(this);
     }
@@ -131,6 +136,15 @@ public class CardForm extends LinearLayout implements OnCardTypeChangedListener,
     }
 
     /**
+     * @param required {@code true} to show and require a mobile number, {@code false} otherwise
+     * @return {@link CardForm} for method chaining
+     */
+    public CardForm mobileNumberRequired(boolean required) {
+        mMobileNumberRequired = required;
+        return this;
+    }
+
+    /**
      * @param actionLabel the {@link java.lang.String} to display to the user to submit the form from the keyboard
      * @return {@link CardForm} for method chaining
      */
@@ -156,6 +170,7 @@ public class CardForm extends LinearLayout implements OnCardTypeChangedListener,
         resetField(mExpiration);
         resetField(mCvv);
         resetField(mPostalCode);
+        resetField(mMobileNumber);
 
         if (mCardNumberRequired) {
             mCardNumber.setVisibility(View.VISIBLE);
@@ -166,9 +181,11 @@ public class CardForm extends LinearLayout implements OnCardTypeChangedListener,
                 mCardNumber.setNextFocusDownId(mCvv.getId());
             } else if (mPostalCodeRequired) {
                 mCardNumber.setNextFocusDownId(mPostalCode.getId());
+            } else if (mMobileNumberRequired) {
+                mCardNumber.setNextFocusDownId(mMobileNumber.getId());
             }
 
-            if (mExpirationRequired || mCvvRequired || mPostalCodeRequired) {
+            if (mExpirationRequired || mCvvRequired || mPostalCodeRequired || mMobileNumberRequired) {
                 mCardNumber.setImeOptions(EditorInfo.IME_ACTION_NEXT);
             } else {
                 setIMEOptionsForLastEditTestField(mCardNumber, mActionLabel);
@@ -183,9 +200,11 @@ public class CardForm extends LinearLayout implements OnCardTypeChangedListener,
                 mExpiration.setNextFocusDownId(mCvv.getId());
             } else if (mPostalCodeRequired) {
                 mExpiration.setNextFocusDownId(mPostalCode.getId());
+            } else if (mMobileNumberRequired) {
+                mExpiration.setNextFocusDownId(mMobileNumber.getId());
             }
 
-            if (mCvvRequired || mPostalCodeRequired) {
+            if (mCvvRequired || mPostalCodeRequired || mMobileNumberRequired) {
                 mExpiration.setImeOptions(EditorInfo.IME_ACTION_NEXT);
             } else {
                 setIMEOptionsForLastEditTestField(mExpiration, mActionLabel);
@@ -196,8 +215,13 @@ public class CardForm extends LinearLayout implements OnCardTypeChangedListener,
             mCvv.setVisibility(View.VISIBLE);
 
             if (mPostalCodeRequired) {
-                mCvv.setImeOptions(EditorInfo.IME_ACTION_NEXT);
                 mCvv.setNextFocusDownId(mPostalCode.getId());
+            } else if (mMobileNumberRequired) {
+                mCvv.setNextFocusDownId(mMobileNumber.getId());
+            }
+
+            if (mPostalCodeRequired || mMobileNumberRequired) {
+                mCvv.setImeOptions(EditorInfo.IME_ACTION_NEXT);
             } else {
                 setIMEOptionsForLastEditTestField(mCvv, mActionLabel);
             }
@@ -205,7 +229,18 @@ public class CardForm extends LinearLayout implements OnCardTypeChangedListener,
 
         if (mPostalCodeRequired) {
             mPostalCode.setVisibility(View.VISIBLE);
-            setIMEOptionsForLastEditTestField(mPostalCode, mActionLabel);
+
+            if (mMobileNumberRequired) {
+                mPostalCode.setNextFocusDownId(mMobileNumber.getId());
+                mPostalCode.setImeOptions(EditorInfo.IME_ACTION_NEXT);
+            } else {
+                setIMEOptionsForLastEditTestField(mPostalCode, mActionLabel);
+            }
+        }
+
+        if (mMobileNumberRequired) {
+            mMobileNumber.setVisibility(View.VISIBLE);
+            setIMEOptionsForLastEditTestField(mMobileNumber, mActionLabel);
         }
 
         setVisibility(VISIBLE);
@@ -339,6 +374,7 @@ public class CardForm extends LinearLayout implements OnCardTypeChangedListener,
         mExpiration.setEnabled(enabled);
         mCvv.setEnabled(enabled);
         mPostalCode.setEnabled(enabled);
+        mMobileNumber.setEnabled(enabled);
     }
 
     /**
@@ -358,6 +394,9 @@ public class CardForm extends LinearLayout implements OnCardTypeChangedListener,
         if (mPostalCodeRequired) {
             valid = valid && mPostalCode.isValid();
         }
+        if (mMobileNumberRequired) {
+            valid = valid && mMobileNumber.isValid();
+        }
         return valid;
     }
 
@@ -376,6 +415,9 @@ public class CardForm extends LinearLayout implements OnCardTypeChangedListener,
         }
         if (mPostalCodeRequired) {
             mPostalCode.validate();
+        }
+        if (mMobileNumberRequired) {
+            mMobileNumber.validate();
         }
     }
 
@@ -423,6 +465,19 @@ public class CardForm extends LinearLayout implements OnCardTypeChangedListener,
             if ((!mCardNumberRequired && !mExpirationRequired && !mCvvRequired) ||
                 (!mCardNumber.isFocused() && !mExpiration.isFocused() && !mCvv.isFocused())) {
                 requestEditTextFocus(mPostalCode);
+            }
+        }
+    }
+
+    /**
+     * Set visual indicator on mobile number field to indicate error
+     */
+    public void setMobileNumberError(String errorMessage) {
+        if (mMobileNumberRequired) {
+            mMobileNumber.setError(errorMessage);
+            if ((!mCardNumberRequired && !mExpirationRequired && !mCvvRequired && !mPostalCodeRequired) ||
+                    (!mCardNumber.isFocused() && !mExpiration.isFocused() && !mCvv.isFocused() && !mPostalCode.isFocused())) {
+                requestEditTextFocus(mMobileNumber);
             }
         }
     }
@@ -475,6 +530,13 @@ public class CardForm extends LinearLayout implements OnCardTypeChangedListener,
      */
     public String getPostalCode() {
         return mPostalCode.getText().toString();
+    }
+
+    /**
+     * @return the unformatted text in the mobile number field
+     */
+    public String getMobileNumber() {
+        return PhoneNumberUtils.stripSeparators(mMobileNumber.getText().toString());
     }
 
     @Override
