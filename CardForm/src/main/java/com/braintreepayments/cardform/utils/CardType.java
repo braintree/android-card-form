@@ -39,7 +39,7 @@ public enum CardType {
             R.drawable.bt_maestro,
             12, 19,
             3, R.string.bt_cvc),
-    UNION_PAY("^62\\d*",
+    UNIONPAY("^62\\d*",
             R.drawable.bt_card_highlighted,
             16, 19,
             3, R.string.bt_cvn),

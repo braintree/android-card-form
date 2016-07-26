@@ -66,8 +66,8 @@ public class CardTypeTest {
         SAMPLE_CARDS.put("6703000000000007", CardType.MAESTRO);
 
         // Union Pay
-        SAMPLE_CARDS.put("6240888888888885", CardType.UNION_PAY);
-        SAMPLE_CARDS.put("6240888888888885127", CardType.UNION_PAY);
+        SAMPLE_CARDS.put("6240888888888885", CardType.UNIONPAY);
+        SAMPLE_CARDS.put("6240888888888885127", CardType.UNIONPAY);
 
         // Unknown
         SAMPLE_CARDS.put("2721000000000004", CardType.UNKNOWN);
