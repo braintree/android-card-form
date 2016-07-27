@@ -37,11 +37,13 @@ import static android.os.Build.VERSION_CODES.ICE_CREAM_SANDWICH;
 public class CardForm extends LinearLayout implements OnCardTypeChangedListener, OnFocusChangeListener, OnClickListener,
         OnEditorActionListener, TextWatcher {
 
+    private CardNameEditText mCardName;
     private CardEditText mCardNumber;
     private ExpirationDateEditText mExpiration;
     private CvvEditText mCvv;
     private PostalCodeEditText mPostalCode;
 
+    private boolean mCardNameRequired;
     private boolean mCardNumberRequired;
     private boolean mExpirationRequired;
     private boolean mCvvRequired;
@@ -80,11 +82,13 @@ public class CardForm extends LinearLayout implements OnCardTypeChangedListener,
 
         setVisibility(GONE);
 
+        mCardName = (CardNameEditText) findViewById(R.id.bt_card_form_card_name);
         mCardNumber = (CardEditText) findViewById(R.id.bt_card_form_card_number);
         mExpiration = (ExpirationDateEditText) findViewById(R.id.bt_card_form_expiration);
         mCvv = (CvvEditText) findViewById(R.id.bt_card_form_cvv);
         mPostalCode = (PostalCodeEditText) findViewById(R.id.bt_card_form_postal_code);
 
+        setListeners(mCardName);
         setListeners(mCardNumber);
         setListeners(mExpiration);
         setListeners(mCvv);
@@ -95,10 +99,11 @@ public class CardForm extends LinearLayout implements OnCardTypeChangedListener,
 
     /**
      * Set the required fields for the {@link com.braintreepayments.cardform.view.CardForm}.
-     * If {@link #setRequiredFields(android.app.Activity, boolean, boolean, boolean, boolean, String)}
+     * If {@link #setRequiredFields(android.app.Activity, boolean,boolean, boolean, boolean, boolean, String)}
      * is not called, the form will not be visible.
      *
      * @param activity Used to set {@link android.view.WindowManager.LayoutParams#FLAG_SECURE} to prevent screenshots
+     * @param cardNameRequired {@code true} to show and require a credit card name, {@code false} otherwise
      * @param cardNumberRequired {@code true} to show and require a credit card number, {@code false} otherwise
      * @param expirationRequired {@code true} to show and require an expiration date, {@code false} otherwise
      * @param cvvRequired {@code true} to show and require a cvv, {@code false} otherwise
@@ -106,22 +111,45 @@ public class CardForm extends LinearLayout implements OnCardTypeChangedListener,
      * @param imeActionLabel the {@link java.lang.String} to display to the user to submit the form
      *   from the keyboard
      */
-    public void setRequiredFields(Activity activity, boolean cardNumberRequired, boolean expirationRequired,
-                                  boolean cvvRequired, boolean postalCodeRequired, String imeActionLabel) {
+    public void setRequiredFields(Activity activity, boolean cardNameRequired, boolean cardNumberRequired,
+                                  boolean expirationRequired,boolean cvvRequired, boolean postalCodeRequired,
+                                  String imeActionLabel) {
         if (SDK_INT >= ICE_CREAM_SANDWICH) {
             activity.getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE,
                     WindowManager.LayoutParams.FLAG_SECURE);
         }
 
+        mCardNameRequired = cardNameRequired;
         mCardNumberRequired = cardNumberRequired;
         mExpirationRequired = expirationRequired;
         mCvvRequired = cvvRequired;
         mPostalCodeRequired = postalCodeRequired;
 
+        resetField(mCardName);
         resetField(mCardNumber);
         resetField(mExpiration);
         resetField(mCvv);
         resetField(mPostalCode);
+
+        if (mCardNameRequired) {
+            mCardName.setVisibility(View.VISIBLE);
+
+            if (mCardNumberRequired) {
+                mCardName.setNextFocusDownId(mCardNumber.getId());
+            }else if (mExpirationRequired) {
+                mCardName.setNextFocusDownId(mExpiration.getId());
+            } else if (mCvvRequired) {
+                mCardName.setNextFocusDownId(mCvv.getId());
+            } else if (mPostalCodeRequired) {
+                mCardName.setNextFocusDownId(mPostalCode.getId());
+            }
+
+            if (mCardNumberRequired || mExpirationRequired || mCvvRequired || mPostalCodeRequired) {
+                mCardName.setImeOptions(EditorInfo.IME_ACTION_NEXT);
+            } else {
+                setIMEOptionsForLastEditTestField(mCardName, imeActionLabel);
+            }
+        }
 
         if (mCardNumberRequired) {
             mCardNumber.setVisibility(View.VISIBLE);
@@ -207,6 +235,11 @@ public class CardForm extends LinearLayout implements OnCardTypeChangedListener,
         if (data != null && data.hasExtra(CardIOActivity.EXTRA_SCAN_RESULT)) {
             CreditCard scanResult = data.getParcelableExtra(CardIOActivity.EXTRA_SCAN_RESULT);
 
+            if(mCardNameRequired){
+                mCardName.setText(scanResult.cardholderName);
+                mCardName.focusNextView();
+            }
+
             if (mCardNumberRequired) {
                 mCardNumber.setText(scanResult.cardNumber);
                 mCardNumber.focusNextView();
@@ -289,6 +322,7 @@ public class CardForm extends LinearLayout implements OnCardTypeChangedListener,
      * required fields
      */
     public void setEnabled(boolean enabled) {
+        mCardName.setEnabled(enabled);
         mCardNumber.setEnabled(enabled);
         mExpiration.setEnabled(enabled);
         mCvv.setEnabled(enabled);
@@ -300,6 +334,10 @@ public class CardForm extends LinearLayout implements OnCardTypeChangedListener,
      */
     public boolean isValid() {
         boolean valid = true;
+
+        if (mCardNameRequired){
+            valid = valid && mCardName.isValid();
+        }
         if (mCardNumberRequired) {
             valid = valid && mCardNumber.isValid();
         }
@@ -319,6 +357,9 @@ public class CardForm extends LinearLayout implements OnCardTypeChangedListener,
      * Validate all required fields and mark invalid fields with an error indicator
      */
     public void validate() {
+        if (mCardNameRequired){
+            mCardName.validate();
+        }
         if (mCardNumberRequired) {
             mCardNumber.validate();
         }
@@ -330,6 +371,16 @@ public class CardForm extends LinearLayout implements OnCardTypeChangedListener,
         }
         if (mPostalCodeRequired) {
             mPostalCode.validate();
+        }
+    }
+
+    /**
+     * Set visual indicator on card name to indicate error
+     */
+    public void setCardNameError() {
+        if (mCardNameRequired) {
+            mCardName.setError(true);
+            requestEditTextFocus(mCardName);
         }
     }
 
@@ -392,6 +443,13 @@ public class CardForm extends LinearLayout implements OnCardTypeChangedListener,
      */
     public void closeSoftKeyboard() {
         mCardNumber.closeSoftKeyboard();
+    }
+
+    /**
+     * @return the text in the card number field
+     */
+    public String getCardName() {
+        return mCardName.getText().toString();
     }
 
     /**

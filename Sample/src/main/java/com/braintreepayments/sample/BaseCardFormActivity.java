@@ -19,7 +19,7 @@ public class BaseCardFormActivity extends Activity implements OnCardFormSubmitLi
         setContentView(R.layout.card_form);
 
         mCardForm = (CardForm) findViewById(R.id.card_form);
-        mCardForm.setRequiredFields(this, true, true, true, true, getString(R.string.purchase));
+        mCardForm.setRequiredFields(this, true,true, true, true, true, getString(R.string.purchase));
         mCardForm.setOnCardFormSubmitListener(this);
     }
 
