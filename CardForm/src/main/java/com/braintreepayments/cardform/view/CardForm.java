@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build.VERSION_CODES;
+import android.support.design.widget.TextInputLayout;
 import android.telephony.PhoneNumberUtils;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -173,7 +174,7 @@ public class CardForm extends LinearLayout implements OnCardTypeChangedListener,
         resetField(mMobileNumber);
 
         if (mCardNumberRequired) {
-            mCardNumber.setVisibility(View.VISIBLE);
+            setFieldVisibility(mCardNumber, View.VISIBLE);
 
             if (mExpirationRequired) {
                 mCardNumber.setNextFocusDownId(mExpiration.getId());
@@ -194,7 +195,7 @@ public class CardForm extends LinearLayout implements OnCardTypeChangedListener,
 
         mExpiration.setActivity(activity);
         if (mExpirationRequired) {
-            mExpiration.setVisibility(View.VISIBLE);
+            setFieldVisibility(mExpiration, View.VISIBLE);
 
             if (mCvvRequired) {
                 mExpiration.setNextFocusDownId(mCvv.getId());
@@ -212,7 +213,7 @@ public class CardForm extends LinearLayout implements OnCardTypeChangedListener,
         }
 
         if (mCvvRequired) {
-            mCvv.setVisibility(View.VISIBLE);
+            setFieldVisibility(mCvv, View.VISIBLE);
 
             if (mPostalCodeRequired) {
                 mCvv.setNextFocusDownId(mPostalCode.getId());
@@ -228,7 +229,7 @@ public class CardForm extends LinearLayout implements OnCardTypeChangedListener,
         }
 
         if (mPostalCodeRequired) {
-            mPostalCode.setVisibility(View.VISIBLE);
+            setFieldVisibility(mPostalCode, View.VISIBLE);
 
             if (mMobileNumberRequired) {
                 mPostalCode.setNextFocusDownId(mMobileNumber.getId());
@@ -239,7 +240,7 @@ public class CardForm extends LinearLayout implements OnCardTypeChangedListener,
         }
 
         if (mMobileNumberRequired) {
-            mMobileNumber.setVisibility(View.VISIBLE);
+            setFieldVisibility(mMobileNumber, View.VISIBLE);
             setIMEOptionsForLastEditTestField(mMobileNumber, mActionLabel);
         }
 
@@ -295,11 +296,18 @@ public class CardForm extends LinearLayout implements OnCardTypeChangedListener,
     }
 
     private void resetField(EditText editText) {
-        editText.setVisibility(View.GONE);
+        setFieldVisibility(editText, View.GONE);
         editText.setNextFocusDownId(NO_ID);
         editText.setImeOptions(EditorInfo.IME_ACTION_NONE);
         editText.setImeActionLabel(null, EditorInfo.IME_ACTION_NONE);
         editText.setOnEditorActionListener(null);
+    }
+
+    private void setFieldVisibility(EditText editText, int visibility) {
+        editText.setVisibility(visibility);
+        if (editText.getParent() instanceof TextInputLayout) {
+            ((TextInputLayout) editText.getParent()).setVisibility(visibility);
+        }
     }
 
     private void setIMEOptionsForLastEditTestField(EditText editText, String imeActionLabel) {
