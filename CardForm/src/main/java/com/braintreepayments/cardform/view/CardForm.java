@@ -100,7 +100,7 @@ public class CardForm extends LinearLayout implements OnCardTypeChangedListener,
     }
 
     /**
-     * @param required {@code true} to show and require a credit card number, {@code false} otherwise
+     * @param required {@code true} to show and require a credit card number, {@code false} otherwise. Defaults to {@code false}.
      * @return {@link CardForm} for method chaining
      */
     public CardForm cardRequired(boolean required) {
@@ -109,7 +109,7 @@ public class CardForm extends LinearLayout implements OnCardTypeChangedListener,
     }
 
     /**
-     * @param required {@code true} to show and require an expiration date, {@code false} otherwise
+     * @param required {@code true} to show and require an expiration date, {@code false} otherwise. Defaults to {@code false}.
      * @return {@link CardForm} for method chaining
      */
     public CardForm expirationRequired(boolean required) {
@@ -118,7 +118,7 @@ public class CardForm extends LinearLayout implements OnCardTypeChangedListener,
     }
 
     /**
-     * @param required {@code true} to show and require a cvv, {@code false} otherwise
+     * @param required {@code true} to show and require a cvv, {@code false} otherwise. Defaults to {@code false}.
      * @return {@link CardForm} for method chaining
      */
     public CardForm cvvRequired(boolean required) {
@@ -127,7 +127,7 @@ public class CardForm extends LinearLayout implements OnCardTypeChangedListener,
     }
 
     /**
-     * @param required {@code true} to show and require a postal code, {@code false} otherwise
+     * @param required {@code true} to show and require a postal code, {@code false} otherwise. Defaults to {@code false}.
      * @return {@link CardForm} for method chaining
      */
     public CardForm postalCodeRequired(boolean required) {
@@ -136,7 +136,7 @@ public class CardForm extends LinearLayout implements OnCardTypeChangedListener,
     }
 
     /**
-     * @param required {@code true} to show and require a mobile number, {@code false} otherwise
+     * @param required {@code true} to show and require a mobile number, {@code false} otherwise. Defaults to {@code false}.
      * @return {@link CardForm} for method chaining
      */
     public CardForm mobileNumberRequired(boolean required) {
