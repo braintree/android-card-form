@@ -11,6 +11,11 @@ android {
         versionCode 1
         versionName '1.0.0'
     }
+
+    lintOptions {
+        textReport true
+        textOutput 'stdout'
+    }
 }
 
 dependencies {

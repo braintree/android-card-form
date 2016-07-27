@@ -24,6 +24,11 @@ android {
         }
     }
 
+    lintOptions {
+        textReport true
+        textOutput 'stdout'
+    }
+
     resourcePrefix 'bt_'
 }
 
