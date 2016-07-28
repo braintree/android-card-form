@@ -150,8 +150,6 @@ public class CardFormTest {
 
         assertEquals(EditorInfo.IME_ACTION_GO,
                 ((TextView) mCardForm.findViewById(R.id.bt_card_form_card_number)).getImeOptions());
-        assertEquals(EditorInfo.IME_ACTION_NONE,
-                ((TextView) mCardForm.findViewById(R.id.bt_card_form_expiration)).getImeOptions());
     }
 
     @Test
@@ -188,8 +186,6 @@ public class CardFormTest {
 
         assertEquals(EditorInfo.IME_ACTION_GO,
                 ((TextView) mCardForm.findViewById(R.id.bt_card_form_expiration)).getImeOptions());
-        assertEquals(EditorInfo.IME_ACTION_NONE,
-                ((TextView) mCardForm.findViewById(R.id.bt_card_form_cvv)).getImeOptions());
     }
 
     @Test
@@ -211,8 +207,6 @@ public class CardFormTest {
                 ((TextView) mCardForm.findViewById(R.id.bt_card_form_expiration)).getImeOptions());
         assertEquals(EditorInfo.IME_ACTION_GO,
                 ((TextView) mCardForm.findViewById(R.id.bt_card_form_cvv)).getImeOptions());
-        assertEquals(EditorInfo.IME_ACTION_NONE,
-                ((TextView) mCardForm.findViewById(R.id.bt_card_form_postal_code)).getImeOptions());
     }
 
     @Test
@@ -234,8 +228,6 @@ public class CardFormTest {
                 ((TextView) mCardForm.findViewById(R.id.bt_card_form_expiration)).getImeOptions());
         assertEquals(EditorInfo.IME_ACTION_GO,
                 ((TextView) mCardForm.findViewById(R.id.bt_card_form_postal_code)).getImeOptions());
-        assertEquals(EditorInfo.IME_ACTION_NONE,
-                ((TextView) mCardForm.findViewById(R.id.bt_card_form_cvv)).getImeOptions());
     }
 
     @Test

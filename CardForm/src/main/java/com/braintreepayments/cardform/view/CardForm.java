@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build.VERSION_CODES;
+import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
 import android.telephony.PhoneNumberUtils;
 import android.text.Editable;
@@ -29,6 +30,8 @@ import com.braintreepayments.cardform.OnCardFormValidListener;
 import com.braintreepayments.cardform.R;
 import com.braintreepayments.cardform.utils.CardType;
 import com.braintreepayments.cardform.view.CardEditText.OnCardTypeChangedListener;
+
+import java.util.ArrayList;
 
 import io.card.payment.CardIOActivity;
 import io.card.payment.CreditCard;
@@ -81,9 +84,10 @@ public class CardForm extends LinearLayout implements OnCardTypeChangedListener,
     }
 
     private void init() {
-        inflate(getContext(), R.layout.bt_card_form_fields, this);
-
         setVisibility(GONE);
+        setOrientation(VERTICAL);
+
+        inflate(getContext(), R.layout.bt_card_form_fields, this);
 
         mCardNumber = (CardEditText) findViewById(R.id.bt_card_form_card_number);
         mExpiration = (ExpirationDateEditText) findViewById(R.id.bt_card_form_expiration);
@@ -167,81 +171,42 @@ public class CardForm extends LinearLayout implements OnCardTypeChangedListener,
                     WindowManager.LayoutParams.FLAG_SECURE);
         }
 
-        resetField(mCardNumber);
-        resetField(mExpiration);
-        resetField(mCvv);
-        resetField(mPostalCode);
-        resetField(mMobileNumber);
-
-        if (mCardNumberRequired) {
-            setFieldVisibility(mCardNumber, View.VISIBLE);
-
-            if (mExpirationRequired) {
-                mCardNumber.setNextFocusDownId(mExpiration.getId());
-            } else if (mCvvRequired) {
-                mCardNumber.setNextFocusDownId(mCvv.getId());
-            } else if (mPostalCodeRequired) {
-                mCardNumber.setNextFocusDownId(mPostalCode.getId());
-            } else if (mMobileNumberRequired) {
-                mCardNumber.setNextFocusDownId(mMobileNumber.getId());
-            }
-
-            if (mExpirationRequired || mCvvRequired || mPostalCodeRequired || mMobileNumberRequired) {
-                mCardNumber.setImeOptions(EditorInfo.IME_ACTION_NEXT);
-            } else {
-                setIMEOptionsForLastEditTestField(mCardNumber, mActionLabel);
-            }
-        }
-
         mExpiration.setActivity(activity);
-        if (mExpirationRequired) {
-            setFieldVisibility(mExpiration, View.VISIBLE);
 
-            if (mCvvRequired) {
-                mExpiration.setNextFocusDownId(mCvv.getId());
-            } else if (mPostalCodeRequired) {
-                mExpiration.setNextFocusDownId(mPostalCode.getId());
-            } else if (mMobileNumberRequired) {
-                mExpiration.setNextFocusDownId(mMobileNumber.getId());
+        setFieldVisibility(mCardNumber, mCardNumberRequired);
+        setFieldVisibility(mExpiration, mExpirationRequired);
+        setFieldVisibility(mCvv, mCvvRequired);
+        setFieldVisibility(mPostalCode, mPostalCodeRequired);
+        setFieldVisibility(mMobileNumber, mMobileNumberRequired);
+
+        ArrayList<TextInputEditText> visibleEditTexts = new ArrayList<>();
+        View child;
+        int children = getChildCount();
+        for (int i = 0; i < children; i++) {
+            child = getChildAt(i);
+            if (child instanceof TextInputLayout) {
+                child = ((TextInputLayout) child).getChildAt(0);
             }
 
-            if (mCvvRequired || mPostalCodeRequired || mMobileNumberRequired) {
-                mExpiration.setImeOptions(EditorInfo.IME_ACTION_NEXT);
-            } else {
-                setIMEOptionsForLastEditTestField(mExpiration, mActionLabel);
-            }
-        }
-
-        if (mCvvRequired) {
-            setFieldVisibility(mCvv, View.VISIBLE);
-
-            if (mPostalCodeRequired) {
-                mCvv.setNextFocusDownId(mPostalCode.getId());
-            } else if (mMobileNumberRequired) {
-                mCvv.setNextFocusDownId(mMobileNumber.getId());
-            }
-
-            if (mPostalCodeRequired || mMobileNumberRequired) {
-                mCvv.setImeOptions(EditorInfo.IME_ACTION_NEXT);
-            } else {
-                setIMEOptionsForLastEditTestField(mCvv, mActionLabel);
+            if (child instanceof TextInputEditText && child.getVisibility() == VISIBLE) {
+                visibleEditTexts.add((TextInputEditText) child);
             }
         }
 
-        if (mPostalCodeRequired) {
-            setFieldVisibility(mPostalCode, View.VISIBLE);
-
-            if (mMobileNumberRequired) {
-                mPostalCode.setNextFocusDownId(mMobileNumber.getId());
-                mPostalCode.setImeOptions(EditorInfo.IME_ACTION_NEXT);
+        TextInputEditText editText;
+        for (int i = 0; i < visibleEditTexts.size(); i++) {
+            editText = visibleEditTexts.get(i);
+            if (i == visibleEditTexts.size() - 1) {
+                editText.setNextFocusDownId(NO_ID);
+                editText.setImeOptions(EditorInfo.IME_ACTION_GO);
+                editText.setImeActionLabel(mActionLabel, EditorInfo.IME_ACTION_GO);
+                editText.setOnEditorActionListener(this);
             } else {
-                setIMEOptionsForLastEditTestField(mPostalCode, mActionLabel);
+                editText.setNextFocusDownId(visibleEditTexts.get(i + 1).getId());
+                editText.setImeOptions(EditorInfo.IME_ACTION_NEXT);
+                editText.setImeActionLabel(null, EditorInfo.IME_ACTION_NONE);
+                editText.setOnEditorActionListener(null);
             }
-        }
-
-        if (mMobileNumberRequired) {
-            setFieldVisibility(mMobileNumber, View.VISIBLE);
-            setIMEOptionsForLastEditTestField(mMobileNumber, mActionLabel);
         }
 
         setVisibility(VISIBLE);
@@ -295,25 +260,11 @@ public class CardForm extends LinearLayout implements OnCardTypeChangedListener,
         editText.addTextChangedListener(this);
     }
 
-    private void resetField(EditText editText) {
-        setFieldVisibility(editText, View.GONE);
-        editText.setNextFocusDownId(NO_ID);
-        editText.setImeOptions(EditorInfo.IME_ACTION_NONE);
-        editText.setImeActionLabel(null, EditorInfo.IME_ACTION_NONE);
-        editText.setOnEditorActionListener(null);
-    }
-
-    private void setFieldVisibility(EditText editText, int visibility) {
-        editText.setVisibility(visibility);
+    private void setFieldVisibility(EditText editText, boolean visible) {
+        editText.setVisibility(visible ? VISIBLE : GONE);
         if (editText.getParent() instanceof TextInputLayout) {
-            ((TextInputLayout) editText.getParent()).setVisibility(visibility);
+            ((TextInputLayout) editText.getParent()).setVisibility(visible ? VISIBLE : GONE);
         }
-    }
-
-    private void setIMEOptionsForLastEditTestField(EditText editText, String imeActionLabel) {
-        editText.setImeOptions(EditorInfo.IME_ACTION_GO);
-        editText.setImeActionLabel(imeActionLabel, EditorInfo.IME_ACTION_GO);
-        editText.setOnEditorActionListener(this);
     }
 
     /**
