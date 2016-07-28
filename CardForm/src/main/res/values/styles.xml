@@ -6,12 +6,13 @@
 
     <style name="bt_text_input_layout">
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">110dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">12dp</item>
     </style>
 
     <style name="bt_card_form_field" parent="bt_base_textview">
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_height">60dp</item>
         <item name="android:paddingTop">@dimen/bt_margin</item>
         <item name="android:textColorHint">@color/bt_light_gray</item>
         <item name="android:textCursorDrawable" tools:ignore="NewApi">@null</item>
