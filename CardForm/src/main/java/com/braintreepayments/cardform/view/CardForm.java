@@ -32,6 +32,7 @@ import com.braintreepayments.cardform.utils.CardType;
 import com.braintreepayments.cardform.view.CardEditText.OnCardTypeChangedListener;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import io.card.payment.CardIOActivity;
 import io.card.payment.CreditCard;
@@ -41,6 +42,8 @@ import static android.os.Build.VERSION_CODES.ICE_CREAM_SANDWICH;
 
 public class CardForm extends LinearLayout implements OnCardTypeChangedListener, OnFocusChangeListener, OnClickListener,
         OnEditorActionListener, TextWatcher {
+
+    private List<ErrorEditText> mVisibleEditTexts;
 
     private CardEditText mCardNumber;
     private ExpirationDateEditText mExpiration;
@@ -94,6 +97,8 @@ public class CardForm extends LinearLayout implements OnCardTypeChangedListener,
         mCvv = (CvvEditText) findViewById(R.id.bt_card_form_cvv);
         mPostalCode = (PostalCodeEditText) findViewById(R.id.bt_card_form_postal_code);
         mMobileNumber = (MobileNumberEditText) findViewById(R.id.bt_card_form_mobile_number);
+
+        mVisibleEditTexts = new ArrayList<>();
 
         setListeners(mCardNumber);
         setListeners(mExpiration);
@@ -179,30 +184,16 @@ public class CardForm extends LinearLayout implements OnCardTypeChangedListener,
         setFieldVisibility(mPostalCode, mPostalCodeRequired);
         setFieldVisibility(mMobileNumber, mMobileNumberRequired);
 
-        ArrayList<TextInputEditText> visibleEditTexts = new ArrayList<>();
-        View child;
-        int children = getChildCount();
-        for (int i = 0; i < children; i++) {
-            child = getChildAt(i);
-            if (child instanceof TextInputLayout) {
-                child = ((TextInputLayout) child).getChildAt(0);
-            }
-
-            if (child instanceof TextInputEditText && child.getVisibility() == VISIBLE) {
-                visibleEditTexts.add((TextInputEditText) child);
-            }
-        }
-
         TextInputEditText editText;
-        for (int i = 0; i < visibleEditTexts.size(); i++) {
-            editText = visibleEditTexts.get(i);
-            if (i == visibleEditTexts.size() - 1) {
+        for (int i = 0; i < mVisibleEditTexts.size(); i++) {
+            editText = mVisibleEditTexts.get(i);
+            if (i == mVisibleEditTexts.size() - 1) {
                 editText.setNextFocusDownId(NO_ID);
                 editText.setImeOptions(EditorInfo.IME_ACTION_GO);
                 editText.setImeActionLabel(mActionLabel, EditorInfo.IME_ACTION_GO);
                 editText.setOnEditorActionListener(this);
             } else {
-                editText.setNextFocusDownId(visibleEditTexts.get(i + 1).getId());
+                editText.setNextFocusDownId(mVisibleEditTexts.get(i + 1).getId());
                 editText.setImeOptions(EditorInfo.IME_ACTION_NEXT);
                 editText.setImeActionLabel(null, EditorInfo.IME_ACTION_NONE);
                 editText.setOnEditorActionListener(null);
@@ -260,10 +251,16 @@ public class CardForm extends LinearLayout implements OnCardTypeChangedListener,
         editText.addTextChangedListener(this);
     }
 
-    private void setFieldVisibility(EditText editText, boolean visible) {
+    private void setFieldVisibility(ErrorEditText editText, boolean visible) {
         editText.setVisibility(visible ? VISIBLE : GONE);
         if (editText.getParent() instanceof TextInputLayout) {
             ((TextInputLayout) editText.getParent()).setVisibility(visible ? VISIBLE : GONE);
+        }
+
+        if (visible) {
+            mVisibleEditTexts.add(editText);
+        } else {
+            mVisibleEditTexts.remove(editText);
         }
     }
 
