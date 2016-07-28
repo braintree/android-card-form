@@ -109,6 +109,7 @@ public class ErrorEditText extends TextInputEditText {
         mError = !TextUtils.isEmpty(errorMessage);
 
         if (getParent() instanceof TextInputLayout) {
+            ((TextInputLayout) getParent()).setErrorEnabled(!TextUtils.isEmpty(errorMessage));
             ((TextInputLayout) getParent()).setError(errorMessage);
         }
 
