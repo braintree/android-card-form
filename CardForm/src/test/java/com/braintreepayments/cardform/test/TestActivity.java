@@ -12,6 +12,8 @@ public class TestActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        setTheme(android.support.v7.appcompat.R.style.Theme_AppCompat);
+
         CardForm cardForm = new CardForm(this);
         cardForm.setId(android.R.id.custom);
         ((FrameLayout) findViewById(android.R.id.content)).addView(cardForm);

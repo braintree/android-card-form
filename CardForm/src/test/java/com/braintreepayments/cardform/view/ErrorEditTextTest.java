@@ -3,10 +3,12 @@ package com.braintreepayments.cardform.view;
 import android.support.design.widget.TextInputLayout;
 
 import com.braintreepayments.cardform.R;
+import com.braintreepayments.cardform.test.TestActivity;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.RuntimeEnvironment;
 
@@ -27,12 +29,12 @@ public class ErrorEditTextTest {
 
     @Test
     public void setFieldHint_setsHintWhenParentViewIsATextInputLayout() {
-        TextInputLayout parent = new TextInputLayout(RuntimeEnvironment.application);
-        parent.addView(mView);
+        mView = (CardEditText) Robolectric.setupActivity(TestActivity.class)
+                .findViewById(R.id.bt_card_form_card_number);
 
         mView.setFieldHint(R.string.bt_form_hint_cvv);
 
-        assertEquals(parent.getHint(), "CVV");
+        assertEquals(((TextInputLayout) mView.getParent()).getHint(), "CVV");
         assertNull(mView.getHint());
     }
 
