@@ -31,7 +31,7 @@ public class MobileNumberEditText extends ErrorEditText {
 
     private void init() {
         setInputType(InputType.TYPE_CLASS_PHONE);
-        InputFilter[] filters = { new LengthFilter(15) };
+        InputFilter[] filters = { new LengthFilter(14) };
         setFilters(filters);
         addTextChangedListener(new PhoneNumberFormattingTextWatcher());
     }

@@ -18,7 +18,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:weightSum="2">
+        android:weightSum="2"
+        android:baselineAligned="false">
 
         <android.support.design.widget.TextInputLayout
             style="@style/bt_text_input_layout"
@@ -54,14 +55,35 @@
 
     </android.support.design.widget.TextInputLayout>
 
-    <android.support.design.widget.TextInputLayout
-        style="@style/bt_text_input_layout">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="3"
+        android:baselineAligned="false">
 
-        <com.braintreepayments.cardform.view.MobileNumberEditText
-            style="@style/bt_card_form_field"
-            android:id="@+id/bt_card_form_mobile_number"
-            android:hint="@string/bt_form_hint_mobile_number"/>
+        <android.support.design.widget.TextInputLayout
+            style="@style/bt_text_input_layout"
+            android:layout_weight="2">
 
-    </android.support.design.widget.TextInputLayout>
+            <com.braintreepayments.cardform.view.CountryCodeEditText
+                style="@style/bt_card_form_field"
+                android:id="@+id/bt_card_form_country_code"
+                android:hint="@string/bt_form_hint_country_code"/>
+
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            style="@style/bt_text_input_layout"
+            android:layout_weight="1">
+
+            <com.braintreepayments.cardform.view.MobileNumberEditText
+                style="@style/bt_card_form_field"
+                android:id="@+id/bt_card_form_mobile_number"
+                android:hint="@string/bt_form_hint_mobile_number"/>
+
+        </android.support.design.widget.TextInputLayout>
+
+    </LinearLayout>
 
 </merge>

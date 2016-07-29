@@ -112,9 +112,10 @@ public class CardFormTest {
     }
 
     @Test
-    public void mobileNumberIsShownIfRequired() {
+    public void countryCodeAndMobileNumberAreShownIfRequired() {
         setRequiredFields(false, false, false, false, true);
 
+        assertEquals(View.VISIBLE, mCardForm.findViewById(R.id.bt_card_form_country_code).getVisibility());
         assertEquals(View.VISIBLE, mCardForm.findViewById(R.id.bt_card_form_mobile_number).getVisibility());
     }
 
@@ -125,6 +126,7 @@ public class CardFormTest {
         assertEquals(View.GONE, mCardForm.findViewById(R.id.bt_card_form_expiration).getVisibility());
         assertEquals(View.GONE, mCardForm.findViewById(R.id.bt_card_form_cvv).getVisibility());
         assertEquals(View.GONE, mCardForm.findViewById(R.id.bt_card_form_postal_code).getVisibility());
+        assertEquals(View.GONE, mCardForm.findViewById(R.id.bt_card_form_country_code).getVisibility());
         assertEquals(View.GONE, mCardForm.findViewById(R.id.bt_card_form_mobile_number).getVisibility());
 
         setRequiredFields(true, true, true, true, true);
@@ -132,6 +134,7 @@ public class CardFormTest {
         assertEquals(View.VISIBLE, mCardForm.findViewById(R.id.bt_card_form_expiration).getVisibility());
         assertEquals(View.VISIBLE, mCardForm.findViewById(R.id.bt_card_form_cvv).getVisibility());
         assertEquals(View.VISIBLE, mCardForm.findViewById(R.id.bt_card_form_postal_code).getVisibility());
+        assertEquals(View.VISIBLE, mCardForm.findViewById(R.id.bt_card_form_country_code).getVisibility());
         assertEquals(View.VISIBLE, mCardForm.findViewById(R.id.bt_card_form_mobile_number).getVisibility());
     }
 
@@ -256,6 +259,14 @@ public class CardFormTest {
     }
 
     @Test
+    public void setsIMEActionAsNextForCountryCode() {
+        setRequiredFields(true, true, true, true, true);
+
+        assertEquals(EditorInfo.IME_ACTION_NEXT,
+                ((TextView) mCardForm.findViewById(R.id.bt_card_form_country_code)).getImeOptions());
+    }
+
+    @Test
     public void setsIMEActionAsGoForMobileNumber() {
         setRequiredFields(true, true, true, true, true);
 
@@ -324,19 +335,19 @@ public class CardFormTest {
     }
 
     @Test
-    public void setsFocusDownIdForCardNumberIfMobileNumberIsNextField() {
+    public void setsFocusDownIdForCardNumberIfCountryCodeIsNextField() {
         setRequiredFields(true, false, false, false, true);
 
-        assertEquals(R.id.bt_card_form_mobile_number,
+        assertEquals(R.id.bt_card_form_country_code,
                 mCardForm.findViewById(R.id.bt_card_form_card_number).getNextFocusDownId());
     }
 
     @Test
-    public void repeatedCallsToSetupSetsFocusDownIdForCardNumberIfMobileNumberIsNextField() {
+    public void repeatedCallsToSetupSetsFocusDownIdForCardNumberIfCountryCodeIsNextField() {
         setRequiredFields(true, true, true, true, true);
         setRequiredFields(true, false, false, false, true);
 
-        assertEquals(R.id.bt_card_form_mobile_number,
+        assertEquals(R.id.bt_card_form_country_code,
                 mCardForm.findViewById(R.id.bt_card_form_card_number).getNextFocusDownId());
     }
 
@@ -394,19 +405,19 @@ public class CardFormTest {
     }
 
     @Test
-    public void setsFocusDownIdForExpirationIfMobileNumberIsNextField() {
+    public void setsFocusDownIdForExpirationIfCountryCodeIsNextField() {
         setRequiredFields(true, true, false, false, true);
 
-        assertEquals(R.id.bt_card_form_mobile_number,
+        assertEquals(R.id.bt_card_form_country_code,
                 mCardForm.findViewById(R.id.bt_card_form_expiration).getNextFocusDownId());
     }
 
     @Test
-    public void repeatedCallsToSetupSetsFocusDownIdForExpirationIfMobileIsNextField() {
+    public void repeatedCallsToSetupSetsFocusDownIdForExpirationIfCountryCodeIsNextField() {
         setRequiredFields(true, true, true, true, true);
         setRequiredFields(true, true, false, false, true);
 
-        assertEquals(R.id.bt_card_form_mobile_number,
+        assertEquals(R.id.bt_card_form_country_code,
                 mCardForm.findViewById(R.id.bt_card_form_expiration).getNextFocusDownId());
     }
 
@@ -447,19 +458,19 @@ public class CardFormTest {
     }
 
     @Test
-    public void setsFocusDownIdForCvvIfMobileNumberIsNextField() {
+    public void setsFocusDownIdForCvvIfCountryCodeIsNextField() {
         setRequiredFields(true, true, true, false, true);
 
-        assertEquals(R.id.bt_card_form_mobile_number,
+        assertEquals(R.id.bt_card_form_country_code,
                 mCardForm.findViewById(R.id.bt_card_form_cvv).getNextFocusDownId());
     }
 
     @Test
-    public void repeatedCallsToSetupSetsFocusDownIdForCvvIfMobileNumberIsNextField() {
+    public void repeatedCallsToSetupSetsFocusDownIdForCvvIfCountryCodeIsNextField() {
         setRequiredFields(true, true, true, true, false);
         setRequiredFields(true, true, true, false, true);
 
-        assertEquals(R.id.bt_card_form_mobile_number,
+        assertEquals(R.id.bt_card_form_country_code,
                 mCardForm.findViewById(R.id.bt_card_form_cvv).getNextFocusDownId());
     }
 
@@ -772,6 +783,41 @@ public class CardFormTest {
     }
 
     @Test
+    public void setCountryCodeError_setsError() {
+        setRequiredFields(false, false, false, false, true);
+
+        assertFalse(((ErrorEditText) mCardForm.findViewById(R.id.bt_card_form_country_code)).isError());
+        mCardForm.setCountryCodeError("Error");
+        assertTrue(((ErrorEditText) mCardForm.findViewById(R.id.bt_card_form_country_code)).isError());
+        assertTrue((mCardForm.findViewById(R.id.bt_card_form_country_code)).isFocused());
+    }
+
+    @Test
+    public void setCountryCodeError_doesNotRequestFocusIfCardNumberExpirationCvvOrPostalIsAlreadyFocused() {
+        setRequiredFields(true, true, true, true, true);
+
+        mCardForm.findViewById(R.id.bt_card_form_card_number).requestFocus();
+        mCardForm.setMobileNumberError("Error");
+        assertTrue(mCardForm.findViewById(R.id.bt_card_form_card_number).isFocused());
+        assertFalse(mCardForm.findViewById(R.id.bt_card_form_country_code).isFocused());
+
+        mCardForm.findViewById(R.id.bt_card_form_expiration).requestFocus();
+        mCardForm.setMobileNumberError("Error");
+        assertTrue(mCardForm.findViewById(R.id.bt_card_form_expiration).isFocused());
+        assertFalse(mCardForm.findViewById(R.id.bt_card_form_country_code).isFocused());
+
+        mCardForm.findViewById(R.id.bt_card_form_cvv).requestFocus();
+        mCardForm.setMobileNumberError("Error");
+        assertTrue(mCardForm.findViewById(R.id.bt_card_form_cvv).isFocused());
+        assertFalse(mCardForm.findViewById(R.id.bt_card_form_country_code).isFocused());
+
+        mCardForm.findViewById(R.id.bt_card_form_postal_code).requestFocus();
+        mCardForm.setMobileNumberError("Error");
+        assertTrue(mCardForm.findViewById(R.id.bt_card_form_postal_code).isFocused());
+        assertFalse(mCardForm.findViewById(R.id.bt_card_form_country_code).isFocused());
+    }
+
+    @Test
     public void setMobileNumberError_setsError() {
         setRequiredFields(false, false, false, false, true);
 
@@ -782,7 +828,7 @@ public class CardFormTest {
     }
 
     @Test
-    public void setMobileNumberError_doesNotRequestFocusIfCardNumberExpirationCvvOrPostalIsAlreadyFocused() {
+    public void setMobileNumberError_doesNotRequestFocusIfCardNumberExpirationCvvPostalOrCountryCodeIsAlreadyFocused() {
         setRequiredFields(true, true, true, true, true);
 
         mCardForm.findViewById(R.id.bt_card_form_card_number).requestFocus();
@@ -803,6 +849,11 @@ public class CardFormTest {
         mCardForm.findViewById(R.id.bt_card_form_postal_code).requestFocus();
         mCardForm.setMobileNumberError("Error");
         assertTrue(mCardForm.findViewById(R.id.bt_card_form_postal_code).isFocused());
+        assertFalse(mCardForm.findViewById(R.id.bt_card_form_mobile_number).isFocused());
+
+        mCardForm.findViewById(R.id.bt_card_form_country_code).requestFocus();
+        mCardForm.setMobileNumberError("Error");
+        assertTrue(mCardForm.findViewById(R.id.bt_card_form_country_code).isFocused());
         assertFalse(mCardForm.findViewById(R.id.bt_card_form_mobile_number).isFocused());
     }
 

@@ -49,6 +49,7 @@ public class CardForm extends LinearLayout implements OnCardTypeChangedListener,
     private ExpirationDateEditText mExpiration;
     private CvvEditText mCvv;
     private PostalCodeEditText mPostalCode;
+    private CountryCodeEditText mCountryCode;
     private MobileNumberEditText mMobileNumber;
 
     private boolean mCardNumberRequired;
@@ -96,6 +97,7 @@ public class CardForm extends LinearLayout implements OnCardTypeChangedListener,
         mExpiration = (ExpirationDateEditText) findViewById(R.id.bt_card_form_expiration);
         mCvv = (CvvEditText) findViewById(R.id.bt_card_form_cvv);
         mPostalCode = (PostalCodeEditText) findViewById(R.id.bt_card_form_postal_code);
+        mCountryCode = (CountryCodeEditText) findViewById(R.id.bt_card_form_country_code);
         mMobileNumber = (MobileNumberEditText) findViewById(R.id.bt_card_form_mobile_number);
 
         mVisibleEditTexts = new ArrayList<>();
@@ -182,6 +184,7 @@ public class CardForm extends LinearLayout implements OnCardTypeChangedListener,
         setFieldVisibility(mExpiration, mExpirationRequired);
         setFieldVisibility(mCvv, mCvvRequired);
         setFieldVisibility(mPostalCode, mPostalCodeRequired);
+        setFieldVisibility(mCountryCode, mMobileNumberRequired);
         setFieldVisibility(mMobileNumber, mMobileNumberRequired);
 
         TextInputEditText editText;
@@ -379,6 +382,8 @@ public class CardForm extends LinearLayout implements OnCardTypeChangedListener,
 
     /**
      * Set visual indicator on card number to indicate error
+     *
+     * @param errorMessage the error message to display
      */
     public void setCardNumberError(String errorMessage) {
         if (mCardNumberRequired) {
@@ -389,11 +394,13 @@ public class CardForm extends LinearLayout implements OnCardTypeChangedListener,
 
     /**
      * Set visual indicator on expiration to indicate error
+     *
+     * @param errorMessage the error message to display
      */
     public void setExpirationError(String errorMessage) {
         if (mExpirationRequired) {
             mExpiration.setError(errorMessage);
-            if (!mCardNumberRequired || !mCardNumber.isFocused()) {
+            if (!mCardNumber.isFocused()) {
                 requestEditTextFocus(mExpiration);
             }
         }
@@ -401,12 +408,13 @@ public class CardForm extends LinearLayout implements OnCardTypeChangedListener,
 
     /**
      * Set visual indicator on cvv to indicate error
+     *
+     * @param errorMessage the error message to display
      */
     public void setCvvError(String errorMessage) {
         if (mCvvRequired) {
             mCvv.setError(errorMessage);
-            if ((!mCardNumberRequired && !mExpirationRequired) ||
-                (!mCardNumber.isFocused() && !mExpiration.isFocused())) {
+            if (!mCardNumber.isFocused() && !mExpiration.isFocused()) {
                 requestEditTextFocus(mCvv);
             }
         }
@@ -414,25 +422,41 @@ public class CardForm extends LinearLayout implements OnCardTypeChangedListener,
 
     /**
      * Set visual indicator on postal code to indicate error
+     *
+     * @param errorMessage the error message to display
      */
     public void setPostalCodeError(String errorMessage) {
         if (mPostalCodeRequired) {
             mPostalCode.setError(errorMessage);
-            if ((!mCardNumberRequired && !mExpirationRequired && !mCvvRequired) ||
-                (!mCardNumber.isFocused() && !mExpiration.isFocused() && !mCvv.isFocused())) {
+            if (!mCardNumber.isFocused() && !mExpiration.isFocused() && !mCvv.isFocused()) {
                 requestEditTextFocus(mPostalCode);
             }
         }
     }
 
     /**
+     * Set visual indicator on country code to indicate error
+     *
+     * @param errorMessage the error message to display
+     */
+    public void setCountryCodeError(String errorMessage) {
+        if (mMobileNumberRequired) {
+            mCountryCode.setError(errorMessage);
+            if (!mCardNumber.isFocused() && !mExpiration.isFocused() && !mCvv.isFocused() && !mPostalCode.isFocused()) {
+                requestEditTextFocus(mCountryCode);
+            }
+        }
+    }
+
+    /**
      * Set visual indicator on mobile number field to indicate error
+     *
+     * @param errorMessage the error message to display
      */
     public void setMobileNumberError(String errorMessage) {
         if (mMobileNumberRequired) {
             mMobileNumber.setError(errorMessage);
-            if ((!mCardNumberRequired && !mExpirationRequired && !mCvvRequired && !mPostalCodeRequired) ||
-                    (!mCardNumber.isFocused() && !mExpiration.isFocused() && !mCvv.isFocused() && !mPostalCode.isFocused())) {
+            if (!mCardNumber.isFocused() && !mExpiration.isFocused() && !mCvv.isFocused() && !mPostalCode.isFocused() && !mCountryCode.isFocused()) {
                 requestEditTextFocus(mMobileNumber);
             }
         }
@@ -486,6 +510,13 @@ public class CardForm extends LinearLayout implements OnCardTypeChangedListener,
      */
     public String getPostalCode() {
         return mPostalCode.getText().toString();
+    }
+
+    /**
+     * @return the text in the country code field
+     */
+    public String getCountryCode() {
+        return mCountryCode.getText().toString();
     }
 
     /**
