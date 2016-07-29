@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.WindowManager;
 import android.widget.Toast;
 
 import com.braintreepayments.cardform.OnCardFormSubmitListener;
@@ -39,6 +40,10 @@ public class BaseCardFormActivity extends AppCompatActivity implements OnCardFor
                 .setup(this);
         mCardForm.setOnCardFormSubmitListener(this);
         mCardForm.setOnCardTypeChangedListener(this);
+
+        // Warning: this is for development purposes only and should never be done outside of this example app.
+        // Failure to set FLAG_SECURE exposes your app to screenshots allowing other apps to steal card information.
+        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_SECURE);
     }
 
     @Override
