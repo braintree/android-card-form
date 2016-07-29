@@ -5,8 +5,6 @@ import android.content.Context;
 import android.os.Build;
 import android.text.SpannableString;
 import android.util.AttributeSet;
-import android.view.Gravity;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.braintreepayments.cardform.utils.CardType;
@@ -45,8 +43,6 @@ public class SupportedCardTypesView extends TextView {
      * @param cardTypes The {@link CardType}s to display
      */
     public void setSupportedCardTypes(CardType... cardTypes) {
-        setLayoutParams();
-
         mSupportedCardTypes = new ArrayList<>();
 
         SpannableString spannableString = new SpannableString(new String(new char[cardTypes.length]));
@@ -70,17 +66,5 @@ public class SupportedCardTypesView extends TextView {
         }
 
         setText(spannableString);
-    }
-
-    private void setLayoutParams() {
-        setTransformationMethod(null);
-
-        if (getLayoutParams() instanceof RelativeLayout.LayoutParams) {
-            RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(getLayoutParams());
-            layoutParams.addRule(RelativeLayout.CENTER_IN_PARENT, RelativeLayout.TRUE);
-            setLayoutParams(layoutParams);
-        }
-
-        setGravity(Gravity.CENTER);
     }
 }
