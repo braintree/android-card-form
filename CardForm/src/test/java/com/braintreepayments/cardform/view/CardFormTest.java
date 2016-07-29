@@ -61,6 +61,36 @@ public class CardFormTest {
     }
 
     @Test
+    public void getCardNumberEditText() {
+        assertEquals(mCardForm.findViewById(R.id.bt_card_form_card_number), mCardForm.getCardEditText());
+    }
+
+    @Test
+    public void getExpirationDateEditText() {
+        assertEquals(mCardForm.findViewById(R.id.bt_card_form_expiration), mCardForm.getExpirationDateEditText());
+    }
+
+    @Test
+    public void getCvvEditText() {
+        assertEquals(mCardForm.findViewById(R.id.bt_card_form_cvv), mCardForm.getCvvEditText());
+    }
+
+    @Test
+    public void getPostalCodeEditText() {
+        assertEquals(mCardForm.findViewById(R.id.bt_card_form_postal_code), mCardForm.getPostalCodeEditText());
+    }
+
+    @Test
+    public void getCountryCodeEditText() {
+        assertEquals(mCardForm.findViewById(R.id.bt_card_form_country_code), mCardForm.getCountryCodeEditText());
+    }
+
+    @Test
+    public void getMobileNumberEditText() {
+        assertEquals(mCardForm.findViewById(R.id.bt_card_form_mobile_number), mCardForm.getMobileNumberEditText());
+    }
+
+    @Test
     public void visibilityIsGoneBeforeSetupIsCalled() {
         assertEquals(View.GONE, mCardForm.getVisibility());
     }

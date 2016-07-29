@@ -381,6 +381,48 @@ public class CardForm extends LinearLayout implements OnCardTypeChangedListener,
     }
 
     /**
+     * @return {@link CardEditText} view in the card form
+     */
+    public CardEditText getCardEditText() {
+        return mCardNumber;
+    }
+
+    /**
+     * @return {@link ExpirationDateEditText} view in the card form
+     */
+    public ExpirationDateEditText getExpirationDateEditText() {
+        return mExpiration;
+    }
+
+    /**
+     * @return {@link CvvEditText} view in the card form
+     */
+    public CvvEditText getCvvEditText() {
+        return mCvv;
+    }
+
+    /**
+     * @return {@link PostalCodeEditText} view in the card form
+     */
+    public PostalCodeEditText getPostalCodeEditText() {
+        return mPostalCode;
+    }
+
+    /**
+     * @return {@link CountryCodeEditText} view in the card form
+     */
+    public CountryCodeEditText getCountryCodeEditText() {
+        return mCountryCode;
+    }
+
+    /**
+     * @return {@link MobileNumberEditText} view in the card form
+     */
+    public MobileNumberEditText getMobileNumberEditText() {
+        return mMobileNumber;
+    }
+
+    /**
      * Set visual indicator on card number to indicate error
      *
      * @param errorMessage the error message to display
