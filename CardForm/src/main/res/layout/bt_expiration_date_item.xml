@@ -11,4 +11,4 @@
           android:paddingEnd="?android:attr/listPreferredItemPaddingEnd"
           android:minHeight="48dp"
           android:textSize="20sp"
-          android:textStyle="bold" />
+          android:textStyle="bold"/>
