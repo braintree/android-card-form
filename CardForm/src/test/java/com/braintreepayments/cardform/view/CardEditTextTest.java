@@ -33,27 +33,27 @@ public class CardEditTextTest {
 
     @Test
     public void testVisa() {
-        helper("4", "111 1111 1111 1111", R.drawable.bt_visa, 4, 8, 12);
+        helper("4", "111 1111 1111 1111", R.drawable.bt_ic_visa, 4, 8, 12);
     }
 
     @Test
     public void testMasterCard() {
-        helper("55", "55 5555 5555 4444", R.drawable.bt_mastercard, 4, 8, 12);
+        helper("55", "55 5555 5555 4444", R.drawable.bt_ic_mastercard, 4, 8, 12);
     }
 
     @Test
     public void testDiscover() {
-        helper("6011", "1111 1111 1117", R.drawable.bt_discover, 4, 8, 12);
+        helper("6011", "1111 1111 1117", R.drawable.bt_ic_discover, 4, 8, 12);
     }
 
     @Test
     public void testAmex() {
-        helper("37", "82 822463 10005", R.drawable.bt_amex, 4, 10);
+        helper("37", "82 822463 10005", R.drawable.bt_ic_amex, 4, 10);
     }
 
     @Test
     public void testJcb() {
-        helper("35", "30 1113 3330 0000", R.drawable.bt_jcb, 4, 8, 12);
+        helper("35", "30 1113 3330 0000", R.drawable.bt_ic_jcb, 4, 8, 12);
     }
 
     @Test
@@ -63,7 +63,7 @@ public class CardEditTextTest {
 
     @Test
     public void testMaestro() {
-        helper("5018", "0000 0000 0000122", R.drawable.bt_maestro, 4, 8, 12);
+        helper("5018", "0000 0000 0000122", R.drawable.bt_ic_maestro, 4, 8, 12);
     }
 
     @Test

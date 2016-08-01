@@ -1119,19 +1119,19 @@ public class CardFormTest {
         assertIconHintIs(card, R.drawable.bt_card_highlighted);
 
         setText(card, "4");
-        assertIconHintIs(card, R.drawable.bt_visa);
+        assertIconHintIs(card, R.drawable.bt_ic_visa);
 
         setText(card, "51");
-        assertIconHintIs(card, R.drawable.bt_mastercard);
+        assertIconHintIs(card, R.drawable.bt_ic_mastercard);
 
         setText(card, "37");
-        assertIconHintIs(card, R.drawable.bt_amex);
+        assertIconHintIs(card, R.drawable.bt_ic_amex);
 
         setText(card, "35");
-        assertIconHintIs(card, R.drawable.bt_jcb);
+        assertIconHintIs(card, R.drawable.bt_ic_jcb);
 
         setText(card, "5018");
-        assertIconHintIs(card, R.drawable.bt_maestro);
+        assertIconHintIs(card, R.drawable.bt_ic_maestro);
 
         setText(card, "1234");
         assertIconHintIs(card, R.drawable.bt_card_highlighted);
