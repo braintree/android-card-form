@@ -44,7 +44,7 @@ public enum CardType {
             16, 19,
             3, R.string.bt_cvn),
     UNKNOWN("\\d*",
-            R.drawable.bt_card_highlighted,
+            R.drawable.bt_ic_unknown,
             12, 19,
             3, R.string.bt_cvv);
 
@@ -96,17 +96,6 @@ public enum CardType {
      */
     public int getFrontResource() {
         return mFrontResource;
-    }
-
-    /**
-     * @return The android resource id for the security code card image.
-     */
-    public int getSecurityCodeResource() {
-        if (this == AMEX) {
-            return R.drawable.bt_cid_highlighted;
-        } else {
-            return R.drawable.bt_cvv_highlighted;
-        }
     }
 
     /**

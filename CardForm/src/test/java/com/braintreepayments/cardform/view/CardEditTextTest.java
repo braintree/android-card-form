@@ -16,9 +16,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static com.braintreepayments.cardform.test.Assertions.assertBitmapsEqual;
+import static com.braintreepayments.cardform.test.Assertions.assertIconHintIs;
+import static com.braintreepayments.cardform.test.Assertions.assertNoHintIcon;
 import static junit.framework.Assert.assertEquals;
-import static junit.framework.Assert.assertNull;
 
 @RunWith(RobolectricTestRunner.class)
 public class CardEditTextTest {
@@ -73,29 +73,23 @@ public class CardEditTextTest {
 
     @Test
     public void testUnknown() {
-        helper("1", "111 1111 1111 1111111", R.drawable.bt_card_highlighted, 4, 8, 12);
+        helper("1", "111 1111 1111 1111111", R.drawable.bt_ic_unknown, 4, 8, 12);
     }
 
     @Test
-    public void showsCardTypeIconsByDefault() {
-        assertCardIconIs(R.drawable.bt_card_highlighted);
+    public void doesNotShowsCardTypeIconsWhenEmpty() {
+        assertNoHintIcon(mView);
     }
 
     @Test
     public void doesNotShowCardTypeIconsWhenDisabled() {
         mView.setDisplayCardTypeIcon(false);
 
-        assertNull(mView.getCompoundDrawables()[0]);
-        assertNull(mView.getCompoundDrawables()[1]);
-        assertNull(mView.getCompoundDrawables()[2]);
-        assertNull(mView.getCompoundDrawables()[3]);
+        assertNoHintIcon(mView);
 
         type("4");
 
-        assertNull(mView.getCompoundDrawables()[0]);
-        assertNull(mView.getCompoundDrawables()[1]);
-        assertNull(mView.getCompoundDrawables()[2]);
-        assertNull(mView.getCompoundDrawables()[3]);
+        assertNoHintIcon(mView);
     }
 
     @Test
@@ -111,8 +105,9 @@ public class CardEditTextTest {
     }
 
     private void helper(String start, String end, int drawable, int... spans) {
-        assertCardIconIs(R.drawable.bt_card_highlighted);
-        type(start).assertCardIconIs(drawable);
+        assertNoHintIcon(mView);
+        type(start);
+        assertIconHintIs(mView, drawable);
         type(end).assertSpansAt(spans);
         assertCharacterMaxLengthHit();
     }
@@ -135,11 +130,6 @@ public class CardEditTextTest {
             foundSpans.add(span[0]);
         }
         assertEquals(allSpans, foundSpans);
-    }
-
-    private void assertCardIconIs(int resId) {
-        assertBitmapsEqual(RuntimeEnvironment.application.getResources().getDrawable(resId),
-                mView.getCompoundDrawables()[2]);
     }
 
     private CardEditTextTest type(String text) {

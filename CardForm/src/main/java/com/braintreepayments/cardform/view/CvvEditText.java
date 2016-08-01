@@ -1,7 +1,6 @@
 package com.braintreepayments.cardform.view;
 
 import android.content.Context;
-import android.graphics.Rect;
 import android.text.Editable;
 import android.text.InputFilter;
 import android.text.InputFilter.LengthFilter;
@@ -21,7 +20,6 @@ public class CvvEditText extends ErrorEditText implements TextWatcher {
     private static final int DEFAULT_MAX_LENGTH = 3;
 
     private CardType mCardType;
-    private boolean mAlwaysDisplayHint = false;
 
     public CvvEditText(Context context) {
         super(context);
@@ -53,58 +51,25 @@ public class CvvEditText extends ErrorEditText implements TextWatcher {
      */
     public void setCardType(CardType cardType) {
         mCardType = cardType;
-        setFieldHint(mCardType.getSecurityCodeName());
 
-        InputFilter[] filters = {new LengthFilter(cardType.getSecurityCodeLength())};
+        InputFilter[] filters = { new LengthFilter(cardType.getSecurityCodeLength()) };
         setFilters(filters);
 
         invalidate();
     }
 
-    /**
-     * Force the CVV hint image to always show.
-     * <p/>
-     * By default, {@link com.braintreepayments.cardform.view.CvvEditText} will only show the hint
-     * when the view is focused.
-     *
-     * @param alwaysDisplayHint Whether or not to show display hint when not focused.
-     */
-    public void setAlwaysDisplayHint(boolean alwaysDisplayHint) {
-        mAlwaysDisplayHint = alwaysDisplayHint;
-        invalidate();
-    }
-
     @Override
     public void afterTextChanged(Editable editable) {
-        if (mCardType == null) { return; }
+        if (mCardType == null) {
+            return;
+        }
 
-        if (mCardType.getSecurityCodeLength() == editable.length() &&
-                getSelectionStart() == editable.length()) {
+        if (mCardType.getSecurityCodeLength() == editable.length() && getSelectionStart() == editable.length()) {
             validate();
 
             if (isValid()) {
                 focusNextView();
             }
-        }
-    }
-
-    @Override
-    protected void onFocusChanged(boolean focused, int direction, Rect previouslyFocusedRect) {
-        super.onFocusChanged(focused, direction, previouslyFocusedRect);
-
-        int cvvResource = 0;
-        if (focused || mAlwaysDisplayHint) {
-            if (mCardType == null) {
-                cvvResource = R.drawable.bt_cvv_highlighted;
-            } else {
-                cvvResource = mCardType.getSecurityCodeResource();
-            }
-        }
-
-        if(isRightToLeftLanguage()) {
-            setCompoundDrawablesWithIntrinsicBounds(cvvResource, 0, 0, 0);
-        } else {
-            setCompoundDrawablesWithIntrinsicBounds(0, 0, cvvResource, 0);
         }
     }
 

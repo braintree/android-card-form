@@ -2,7 +2,6 @@ package com.braintreepayments.cardform.view;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.design.widget.TextInputLayout;
 import android.text.Editable;
@@ -33,7 +32,8 @@ import java.util.concurrent.atomic.AtomicInteger;
 import io.card.payment.CardIOActivity;
 import io.card.payment.CreditCard;
 
-import static com.braintreepayments.cardform.test.Assertions.assertBitmapsEqual;
+import static com.braintreepayments.cardform.test.Assertions.assertIconHintIs;
+import static com.braintreepayments.cardform.test.Assertions.assertNoHintIcon;
 import static com.braintreepayments.cardform.test.TestCardNumbers.AMEX;
 import static com.braintreepayments.cardform.test.TestCardNumbers.INVALID_VISA;
 import static com.braintreepayments.cardform.test.TestCardNumbers.VISA;
@@ -1100,7 +1100,7 @@ public class CardFormTest {
     }
 
     @Test
-    public void testHintsAreDisplayed() {
+    public void hintsAreDisplayed() {
         setRequiredFields(true, true, true, true, true);
 
         assertTextHintIs(mCardForm.findViewById(R.id.bt_card_form_card_number), R.string.bt_form_hint_card_number);
@@ -1116,7 +1116,7 @@ public class CardFormTest {
 
         CardEditText card = (CardEditText) mCardForm.findViewById(R.id.bt_card_form_card_number);
 
-        assertIconHintIs(card, R.drawable.bt_card_highlighted);
+        assertNoHintIcon(card);
 
         setText(card, "4");
         assertIconHintIs(card, R.drawable.bt_ic_visa);
@@ -1134,36 +1134,7 @@ public class CardFormTest {
         assertIconHintIs(card, R.drawable.bt_ic_maestro);
 
         setText(card, "1234");
-        assertIconHintIs(card, R.drawable.bt_card_highlighted);
-    }
-
-    @Test
-    public void testCvvHintsShowAndDisappearOnClick() {
-        setRequiredFields(true, true, true, true, true);
-        CvvEditText cvv = (CvvEditText) mCardForm.findViewById(R.id.bt_card_form_cvv);
-        assertFalse(cvv.hasFocus());
-
-        assertIconHintIs(cvv, 0);
-
-        cvv.requestFocus();
-        assertIconHintIs(cvv, R.drawable.bt_cvv_highlighted);
-
-        mCardForm.findViewById(R.id.bt_card_form_card_number).requestFocus();
-        assertFalse(cvv.hasFocus());
-        assertIconHintIs(cvv, 0);
-    }
-
-    @Test
-    public void showsTheCorrectCvvHintForAmex() {
-        setRequiredFields(true, true, true, true, true);
-        CvvEditText cvv = (CvvEditText) mCardForm.findViewById(R.id.bt_card_form_cvv);
-        assertFalse(cvv.hasFocus());
-
-        assertIconHintIs(cvv, 0);
-
-        setText((EditText) mCardForm.findViewById(R.id.bt_card_form_card_number), "37");
-        cvv.requestFocus();
-        assertIconHintIs(cvv, R.drawable.bt_cid_highlighted);
+        assertIconHintIs(card, R.drawable.bt_ic_unknown);
     }
 
     @Test
@@ -1300,20 +1271,5 @@ public class CardFormTest {
     private static void assertTextHintIs(View view, int resourceId) {
         assertEquals(RuntimeEnvironment.application.getString(resourceId),
                 ((TextInputLayout) view.getParent()).getHint());
-    }
-
-    private static void assertIconHintIs(EditText editText, int resourceId) {
-        Drawable expected;
-        if (resourceId == 0) {
-            expected = null;
-        } else {
-            expected = RuntimeEnvironment.application.getResources().getDrawable(resourceId);
-        }
-
-        Drawable[] drawables = editText.getCompoundDrawables();
-        assertBitmapsEqual(drawables[0], null);
-        assertBitmapsEqual(drawables[1], null);
-        assertBitmapsEqual(drawables[2], expected);
-        assertBitmapsEqual(drawables[3], null);
     }
 }

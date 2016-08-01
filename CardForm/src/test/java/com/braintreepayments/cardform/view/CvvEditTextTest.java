@@ -58,16 +58,6 @@ public class CvvEditTextTest {
     }
 
     @Test
-    public void showsTheCorrectCvvTextHintsForAllCardTypes() {
-        for (CardType type : CardType.values()) {
-            mView.setCardType(type);
-
-            assertEquals(RuntimeEnvironment.application.getString(type.getSecurityCodeName()),
-                    ((TextInputLayout) mView.getParent()).getHint());
-        }
-    }
-
-    @Test
     public void getErrorMessage_returnsErrorMessageWhenEmpty() {
         assertEquals(RuntimeEnvironment.application.getString(R.string.bt_cvv_required), mView.getErrorMessage());
     }

@@ -43,7 +43,7 @@ public class CardEditText extends ErrorEditText implements TextWatcher {
 
     private void init() {
         setInputType(InputType.TYPE_CLASS_NUMBER);
-        setCardIcon(R.drawable.bt_card_highlighted);
+        setCardIcon(R.drawable.bt_ic_unknown);
         addTextChangedListener(this);
         updateCardType();
     }
@@ -141,7 +141,7 @@ public class CardEditText extends ErrorEditText implements TextWatcher {
     }
 
     private void setCardIcon(int icon) {
-        if (!mDisplayCardIcon) {
+        if (!mDisplayCardIcon || getText().length() == 0) {
             setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
         } else if (isRightToLeftLanguage()) {
             setCompoundDrawablesWithIntrinsicBounds(icon, 0, 0, 0);

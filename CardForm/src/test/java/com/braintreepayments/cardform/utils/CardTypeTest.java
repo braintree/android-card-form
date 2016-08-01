@@ -98,8 +98,6 @@ public class CardTypeTest {
 
             assertTrue(String.format("%s: No front resource declared", cardType),
                     cardType.getFrontResource() != 0);
-            assertTrue(String.format("%s: No cvv resource declared", cardType),
-                    cardType.getSecurityCodeResource() != 0);
             assertTrue(String.format("%s: No Security code resource declared", cardType),
                     cardType.getSecurityCodeName() != 0);
 
