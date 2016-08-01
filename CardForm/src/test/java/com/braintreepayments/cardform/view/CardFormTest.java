@@ -2,6 +2,8 @@ package com.braintreepayments.cardform.view;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.design.widget.TextInputLayout;
 import android.text.Editable;
@@ -10,6 +12,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.braintreepayments.cardform.OnCardFormFieldFocusedListener;
@@ -34,6 +37,7 @@ import io.card.payment.CreditCard;
 
 import static com.braintreepayments.cardform.test.Assertions.assertIconHintIs;
 import static com.braintreepayments.cardform.test.Assertions.assertNoHintIcon;
+import static com.braintreepayments.cardform.test.ColorTestUtils.getColor;
 import static com.braintreepayments.cardform.test.TestCardNumbers.AMEX;
 import static com.braintreepayments.cardform.test.TestCardNumbers.INVALID_VISA;
 import static com.braintreepayments.cardform.test.TestCardNumbers.VISA;
@@ -45,6 +49,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static org.robolectric.Shadows.shadowOf;
 
 @RunWith(RobolectricTestRunner.class)
 public class CardFormTest {
@@ -114,10 +119,38 @@ public class CardFormTest {
     }
 
     @Test
+    public void setup_setsIconsForDarkBackgrounds() {
+        setActivityBackground(R.color.bt_black);
+        setRequiredFields(true, true, true, true, true);
+
+        assertDrawableIsFromResource(R.id.bt_card_form_card_number_icon, R.drawable.bt_ic_card_dark);
+        assertDrawableIsFromResource(R.id.bt_card_form_postal_code_icon, R.drawable.bt_ic_postal_code_dark);
+        assertDrawableIsFromResource(R.id.bt_card_form_mobile_number_icon, R.drawable.bt_ic_mobile_number_dark);
+    }
+
+    @Test
+    public void setup_setsIconsForLightBackgrounds() {
+        setActivityBackground(R.color.bt_white);
+        setRequiredFields(true, true, true, true, true);
+
+        assertDrawableIsFromResource(R.id.bt_card_form_card_number_icon, R.drawable.bt_ic_card);
+        assertDrawableIsFromResource(R.id.bt_card_form_postal_code_icon, R.drawable.bt_ic_postal_code);
+        assertDrawableIsFromResource(R.id.bt_card_form_mobile_number_icon, R.drawable.bt_ic_mobile_number);
+    }
+
+    @Test
     public void cardNumberIsShownIfRequired() {
         setRequiredFields(true, false, false, false, false);
 
+        assertEquals(View.VISIBLE, mCardForm.findViewById(R.id.bt_card_form_card_number_icon).getVisibility());
         assertEquals(View.VISIBLE, mCardForm.findViewById(R.id.bt_card_form_card_number).getVisibility());
+        assertEquals(View.GONE, mCardForm.findViewById(R.id.bt_card_form_expiration).getVisibility());
+        assertEquals(View.GONE, mCardForm.findViewById(R.id.bt_card_form_cvv).getVisibility());
+        assertEquals(View.GONE, mCardForm.findViewById(R.id.bt_card_form_postal_code_icon).getVisibility());
+        assertEquals(View.GONE, mCardForm.findViewById(R.id.bt_card_form_postal_code).getVisibility());
+        assertEquals(View.GONE, mCardForm.findViewById(R.id.bt_card_form_mobile_number_icon).getVisibility());
+        assertEquals(View.GONE, mCardForm.findViewById(R.id.bt_card_form_country_code).getVisibility());
+        assertEquals(View.GONE, mCardForm.findViewById(R.id.bt_card_form_mobile_number).getVisibility());
     }
 
     @Test
@@ -125,6 +158,14 @@ public class CardFormTest {
         setRequiredFields(false, true, false, false, false);
 
         assertEquals(View.VISIBLE, mCardForm.findViewById(R.id.bt_card_form_expiration).getVisibility());
+        assertEquals(View.GONE, mCardForm.findViewById(R.id.bt_card_form_card_number_icon).getVisibility());
+        assertEquals(View.GONE, mCardForm.findViewById(R.id.bt_card_form_card_number).getVisibility());
+        assertEquals(View.GONE, mCardForm.findViewById(R.id.bt_card_form_cvv).getVisibility());
+        assertEquals(View.GONE, mCardForm.findViewById(R.id.bt_card_form_postal_code_icon).getVisibility());
+        assertEquals(View.GONE, mCardForm.findViewById(R.id.bt_card_form_postal_code).getVisibility());
+        assertEquals(View.GONE, mCardForm.findViewById(R.id.bt_card_form_mobile_number_icon).getVisibility());
+        assertEquals(View.GONE, mCardForm.findViewById(R.id.bt_card_form_country_code).getVisibility());
+        assertEquals(View.GONE, mCardForm.findViewById(R.id.bt_card_form_mobile_number).getVisibility());
     }
 
     @Test
@@ -132,21 +173,44 @@ public class CardFormTest {
         setRequiredFields(false, false, true, false, false);
 
         assertEquals(View.VISIBLE, mCardForm.findViewById(R.id.bt_card_form_cvv).getVisibility());
+        assertEquals(View.GONE, mCardForm.findViewById(R.id.bt_card_form_card_number_icon).getVisibility());
+        assertEquals(View.GONE, mCardForm.findViewById(R.id.bt_card_form_card_number).getVisibility());
+        assertEquals(View.GONE, mCardForm.findViewById(R.id.bt_card_form_expiration).getVisibility());
+        assertEquals(View.GONE, mCardForm.findViewById(R.id.bt_card_form_postal_code_icon).getVisibility());
+        assertEquals(View.GONE, mCardForm.findViewById(R.id.bt_card_form_postal_code).getVisibility());
+        assertEquals(View.GONE, mCardForm.findViewById(R.id.bt_card_form_mobile_number_icon).getVisibility());
+        assertEquals(View.GONE, mCardForm.findViewById(R.id.bt_card_form_country_code).getVisibility());
+        assertEquals(View.GONE, mCardForm.findViewById(R.id.bt_card_form_mobile_number).getVisibility());
     }
 
     @Test
     public void postalCodeIsShownIfRequired() {
         setRequiredFields(false, false, false, true, false);
 
+        assertEquals(View.VISIBLE, mCardForm.findViewById(R.id.bt_card_form_postal_code_icon).getVisibility());
         assertEquals(View.VISIBLE, mCardForm.findViewById(R.id.bt_card_form_postal_code).getVisibility());
+        assertEquals(View.GONE, mCardForm.findViewById(R.id.bt_card_form_card_number_icon).getVisibility());
+        assertEquals(View.GONE, mCardForm.findViewById(R.id.bt_card_form_card_number).getVisibility());
+        assertEquals(View.GONE, mCardForm.findViewById(R.id.bt_card_form_expiration).getVisibility());
+        assertEquals(View.GONE, mCardForm.findViewById(R.id.bt_card_form_cvv).getVisibility());
+        assertEquals(View.GONE, mCardForm.findViewById(R.id.bt_card_form_mobile_number_icon).getVisibility());
+        assertEquals(View.GONE, mCardForm.findViewById(R.id.bt_card_form_country_code).getVisibility());
+        assertEquals(View.GONE, mCardForm.findViewById(R.id.bt_card_form_mobile_number).getVisibility());
     }
 
     @Test
     public void countryCodeAndMobileNumberAreShownIfRequired() {
         setRequiredFields(false, false, false, false, true);
 
+        assertEquals(View.VISIBLE, mCardForm.findViewById(R.id.bt_card_form_mobile_number_icon).getVisibility());
         assertEquals(View.VISIBLE, mCardForm.findViewById(R.id.bt_card_form_country_code).getVisibility());
         assertEquals(View.VISIBLE, mCardForm.findViewById(R.id.bt_card_form_mobile_number).getVisibility());
+        assertEquals(View.GONE, mCardForm.findViewById(R.id.bt_card_form_card_number_icon).getVisibility());
+        assertEquals(View.GONE, mCardForm.findViewById(R.id.bt_card_form_card_number).getVisibility());
+        assertEquals(View.GONE, mCardForm.findViewById(R.id.bt_card_form_expiration).getVisibility());
+        assertEquals(View.GONE, mCardForm.findViewById(R.id.bt_card_form_cvv).getVisibility());
+        assertEquals(View.GONE, mCardForm.findViewById(R.id.bt_card_form_postal_code_icon).getVisibility());
+        assertEquals(View.GONE, mCardForm.findViewById(R.id.bt_card_form_postal_code).getVisibility());
     }
 
     @Test
@@ -1271,5 +1335,24 @@ public class CardFormTest {
     private static void assertTextHintIs(View view, int resourceId) {
         assertEquals(RuntimeEnvironment.application.getString(resourceId),
                 ((TextInputLayout) view.getParent()).getHint());
+    }
+
+    private void setActivityBackground(int backgroundColor) {
+        mActivity = spy(mActivity);
+        ColorDrawable colorDrawable = mock(ColorDrawable.class);
+        when(colorDrawable.getColor()).thenReturn(getColor(backgroundColor));
+        View rootView = mock(View.class);
+        when(rootView.getBackground()).thenReturn(colorDrawable);
+        View decorView = mock(View.class);
+        when(decorView.getRootView()).thenReturn(rootView);
+        Window window = mock(Window.class);
+        when(window.getDecorView()).thenReturn(decorView);
+        when(mActivity.getResources()).thenReturn(RuntimeEnvironment.application.getResources());
+        when(mActivity.getWindow()).thenReturn(window);
+    }
+
+    private void assertDrawableIsFromResource(int view, int resourceId) {
+        Drawable drawable = ((ImageView) mCardForm.findViewById(view)).getDrawable();
+        assertEquals(resourceId, shadowOf(drawable).getCreatedFromResId());
     }
 }

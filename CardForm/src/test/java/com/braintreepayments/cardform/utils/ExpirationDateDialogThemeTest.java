@@ -1,20 +1,16 @@
 package com.braintreepayments.cardform.utils;
 
 import android.app.Activity;
-import android.graphics.drawable.ColorDrawable;
-import android.view.View;
-import android.view.Window;
 
 import com.braintreepayments.cardform.R;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
-import org.robolectric.RuntimeEnvironment;
 
+import static com.braintreepayments.cardform.test.ColorTestUtils.getColor;
+import static com.braintreepayments.cardform.test.ColorTestUtils.setupActivity;
 import static junit.framework.Assert.assertEquals;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
 @RunWith(RobolectricTestRunner.class)
 public class ExpirationDateDialogThemeTest {
@@ -50,25 +46,5 @@ public class ExpirationDateDialogThemeTest {
         ExpirationDateDialogTheme theme = ExpirationDateDialogTheme.detectTheme(activity);
 
         assertEquals(getColor(R.color.bt_blue), theme.getSelectedItemBackground());
-    }
-
-    private Activity setupActivity(int backgroundColor) {
-        ColorDrawable colorDrawable = mock(ColorDrawable.class);
-        when(colorDrawable.getColor()).thenReturn(getColor(backgroundColor));
-        View rootView = mock(View.class);
-        when(rootView.getBackground()).thenReturn(colorDrawable);
-        View decorView = mock(View.class);
-        when(decorView.getRootView()).thenReturn(rootView);
-        Window window = mock(Window.class);
-        when(window.getDecorView()).thenReturn(decorView);
-        Activity activity = mock(Activity.class);
-        when(activity.getResources()).thenReturn(RuntimeEnvironment.application.getResources());
-        when(activity.getWindow()).thenReturn(window);
-
-        return activity;
-    }
-
-    private int getColor(int color) {
-        return RuntimeEnvironment.application.getResources().getColor(color);
     }
 }

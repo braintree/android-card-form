@@ -19,6 +19,7 @@ import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
@@ -29,6 +30,7 @@ import com.braintreepayments.cardform.OnCardFormSubmitListener;
 import com.braintreepayments.cardform.OnCardFormValidListener;
 import com.braintreepayments.cardform.R;
 import com.braintreepayments.cardform.utils.CardType;
+import com.braintreepayments.cardform.utils.ViewUtils;
 import com.braintreepayments.cardform.view.CardEditText.OnCardTypeChangedListener;
 
 import java.util.ArrayList;
@@ -45,10 +47,13 @@ public class CardForm extends LinearLayout implements OnCardTypeChangedListener,
 
     private List<ErrorEditText> mVisibleEditTexts;
 
+    private ImageView mCardNumberIcon;
     private CardEditText mCardNumber;
     private ExpirationDateEditText mExpiration;
     private CvvEditText mCvv;
+    private ImageView mPostalCodeIcon;
     private PostalCodeEditText mPostalCode;
+    private ImageView mMobileNumberIcon;
     private CountryCodeEditText mCountryCode;
     private MobileNumberEditText mMobileNumber;
 
@@ -93,10 +98,13 @@ public class CardForm extends LinearLayout implements OnCardTypeChangedListener,
 
         inflate(getContext(), R.layout.bt_card_form_fields, this);
 
+        mCardNumberIcon = (ImageView) findViewById(R.id.bt_card_form_card_number_icon);
         mCardNumber = (CardEditText) findViewById(R.id.bt_card_form_card_number);
         mExpiration = (ExpirationDateEditText) findViewById(R.id.bt_card_form_expiration);
         mCvv = (CvvEditText) findViewById(R.id.bt_card_form_cvv);
+        mPostalCodeIcon = (ImageView) findViewById(R.id.bt_card_form_postal_code_icon);
         mPostalCode = (PostalCodeEditText) findViewById(R.id.bt_card_form_postal_code);
+        mMobileNumberIcon = (ImageView) findViewById(R.id.bt_card_form_mobile_number_icon);
         mCountryCode = (CountryCodeEditText) findViewById(R.id.bt_card_form_country_code);
         mMobileNumber = (MobileNumberEditText) findViewById(R.id.bt_card_form_mobile_number);
 
@@ -178,12 +186,20 @@ public class CardForm extends LinearLayout implements OnCardTypeChangedListener,
                     WindowManager.LayoutParams.FLAG_SECURE);
         }
 
+        boolean isDarkBackground = ViewUtils.isDarkBackground(activity);
+        mCardNumberIcon.setImageResource(isDarkBackground ? R.drawable.bt_ic_card_dark : R.drawable.bt_ic_card);
+        mPostalCodeIcon.setImageResource(isDarkBackground ? R.drawable.bt_ic_postal_code_dark : R.drawable.bt_ic_postal_code);
+        mMobileNumberIcon.setImageResource(isDarkBackground? R.drawable.bt_ic_mobile_number_dark : R.drawable.bt_ic_mobile_number);
+
         mExpiration.setActivity(activity);
 
+        setIconVisibility(mCardNumberIcon, mCardNumberRequired);
         setFieldVisibility(mCardNumber, mCardNumberRequired);
         setFieldVisibility(mExpiration, mExpirationRequired);
         setFieldVisibility(mCvv, mCvvRequired);
+        setIconVisibility(mPostalCodeIcon, mPostalCodeRequired);
         setFieldVisibility(mPostalCode, mPostalCodeRequired);
+        setIconVisibility(mMobileNumberIcon, mMobileNumberRequired);
         setFieldVisibility(mCountryCode, mMobileNumberRequired);
         setFieldVisibility(mMobileNumber, mMobileNumberRequired);
 
@@ -252,6 +268,10 @@ public class CardForm extends LinearLayout implements OnCardTypeChangedListener,
         editText.setOnFocusChangeListener(this);
         editText.setOnClickListener(this);
         editText.addTextChangedListener(this);
+    }
+
+    private void setIconVisibility(ImageView imageView, boolean visible) {
+        imageView.setVisibility(visible ? VISIBLE : GONE);
     }
 
     private void setFieldVisibility(ErrorEditText editText, boolean visible) {

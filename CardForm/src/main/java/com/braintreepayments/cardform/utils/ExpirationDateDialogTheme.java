@@ -1,9 +1,6 @@
 package com.braintreepayments.cardform.utils;
 
 import android.app.Activity;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.Drawable;
 import android.util.TypedValue;
 
 import com.braintreepayments.cardform.R;
@@ -29,18 +26,8 @@ public enum ExpirationDateDialogTheme {
     }
 
     public static ExpirationDateDialogTheme detectTheme(Activity activity) {
-        int color = activity.getResources().getColor(R.color.bt_white);
-        try {
-            Drawable background = activity.getWindow().getDecorView().getRootView().getBackground();
-            if (background instanceof ColorDrawable) {
-                color = ((ColorDrawable) background).getColor();
-            }
-        } catch (Exception ignored) {}
-
-        double luminance = (0.2126 * Color.red(color)) + (0.7152 * Color.green(color)) +
-                (0.0722 * Color.blue(color));
         ExpirationDateDialogTheme theme;
-        if (luminance < 128) {
+        if (ViewUtils.isDarkBackground(activity)) {
             theme = ExpirationDateDialogTheme.LIGHT;
         } else {
             theme = ExpirationDateDialogTheme.DARK;
