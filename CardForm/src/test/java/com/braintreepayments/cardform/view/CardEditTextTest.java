@@ -58,7 +58,7 @@ public class CardEditTextTest {
 
     @Test
     public void testDiners() {
-        helper("3000", "0000 0000 04", R.drawable.bt_diners, 4, 8, 12);
+        helper("3000", "0000 0000 04", R.drawable.bt_ic_diners_club, 4, 8, 12);
     }
 
     @Test
@@ -68,7 +68,7 @@ public class CardEditTextTest {
 
     @Test
     public void testUnionPay() {
-        helper("62", "40 8888 8888 8885127", R.drawable.bt_card_highlighted, 4, 8, 12);
+        helper("62", "40 8888 8888 8885127", R.drawable.bt_ic_unionpay, 4, 8, 12);
     }
 
     @Test
