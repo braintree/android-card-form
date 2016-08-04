@@ -1212,12 +1212,10 @@ public class CardFormTest {
         setText((EditText) mActivity.findViewById(R.id.bt_card_form_mobile_number), "12345678");
 
         Bundle bundle = new Bundle();
-
         mActivityController.saveInstanceState(bundle)
                 .pause()
                 .stop()
                 .destroy();
-
         mActivityController = Robolectric.buildActivity(TestActivity.class)
                 .setup(bundle);
         mActivity = mActivityController.get();
