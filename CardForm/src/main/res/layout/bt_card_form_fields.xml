@@ -30,8 +30,8 @@
     <LinearLayout
         style="@style/bt_field_container"
         android:weightSum="2"
-        android:paddingLeft="60dp"
-        android:paddingStart="60dp">
+        android:paddingLeft="56dp"
+        android:paddingStart="56dp">
 
         <android.support.design.widget.TextInputLayout
             style="@style/bt_text_input_layout"

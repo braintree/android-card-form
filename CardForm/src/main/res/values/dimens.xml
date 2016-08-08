@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="bt_margin">16dp</dimen>
-    <dimen name="bt_edit_text_icon_padding">24dp</dimen>
+    <dimen name="bt_edit_text_icon_padding">31dp</dimen>
     <dimen name="bt_floating_edit_text_horizontal_offset">12dp</dimen>
     <dimen name="bt_input_text_size">16sp</dimen>
 
