@@ -2,7 +2,6 @@ package com.braintreepayments.sample;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.WindowManager;
 import android.widget.Toast;
@@ -20,7 +19,8 @@ public class BaseCardFormActivity extends AppCompatActivity implements OnCardFor
                 CardType.AMEX, CardType.DINERS_CLUB, CardType.JCB, CardType.MAESTRO, CardType.UNIONPAY};
 
     private SupportedCardTypesView mSupportCardTypesView;
-    private CardForm mCardForm;
+
+    protected CardForm mCardForm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,17 +62,6 @@ public class BaseCardFormActivity extends AppCompatActivity implements OnCardFor
         } else {
             Toast.makeText(this, R.string.invalid, Toast.LENGTH_SHORT).show();
         }
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        super.onCreateOptionsMenu(menu);
-
-        if (mCardForm.isCardScanningAvailable()) {
-            getMenuInflater().inflate(R.menu.card_io, menu);
-        }
-
-        return true;
     }
 
     @Override
