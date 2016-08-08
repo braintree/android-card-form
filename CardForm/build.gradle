@@ -11,7 +11,7 @@ android {
         minSdkVersion 15
         targetSdkVersion 24
         versionCode 28
-        versionName '2.3.2'
+        versionName '3.0.0-SNAPSHOT'
 
         consumerProguardFiles 'proguard.cfg'
     }
