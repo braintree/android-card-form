@@ -2,6 +2,7 @@ package com.braintreepayments.cardform.view;
 
 import android.content.Context;
 import android.telephony.PhoneNumberFormattingTextWatcher;
+import android.telephony.PhoneNumberUtils;
 import android.text.InputFilter;
 import android.text.InputFilter.LengthFilter;
 import android.text.InputType;
@@ -34,6 +35,13 @@ public class MobileNumberEditText extends ErrorEditText {
         InputFilter[] filters = { new LengthFilter(14) };
         setFilters(filters);
         addTextChangedListener(new PhoneNumberFormattingTextWatcher());
+    }
+
+    /**
+     * @return the unformatted mobile number entered by the user
+     */
+    public String getMobileNumber() {
+        return PhoneNumberUtils.stripSeparators(getText().toString());
     }
 
     @Override

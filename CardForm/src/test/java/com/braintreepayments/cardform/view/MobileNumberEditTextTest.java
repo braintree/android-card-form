@@ -26,6 +26,13 @@ public class MobileNumberEditTextTest {
     }
 
     @Test
+    public void getMobileNumber_returnsStrippedMobileNumber() {
+        mView.setText("(555) 555-5555");
+
+        assertEquals("5555555555", mView.getMobileNumber());
+    }
+
+    @Test
     public void invalidIfEmpty() {
         assertFalse(mView.isValid());
     }

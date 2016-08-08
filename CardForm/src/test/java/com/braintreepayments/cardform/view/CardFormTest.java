@@ -778,6 +778,15 @@ public class CardFormTest {
     }
 
     @Test
+    public void getCountryCode_returnsCountryCode() {
+        setRequiredFields(true, true, true, true, true);
+
+        setText(((EditText) mCardForm.findViewById(R.id.bt_card_form_country_code)), "86");
+
+        assertEquals("86", mCardForm.getCountryCode());
+    }
+
+    @Test
     public void getMobileNumber_returnsMobileNumber() {
         setRequiredFields(true, true, true, true, true);
 

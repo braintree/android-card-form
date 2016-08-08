@@ -26,6 +26,13 @@ public class CountryCodeEditTextTest {
     }
 
     @Test
+    public void getCountryCode_returnsStrippedCountryCode() {
+        mView.setText("+86");
+
+        assertEquals("86", mView.getCountryCode());
+    }
+
+    @Test
     public void invalidIfEmpty() {
         assertFalse(mView.isValid());
     }
@@ -33,6 +40,7 @@ public class CountryCodeEditTextTest {
     @Test
     public void validIfNotEmpty() {
         mView.setText("+86");
+
         assertTrue(mView.isValid());
     }
 

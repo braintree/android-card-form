@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.os.Build.VERSION_CODES;
 import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
-import android.telephony.PhoneNumberUtils;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
@@ -578,14 +577,14 @@ public class CardForm extends LinearLayout implements OnCardTypeChangedListener,
      * @return the text in the country code field
      */
     public String getCountryCode() {
-        return mCountryCode.getText().toString();
+        return mCountryCode.getCountryCode();
     }
 
     /**
      * @return the unformatted text in the mobile number field
      */
     public String getMobileNumber() {
-        return PhoneNumberUtils.stripSeparators(mMobileNumber.getText().toString());
+        return mMobileNumber.getMobileNumber();
     }
 
     @Override

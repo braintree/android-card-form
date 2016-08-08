@@ -34,6 +34,13 @@ public class CountryCodeEditText extends ErrorEditText {
         setFilters(filters);
     }
 
+    /**
+     * @return the numeric country code entered by the user
+     */
+    public String getCountryCode() {
+        return getText().toString().replaceAll("[^\\d]", "");
+    }
+
     @Override
     public boolean isValid() {
         return getText().toString().length() > 0;
