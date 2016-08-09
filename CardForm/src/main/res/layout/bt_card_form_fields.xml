@@ -35,7 +35,7 @@
 
         <android.support.design.widget.TextInputLayout
             style="@style/bt_text_input_layout"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_weight="1">
 
             <com.braintreepayments.cardform.view.ExpirationDateEditText
@@ -47,7 +47,7 @@
 
         <android.support.design.widget.TextInputLayout
             style="@style/bt_text_input_layout"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_weight="1">
 
             <com.braintreepayments.cardform.view.CvvEditText
