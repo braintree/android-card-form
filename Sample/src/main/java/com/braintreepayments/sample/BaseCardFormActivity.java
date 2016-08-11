@@ -18,7 +18,7 @@ public class BaseCardFormActivity extends AppCompatActivity implements OnCardFor
     private static final CardType[] SUPPORTED_CARD_TYPES = { CardType.VISA, CardType.MASTERCARD, CardType.DISCOVER,
                 CardType.AMEX, CardType.DINERS_CLUB, CardType.JCB, CardType.MAESTRO, CardType.UNIONPAY};
 
-    private SupportedCardTypesView mSupportCardTypesView;
+    private SupportedCardTypesView mSupportedCardTypesView;
 
     protected CardForm mCardForm;
 
@@ -27,8 +27,8 @@ public class BaseCardFormActivity extends AppCompatActivity implements OnCardFor
         super.onCreate(savedInstanceState);
         setContentView(R.layout.card_form);
 
-        mSupportCardTypesView = (SupportedCardTypesView) findViewById(R.id.supported_card_types);
-        mSupportCardTypesView.setSupportedCardTypes(SUPPORTED_CARD_TYPES);
+        mSupportedCardTypesView = (SupportedCardTypesView) findViewById(R.id.supported_card_types);
+        mSupportedCardTypesView.setSupportedCardTypes(SUPPORTED_CARD_TYPES);
 
         mCardForm = (CardForm) findViewById(R.id.card_form);
         mCardForm.cardRequired(true)
@@ -49,9 +49,9 @@ public class BaseCardFormActivity extends AppCompatActivity implements OnCardFor
     @Override
     public void onCardTypeChanged(CardType cardType) {
         if (cardType == CardType.UNKNOWN) {
-            mSupportCardTypesView.setSupportedCardTypes(SUPPORTED_CARD_TYPES);
+            mSupportedCardTypesView.setSupportedCardTypes(SUPPORTED_CARD_TYPES);
         } else {
-            mSupportCardTypesView.setSelected(cardType);
+            mSupportedCardTypesView.setSelected(cardType);
         }
     }
 
