@@ -16,7 +16,7 @@ public class BaseCardFormActivity extends AppCompatActivity implements OnCardFor
         CardEditText.OnCardTypeChangedListener {
 
     private static final CardType[] SUPPORTED_CARD_TYPES = { CardType.VISA, CardType.MASTERCARD, CardType.DISCOVER,
-                CardType.AMEX, CardType.DINERS_CLUB, CardType.JCB, CardType.MAESTRO, CardType.UNIONPAY};
+                CardType.AMEX, CardType.DINERS_CLUB, CardType.JCB, CardType.MAESTRO, CardType.UNIONPAY };
 
     private SupportedCardTypesView mSupportedCardTypesView;
 
@@ -48,7 +48,7 @@ public class BaseCardFormActivity extends AppCompatActivity implements OnCardFor
 
     @Override
     public void onCardTypeChanged(CardType cardType) {
-        if (cardType == CardType.UNKNOWN) {
+        if (cardType == CardType.EMPTY) {
             mSupportedCardTypesView.setSupportedCardTypes(SUPPORTED_CARD_TYPES);
         } else {
             mSupportedCardTypesView.setSelected(cardType);
