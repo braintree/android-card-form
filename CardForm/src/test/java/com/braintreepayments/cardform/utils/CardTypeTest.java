@@ -71,6 +71,10 @@ public class CardTypeTest {
 
         // Unknown
         SAMPLE_CARDS.put("2721000000000004", CardType.UNKNOWN);
+        SAMPLE_CARDS.put("1", CardType.UNKNOWN);
+
+        // Empty
+        SAMPLE_CARDS.put("", CardType.EMPTY);
     }
 
     @Test
@@ -101,7 +105,7 @@ public class CardTypeTest {
             assertTrue(String.format("%s: No Security code resource declared", cardType),
                     cardType.getSecurityCodeName() != 0);
 
-            if (cardType != CardType.UNKNOWN) {
+            if (cardType != CardType.UNKNOWN && cardType != CardType.EMPTY) {
                 final Pattern pattern = cardType.getPattern();
                 final String regex = pattern.toString();
                 assertTrue(String.format("%s: Pattern must start with ^", cardType),
@@ -120,8 +124,11 @@ public class CardTypeTest {
             final CardType actualType = CardType.forCardNumber(cardNumber);
 
             assertEquals(String.format("CardType.forAccountNumber failed for %s", cardNumber), cardType, actualType);
-            assertTrue(String.format("%s: Luhn check failed for [%s]", cardType, cardNumber),
-                    CardType.isLuhnValid(cardNumber));
+
+            if (cardType != CardType.UNKNOWN && cardType != CardType.EMPTY) {
+                assertTrue(String.format("%s: Luhn check failed for [%s]", cardType, cardNumber),
+                        CardType.isLuhnValid(cardNumber));
+            }
         }
     }
 }

@@ -120,7 +120,7 @@ public class CardEditText extends ErrorEditText implements TextWatcher {
         if (mCardType != type) {
             mCardType = type;
 
-            InputFilter[] filters = {new LengthFilter(mCardType.getMaxCardLength())};
+            InputFilter[] filters = { new LengthFilter(mCardType.getMaxCardLength()) };
             setFilters(filters);
             invalidate();
 

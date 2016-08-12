@@ -4,6 +4,7 @@ import android.text.Editable;
 
 import com.braintreepayments.cardform.R;
 import com.braintreepayments.cardform.test.TestActivity;
+import com.braintreepayments.cardform.utils.CardType;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -19,6 +20,8 @@ import java.util.List;
 import static com.braintreepayments.cardform.test.Assertions.assertIconHintIs;
 import static com.braintreepayments.cardform.test.Assertions.assertNoHintIcon;
 import static junit.framework.Assert.assertEquals;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
 
 @RunWith(RobolectricTestRunner.class)
 public class CardEditTextTest {
@@ -90,6 +93,65 @@ public class CardEditTextTest {
         type("4");
 
         assertNoHintIcon(mView);
+    }
+
+    @Test
+    public void doesNothingWhenCardTypeChangesAndNoCardTypeListenerSet() {
+        type("4");
+    }
+
+    @Test
+    public void callsCardTypeChangedListenerWhenSetAndCardTypeChanges() {
+        CardEditText.OnCardTypeChangedListener listener = mock(CardEditText.OnCardTypeChangedListener.class);
+        mView.setOnCardTypeChangedListener(listener);
+
+        type("4");
+
+        verify(listener).onCardTypeChanged(CardType.VISA);
+    }
+
+    @Test
+    public void doesNotCallCardTypeChangedListenerWhenSetAndCardTypeDoesNotChange() {
+        CardEditText.OnCardTypeChangedListener listener = mock(CardEditText.OnCardTypeChangedListener.class);
+        mView.setOnCardTypeChangedListener(listener);
+
+        type("4");
+        type("111");
+
+        verify(listener).onCardTypeChanged(CardType.VISA);
+    }
+
+    @Test
+    public void doesNothingWhenEditTextChangesFromEmptyToUnknownAndNoCardTypeListenerSet() {
+        type("1");
+    }
+
+    @Test
+    public void callsCardTypeChangedListenerWhenEditTextChangesFromEmptyToUnknown() {
+        CardEditText.OnCardTypeChangedListener listener = mock(CardEditText.OnCardTypeChangedListener.class);
+        mView.setOnCardTypeChangedListener(listener);
+
+        type("1");
+
+        verify(listener).onCardTypeChanged(CardType.UNKNOWN);
+    }
+
+    @Test
+    public void doesNothingWhenEditTextChangesFromUnknownToEmptyAndNoCardTypeListenerSet() {
+        type("1");
+        mView.getText().clear();
+    }
+
+    @Test
+    public void callsCardTypeChangeListenerWhenEditTextChangesFromUnknownToEmpty() {
+        CardEditText.OnCardTypeChangedListener listener = mock(CardEditText.OnCardTypeChangedListener.class);
+        mView.setOnCardTypeChangedListener(listener);
+
+        type("1");
+        mView.getText().clear();
+
+        verify(listener).onCardTypeChanged(CardType.UNKNOWN);
+        verify(listener).onCardTypeChanged(CardType.EMPTY);
     }
 
     @Test

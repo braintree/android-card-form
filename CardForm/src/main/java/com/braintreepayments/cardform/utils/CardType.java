@@ -43,7 +43,11 @@ public enum CardType {
             R.drawable.bt_ic_unionpay,
             16, 19,
             3, R.string.bt_cvn),
-    UNKNOWN("\\d*",
+    UNKNOWN("\\d+",
+            R.drawable.bt_ic_unknown,
+            12, 19,
+            3, R.string.bt_cvv),
+    EMPTY("^$",
             R.drawable.bt_ic_unknown,
             12, 19,
             3, R.string.bt_cvv);
@@ -81,7 +85,7 @@ public enum CardType {
                 return cardType;
             }
         }
-        return UNKNOWN;
+        return EMPTY;
     }
 
     /**
