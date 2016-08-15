@@ -139,15 +139,6 @@ public enum CardType {
     }
 
     /**
-     * @param cardNumber the card number to check
-     * @return {@code true} if cardNumber is a legal length, {@code false} if not
-     */
-    public boolean isLegalCardLength(String cardNumber) {
-        final int len = cardNumber.length();
-        return len >= mMinCardLength && len <= mMaxCardLength;
-    }
-
-    /**
      * Performs the Luhn check on the given card number.
      *
      * @param cardNumber a String consisting of numeric digits (only).
