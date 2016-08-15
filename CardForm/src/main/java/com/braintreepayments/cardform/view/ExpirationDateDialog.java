@@ -208,8 +208,8 @@ public class ExpirationDateDialog extends Dialog implements DialogInterface.OnSh
             if (selectedView != null && selectedView != mEditText) {
                 dismiss();
 
-                selectedView.requestFocus();
                 if (selectedView instanceof EditText) {
+                    selectedView.requestFocus();
                     new Handler().postDelayed(new Runnable() {
                         @Override
                         public void run() {
@@ -220,6 +220,8 @@ public class ExpirationDateDialog extends Dialog implements DialogInterface.OnSh
                 } else if (selectedView instanceof Button) {
                     selectedView.callOnClick();
                 }
+            } else if (selectedView == null) {
+                dismiss();
             }
 
             return true;
@@ -233,7 +235,7 @@ public class ExpirationDateDialog extends Dialog implements DialogInterface.OnSh
             View child = viewGroup.getChildAt(i);
             if (child instanceof ViewGroup) {
                 View foundView = findViewAt((ViewGroup) child, x, y);
-                if (foundView != null) {
+                if (foundView != null && foundView.isShown()) {
                     return foundView;
                 }
             } else {
