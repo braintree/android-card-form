@@ -708,8 +708,10 @@ public class CardFormTest {
 
         setRequiredFields(false, false, false, false, true);
         assertFalse(mCardForm.isValid());
+        setText(((EditText) mCardForm.findViewById(R.id.bt_card_form_country_code)), "123");
         setText(((EditText) mCardForm.findViewById(R.id.bt_card_form_mobile_number)), "12345678");
         assertTrue(mCardForm.isValid());
+        assertFalse(((ErrorEditText) mCardForm.findViewById(R.id.bt_card_form_country_code)).isError());
         assertFalse(((ErrorEditText) mCardForm.findViewById(R.id.bt_card_form_mobile_number)).isError());
     }
 
@@ -721,6 +723,7 @@ public class CardFormTest {
         assertFalse(((ErrorEditText) mCardForm.findViewById(R.id.bt_card_form_expiration)).isError());
         assertFalse(((ErrorEditText) mCardForm.findViewById(R.id.bt_card_form_cvv)).isError());
         assertFalse(((ErrorEditText) mCardForm.findViewById(R.id.bt_card_form_postal_code)).isError());
+        assertFalse(((ErrorEditText) mCardForm.findViewById(R.id.bt_card_form_country_code)).isError());
         assertFalse(((ErrorEditText) mCardForm.findViewById(R.id.bt_card_form_mobile_number)).isError());
 
         mCardForm.validate();
@@ -729,6 +732,7 @@ public class CardFormTest {
         assertTrue(((ErrorEditText) mCardForm.findViewById(R.id.bt_card_form_expiration)).isError());
         assertTrue(((ErrorEditText) mCardForm.findViewById(R.id.bt_card_form_cvv)).isError());
         assertTrue(((ErrorEditText) mCardForm.findViewById(R.id.bt_card_form_postal_code)).isError());
+        assertTrue(((ErrorEditText) mCardForm.findViewById(R.id.bt_card_form_country_code)).isError());
         assertTrue(((ErrorEditText) mCardForm.findViewById(R.id.bt_card_form_mobile_number)).isError());
     }
 

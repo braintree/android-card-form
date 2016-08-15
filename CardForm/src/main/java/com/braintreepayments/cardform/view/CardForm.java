@@ -373,7 +373,7 @@ public class CardForm extends LinearLayout implements OnCardTypeChangedListener,
             valid = valid && mPostalCode.isValid();
         }
         if (mMobileNumberRequired) {
-            valid = valid && mMobileNumber.isValid();
+            valid = valid && mCountryCode.isValid() && mMobileNumber.isValid();
         }
         return valid;
     }
@@ -395,6 +395,7 @@ public class CardForm extends LinearLayout implements OnCardTypeChangedListener,
             mPostalCode.validate();
         }
         if (mMobileNumberRequired) {
+            mCountryCode.validate();
             mMobileNumber.validate();
         }
     }
