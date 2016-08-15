@@ -16,6 +16,7 @@ import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.LinearLayout;
@@ -216,6 +217,8 @@ public class ExpirationDateDialog extends Dialog implements DialogInterface.OnSh
                                     .showSoftInput(selectedView, 0);
                         }
                     }, mAnimationDelay);
+                } else if (selectedView instanceof Button) {
+                    selectedView.callOnClick();
                 }
             }
 
