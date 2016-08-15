@@ -50,6 +50,22 @@ public class CvvEditTextTest {
     }
 
     @Test
+    public void hintDefaultsToCvv() {
+        assertEquals(((TextInputLayout) mView.getParent()).getHint(),
+                RuntimeEnvironment.application.getString(R.string.bt_cvv));
+    }
+
+    @Test
+    public void hintChangesForCardType() {
+        for (CardType cardType : CardType.values()) {
+            mView.setCardType(cardType);
+
+            assertEquals(((TextInputLayout) mView.getParent()).getHint(),
+                    RuntimeEnvironment.application.getString(cardType.getSecurityCodeName()));
+        }
+    }
+
+    @Test
     public void allowsEmptyCvvForUnionPay() {
         mView.setCardType(CardType.UNIONPAY);
         mView.getText().clear();
