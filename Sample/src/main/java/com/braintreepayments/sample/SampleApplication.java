@@ -2,6 +2,7 @@ package com.braintreepayments.sample;
 
 import android.app.Application;
 
+import com.facebook.stetho.Stetho;
 import com.squareup.leakcanary.LeakCanary;
 
 public class SampleApplication extends Application {
@@ -10,5 +11,6 @@ public class SampleApplication extends Application {
     public void onCreate() {
         super.onCreate();
         LeakCanary.install(this);
+        Stetho.initializeWithDefaults(this);
     }
 }
