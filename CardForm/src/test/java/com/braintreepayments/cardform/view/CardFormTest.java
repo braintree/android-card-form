@@ -151,6 +151,7 @@ public class CardFormTest {
         assertEquals(View.GONE, mCardForm.findViewById(R.id.bt_card_form_mobile_number_icon).getVisibility());
         assertEquals(View.GONE, mCardForm.findViewById(R.id.bt_card_form_country_code).getVisibility());
         assertEquals(View.GONE, mCardForm.findViewById(R.id.bt_card_form_mobile_number).getVisibility());
+        assertEquals(View.GONE, mCardForm.findViewById(R.id.bt_card_form_mobile_number_explanation).getVisibility());
     }
 
     @Test
@@ -166,6 +167,7 @@ public class CardFormTest {
         assertEquals(View.GONE, mCardForm.findViewById(R.id.bt_card_form_mobile_number_icon).getVisibility());
         assertEquals(View.GONE, mCardForm.findViewById(R.id.bt_card_form_country_code).getVisibility());
         assertEquals(View.GONE, mCardForm.findViewById(R.id.bt_card_form_mobile_number).getVisibility());
+        assertEquals(View.GONE, mCardForm.findViewById(R.id.bt_card_form_mobile_number_explanation).getVisibility());
     }
 
     @Test
@@ -181,6 +183,7 @@ public class CardFormTest {
         assertEquals(View.GONE, mCardForm.findViewById(R.id.bt_card_form_mobile_number_icon).getVisibility());
         assertEquals(View.GONE, mCardForm.findViewById(R.id.bt_card_form_country_code).getVisibility());
         assertEquals(View.GONE, mCardForm.findViewById(R.id.bt_card_form_mobile_number).getVisibility());
+        assertEquals(View.GONE, mCardForm.findViewById(R.id.bt_card_form_mobile_number_explanation).getVisibility());
     }
 
     @Test
@@ -196,21 +199,34 @@ public class CardFormTest {
         assertEquals(View.GONE, mCardForm.findViewById(R.id.bt_card_form_mobile_number_icon).getVisibility());
         assertEquals(View.GONE, mCardForm.findViewById(R.id.bt_card_form_country_code).getVisibility());
         assertEquals(View.GONE, mCardForm.findViewById(R.id.bt_card_form_mobile_number).getVisibility());
+        assertEquals(View.GONE, mCardForm.findViewById(R.id.bt_card_form_mobile_number_explanation).getVisibility());
     }
 
     @Test
-    public void countryCodeAndMobileNumberAreShownIfRequired() {
+    public void countryCodeMobileNumberAndMobileNumberExplanationAreShownIfRequired() {
         setRequiredFields(false, false, false, false, true);
 
         assertEquals(View.VISIBLE, mCardForm.findViewById(R.id.bt_card_form_mobile_number_icon).getVisibility());
         assertEquals(View.VISIBLE, mCardForm.findViewById(R.id.bt_card_form_country_code).getVisibility());
         assertEquals(View.VISIBLE, mCardForm.findViewById(R.id.bt_card_form_mobile_number).getVisibility());
+        assertEquals(View.VISIBLE, mCardForm.findViewById(R.id.bt_card_form_mobile_number_explanation).getVisibility());
+        assertEquals("Make sure SMS is supported", ((TextView)mCardForm.findViewById(R.id.bt_card_form_mobile_number_explanation)).getText());
         assertEquals(View.GONE, mCardForm.findViewById(R.id.bt_card_form_card_number_icon).getVisibility());
         assertEquals(View.GONE, mCardForm.findViewById(R.id.bt_card_form_card_number).getVisibility());
         assertEquals(View.GONE, mCardForm.findViewById(R.id.bt_card_form_expiration).getVisibility());
         assertEquals(View.GONE, mCardForm.findViewById(R.id.bt_card_form_cvv).getVisibility());
         assertEquals(View.GONE, mCardForm.findViewById(R.id.bt_card_form_postal_code_icon).getVisibility());
         assertEquals(View.GONE, mCardForm.findViewById(R.id.bt_card_form_postal_code).getVisibility());
+    }
+
+    @Test
+    public void mobileNumberExplanationNotShownIfMobileNumberNotRequired() {
+        setRequiredFields(false, false, false, false, false);
+
+        assertEquals(View.GONE, mCardForm.findViewById(R.id.bt_card_form_mobile_number_icon).getVisibility());
+        assertEquals(View.GONE, mCardForm.findViewById(R.id.bt_card_form_country_code).getVisibility());
+        assertEquals(View.GONE, mCardForm.findViewById(R.id.bt_card_form_mobile_number).getVisibility());
+        assertEquals(View.GONE, mCardForm.findViewById(R.id.bt_card_form_mobile_number_explanation).getVisibility());
     }
 
     @Test
@@ -1333,6 +1349,7 @@ public class CardFormTest {
                 .cvvRequired(cvvRequired)
                 .postalCodeRequired(postalCodeRequired)
                 .mobileNumberRequired(mobileNumberRequired)
+                .mobileNumberExplanation("Make sure SMS is supported")
                 .setup(mActivity);
     }
 

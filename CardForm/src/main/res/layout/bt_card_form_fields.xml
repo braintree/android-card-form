@@ -119,4 +119,13 @@
 
     </LinearLayout>
 
+    <TextView
+        android:id="@+id/bt_card_form_mobile_number_explanation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="-8dp"
+        android:visibility="gone"
+        android:paddingLeft="60dp"
+        android:paddingStart="60dp" />
+
 </merge>

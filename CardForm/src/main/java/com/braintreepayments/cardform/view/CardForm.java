@@ -55,6 +55,7 @@ public class CardForm extends LinearLayout implements OnCardTypeChangedListener,
     private ImageView mMobileNumberIcon;
     private CountryCodeEditText mCountryCode;
     private MobileNumberEditText mMobileNumber;
+    private TextView mMobileNumberExplanation;
 
     private boolean mCardNumberRequired;
     private boolean mExpirationRequired;
@@ -106,6 +107,7 @@ public class CardForm extends LinearLayout implements OnCardTypeChangedListener,
         mMobileNumberIcon = (ImageView) findViewById(R.id.bt_card_form_mobile_number_icon);
         mCountryCode = (CountryCodeEditText) findViewById(R.id.bt_card_form_country_code);
         mMobileNumber = (MobileNumberEditText) findViewById(R.id.bt_card_form_mobile_number);
+        mMobileNumberExplanation = (TextView) findViewById(R.id.bt_card_form_mobile_number_explanation);
 
         mVisibleEditTexts = new ArrayList<>();
 
@@ -173,6 +175,15 @@ public class CardForm extends LinearLayout implements OnCardTypeChangedListener,
     }
 
     /**
+     * @param mobileNumberExplanation the {@link java.lang.String} to display below the mobile number input
+     * @return {@link CardForm} for method chaining
+     */
+    public CardForm mobileNumberExplanation(String mobileNumberExplanation) {
+        mMobileNumberExplanation.setText(mobileNumberExplanation);
+        return this;
+    }
+
+    /**
      * Sets up the card form for display to the user using the values provided in {@link CardForm#cardRequired(boolean)},
      * {@link CardForm#expirationRequired(boolean)}, ect. If {@link #setup(android.app.Activity)} is not called,
      * the form will not be visible.
@@ -192,15 +203,16 @@ public class CardForm extends LinearLayout implements OnCardTypeChangedListener,
 
         mExpiration.setActivity(activity);
 
-        setIconVisibility(mCardNumberIcon, mCardNumberRequired);
+        setViewVisibility(mCardNumberIcon, mCardNumberRequired);
         setFieldVisibility(mCardNumber, mCardNumberRequired);
         setFieldVisibility(mExpiration, mExpirationRequired);
         setFieldVisibility(mCvv, mCvvRequired);
-        setIconVisibility(mPostalCodeIcon, mPostalCodeRequired);
+        setViewVisibility(mPostalCodeIcon, mPostalCodeRequired);
         setFieldVisibility(mPostalCode, mPostalCodeRequired);
-        setIconVisibility(mMobileNumberIcon, mMobileNumberRequired);
+        setViewVisibility(mMobileNumberIcon, mMobileNumberRequired);
         setFieldVisibility(mCountryCode, mMobileNumberRequired);
         setFieldVisibility(mMobileNumber, mMobileNumberRequired);
+        setViewVisibility(mMobileNumberExplanation, mMobileNumberRequired);
 
         TextInputEditText editText;
         for (int i = 0; i < mVisibleEditTexts.size(); i++) {
@@ -269,8 +281,8 @@ public class CardForm extends LinearLayout implements OnCardTypeChangedListener,
         editText.addTextChangedListener(this);
     }
 
-    private void setIconVisibility(ImageView imageView, boolean visible) {
-        imageView.setVisibility(visible ? VISIBLE : GONE);
+    private void setViewVisibility(View view, boolean visible) {
+        view.setVisibility(visible ? VISIBLE : GONE);
     }
 
     private void setFieldVisibility(ErrorEditText editText, boolean visible) {
