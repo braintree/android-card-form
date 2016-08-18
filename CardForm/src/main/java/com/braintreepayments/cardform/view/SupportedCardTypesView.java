@@ -43,17 +43,8 @@ public class SupportedCardTypesView extends TextView {
      * @param cardTypes The {@link CardType}s to display
      */
     public void setSupportedCardTypes(CardType... cardTypes) {
-        mSupportedCardTypes = new ArrayList<>();
-
-        SpannableString spannableString = new SpannableString(new String(new char[cardTypes.length]));
-        PaddedImageSpan span;
-        for (int i = 0; i < cardTypes.length; i++) {
-            mSupportedCardTypes.add(i, cardTypes[i]);
-            span = new PaddedImageSpan(getContext(), cardTypes[i].getFrontResource());
-            spannableString.setSpan(span, i, i + 1, SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE);
-        }
-
-        setText(spannableString);
+        mSupportedCardTypes = new ArrayList<>(Arrays.asList(cardTypes));
+        setSelected(cardTypes);
     }
 
     public void setSelected(CardType... cardTypes) {
