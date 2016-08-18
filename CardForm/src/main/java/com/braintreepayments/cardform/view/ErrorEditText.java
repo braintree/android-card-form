@@ -69,8 +69,8 @@ public class ErrorEditText extends TextInputEditText {
      * @param hint The string resource to use as the hint.
      */
     public void setFieldHint(int hint) {
-        if (getParent() instanceof TextInputLayout) {
-            ((TextInputLayout) getParent()).setHint(getContext().getString(hint));
+        if (getParent() != null && getParent().getParent() instanceof TextInputLayout) {
+            ((TextInputLayout) getParent().getParent()).setHint(getContext().getString(hint));
         } else {
             setHint(hint);
         }
