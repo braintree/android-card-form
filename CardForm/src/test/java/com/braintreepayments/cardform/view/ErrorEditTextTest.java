@@ -34,7 +34,7 @@ public class ErrorEditTextTest {
 
         mView.setFieldHint(R.string.bt_form_hint_cvv);
 
-        assertEquals(((TextInputLayout) mView.getParent()).getHint(), "CVV");
+        assertEquals(((TextInputLayout) mView.getParent().getParent()).getHint(), "CVV");
         assertNull(mView.getHint());
     }
 

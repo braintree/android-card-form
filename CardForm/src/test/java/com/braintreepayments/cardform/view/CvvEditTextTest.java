@@ -51,7 +51,7 @@ public class CvvEditTextTest {
 
     @Test
     public void hintDefaultsToCvv() {
-        assertEquals(((TextInputLayout) mView.getParent()).getHint(),
+        assertEquals(((TextInputLayout) mView.getParent().getParent()).getHint(),
                 RuntimeEnvironment.application.getString(R.string.bt_cvv));
     }
 
@@ -60,7 +60,7 @@ public class CvvEditTextTest {
         for (CardType cardType : CardType.values()) {
             mView.setCardType(cardType);
 
-            assertEquals(((TextInputLayout) mView.getParent()).getHint(),
+            assertEquals(((TextInputLayout) mView.getParent().getParent()).getHint(),
                     RuntimeEnvironment.application.getString(cardType.getSecurityCodeName()));
         }
     }

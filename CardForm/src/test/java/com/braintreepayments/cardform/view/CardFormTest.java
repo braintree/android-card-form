@@ -1346,7 +1346,7 @@ public class CardFormTest {
 
     private static void assertTextHintIs(View view, int resourceId) {
         assertEquals(RuntimeEnvironment.application.getString(resourceId),
-                ((TextInputLayout) view.getParent()).getHint());
+                ((TextInputLayout) view.getParent().getParent()).getHint());
     }
 
     private void setActivityBackground(int backgroundColor) {

@@ -27,17 +27,17 @@ public class Assertions {
         }
 
         Drawable[] drawables = editText.getCompoundDrawables();
-        assertBitmapsEqual(drawables[0], null);
-        assertBitmapsEqual(drawables[1], null);
-        assertBitmapsEqual(drawables[2], expected);
-        assertBitmapsEqual(drawables[3], null);
+        assertBitmapsEqual(null, drawables[0]);
+        assertBitmapsEqual(null, drawables[1]);
+        assertBitmapsEqual(expected, drawables[2]);
+        assertBitmapsEqual(null, drawables[3]);
     }
 
-    private static void assertBitmapsEqual(Drawable d1, Drawable d2) {
-        if (d1 == null || d2 == null) {
-            assertEquals(d1, d2);
+    private static void assertBitmapsEqual(Drawable expected, Drawable actual) {
+        if (expected == null || actual == null) {
+            assertEquals(expected, actual);
         } else {
-            assertEquals(shadowOf(d1).getCreatedFromResId(), shadowOf(d2).getCreatedFromResId());
+            assertEquals(shadowOf(expected).getCreatedFromResId(), shadowOf(actual).getCreatedFromResId());
         }
     }
 }
