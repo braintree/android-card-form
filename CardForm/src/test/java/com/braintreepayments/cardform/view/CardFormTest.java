@@ -1123,6 +1123,7 @@ public class CardFormTest {
         setText(((EditText) mCardForm.findViewById(R.id.bt_card_form_expiration)), "0925");
         setText(((EditText) mCardForm.findViewById(R.id.bt_card_form_cvv)), "123");
         setText(((EditText) mCardForm.findViewById(R.id.bt_card_form_postal_code)), "12345");
+        setText(((EditText) mCardForm.findViewById(R.id.bt_card_form_country_code)), "123");
         setText(((EditText) mCardForm.findViewById(R.id.bt_card_form_mobile_number)), "12345678");
 
         assertEquals(1, counter.get());
