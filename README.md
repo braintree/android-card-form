@@ -35,7 +35,8 @@ cardForm.cardRequired(true)
         .expirationRequired(true)
         .cvvRequired(true)
         .postalCodeRequired(true)
-        .mobileNumberRequire(true)
+        .mobileNumberRequired(true)
+        .mobileNumberExplanation("SMS is required on this number")
         .actionLabel("Purchase")
         .setup(activity);
 ```
