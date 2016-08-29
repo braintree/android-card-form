@@ -49,6 +49,12 @@ public class ErrorEditText extends TextInputEditText {
     }
 
     @Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+        setCompoundDrawables(null, null, getCompoundDrawables()[3], null);
+    }
+
+    @Override
     public void onTextChanged(CharSequence text, int start, int lengthBefore, int lengthAfter) {
         super.onTextChanged(text, start, lengthBefore, lengthAfter);
         setError(null);
