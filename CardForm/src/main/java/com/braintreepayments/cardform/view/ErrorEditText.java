@@ -75,8 +75,8 @@ public class ErrorEditText extends TextInputEditText {
      * @param hint The string resource to use as the hint.
      */
     public void setFieldHint(int hint) {
-        if (getParent() != null && getParent().getParent() instanceof TextInputLayout) {
-            ((TextInputLayout) getParent().getParent()).setHint(getContext().getString(hint));
+        if (getTextInputLayoutParent() != null) {
+            getTextInputLayoutParent().setHint(getContext().getString(hint));
         } else {
             setHint(hint);
         }
@@ -114,9 +114,10 @@ public class ErrorEditText extends TextInputEditText {
     public void setError(@Nullable String errorMessage) {
         mError = !TextUtils.isEmpty(errorMessage);
 
-        if (getParent() instanceof TextInputLayout) {
-            ((TextInputLayout) getParent()).setErrorEnabled(!TextUtils.isEmpty(errorMessage));
-            ((TextInputLayout) getParent()).setError(errorMessage);
+        TextInputLayout textInputLayout = getTextInputLayoutParent();
+        if (textInputLayout != null) {
+            textInputLayout.setErrorEnabled(!TextUtils.isEmpty(errorMessage));
+            textInputLayout.setError(errorMessage);
         }
 
         if (mErrorAnimator != null && mError) {
@@ -171,5 +172,14 @@ public class ErrorEditText extends TextInputEditText {
             }
         }
         return false;
+    }
+
+    @Nullable
+    private TextInputLayout getTextInputLayoutParent() {
+        if (getParent() != null && getParent().getParent() instanceof TextInputLayout) {
+            return (TextInputLayout) getParent().getParent();
+        }
+
+        return null;
     }
 }

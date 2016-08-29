@@ -63,6 +63,16 @@ public class ErrorEditTextTest {
     }
 
     @Test
+    public void setError_setsErrorWhenParentViewIsATextInputLayout() {
+        mView = (CardEditText) Robolectric.setupActivity(TestActivity.class)
+                .findViewById(R.id.bt_card_form_card_number);
+
+        mView.setError("Error");
+
+        assertEquals("Error", ((TextInputLayout) mView.getParent().getParent()).getError());
+    }
+
+    @Test
     public void setError_setsErrorWhenMessageProvided() {
         mView.setError("Error");
         assertTrue(mView.isError());
