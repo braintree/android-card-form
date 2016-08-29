@@ -14,6 +14,7 @@ import org.robolectric.RuntimeEnvironment;
 
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertFalse;
+import static junit.framework.Assert.assertNotNull;
 import static junit.framework.Assert.assertNull;
 import static junit.framework.Assert.assertTrue;
 
@@ -87,5 +88,18 @@ public class ErrorEditTextTest {
         mView.setError("Error");
         mView.setError("");
         assertFalse(mView.isError());
+    }
+
+    @Test
+    public void getTextInputLayoutParent_returnsTextInputLayout() {
+        mView = (CardEditText) Robolectric.setupActivity(TestActivity.class)
+                .findViewById(R.id.bt_card_form_card_number);
+
+        assertNotNull(mView.getTextInputLayoutParent());
+    }
+
+    @Test
+    public void getTextInputLayoutParent_returnsNullIfParentNotPresent() {
+        assertNull(mView.getTextInputLayoutParent());
     }
 }

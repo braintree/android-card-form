@@ -164,6 +164,18 @@ public class ErrorEditText extends TextInputEditText {
                 .hideSoftInputFromWindow(getWindowToken(), 0);
     }
 
+    /**
+     * @return the {@link TextInputLayout} parent if present, otherwise {@code null}.
+     */
+    @Nullable
+    public TextInputLayout getTextInputLayoutParent() {
+        if (getParent() != null && getParent().getParent() instanceof TextInputLayout) {
+            return (TextInputLayout) getParent().getParent();
+        }
+
+        return null;
+    }
+
     @TargetApi(JELLY_BEAN_MR1)
     protected boolean isRightToLeftLanguage() {
         if (SDK_INT >= JELLY_BEAN_MR1) {
@@ -172,14 +184,5 @@ public class ErrorEditText extends TextInputEditText {
             }
         }
         return false;
-    }
-
-    @Nullable
-    private TextInputLayout getTextInputLayoutParent() {
-        if (getParent() != null && getParent().getParent() instanceof TextInputLayout) {
-            return (TextInputLayout) getParent().getParent();
-        }
-
-        return null;
     }
 }

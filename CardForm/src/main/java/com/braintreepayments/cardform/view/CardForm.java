@@ -6,7 +6,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Build.VERSION_CODES;
 import android.support.design.widget.TextInputEditText;
-import android.support.design.widget.TextInputLayout;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
@@ -287,8 +286,8 @@ public class CardForm extends LinearLayout implements OnCardTypeChangedListener,
 
     private void setFieldVisibility(ErrorEditText editText, boolean visible) {
         editText.setVisibility(visible ? VISIBLE : GONE);
-        if (editText.getParent() instanceof TextInputLayout) {
-            ((TextInputLayout) editText.getParent()).setVisibility(visible ? VISIBLE : GONE);
+        if (editText.getTextInputLayoutParent() != null) {
+            editText.getTextInputLayoutParent().setVisibility(visible ? VISIBLE : GONE);
         }
 
         if (visible) {
