@@ -42,7 +42,7 @@ public class SupportedCardTypesViewTest {
     public void setSupportedCardTypes_handlesNull() {
         SupportedCardTypesView supportedCardTypesView = new SupportedCardTypesView(RuntimeEnvironment.application);
 
-        supportedCardTypesView.setSupportedCardTypes(null);
+        supportedCardTypesView.setSupportedCardTypes((CardType[]) null);
 
         List<PaddedImageSpan> allSpans = Arrays.asList(new SpannableString(supportedCardTypesView.getText())
                 .getSpans(0, supportedCardTypesView.length(), PaddedImageSpan.class));
@@ -75,7 +75,7 @@ public class SupportedCardTypesViewTest {
         supportedCardTypesView.setSupportedCardTypes(CardType.VISA, CardType.MASTERCARD, CardType.DISCOVER,
                 CardType.AMEX, CardType.DINERS_CLUB, CardType.JCB, CardType.MAESTRO, CardType.UNIONPAY);
 
-        supportedCardTypesView.setSelected(null);
+        supportedCardTypesView.setSelected((CardType[]) null);
 
         List<PaddedImageSpan> allSpans = Arrays.asList(new SpannableString(supportedCardTypesView.getText())
                 .getSpans(0, supportedCardTypesView.length(), PaddedImageSpan.class));
