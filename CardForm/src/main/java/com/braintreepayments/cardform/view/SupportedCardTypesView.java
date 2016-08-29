@@ -3,13 +3,13 @@ package com.braintreepayments.cardform.view;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.os.Build;
+import android.support.annotation.Nullable;
 import android.text.SpannableString;
 import android.util.AttributeSet;
 import android.widget.TextView;
 
 import com.braintreepayments.cardform.utils.CardType;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -42,12 +42,20 @@ public class SupportedCardTypesView extends TextView {
      *
      * @param cardTypes The {@link CardType}s to display
      */
-    public void setSupportedCardTypes(CardType... cardTypes) {
-        mSupportedCardTypes = new ArrayList<>(Arrays.asList(cardTypes));
+    public void setSupportedCardTypes(@Nullable CardType... cardTypes) {
+        if (cardTypes == null) {
+            cardTypes = new CardType[]{};
+        }
+
+        mSupportedCardTypes = Arrays.asList(cardTypes);
         setSelected(cardTypes);
     }
 
-    public void setSelected(CardType... cardTypes) {
+    public void setSelected(@Nullable CardType... cardTypes) {
+        if (cardTypes == null) {
+            cardTypes = new CardType[]{};
+        }
+
         SpannableString spannableString = new SpannableString(new String(new char[mSupportedCardTypes.size()]));
         PaddedImageSpan span;
         for (int i = 0; i < mSupportedCardTypes.size(); i++) {

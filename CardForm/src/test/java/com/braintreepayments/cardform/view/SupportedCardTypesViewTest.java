@@ -39,6 +39,17 @@ public class SupportedCardTypesViewTest {
     }
 
     @Test
+    public void setSupportedCardTypes_handlesNull() {
+        SupportedCardTypesView supportedCardTypesView = new SupportedCardTypesView(RuntimeEnvironment.application);
+
+        supportedCardTypesView.setSupportedCardTypes(null);
+
+        List<PaddedImageSpan> allSpans = Arrays.asList(new SpannableString(supportedCardTypesView.getText())
+                .getSpans(0, supportedCardTypesView.length(), PaddedImageSpan.class));
+        assertEquals(0, allSpans.size());
+    }
+
+    @Test
     public void setSelectedCardTypes_disablesNonSelectedCardTypes() {
         SupportedCardTypesView supportedCardTypesView = new SupportedCardTypesView(RuntimeEnvironment.application);
         supportedCardTypesView.setSupportedCardTypes(CardType.VISA, CardType.MASTERCARD, CardType.DISCOVER,
@@ -49,6 +60,26 @@ public class SupportedCardTypesViewTest {
         List<PaddedImageSpan> allSpans = Arrays.asList(new SpannableString(supportedCardTypesView.getText())
                 .getSpans(0, supportedCardTypesView.length(), PaddedImageSpan.class));
         assertFalse(allSpans.get(0).isDisabled());
+        assertTrue(allSpans.get(1).isDisabled());
+        assertTrue(allSpans.get(2).isDisabled());
+        assertTrue(allSpans.get(3).isDisabled());
+        assertTrue(allSpans.get(4).isDisabled());
+        assertTrue(allSpans.get(5).isDisabled());
+        assertTrue(allSpans.get(6).isDisabled());
+        assertTrue(allSpans.get(7).isDisabled());
+    }
+
+    @Test
+    public void setSelectedCardTypes_handlesNull() {
+        SupportedCardTypesView supportedCardTypesView = new SupportedCardTypesView(RuntimeEnvironment.application);
+        supportedCardTypesView.setSupportedCardTypes(CardType.VISA, CardType.MASTERCARD, CardType.DISCOVER,
+                CardType.AMEX, CardType.DINERS_CLUB, CardType.JCB, CardType.MAESTRO, CardType.UNIONPAY);
+
+        supportedCardTypesView.setSelected(null);
+
+        List<PaddedImageSpan> allSpans = Arrays.asList(new SpannableString(supportedCardTypesView.getText())
+                .getSpans(0, supportedCardTypesView.length(), PaddedImageSpan.class));
+        assertTrue(allSpans.get(0).isDisabled());
         assertTrue(allSpans.get(1).isDisabled());
         assertTrue(allSpans.get(2).isDisabled());
         assertTrue(allSpans.get(3).isDisabled());
