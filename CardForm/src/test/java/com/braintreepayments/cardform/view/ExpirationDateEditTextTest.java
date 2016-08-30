@@ -27,6 +27,11 @@ public class ExpirationDateEditTextTest {
     }
 
     @Test
+    public void onDetachedFromWindow_handlesNullDialog() {
+        mView.onDetachedFromWindow();
+    }
+
+    @Test
     public void typing_2_through_9_addsPrefix_0() {
         for (int i = 2; i <= 9; i++) {
             setText(String.valueOf(i));

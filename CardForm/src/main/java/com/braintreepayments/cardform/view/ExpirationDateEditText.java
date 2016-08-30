@@ -99,7 +99,7 @@ public class ExpirationDateEditText extends ErrorEditText implements TextWatcher
     @Override
     protected void onDetachedFromWindow() {
         super.onDetachedFromWindow();
-        if (mExpirationDateDialog.isShowing()) {
+        if (mExpirationDateDialog != null && mExpirationDateDialog.isShowing()) {
             mExpirationDateDialog.dismiss();
         }
     }
