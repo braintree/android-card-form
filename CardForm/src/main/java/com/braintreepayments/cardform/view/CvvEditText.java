@@ -55,11 +55,8 @@ public class CvvEditText extends ErrorEditText implements TextWatcher {
         InputFilter[] filters = { new LengthFilter(cardType.getSecurityCodeLength()) };
         setFilters(filters);
 
+        setContentDescription(getContext().getString(cardType.getSecurityCodeName()));
         setFieldHint(cardType.getSecurityCodeName());
-        if (getTextInputLayoutParent() != null) {
-            getTextInputLayoutParent().setContentDescription(
-                    getContext().getString(cardType.getSecurityCodeName()));
-        }
 
         invalidate();
     }

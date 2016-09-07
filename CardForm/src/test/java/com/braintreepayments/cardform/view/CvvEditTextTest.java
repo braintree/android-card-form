@@ -60,10 +60,10 @@ public class CvvEditTextTest {
         for (CardType cardType : CardType.values()) {
             mView.setCardType(cardType);
 
-            assertEquals(((TextInputLayout) mView.getParent().getParent()).getHint(),
-                    RuntimeEnvironment.application.getString(cardType.getSecurityCodeName()));
-            assertEquals(((TextInputLayout) mView.getParent().getParent()).getContentDescription(),
-                    RuntimeEnvironment.application.getString(cardType.getSecurityCodeName()));
+            assertEquals(RuntimeEnvironment.application.getString(cardType.getSecurityCodeName()),
+                    mView.getTextInputLayoutParent().getHint());
+            assertEquals(RuntimeEnvironment.application.getString(cardType.getSecurityCodeName()),
+                    mView.getContentDescription());
         }
     }
 
