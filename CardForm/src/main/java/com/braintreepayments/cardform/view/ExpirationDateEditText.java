@@ -88,6 +88,10 @@ public class ExpirationDateEditText extends ErrorEditText implements TextWatcher
     protected void onFocusChanged(boolean focused, int direction, Rect previouslyFocusedRect) {
         super.onFocusChanged(focused, direction, previouslyFocusedRect);
 
+        if (mExpirationDateDialog == null) {
+            return;
+        }
+
         if (focused && mUseExpirationDateDialog) {
             closeSoftKeyboard();
             mExpirationDateDialog.show();

@@ -2,6 +2,7 @@ package com.braintreepayments.cardform.view;
 
 import android.text.Editable;
 import android.text.Spanned;
+import android.view.View;
 
 import com.braintreepayments.cardform.R;
 import com.braintreepayments.cardform.test.TestActivity;
@@ -29,6 +30,11 @@ public class ExpirationDateEditTextTest {
     @Test
     public void onDetachedFromWindow_handlesNullDialog() {
         mView.onDetachedFromWindow();
+    }
+
+    @Test
+    public void onFocusChanged_handlesNullDialog() {
+        mView.onFocusChanged(true, View.FOCUS_DOWN, null);
     }
 
     @Test
