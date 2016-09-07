@@ -62,6 +62,8 @@ public class CvvEditTextTest {
 
             assertEquals(((TextInputLayout) mView.getParent().getParent()).getHint(),
                     RuntimeEnvironment.application.getString(cardType.getSecurityCodeName()));
+            assertEquals(((TextInputLayout) mView.getParent().getParent()).getContentDescription(),
+                    RuntimeEnvironment.application.getString(cardType.getSecurityCodeName()));
         }
     }
 
