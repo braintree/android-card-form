@@ -11,7 +11,7 @@ In your `build.gradle`:
 
 ```groovy
 dependencies {
-    compile 'com.braintreepayments:card-form:2.3.1'
+    compile 'com.braintreepayments:card-form:2.3.2'
 }
 ```
 
