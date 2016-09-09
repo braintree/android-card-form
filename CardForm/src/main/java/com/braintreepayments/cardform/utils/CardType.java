@@ -23,7 +23,7 @@ public enum CardType {
             R.drawable.bt_diners, 14, 14, 3),
     JCB("^35\\d*",
             R.drawable.bt_jcb, 16, 16, 3),
-    MAESTRO("^(5018|5020|5038|6304|6759|676[1-3])\\d*",
+    MAESTRO("^(5018|5020|5038|6304|6703|6759|676[1-3])\\d*",
             R.drawable.bt_maestro, 12, 19, 3),
     UNION_PAY("^62\\d*",
             R.drawable.bt_card_highlighted, 16, 19, 3),
