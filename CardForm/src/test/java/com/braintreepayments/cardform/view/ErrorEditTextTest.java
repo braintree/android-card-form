@@ -40,8 +40,26 @@ public class ErrorEditTextTest {
     }
 
     @Test
+    public void setFieldHint_setsHintStringWhenParentViewIsATextInputLayout() {
+        mView = (CardEditText) Robolectric.setupActivity(TestActivity.class)
+                .findViewById(R.id.bt_card_form_card_number);
+
+        mView.setFieldHint("CVV");
+
+        assertEquals(((TextInputLayout) mView.getParent().getParent()).getHint(), "CVV");
+        assertNull(mView.getHint());
+    }
+
+    @Test
     public void setFieldHint_setsHint() {
         mView.setFieldHint(R.string.bt_form_hint_cvv);
+
+        assertEquals(mView.getHint(), "CVV");
+    }
+
+    @Test
+    public void setFieldHint_setsHintString() {
+        mView.setFieldHint("CVV");
 
         assertEquals(mView.getHint(), "CVV");
     }

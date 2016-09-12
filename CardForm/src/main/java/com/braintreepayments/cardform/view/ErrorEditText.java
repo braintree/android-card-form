@@ -70,8 +70,18 @@ public class ErrorEditText extends TextInputEditText {
      * @param hint The string resource to use as the hint.
      */
     public void setFieldHint(int hint) {
+        setFieldHint(getContext().getString(hint));
+    }
+
+    /**
+     * Sets the hint on the {@link TextInputLayout} if this view is a child of a {@link TextInputLayout}, otherwise
+     * sets the hint on this {@link android.widget.EditText}.
+     *
+     * @param hint The string value to use as the hint.
+     */
+    public void setFieldHint(CharSequence hint) {
         if (getTextInputLayoutParent() != null) {
-            getTextInputLayoutParent().setHint(getContext().getString(hint));
+            getTextInputLayoutParent().setHint(hint);
         } else {
             setHint(hint);
         }
