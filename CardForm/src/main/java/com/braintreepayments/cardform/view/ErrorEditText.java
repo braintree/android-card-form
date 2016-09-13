@@ -79,7 +79,7 @@ public class ErrorEditText extends TextInputEditText {
      *
      * @param hint The string value to use as the hint.
      */
-    public void setFieldHint(CharSequence hint) {
+    public void setFieldHint(String hint) {
         if (getTextInputLayoutParent() != null) {
             getTextInputLayoutParent().setHint(hint);
         } else {
