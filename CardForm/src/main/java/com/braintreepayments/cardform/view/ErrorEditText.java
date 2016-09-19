@@ -27,6 +27,7 @@ public class ErrorEditText extends TextInputEditText {
 
     private Animation mErrorAnimator;
     private boolean mError;
+    private boolean mOptional;
 
     public ErrorEditText(Context context) {
         super(context);
@@ -93,6 +94,24 @@ public class ErrorEditText extends TextInputEditText {
     }
 
     /**
+     * Set this {@link ErrorEditText} as optional. Optional fields are always valid and show no
+     * error message.
+     *
+     * @param optional {@code true} to set this {@link ErrorEditText} to optional, {@code false}
+     *                             to set it to required.
+     */
+    public void setOptional(boolean optional) {
+        mOptional = optional;
+    }
+
+    /**
+     * @return If this {@link ErrorEditText} is optional or not. See {@link #setOptional(boolean)}.
+     */
+    public boolean isOptional() {
+        return mOptional;
+    }
+
+    /**
      * @return the current error state of the {@link android.widget.EditText}
      */
     public boolean isError() {
@@ -143,7 +162,7 @@ public class ErrorEditText extends TextInputEditText {
      * indication on it.
      */
     public void validate() {
-        if (isValid()) {
+        if (isValid() || isOptional()) {
             setError(null);
         } else {
             setError(getErrorMessage());

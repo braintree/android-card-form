@@ -46,7 +46,7 @@ public class MobileNumberEditText extends ErrorEditText {
 
     @Override
     public boolean isValid() {
-        return getText().toString().length() >= 8;
+        return isOptional() || getText().toString().length() >= 8;
     }
 
     @Override

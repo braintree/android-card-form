@@ -15,6 +15,8 @@ import org.robolectric.RobolectricTestRunner;
 import org.robolectric.RuntimeEnvironment;
 
 import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertFalse;
+import static junit.framework.Assert.assertTrue;
 
 @RunWith(RobolectricTestRunner.class)
 public class ExpirationDateEditTextTest {
@@ -114,6 +116,25 @@ public class ExpirationDateEditTextTest {
 
         setText("012018");
         assertEquals("getYear() will return 4-digit years", "2018", mView.getYear());
+    }
+
+    @Test
+    public void isValid_returnsFalseForInvalidDate() {
+        assertFalse(mView.isValid());
+    }
+
+    @Test
+    public void isValid_returnsTrueForValidDate() {
+        setText("1218");
+
+        assertTrue(mView.isValid());
+    }
+
+    @Test
+    public void isValid_returnsTrueForInvalidDateWhenOptional() {
+        mView.setOptional(true);
+
+        assertTrue(mView.isValid());
     }
 
     @Test

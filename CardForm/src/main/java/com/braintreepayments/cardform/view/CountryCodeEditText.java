@@ -43,7 +43,7 @@ public class CountryCodeEditText extends ErrorEditText {
 
     @Override
     public boolean isValid() {
-        return getText().toString().length() > 0;
+        return isOptional() || getText().toString().length() > 0;
     }
 
     @Override

@@ -59,6 +59,22 @@ public class ErrorEditTextTest {
     }
 
     @Test
+    public void isOptional_defaultsToFalse() {
+        assertFalse(mView.isOptional());
+    }
+
+    @Test
+    public void setOptional() {
+        assertFalse(mView.isOptional());
+
+        mView.setOptional(true);
+        assertTrue(mView.isOptional());
+
+        mView.setOptional(false);
+        assertFalse(mView.isOptional());
+    }
+
+    @Test
     public void getErrorMessage_returnsNull() {
         assertNull(mView.getErrorMessage());
     }
@@ -87,6 +103,45 @@ public class ErrorEditTextTest {
 
         mView.setError("Error");
         mView.setError("");
+        assertFalse(mView.isError());
+    }
+
+    @Test
+    public void validate_showsErrorMessage() {
+        mView = new ErrorEditText(RuntimeEnvironment.application) {
+            @Override
+            public boolean isValid() {
+                return false;
+            }
+
+            @Override
+            public String getErrorMessage() {
+                return "Error";
+            }
+        };
+
+        mView.validate();
+
+        assertTrue(mView.isError());
+    }
+
+    @Test
+    public void validate_doesNotShowErrorMessageIfOptional() {
+        mView = new ErrorEditText(RuntimeEnvironment.application) {
+            @Override
+            public boolean isValid() {
+                return false;
+            }
+
+            @Override
+            public String getErrorMessage() {
+                return "Error";
+            }
+        };
+        mView.setOptional(true);
+
+        mView.validate();
+
         assertFalse(mView.isError());
     }
 

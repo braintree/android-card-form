@@ -20,6 +20,8 @@ import java.util.List;
 import static com.braintreepayments.cardform.test.Assertions.assertIconHintIs;
 import static com.braintreepayments.cardform.test.Assertions.assertNoHintIcon;
 import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertFalse;
+import static junit.framework.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
@@ -152,6 +154,25 @@ public class CardEditTextTest {
 
         verify(listener).onCardTypeChanged(CardType.UNKNOWN);
         verify(listener).onCardTypeChanged(CardType.EMPTY);
+    }
+
+    @Test
+    public void isValid_returnsFalseForInvalidCardNumber() {
+        assertFalse(mView.isValid());
+    }
+
+    @Test
+    public void isValid_returnsTrueForValidCardNumber() {
+        type("4111111111111111");
+
+        assertTrue(mView.isValid());
+    }
+
+    @Test
+    public void isValid_returnsTrueForInvalidCardNumberIfOptional() {
+        mView.setOptional(true);
+
+        assertTrue(mView.isValid());
     }
 
     @Test

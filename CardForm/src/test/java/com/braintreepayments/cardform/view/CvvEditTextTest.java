@@ -15,6 +15,7 @@ import org.robolectric.RobolectricTestRunner;
 import org.robolectric.RuntimeEnvironment;
 
 import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertFalse;
 import static junit.framework.Assert.assertTrue;
 
 @RunWith(RobolectricTestRunner.class)
@@ -68,9 +69,20 @@ public class CvvEditTextTest {
     }
 
     @Test
-    public void allowsEmptyCvvForUnionPay() {
-        mView.setCardType(CardType.UNIONPAY);
-        mView.getText().clear();
+    public void isValid_returnsFalseForInvalidCvv() {
+        assertFalse(mView.isValid());
+    }
+
+    @Test
+    public void isValid_returnsTrueForValidCvv() {
+        type("123");
+
+        assertTrue(mView.isValid());
+    }
+
+    @Test
+    public void isValid_returnsTrueForInvalidCvvWhenOptional() {
+        mView.setOptional(true);
 
         assertTrue(mView.isValid());
     }

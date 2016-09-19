@@ -50,6 +50,13 @@ public class MobileNumberEditTextTest {
     }
 
     @Test
+    public void validIfEmptyAndOptional() {
+        mView.setOptional(true);
+
+        assertTrue(mView.isValid());
+    }
+
+    @Test
     public void getErrorMessage_returnsErrorMessageWhenEmpty() {
         assertEquals(RuntimeEnvironment.application.getString(R.string.bt_mobile_number_required), mView.getErrorMessage());
     }

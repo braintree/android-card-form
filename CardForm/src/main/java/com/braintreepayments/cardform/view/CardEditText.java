@@ -103,7 +103,7 @@ public class CardEditText extends ErrorEditText implements TextWatcher {
 
     @Override
     public boolean isValid() {
-        return mCardType.validate(getText().toString());
+        return isOptional() || mCardType.validate(getText().toString());
     }
 
     @Override

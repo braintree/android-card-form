@@ -137,7 +137,7 @@ public class ExpirationDateEditText extends ErrorEditText implements TextWatcher
      */
     @Override
     public boolean isValid() {
-        return DateValidator.isValid(getMonth(), getYear());
+        return isOptional() || DateValidator.isValid(getMonth(), getYear());
     }
 
     @Override
