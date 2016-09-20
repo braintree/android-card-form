@@ -33,8 +33,8 @@ import java.util.List;
 
 public class ExpirationDateDialog extends Dialog implements DialogInterface.OnShowListener {
 
-    private static final List<String> MONTHS = Arrays.asList("01", "02", "03", "04", "05", "06", "07", "08", "09", "10",
-            "11", "12");
+    private static final List<String> MONTHS = Arrays.asList("01", "02", "03", "04", "05", "06",
+            "07", "08", "09", "10", "11", "12");
     private final int CURRENT_MONTH = Calendar.getInstance().get(Calendar.MONTH) + 1; // months are 0 indexed
     private final int CURRENT_YEAR = Calendar.getInstance().get(Calendar.YEAR);
     private final List<String> mYears = new ArrayList<>();
@@ -146,12 +146,17 @@ public class ExpirationDateDialog extends Dialog implements DialogInterface.OnSh
         }
     }
 
+    @Deprecated
     @Override
-    public void show() {
+    public void show() {}
+
+    public void show(final View view) {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                ExpirationDateDialog.super.show();
+                if (view.isFocused()) {
+                    ExpirationDateDialog.super.show();
+                }
             }
         }, mAnimationDelay);
     }

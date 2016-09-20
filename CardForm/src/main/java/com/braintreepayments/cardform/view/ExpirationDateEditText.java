@@ -76,7 +76,7 @@ public class ExpirationDateEditText extends ErrorEditText implements TextWatcher
     public void onClick(View v) {
         if (mUseExpirationDateDialog) {
             closeSoftKeyboard();
-            mExpirationDateDialog.show();
+            mExpirationDateDialog.show(this);
         }
 
         if (mClickListener != null) {
@@ -94,7 +94,7 @@ public class ExpirationDateEditText extends ErrorEditText implements TextWatcher
 
         if (focused && mUseExpirationDateDialog) {
             closeSoftKeyboard();
-            mExpirationDateDialog.show();
+            mExpirationDateDialog.show(this);
         } else if (mUseExpirationDateDialog) {
             mExpirationDateDialog.dismiss();
         }
