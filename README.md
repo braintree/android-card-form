@@ -94,7 +94,9 @@ cardForm.scanCard(activity);
 The card form uses the [Android Design Support Library](http://android-developers.blogspot.com/2015/05/android-design-support-library.html)
 for styling and floating labels. All card form inputs use the `colorAccent` theme attribute, when present,
 to set their focused color. For more information on the `colorAccent` attribute, see
-[Using the Material Theme](https://developer.android.com/training/material/theme.html).
+[Using the Material Theme](https://developer.android.com/training/material/theme.html). Additional
+styling, such as the error color (`textErrorColor`) can be set in your theme and will be picked up
+by the card form.
 
 The included [sample app](https://github.com/braintree/android-card-form/tree/master/Sample) has examples with a light theme and dark theme.
 
