@@ -206,7 +206,7 @@ public class CardEditTextTest {
         Editable text = mView.getText();
         List<SpaceSpan> allSpans = Arrays.asList(text.getSpans(0, text.length(),
                 SpaceSpan.class));
-        List<SpaceSpan> foundSpans = new ArrayList<SpaceSpan>();
+        List<SpaceSpan> foundSpans = new ArrayList<>();
         for (int i : indices) {
             SpaceSpan[] span = text.getSpans(i - 1, i, SpaceSpan.class);
             assertEquals(1, span.length);

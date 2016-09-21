@@ -10,5 +10,5 @@ public interface OnCardFormFieldFocusedListener {
     /**
      * @param field that was focused
      */
-    public void onCardFormFieldFocused(View field);
+    void onCardFormFieldFocused(View field);
 }
