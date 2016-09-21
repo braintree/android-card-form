@@ -4,7 +4,6 @@
     <color name="bt_black">#001129</color>
     <color name="bt_blue">#009bde</color>
     <color name="bt_light_gray">#6d6d6d</color>
-    <color name="bt_red">#dd5555</color>
     <color name="bt_expiration_date_sheet_background_light">#eceff0</color>
     <color name="bt_expiration_date_sheet_background_dark">#20272b</color>
     <color name="bt_black_12">#1e000000</color>
