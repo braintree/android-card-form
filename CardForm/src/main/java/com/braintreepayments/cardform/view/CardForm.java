@@ -285,9 +285,9 @@ public class CardForm extends LinearLayout implements OnCardTypeChangedListener,
     }
 
     private void setFieldVisibility(ErrorEditText editText, boolean visible) {
-        editText.setVisibility(visible ? VISIBLE : GONE);
+        setViewVisibility(editText, visible);
         if (editText.getTextInputLayoutParent() != null) {
-            editText.getTextInputLayoutParent().setVisibility(visible ? VISIBLE : GONE);
+            setViewVisibility(editText.getTextInputLayoutParent(), visible);
         }
 
         if (visible) {
