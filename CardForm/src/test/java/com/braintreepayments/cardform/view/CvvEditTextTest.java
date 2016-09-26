@@ -88,15 +88,44 @@ public class CvvEditTextTest {
     }
 
     @Test
-    public void getErrorMessage_returnsErrorMessageWhenEmpty() {
-        assertEquals(RuntimeEnvironment.application.getString(R.string.bt_cvv_required), mView.getErrorMessage());
+    public void getErrorMessage_returnsErrorMessageForNoCardTypeWhenEmpty() {
+        String expectedMessage = RuntimeEnvironment.application.getString(R.string.bt_cvv_required,
+                RuntimeEnvironment.application.getString(R.string.bt_cvv));
+
+        assertEquals(expectedMessage, mView.getErrorMessage());
     }
 
     @Test
-    public void getErrorMessage_returnsErrorMessageWhenNotEmpty() {
+    public void getErrorMessage_returnsCorrectErrorMessageForCardTypeWhenEmpty() {
+        for (CardType cardType : CardType.values()) {
+            mView.setCardType(cardType);
+
+            String expectedMessage = RuntimeEnvironment.application.getString(R.string.bt_cvv_required,
+                    RuntimeEnvironment.application.getString(cardType.getSecurityCodeName()));
+            assertEquals(expectedMessage, mView.getErrorMessage());
+        }
+    }
+
+    @Test
+    public void getErrorMessage_returnsErrorMessageForNoCardTypeWhenNotEmpty() {
+        type("4");
+        String expectedMessage = RuntimeEnvironment.application.getString(R.string.bt_cvv_invalid,
+                RuntimeEnvironment.application.getString(R.string.bt_cvv));
+
+        assertEquals(expectedMessage, mView.getErrorMessage());
+    }
+
+    @Test
+    public void getErrorMessage_returnsCorrectErrorMessageForCardTypeWhenNotEmpty() {
         type("4");
 
-        assertEquals(RuntimeEnvironment.application.getString(R.string.bt_cvv_invalid), mView.getErrorMessage());
+        for (CardType cardType : CardType.values()) {
+            mView.setCardType(cardType);
+
+            String expectedMessage = RuntimeEnvironment.application.getString(R.string.bt_cvv_invalid,
+                    RuntimeEnvironment.application.getString(cardType.getSecurityCodeName()));
+            assertEquals(expectedMessage, mView.getErrorMessage());
+        }
     }
 
     private CvvEditTextTest type(String text) {

@@ -83,10 +83,17 @@ public class CvvEditText extends ErrorEditText implements TextWatcher {
 
     @Override
     public String getErrorMessage() {
-        if (TextUtils.isEmpty(getText())) {
-            return getContext().getString(R.string.bt_cvv_required);
+        String securityCodeName;
+        if (mCardType == null) {
+            securityCodeName = getContext().getString(R.string.bt_cvv);
         } else {
-            return getContext().getString(R.string.bt_cvv_invalid);
+            securityCodeName = getContext().getString(mCardType.getSecurityCodeName());
+        }
+
+        if (TextUtils.isEmpty(getText())) {
+            return getContext().getString(R.string.bt_cvv_required, securityCodeName);
+        } else {
+            return getContext().getString(R.string.bt_cvv_invalid, securityCodeName);
         }
     }
 

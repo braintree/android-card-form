@@ -19,8 +19,8 @@
 
     <string name="bt_card_number_required" tools:ignore="MissingTranslation">Card number is required</string>
     <string name="bt_card_number_invalid" tools:ignore="MissingTranslation">Card number is invalid</string>
-    <string name="bt_cvv_required" tools:ignore="MissingTranslation">CVV is required</string>
-    <string name="bt_cvv_invalid" tools:ignore="MissingTranslation">CVV is invalid</string>
+    <string name="bt_cvv_required" tools:ignore="MissingTranslation">%s is required</string>
+    <string name="bt_cvv_invalid" tools:ignore="MissingTranslation">%s is invalid</string>
     <string name="bt_expiration_required" tools:ignore="MissingTranslation">Expiration date is required</string>
     <string name="bt_expiration_invalid" tools:ignore="MissingTranslation">Expiration date is invalid</string>
     <string name="bt_postal_code_required" tools:ignore="MissingTranslation">Postal code is required</string>
