@@ -98,12 +98,18 @@ to set their focused color. For more information on the `colorAccent` attribute,
 styling, such as the error color (`textErrorColor`) can be set in your theme and will be picked up
 by the card form.
 
-The included [sample app](https://github.com/braintree/android-card-form/tree/master/Sample) has examples with a light theme and dark theme.
+The included [sample app](https://github.com/braintree/android-card-form/tree/master/Sample) has
+examples with a light theme and dark theme.
 
-Any `Activity` using the card form must use a style that is a Theme.AppCompat theme or descendant (defines `android.support.v7.appcompat.R.attr.colorPrimary`).
+**Note:** Any `Activity` using the card form must use a style that is a Theme.AppCompat theme or
+descendant (defines `android.support.v7.appcompat.R.attr.colorPrimary`). This is a requirement of
+the [Android Design Support Library](http://android-developers.blogspot.com/2015/05/android-design-support-library.html).
+If this is a problem in your usage of the card form, please [file an issue](https://github.com/braintree/android-card-form/issues)
+and we will look further into workarounds for this.
 
 ## [Releases](https://github.com/braintree/android-card-form/releases)
 
 ## License
 
-Card Form is open source and available under the MIT license. See the [LICENSE](LICENSE) file for more info.
+Card Form is open source and available under the MIT license. See the [LICENSE](LICENSE) file for
+more info.
