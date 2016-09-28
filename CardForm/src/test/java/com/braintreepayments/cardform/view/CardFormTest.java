@@ -1077,7 +1077,7 @@ public class CardFormTest {
 
     @Test
     public void handleCardIOResponse_setsCardNumber() {
-        setRequiredFields(true, true, true, true, true);
+        setRequiredFields(true, true, false, false, false);
         Intent intent = new Intent()
                 .putExtra(CardIOActivity.EXTRA_SCAN_RESULT, new CreditCard(VISA, 0, 0, "", "", ""));
 
@@ -1100,7 +1100,7 @@ public class CardFormTest {
 
     @Test
     public void handleCardIOResponse_setsExpirationDate() {
-        setRequiredFields(true, true, true, true, true);
+        setRequiredFields(false, true, true, false, false);
         Intent intent = new Intent()
                 .putExtra(CardIOActivity.EXTRA_SCAN_RESULT, new CreditCard(VISA, 12, 2020, "", "", ""));
 
@@ -1112,7 +1112,7 @@ public class CardFormTest {
 
     @Test
     public void handleCardIOResponse_doesNotSetExpirationDateIfExpirationDateInvalid() {
-        setRequiredFields(true, true, true, true, true);
+        setRequiredFields(true, true, false, false, false);
         Intent intent = new Intent()
                 .putExtra(CardIOActivity.EXTRA_SCAN_RESULT, new CreditCard(VISA, 12, 2000, "", "", ""));
 
@@ -1124,7 +1124,7 @@ public class CardFormTest {
 
     @Test
     public void handleCardIOResponse_doesNotSetExpirationDateIfExpirationDateNotRequired() {
-        setRequiredFields(true, false, true, true, true);
+        setRequiredFields(true, false, true, false, false);
         Intent intent = new Intent()
                 .putExtra(CardIOActivity.EXTRA_SCAN_RESULT, new CreditCard(VISA, 12, 2020, "", "", ""));
 
