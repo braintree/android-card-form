@@ -217,12 +217,10 @@ public class CardForm extends LinearLayout implements OnCardTypeChangedListener,
         for (int i = 0; i < mVisibleEditTexts.size(); i++) {
             editText = mVisibleEditTexts.get(i);
             if (i == mVisibleEditTexts.size() - 1) {
-                editText.setNextFocusDownId(NO_ID);
                 editText.setImeOptions(EditorInfo.IME_ACTION_GO);
                 editText.setImeActionLabel(mActionLabel, EditorInfo.IME_ACTION_GO);
                 editText.setOnEditorActionListener(this);
             } else {
-                editText.setNextFocusDownId(mVisibleEditTexts.get(i + 1).getId());
                 editText.setImeOptions(EditorInfo.IME_ACTION_NEXT);
                 editText.setImeActionLabel(null, EditorInfo.IME_ACTION_NONE);
                 editText.setOnEditorActionListener(null);

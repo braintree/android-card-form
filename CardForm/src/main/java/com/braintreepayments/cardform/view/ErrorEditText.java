@@ -90,12 +90,20 @@ public class ErrorEditText extends TextInputEditText {
     /**
      * Request focus for the next view.
      */
+    @SuppressWarnings("WrongConstant")
     public View focusNextView() {
         if (getImeActionId() == EditorInfo.IME_ACTION_GO) {
             return null;
         }
 
-        View next = focusSearch(View.FOCUS_DOWN);
+        View next;
+        try {
+            next = focusSearch(View.FOCUS_FORWARD);
+        } catch (IllegalArgumentException e) {
+            // View.FOCUS_FORWARD results in a crash in some versions of Android
+            // https://github.com/braintree/braintree_android/issues/20
+            next = focusSearch(View.FOCUS_DOWN);
+        }
         if (next != null && next.requestFocus()) {
             return next;
         }
