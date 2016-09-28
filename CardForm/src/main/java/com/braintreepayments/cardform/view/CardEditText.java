@@ -49,11 +49,13 @@ public class CardEditText extends ErrorEditText implements TextWatcher {
     }
 
     /**
-     * Enable or disable showing card type icons as part of the {@link CardEditText}. Defaults to {@code true}.
+     * Enable or disable showing card type icons as part of the {@link CardEditText}. Defaults to
+     * {@code true}.
      *
-     * @param display {@code true} to display card type icons, {@code false} to never display card type icons.
+     * @param display {@code true} to display card type icons, {@code false} to never display card
+     *                            type icons.
      */
-    public void setDisplayCardTypeIcon(boolean display) {
+    public void displayCardTypeIcon(boolean display) {
         mDisplayCardIcon = display;
 
         if (!mDisplayCardIcon) {

@@ -88,7 +88,7 @@ public class CardEditTextTest {
 
     @Test
     public void doesNotShowCardTypeIconsWhenDisabled() {
-        mView.setDisplayCardTypeIcon(false);
+        mView.displayCardTypeIcon(false);
 
         assertNoHintIcon(mView);
 

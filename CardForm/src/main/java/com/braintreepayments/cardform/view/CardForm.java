@@ -298,26 +298,6 @@ public class CardForm extends LinearLayout implements OnCardTypeChangedListener,
     }
 
     /**
-     * Use to enable or disable entry of the expiration date using a dialog. Defaults to using the dialog.
-     *
-     * @param activity used as the parent activity for the dialog
-     * @param useDialog {@code false} to use a numeric keyboard to enter the expiration date, {@code true} to use a
-     *        custom dialog to enter the expiration date. Defaults to {@code true}.
-     */
-    public void useDialogForExpirationDateEntry(Activity activity, boolean useDialog) {
-        mExpiration.useDialogForExpirationDateEntry(activity, useDialog);
-    }
-
-    /**
-     * Enable or disable showing card type icons as part of the {@link CardEditText}. Defaults to {@code true}.
-     *
-     * @param display {@code true} to display card type icons, {@code false} to never display card type icons.
-     */
-    public void displayCardTypeIcons(boolean display) {
-        mCardNumber.setDisplayCardTypeIcon(display);
-    }
-
-    /**
      * Set the listener to receive a callback when the card form becomes valid or invalid
      * @param listener to receive the callback
      */

@@ -60,9 +60,17 @@ public class ExpirationDateEditText extends ErrorEditText implements TextWatcher
         mExpirationDateDialog = ExpirationDateDialog.create(activity, this);
     }
 
-    protected void useDialogForExpirationDateEntry(Activity activity, boolean useExpirationDateDialog) {
+    /**
+     * Used to enable or disable entry of the expiration date using a dialog. Defaults to using the
+     * dialog.
+     *
+     * @param activity used as the parent activity for the dialog
+     * @param useDialog {@code false} to use a numeric keyboard to enter the expiration date,
+     * {@code true} to use a custom dialog to enter the expiration date. Defaults to {@code true}.
+     */
+    public void useDialogForExpirationDateEntry(Activity activity, boolean useDialog) {
         mExpirationDateDialog = ExpirationDateDialog.create(activity, this);
-        mUseExpirationDateDialog = useExpirationDateDialog;
+        mUseExpirationDateDialog = useDialog;
         setShowKeyboardOnFocus(!mUseExpirationDateDialog);
         setCursorVisible(!mUseExpirationDateDialog);
     }
