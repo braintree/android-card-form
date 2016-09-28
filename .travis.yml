@@ -3,7 +3,7 @@ jdk: oraclejdk8
 notifications:
   email:
     - external-ci-notifications+android-card-form@getbraintree.com
-sudo: false
+sudo: true
 android:
   components:
     - tools
