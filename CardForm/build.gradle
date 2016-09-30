@@ -10,8 +10,8 @@ android {
     defaultConfig {
         minSdkVersion 15
         targetSdkVersion 24
-        versionCode 28
-        versionName '3.0.0-SNAPSHOT'
+        versionCode 29
+        versionName '3.0.0'
 
         consumerProguardFiles 'proguard.cfg'
     }
