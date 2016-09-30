@@ -1,7 +1,6 @@
 package com.braintreepayments.cardform.utils;
 
 import android.app.Activity;
-import android.util.TypedValue;
 
 import com.braintreepayments.cardform.R;
 
@@ -34,9 +33,12 @@ public enum ExpirationDateDialogTheme {
         }
 
         theme.mResolvedItemTextColor = activity.getResources().getColor(theme.mItemTextColor);
-        theme.mResolvedItemInverseTextColor = getColor(activity, "textColorPrimaryInverse", theme.mItemInverseTextColor);
-        theme.mResolvedItemDisabledTextColor = activity.getResources().getColor(theme.mItemDisabledTextColor);
-        theme.mResolvedSelectedItemBackground = getColor(activity, "colorAccent", R.color.bt_blue);
+        theme.mResolvedItemInverseTextColor = ColorUtils.getColor(activity,
+                "textColorPrimaryInverse", theme.mItemInverseTextColor);
+        theme.mResolvedItemDisabledTextColor = activity.getResources()
+                .getColor(theme.mItemDisabledTextColor);
+        theme.mResolvedSelectedItemBackground = ColorUtils.getColor(activity, "colorAccent",
+                R.color.bt_blue);
 
         return theme;
     }
@@ -55,18 +57,6 @@ public enum ExpirationDateDialogTheme {
 
     public int getSelectedItemBackground() {
         return mResolvedSelectedItemBackground;
-    }
-
-    private static int getColor(Activity activity, String attr, int fallbackColor) {
-        TypedValue color = new TypedValue();
-        try {
-            int colorId = activity.getResources().getIdentifier(attr, "attr", activity.getPackageName());
-            if (activity.getTheme().resolveAttribute(colorId, color, true)) {
-                return color.data;
-            }
-        } catch (Exception ignored) {}
-
-        return activity.getResources().getColor(fallbackColor);
     }
 }
 
