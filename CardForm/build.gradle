@@ -11,7 +11,7 @@ android {
         minSdkVersion 15
         targetSdkVersion 24
         versionCode 29
-        versionName '3.0.1'
+        versionName '3.0.1-SNAPSHOT'
 
         consumerProguardFiles 'proguard.cfg'
     }
