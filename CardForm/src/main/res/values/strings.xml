@@ -15,8 +15,6 @@
     <string name="bt_month" tools:ignore="MissingTranslation">Month</string>
     <string name="bt_year" tools:ignore="MissingTranslation">Year</string>
 
-    <string name="bt_default_action_label">Purchase</string>
-
     <string name="bt_card_number_required" tools:ignore="MissingTranslation">Card number is required</string>
     <string name="bt_card_number_invalid" tools:ignore="MissingTranslation">Card number is invalid</string>
     <string name="bt_cvv_required" tools:ignore="MissingTranslation">%s is required</string>
