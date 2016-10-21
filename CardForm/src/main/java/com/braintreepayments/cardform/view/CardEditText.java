@@ -1,6 +1,7 @@
 package com.braintreepayments.cardform.view;
 
 import android.content.Context;
+import android.support.v4.widget.TextViewCompat;
 import android.text.Editable;
 import android.text.InputFilter;
 import android.text.InputFilter.LengthFilter;
@@ -144,11 +145,9 @@ public class CardEditText extends ErrorEditText implements TextWatcher {
 
     private void setCardIcon(int icon) {
         if (!mDisplayCardIcon || getText().length() == 0) {
-            setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
-        } else if (isRightToLeftLanguage()) {
-            setCompoundDrawablesWithIntrinsicBounds(icon, 0, 0, 0);
+            TextViewCompat.setCompoundDrawablesRelativeWithIntrinsicBounds(this, 0, 0, 0, 0);
         } else {
-            setCompoundDrawablesWithIntrinsicBounds(0, 0, icon, 0);
+            TextViewCompat.setCompoundDrawablesRelativeWithIntrinsicBounds(this, 0, 0, icon, 0);
         }
     }
 
