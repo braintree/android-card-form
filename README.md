@@ -65,7 +65,7 @@ Additionally `CardForm` has 4 available listeners:
 * `CardForm#setOnFormFieldFocusedListener` called when a field in the form is focused.
 * `CardForm#setOnCardTypeChangedListener` called when the `CardType` in the form changes.
 
-### card.io
+## card.io
 
 The card form is compatible with [card.io](https://github.com/card-io/card.io-Android-SDK).
 
@@ -88,6 +88,10 @@ Scan a card:
 ```java
 cardForm.scanCard(activity);
 ```
+
+## Example
+
+![](/Sample/screenshot.png)
 
 ## Styling
 
