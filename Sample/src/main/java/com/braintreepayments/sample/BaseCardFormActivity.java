@@ -61,6 +61,7 @@ public class BaseCardFormActivity extends AppCompatActivity implements OnCardFor
         if (mCardForm.isValid()) {
             Toast.makeText(this, R.string.valid, Toast.LENGTH_SHORT).show();
         } else {
+            mCardForm.validate();
             Toast.makeText(this, R.string.invalid, Toast.LENGTH_SHORT).show();
         }
     }
