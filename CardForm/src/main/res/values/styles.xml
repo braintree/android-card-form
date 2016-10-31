@@ -10,7 +10,7 @@
 
     <style name="bt_field_container">
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
         <item name="android:orientation">horizontal</item>
         <item name="android:baselineAligned">false</item>
     </style>
@@ -74,7 +74,9 @@
 
     <style name="bt_expiration_date_dialog_grid_view">
         <item name="android:layout_marginLeft">@dimen/bt_expiration_date_sheet_left_right_margin</item>
+        <item name="android:layout_marginStart" tools:targetApi="jelly_bean_mr1">@dimen/bt_expiration_date_sheet_left_right_margin</item>
         <item name="android:layout_marginRight">@dimen/bt_expiration_date_sheet_left_right_margin</item>
+        <item name="android:layout_marginEnd" tools:targetApi="jelly_bean_mr1">@dimen/bt_expiration_date_sheet_left_right_margin</item>
         <item name="android:layout_marginBottom">@dimen/bt_expiration_date_sheet_top_bottom_margin</item>
         <item name="android:listSelector">@android:color/transparent</item>
         <item name="android:choiceMode">singleChoice</item>
@@ -85,6 +87,7 @@
     <style name="bt_expiration_date_dialog_year_grid_view" parent="bt_expiration_date_dialog_grid_view">
         <item name="android:paddingRight">8dp</item>
         <item name="android:paddingEnd" tools:targetApi="jelly_bean_mr1">8dp</item>
+        <item name="android:paddingStart" tools:targetApi="jelly_bean_mr1">0dp</item>
         <item name="android:scrollbarSize">3dp</item>
         <item name="android:scrollbarStyle">outsideOverlay</item>
         <item name="android:fadeScrollbars">false</item>

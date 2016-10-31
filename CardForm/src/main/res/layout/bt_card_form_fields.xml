@@ -14,8 +14,10 @@
 
         <android.support.design.widget.TextInputLayout
             style="@style/bt_text_input_layout"
+            tools:ignore="RtlCompat"
             android:paddingLeft="@dimen/bt_edit_text_icon_padding"
             android:paddingStart="@dimen/bt_edit_text_icon_padding"
+            android:paddingEnd="0dp"
             android:labelFor="@+id/bt_card_form_card_number">
 
             <com.braintreepayments.cardform.view.CardEditText
@@ -31,9 +33,11 @@
 
     <LinearLayout
         style="@style/bt_field_container"
+        tools:ignore="RtlCompat"
         android:weightSum="2"
         android:paddingLeft="56dp"
-        android:paddingStart="56dp">
+        android:paddingStart="56dp"
+        android:paddingEnd="0dp">
 
         <android.support.design.widget.TextInputLayout
             style="@style/bt_text_input_layout"
@@ -76,8 +80,10 @@
 
         <android.support.design.widget.TextInputLayout
             style="@style/bt_text_input_layout"
+            tools:ignore="RtlCompat"
             android:paddingLeft="@dimen/bt_edit_text_icon_padding"
             android:paddingStart="@dimen/bt_edit_text_icon_padding"
+            android:paddingEnd="0dp"
             android:labelFor="@+id/bt_card_form_postal_code">
 
             <com.braintreepayments.cardform.view.PostalCodeEditText
@@ -101,10 +107,12 @@
 
         <android.support.design.widget.TextInputLayout
             style="@style/bt_text_input_layout"
+            tools:ignore="RtlCompat"
             android:layout_width="0dp"
             android:layout_weight="2"
             android:paddingLeft="@dimen/bt_edit_text_icon_padding"
             android:paddingStart="@dimen/bt_edit_text_icon_padding"
+            android:paddingEnd="0dp"
             android:labelFor="@+id/bt_card_form_country_code">
 
             <com.braintreepayments.cardform.view.CountryCodeEditText
@@ -132,12 +140,14 @@
     </LinearLayout>
 
     <TextView
+        tools:ignore="RtlCompat"
         android:id="@+id/bt_card_form_mobile_number_explanation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="-8dp"
         android:visibility="gone"
         android:paddingLeft="60dp"
-        android:paddingStart="60dp" />
+        android:paddingStart="60dp"
+        android:paddingEnd="0dp"/>
 
 </merge>
