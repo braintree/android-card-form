@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<resources>
+    <string name="bt_form_hint_card_number">หมายเลขบัตร</string>
+    <string name="bt_form_hint_expiration">วันหมดอายุ</string>
+    <string name="bt_form_hint_cvv">@string/bt_cvv</string>
+    <string name="bt_form_hint_postal_code">รหัสไปรษณีย์</string>
+    <string name="bt_form_hint_country_code">รหัสประเทศ</string>
+    <string name="bt_form_hint_mobile_number">หมายเลขโทรศัพท์มือถือ</string>
+
+    <string name="bt_cvv">CVV</string>
+    <string name="bt_cvc">CVC</string>
+    <string name="bt_cid">CID</string>
+    <string name="bt_cvn">CVN</string>
+
+    <string name="bt_month">เดือน</string>
+    <string name="bt_year">ปี</string>
+
+    <string name="bt_card_number_required">ต้องระบุหมายเลขบัตร</string>
+    <string name="bt_card_number_invalid">หมายเลขบัตรไม่ถูกต้อง</string>
+    <string name="bt_cvv_required">ต้องระบุ %s</string>
+    <string name="bt_cvv_invalid">%s ไม่ถูกต้อง</string>
+    <string name="bt_expiration_required">ต้องระบุวันหมดอายุ</string>
+    <string name="bt_expiration_invalid">วันหมดอายุไม่ถูกต้อง</string>
+    <string name="bt_postal_code_required">ต้องระบุรหัสไปรษณีย์</string>
+    <string name="bt_country_code_required">ต้องระบุรหัสประเทศ</string>
+    <string name="bt_mobile_number_required">ต้องระบุหมายเลขโทรศัพท์มือถือ</string>
+</resources>

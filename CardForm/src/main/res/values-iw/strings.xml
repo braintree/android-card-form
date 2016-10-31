@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<resources>
+    <string name="bt_form_hint_card_number">מספר כרטיס</string>
+    <string name="bt_form_hint_expiration">תאריך תפוגה</string>
+    <string name="bt_form_hint_cvv">@string/bt_cvv</string>
+    <string name="bt_form_hint_postal_code">קוד</string>
+    <string name="bt_form_hint_country_code">קוד ארץ</string>
+    <string name="bt_form_hint_mobile_number">מספר טלפון נייד</string>
+
+    <string name="bt_cvv">CVV</string>
+    <string name="bt_cvc">CVC</string>
+    <string name="bt_cid">CID</string>
+    <string name="bt_cvn">CVN</string>
+
+    <string name="bt_month">חודש</string>
+    <string name="bt_year">שנה</string>
+
+    <string name="bt_card_number_required">מספר כרטיס אשראי נדרש</string>
+    <string name="bt_card_number_invalid">מספר כרטיס האשראי לא חוקי</string>
+    <string name="bt_cvv_required">%s נדרש</string>
+    <string name="bt_cvv_invalid">%s לא חוקי</string>
+    <string name="bt_expiration_required">תאריך פקיעת תוקף נדרש</string>
+    <string name="bt_expiration_invalid">תאריך פקיעת התוקף לא חוקי</string>
+    <string name="bt_postal_code_required">מיקוד נדרש</string>
+    <string name="bt_country_code_required">קוד מדינה נדרש</string>
+    <string name="bt_mobile_number_required">מספר טלפון נייד נדרש</string>
+</resources>

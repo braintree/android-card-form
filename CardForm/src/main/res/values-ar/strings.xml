@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<resources>
+    <string name="bt_form_hint_card_number">رقم البطاقة</string>
+    <string name="bt_form_hint_expiration">تاريخ انتهاء الصلاحية</string>
+    <string name="bt_form_hint_cvv">@string/bt_cvv</string>
+    <string name="bt_form_hint_postal_code">الكود البريدي</string>
+    <string name="bt_form_hint_country_code">كود الدولة</string>
+    <string name="bt_form_hint_mobile_number">رقم الجوال</string>
+
+    <string name="bt_cvv">CVV</string>
+    <string name="bt_cvc">CVC</string>
+    <string name="bt_cid">CID</string>
+    <string name="bt_cvn">CVN</string>
+
+    <string name="bt_month">الشهر</string>
+    <string name="bt_year">السنة</string>
+
+    <string name="bt_card_number_required">يجب إدخال رقم البطاقة</string>
+    <string name="bt_card_number_invalid">رقم البطاقة غير صالح</string>
+    <string name="bt_cvv_required">يجب إدخال ‎%s‎‏</string>
+    <string name="bt_cvv_invalid">‎%s‎ غير صالح</string>
+    <string name="bt_expiration_required">يجب إدخال تاريخ انتهاء الصلاحية</string>
+    <string name="bt_expiration_invalid">تاريخ انتهاء الصلاحية غير صالح</string>
+    <string name="bt_postal_code_required">يجب إدخال الرمز البريدي</string>
+    <string name="bt_country_code_required">يجب إدخال كود الدولة</string>
+    <string name="bt_mobile_number_required">يجب إدخال رقم الجوال</string>
+</resources>

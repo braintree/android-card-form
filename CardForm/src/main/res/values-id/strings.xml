@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<resources>
+    <string name="bt_form_hint_card_number">Nomor Kartu</string>
+    <string name="bt_form_hint_expiration">Tanggal Kedaluwarsa</string>
+    <string name="bt_form_hint_cvv">@string/bt_cvv</string>
+    <string name="bt_form_hint_postal_code">Kode Pos</string>
+    <string name="bt_form_hint_country_code">Kode Negara</string>
+    <string name="bt_form_hint_mobile_number">Nomor Seluler</string>
+
+    <string name="bt_cvv">CVV</string>
+    <string name="bt_cvc">CVC</string>
+    <string name="bt_cid">CID</string>
+    <string name="bt_cvn">CVN</string>
+
+    <string name="bt_month">Bulan</string>
+    <string name="bt_year">Tahun</string>
+
+    <string name="bt_card_number_required">Nomor kartu wajib diisi</string>
+    <string name="bt_card_number_invalid">Nomor kartu tidak valid</string>
+    <string name="bt_cvv_required">%s wajib diisi</string>
+    <string name="bt_cvv_invalid">%s tidak valid</string>
+    <string name="bt_expiration_required">Tanggal kedaluwarsa harus diisi</string>
+    <string name="bt_expiration_invalid">Tanggal kedaluwarsa tidak valid</string>
+    <string name="bt_postal_code_required">Kode pos wajib diisi</string>
+    <string name="bt_country_code_required">Kode negara wajib diisi</string>
+    <string name="bt_mobile_number_required">Nomor telepon seluler wajib diisi</string>
+</resources>
