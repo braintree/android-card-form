@@ -1,6 +1,5 @@
 package com.braintreepayments.cardform.view;
 
-import android.annotation.TargetApi;
 import android.content.Context;
 import android.graphics.Rect;
 import android.support.annotation.Nullable;
@@ -8,6 +7,7 @@ import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
 import android.text.TextUtils;
 import android.util.AttributeSet;
+import android.view.Gravity;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -47,6 +47,7 @@ public class ErrorEditText extends TextInputEditText {
     private void init() {
         mErrorAnimator = AnimationUtils.loadAnimation(getContext(), R.anim.bt_error_animation);
         mError = false;
+        setupRTL();
     }
 
     @Override
@@ -207,13 +208,12 @@ public class ErrorEditText extends TextInputEditText {
         return null;
     }
 
-    @TargetApi(JELLY_BEAN_MR1)
-    protected boolean isRightToLeftLanguage() {
+    private void setupRTL() {
         if (SDK_INT >= JELLY_BEAN_MR1) {
             if (getResources().getConfiguration().getLayoutDirection() == View.LAYOUT_DIRECTION_RTL) {
-                return true;
+                setTextDirection(View.TEXT_DIRECTION_LTR);
+                setGravity(Gravity.RIGHT);
             }
         }
-        return false;
     }
 }

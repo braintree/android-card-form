@@ -91,9 +91,7 @@ public class CardEditText extends ErrorEditText implements TextWatcher {
         updateCardType();
         setCardIcon(mCardType.getFrontResource());
 
-        if (!isRightToLeftLanguage()) {
-            addSpans(editable, mCardType.getSpaceIndices());
-        }
+        addSpans(editable, mCardType.getSpaceIndices());
 
         if (mCardType.getMaxCardLength() == getSelectionStart()) {
             validate();

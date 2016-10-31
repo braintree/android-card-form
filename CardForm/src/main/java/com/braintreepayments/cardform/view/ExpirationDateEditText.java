@@ -176,9 +176,7 @@ public class ExpirationDateEditText extends ErrorEditText implements TextWatcher
             editable.removeSpan(span);
         }
 
-        if (!isRightToLeftLanguage()) {
-            addDateSlash(editable);
-        }
+        addDateSlash(editable);
 
         if (((getSelectionStart() == 4 && !editable.toString().endsWith("20")) || getSelectionStart() == 6)
                 && isValid()) {
