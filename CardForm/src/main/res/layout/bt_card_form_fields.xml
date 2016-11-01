@@ -35,8 +35,8 @@
         style="@style/bt_field_container"
         tools:ignore="RtlCompat"
         android:weightSum="2"
-        android:paddingLeft="56dp"
-        android:paddingStart="56dp"
+        android:paddingLeft="@dimen/bt_no_edit_text_icon_padding"
+        android:paddingStart="@dimen/bt_no_edit_text_icon_padding"
         android:paddingEnd="0dp">
 
         <android.support.design.widget.TextInputLayout
@@ -146,8 +146,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="-8dp"
         android:visibility="gone"
-        android:paddingLeft="60dp"
-        android:paddingStart="60dp"
+        android:paddingLeft="@dimen/bt_mobile_number_explanation_padding"
+        android:paddingStart="@dimen/bt_mobile_number_explanation_padding"
         android:paddingEnd="0dp"/>
 
 </merge>

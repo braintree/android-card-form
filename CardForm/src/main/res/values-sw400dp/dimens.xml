@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="bt_margin">16dp</dimen>
+    <dimen name="bt_edit_text_icon_padding">31dp</dimen>
+    <dimen name="bt_no_edit_text_icon_padding">56dp</dimen>
+    <dimen name="bt_mobile_number_explanation_padding">60dp</dimen>
+    <dimen name="bt_expiration_date_item_text_size">20sp</dimen>
+
+    <dimen name="bt_expiration_date_sheet_left_right_margin">16dp</dimen>
+    <dimen name="bt_expiration_date_sheet_top_bottom_margin">16dp</dimen>
+    <dimen name="bt_expiration_date_sheet_label_padding_top">16dp</dimen>
+    <dimen name="bt_expiration_date_sheet_label_padding_bottom">8dp</dimen>
+</resources>

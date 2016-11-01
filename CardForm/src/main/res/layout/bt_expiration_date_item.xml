@@ -8,5 +8,5 @@
           android:paddingRight="@dimen/bt_margin"
           android:paddingEnd="@dimen/bt_margin"
           android:minHeight="48dp"
-          android:textSize="20sp"
+          android:textSize="@dimen/bt_expiration_date_item_text_size"
           android:textStyle="bold"/>
