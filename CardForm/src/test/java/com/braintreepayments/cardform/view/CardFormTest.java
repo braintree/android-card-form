@@ -35,6 +35,8 @@ import java.util.concurrent.atomic.AtomicInteger;
 import io.card.payment.CardIOActivity;
 import io.card.payment.CreditCard;
 
+import static android.view.View.GONE;
+import static android.view.View.VISIBLE;
 import static com.braintreepayments.cardform.test.Assertions.assertIconHintIs;
 import static com.braintreepayments.cardform.test.Assertions.assertNoHintIcon;
 import static com.braintreepayments.cardform.test.ColorTestUtils.getColor;
@@ -97,14 +99,14 @@ public class CardFormTest {
 
     @Test
     public void visibilityIsGoneBeforeSetupIsCalled() {
-        assertEquals(View.GONE, mCardForm.getVisibility());
+        assertEquals(GONE, mCardForm.getVisibility());
     }
 
     @Test
     public void visibilityIsVisibleAfterSetupIsCalled() {
         setRequiredFields(true, true, true, true, true);
 
-        assertEquals(View.VISIBLE, mCardForm.getVisibility());
+        assertEquals(VISIBLE, mCardForm.getVisibility());
     }
 
     @Test
@@ -141,111 +143,47 @@ public class CardFormTest {
     @Test
     public void cardNumberIsShownIfRequired() {
         setRequiredFields(true, false, false, false, false);
-
-        assertEquals(View.VISIBLE, mCardForm.findViewById(R.id.bt_card_form_card_number_icon).getVisibility());
-        assertEquals(View.VISIBLE, mCardForm.findViewById(R.id.bt_card_form_card_number).getVisibility());
-        assertEquals(View.GONE, mCardForm.findViewById(R.id.bt_card_form_expiration).getVisibility());
-        assertEquals(View.GONE, mCardForm.findViewById(R.id.bt_card_form_cvv).getVisibility());
-        assertEquals(View.GONE, mCardForm.findViewById(R.id.bt_card_form_postal_code_icon).getVisibility());
-        assertEquals(View.GONE, mCardForm.findViewById(R.id.bt_card_form_postal_code).getVisibility());
-        assertEquals(View.GONE, mCardForm.findViewById(R.id.bt_card_form_mobile_number_icon).getVisibility());
-        assertEquals(View.GONE, mCardForm.findViewById(R.id.bt_card_form_country_code).getVisibility());
-        assertEquals(View.GONE, mCardForm.findViewById(R.id.bt_card_form_mobile_number).getVisibility());
-        assertEquals(View.GONE, mCardForm.findViewById(R.id.bt_card_form_mobile_number_explanation).getVisibility());
+        assertFieldsVisible(VISIBLE, GONE, GONE, GONE, GONE);
     }
 
     @Test
     public void expirationIsShownIfRequired() {
         setRequiredFields(false, true, false, false, false);
-
-        assertEquals(View.VISIBLE, mCardForm.findViewById(R.id.bt_card_form_expiration).getVisibility());
-        assertEquals(View.GONE, mCardForm.findViewById(R.id.bt_card_form_card_number_icon).getVisibility());
-        assertEquals(View.GONE, mCardForm.findViewById(R.id.bt_card_form_card_number).getVisibility());
-        assertEquals(View.GONE, mCardForm.findViewById(R.id.bt_card_form_cvv).getVisibility());
-        assertEquals(View.GONE, mCardForm.findViewById(R.id.bt_card_form_postal_code_icon).getVisibility());
-        assertEquals(View.GONE, mCardForm.findViewById(R.id.bt_card_form_postal_code).getVisibility());
-        assertEquals(View.GONE, mCardForm.findViewById(R.id.bt_card_form_mobile_number_icon).getVisibility());
-        assertEquals(View.GONE, mCardForm.findViewById(R.id.bt_card_form_country_code).getVisibility());
-        assertEquals(View.GONE, mCardForm.findViewById(R.id.bt_card_form_mobile_number).getVisibility());
-        assertEquals(View.GONE, mCardForm.findViewById(R.id.bt_card_form_mobile_number_explanation).getVisibility());
+        assertFieldsVisible(GONE, VISIBLE, GONE, GONE, GONE);
     }
 
     @Test
     public void cvvIsShownIfRequired() {
         setRequiredFields(false, false, true, false, false);
-
-        assertEquals(View.VISIBLE, mCardForm.findViewById(R.id.bt_card_form_cvv).getVisibility());
-        assertEquals(View.GONE, mCardForm.findViewById(R.id.bt_card_form_card_number_icon).getVisibility());
-        assertEquals(View.GONE, mCardForm.findViewById(R.id.bt_card_form_card_number).getVisibility());
-        assertEquals(View.GONE, mCardForm.findViewById(R.id.bt_card_form_expiration).getVisibility());
-        assertEquals(View.GONE, mCardForm.findViewById(R.id.bt_card_form_postal_code_icon).getVisibility());
-        assertEquals(View.GONE, mCardForm.findViewById(R.id.bt_card_form_postal_code).getVisibility());
-        assertEquals(View.GONE, mCardForm.findViewById(R.id.bt_card_form_mobile_number_icon).getVisibility());
-        assertEquals(View.GONE, mCardForm.findViewById(R.id.bt_card_form_country_code).getVisibility());
-        assertEquals(View.GONE, mCardForm.findViewById(R.id.bt_card_form_mobile_number).getVisibility());
-        assertEquals(View.GONE, mCardForm.findViewById(R.id.bt_card_form_mobile_number_explanation).getVisibility());
+        assertFieldsVisible(GONE, GONE, VISIBLE, GONE, GONE);
     }
 
     @Test
     public void postalCodeIsShownIfRequired() {
         setRequiredFields(false, false, false, true, false);
-
-        assertEquals(View.VISIBLE, mCardForm.findViewById(R.id.bt_card_form_postal_code_icon).getVisibility());
-        assertEquals(View.VISIBLE, mCardForm.findViewById(R.id.bt_card_form_postal_code).getVisibility());
-        assertEquals(View.GONE, mCardForm.findViewById(R.id.bt_card_form_card_number_icon).getVisibility());
-        assertEquals(View.GONE, mCardForm.findViewById(R.id.bt_card_form_card_number).getVisibility());
-        assertEquals(View.GONE, mCardForm.findViewById(R.id.bt_card_form_expiration).getVisibility());
-        assertEquals(View.GONE, mCardForm.findViewById(R.id.bt_card_form_cvv).getVisibility());
-        assertEquals(View.GONE, mCardForm.findViewById(R.id.bt_card_form_mobile_number_icon).getVisibility());
-        assertEquals(View.GONE, mCardForm.findViewById(R.id.bt_card_form_country_code).getVisibility());
-        assertEquals(View.GONE, mCardForm.findViewById(R.id.bt_card_form_mobile_number).getVisibility());
-        assertEquals(View.GONE, mCardForm.findViewById(R.id.bt_card_form_mobile_number_explanation).getVisibility());
+        assertFieldsVisible(GONE, GONE, GONE, VISIBLE, GONE);
     }
 
     @Test
     public void countryCodeMobileNumberAndMobileNumberExplanationAreShownIfRequired() {
         setRequiredFields(false, false, false, false, true);
-
-        assertEquals(View.VISIBLE, mCardForm.findViewById(R.id.bt_card_form_mobile_number_icon).getVisibility());
-        assertEquals(View.VISIBLE, mCardForm.findViewById(R.id.bt_card_form_country_code).getVisibility());
-        assertEquals(View.VISIBLE, mCardForm.findViewById(R.id.bt_card_form_mobile_number).getVisibility());
-        assertEquals(View.VISIBLE, mCardForm.findViewById(R.id.bt_card_form_mobile_number_explanation).getVisibility());
+        assertFieldsVisible(GONE, GONE, GONE, GONE, VISIBLE);
         assertEquals("Make sure SMS is supported", ((TextView)mCardForm.findViewById(R.id.bt_card_form_mobile_number_explanation)).getText());
-        assertEquals(View.GONE, mCardForm.findViewById(R.id.bt_card_form_card_number_icon).getVisibility());
-        assertEquals(View.GONE, mCardForm.findViewById(R.id.bt_card_form_card_number).getVisibility());
-        assertEquals(View.GONE, mCardForm.findViewById(R.id.bt_card_form_expiration).getVisibility());
-        assertEquals(View.GONE, mCardForm.findViewById(R.id.bt_card_form_cvv).getVisibility());
-        assertEquals(View.GONE, mCardForm.findViewById(R.id.bt_card_form_postal_code_icon).getVisibility());
-        assertEquals(View.GONE, mCardForm.findViewById(R.id.bt_card_form_postal_code).getVisibility());
     }
 
     @Test
     public void mobileNumberExplanationNotShownIfMobileNumberNotRequired() {
         setRequiredFields(false, false, false, false, false);
-
-        assertEquals(View.GONE, mCardForm.findViewById(R.id.bt_card_form_mobile_number_icon).getVisibility());
-        assertEquals(View.GONE, mCardForm.findViewById(R.id.bt_card_form_country_code).getVisibility());
-        assertEquals(View.GONE, mCardForm.findViewById(R.id.bt_card_form_mobile_number).getVisibility());
-        assertEquals(View.GONE, mCardForm.findViewById(R.id.bt_card_form_mobile_number_explanation).getVisibility());
+        assertFieldsVisible(GONE, GONE, GONE, GONE ,GONE);
     }
 
     @Test
     public void repeatedCallsToSetupSetCorrectVisibility() {
         setRequiredFields(false, false, false, false, false);
-        assertEquals(View.GONE, mCardForm.findViewById(R.id.bt_card_form_card_number).getVisibility());
-        assertEquals(View.GONE, mCardForm.findViewById(R.id.bt_card_form_expiration).getVisibility());
-        assertEquals(View.GONE, mCardForm.findViewById(R.id.bt_card_form_cvv).getVisibility());
-        assertEquals(View.GONE, mCardForm.findViewById(R.id.bt_card_form_postal_code).getVisibility());
-        assertEquals(View.GONE, mCardForm.findViewById(R.id.bt_card_form_country_code).getVisibility());
-        assertEquals(View.GONE, mCardForm.findViewById(R.id.bt_card_form_mobile_number).getVisibility());
+        assertFieldsVisible(GONE, GONE, GONE, GONE, GONE);
 
         setRequiredFields(true, true, true, true, true);
-        assertEquals(View.VISIBLE, mCardForm.findViewById(R.id.bt_card_form_card_number).getVisibility());
-        assertEquals(View.VISIBLE, mCardForm.findViewById(R.id.bt_card_form_expiration).getVisibility());
-        assertEquals(View.VISIBLE, mCardForm.findViewById(R.id.bt_card_form_cvv).getVisibility());
-        assertEquals(View.VISIBLE, mCardForm.findViewById(R.id.bt_card_form_postal_code).getVisibility());
-        assertEquals(View.VISIBLE, mCardForm.findViewById(R.id.bt_card_form_country_code).getVisibility());
-        assertEquals(View.VISIBLE, mCardForm.findViewById(R.id.bt_card_form_mobile_number).getVisibility());
+        assertFieldsVisible(VISIBLE, VISIBLE, VISIBLE, VISIBLE, VISIBLE);
     }
 
     @Test
@@ -472,20 +410,10 @@ public class CardFormTest {
     @Test
     public void setEnabledSetsStateCorrectly() {
         setRequiredFields(true, true, true, true, true);
-
-        assertTrue(mCardForm.findViewById(R.id.bt_card_form_card_number).isEnabled());
-        assertTrue(mCardForm.findViewById(R.id.bt_card_form_expiration).isEnabled());
-        assertTrue(mCardForm.findViewById(R.id.bt_card_form_cvv).isEnabled());
-        assertTrue(mCardForm.findViewById(R.id.bt_card_form_postal_code).isEnabled());
-        assertTrue(mCardForm.findViewById(R.id.bt_card_form_mobile_number).isEnabled());
+        assertFieldsEnabled(true, true, true, true, true);
 
         mCardForm.setEnabled(false);
-
-        assertFalse(mCardForm.findViewById(R.id.bt_card_form_card_number).isEnabled());
-        assertFalse(mCardForm.findViewById(R.id.bt_card_form_expiration).isEnabled());
-        assertFalse(mCardForm.findViewById(R.id.bt_card_form_cvv).isEnabled());
-        assertFalse(mCardForm.findViewById(R.id.bt_card_form_postal_code).isEnabled());
-        assertFalse(mCardForm.findViewById(R.id.bt_card_form_mobile_number).isEnabled());
+        assertFieldsEnabled(false, false, false, false, false);
     }
 
     @Test
@@ -527,14 +455,11 @@ public class CardFormTest {
     public void validateSetsErrorOnFields() {
         setRequiredFields(true, true, true, true, true);
 
-        assertFalse(((ErrorEditText) mCardForm.findViewById(R.id.bt_card_form_card_number)).isError());
-        assertFalse(((ErrorEditText) mCardForm.findViewById(R.id.bt_card_form_expiration)).isError());
-        assertFalse(((ErrorEditText) mCardForm.findViewById(R.id.bt_card_form_cvv)).isError());
-        assertFalse(((ErrorEditText) mCardForm.findViewById(R.id.bt_card_form_postal_code)).isError());
-        assertFalse(((ErrorEditText) mCardForm.findViewById(R.id.bt_card_form_country_code)).isError());
-        assertFalse(((ErrorEditText) mCardForm.findViewById(R.id.bt_card_form_mobile_number)).isError());
+        assertFieldsError(false, false, false, false, false, false);
 
         mCardForm.validate();
+
+        assertFieldsError(true, true, true, true, true, true);
 
         assertTrue(((ErrorEditText) mCardForm.findViewById(R.id.bt_card_form_card_number)).isError());
         assertTrue(((ErrorEditText) mCardForm.findViewById(R.id.bt_card_form_expiration)).isError());
@@ -1143,6 +1068,45 @@ public class CardFormTest {
                 .mobileNumberRequired(mobileNumberRequired)
                 .mobileNumberExplanation("Make sure SMS is supported")
                 .setup(mActivity);
+    }
+
+    private void assertFieldsVisible(int cardNumberVisible, int expirationVisible, int cvvVisible,
+                                     int postalCodeVisible, int mobileNumberVisible) {
+        assertEquals(cardNumberVisible, mCardForm.findViewById(R.id.bt_card_form_card_number_icon).getVisibility());
+        assertEquals(cardNumberVisible, mCardForm.findViewById(R.id.bt_card_form_card_number).getVisibility());
+
+        assertEquals(expirationVisible, mCardForm.findViewById(R.id.bt_card_form_expiration).getVisibility());
+        assertEquals(cvvVisible, mCardForm.findViewById(R.id.bt_card_form_cvv).getVisibility());
+
+        assertEquals(postalCodeVisible, mCardForm.findViewById(R.id.bt_card_form_postal_code_icon).getVisibility());
+        assertEquals(postalCodeVisible, mCardForm.findViewById(R.id.bt_card_form_postal_code).getVisibility());
+
+        assertEquals(mobileNumberVisible, mCardForm.findViewById(R.id.bt_card_form_mobile_number_icon).getVisibility());
+        assertEquals(mobileNumberVisible, mCardForm.findViewById(R.id.bt_card_form_country_code).getVisibility());
+        assertEquals(mobileNumberVisible, mCardForm.findViewById(R.id.bt_card_form_mobile_number).getVisibility());
+        assertEquals(mobileNumberVisible, mCardForm.findViewById(R.id.bt_card_form_mobile_number_explanation).getVisibility());
+    }
+
+    private void assertFieldsEnabled(boolean cardNumberEnabled, boolean expirationEnabled,
+                                     boolean cvvEnabled, boolean postalCodeEnabled,
+                                     boolean mobileNumberEnabled) {
+        assertEquals(cardNumberEnabled, mCardForm.findViewById(R.id.bt_card_form_card_number).isEnabled());
+        assertEquals(expirationEnabled, mCardForm.findViewById(R.id.bt_card_form_expiration).isEnabled());
+        assertEquals(cvvEnabled, mCardForm.findViewById(R.id.bt_card_form_cvv).isEnabled());
+        assertEquals(postalCodeEnabled, mCardForm.findViewById(R.id.bt_card_form_postal_code).isEnabled());
+        assertEquals(mobileNumberEnabled, mCardForm.findViewById(R.id.bt_card_form_mobile_number).isEnabled());
+    }
+
+    private void assertFieldsError(boolean cardNumberEnabled, boolean expirationEnabled,
+                                   boolean cvvEnabled, boolean postalCodeEnabled,
+                                   boolean countryCodeEnabled, boolean mobileNumberEnabled) {
+        assertEquals(cardNumberEnabled, ((ErrorEditText) mCardForm.findViewById(R.id.bt_card_form_card_number)).isError());
+        assertEquals(expirationEnabled, ((ErrorEditText) mCardForm.findViewById(R.id.bt_card_form_expiration)).isError());
+        assertEquals(cvvEnabled, ((ErrorEditText) mCardForm.findViewById(R.id.bt_card_form_cvv)).isError());
+        assertEquals(postalCodeEnabled, ((ErrorEditText) mCardForm.findViewById(R.id.bt_card_form_postal_code)).isError());
+        assertEquals(postalCodeEnabled, ((ErrorEditText) mCardForm.findViewById(R.id.bt_card_form_postal_code)).isError());
+        assertEquals(countryCodeEnabled, ((ErrorEditText) mCardForm.findViewById(R.id.bt_card_form_country_code)).isError());
+        assertEquals(mobileNumberEnabled, ((ErrorEditText) mCardForm.findViewById(R.id.bt_card_form_mobile_number)).isError());
     }
 
     private void setText(EditText editText, String text) {
