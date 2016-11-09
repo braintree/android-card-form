@@ -15,14 +15,14 @@ import static junit.framework.Assert.assertFalse;
 import static junit.framework.Assert.assertTrue;
 
 @RunWith(RobolectricTestRunner.class)
-public class NameEditTextTest {
+public class CardholderNameEditTextTest {
 
-    private NameEditText mView;
+    private CardholderNameEditText mView;
 
     @Before
     public void setup() {
-        mView = (NameEditText) Robolectric.setupActivity(TestActivity.class)
-                .findViewById(R.id.bt_card_form_name);
+        mView = (CardholderNameEditText) Robolectric.setupActivity(TestActivity.class)
+                .findViewById(R.id.bt_card_form_cardholder_name);
     }
 
     @Test
@@ -45,6 +45,6 @@ public class NameEditTextTest {
 
     @Test
     public void getErrorMessage_returnsErrorMessageWhenEmpty() {
-        assertEquals(RuntimeEnvironment.application.getString(R.string.bt_name_required), mView.getErrorMessage());
+        assertEquals(RuntimeEnvironment.application.getString(R.string.bt_cardholder_name_required), mView.getErrorMessage());
     }
 }
