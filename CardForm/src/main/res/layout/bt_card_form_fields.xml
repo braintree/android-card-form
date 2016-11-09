@@ -76,20 +76,20 @@
         <ImageView
             style="@style/bt_card_form_icon"
             tools:ignore="ContentDescription"
-            android:id="@+id/bt_card_form_name_icon"/>
+            android:id="@+id/bt_card_form_cardholder_name_icon"/>
         <android.support.design.widget.TextInputLayout
             style="@style/bt_text_input_layout"
             tools:ignore="RtlCompat"
             android:paddingLeft="@dimen/bt_edit_text_icon_padding"
             android:paddingStart="@dimen/bt_edit_text_icon_padding"
             android:paddingEnd="0dp"
-            android:labelFor="@+id/bt_card_form_name">
+            android:labelFor="@+id/bt_card_form_cardholder_name">
 
-            <com.braintreepayments.cardform.view.NameEditText
+            <com.braintreepayments.cardform.view.CardholderNameEditText
                 style="@style/bt_card_form_field"
-                android:id="@+id/bt_card_form_name"
-                android:hint="@string/bt_form_hint_name"
-                android:contentDescription="@string/bt_form_hint_name"/>
+                android:id="@+id/bt_card_form_cardholder_name"
+                android:hint="@string/bt_form_hint_cardholder_name"
+                android:contentDescription="@string/bt_form_hint_cardholder_name"/>
 
         </android.support.design.widget.TextInputLayout>
 

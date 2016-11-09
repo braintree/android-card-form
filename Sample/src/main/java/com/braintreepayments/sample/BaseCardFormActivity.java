@@ -38,7 +38,7 @@ public class BaseCardFormActivity extends AppCompatActivity implements OnCardFor
                 .cvvRequired(true)
                 .postalCodeRequired(true)
                 .mobileNumberRequired(true)
-                .nameRequired(true)
+                .cardholderNameRequired(true)
                 .mobileNumberExplanation("Make sure SMS is enabled for this mobile number")
                 .actionLabel(getString(R.string.purchase))
                 .setup(this);

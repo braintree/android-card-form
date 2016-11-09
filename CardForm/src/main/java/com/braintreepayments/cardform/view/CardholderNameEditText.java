@@ -9,20 +9,21 @@ import android.util.AttributeSet;
 import com.braintreepayments.cardform.R;
 
 /**
- * Input for name. Validated for presence only.
+ * Input for cardholder name. Validated for presence only.
  */
-public class NameEditText extends ErrorEditText {
-    public NameEditText(Context context) {
+public class CardholderNameEditText extends ErrorEditText {
+
+    public CardholderNameEditText(Context context) {
         super(context);
         init();
     }
 
-    public NameEditText(Context context, AttributeSet attrs) {
+    public CardholderNameEditText(Context context, AttributeSet attrs) {
         super(context, attrs);
         init();
     }
 
-    public NameEditText(Context context, AttributeSet attrs, int defStyle) {
+    public CardholderNameEditText(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         init();
     }
@@ -40,6 +41,6 @@ public class NameEditText extends ErrorEditText {
 
     @Override
     public String getErrorMessage() {
-        return getContext().getString(R.string.bt_name_required);
+        return getContext().getString(R.string.bt_cardholder_name_required);
     }
 }
