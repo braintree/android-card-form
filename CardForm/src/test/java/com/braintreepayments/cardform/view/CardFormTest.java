@@ -217,16 +217,35 @@ public class CardFormTest {
     }
 
     @Test
+    public void setsIMEActionAsNextForCardholderNameIfAnyOtherFieldIsRequired() {
+        setRequiredFields(true, false, false, true, false, false);
+        assertEquals(EditorInfo.IME_ACTION_NEXT,
+                ((TextView) mCardForm.findViewById(R.id.bt_card_form_cardholder_name)).getImeOptions());
+
+        setRequiredFields(false, true, false, true, false, false);
+        assertEquals(EditorInfo.IME_ACTION_NEXT,
+                ((TextView) mCardForm.findViewById(R.id.bt_card_form_cardholder_name)).getImeOptions());
+
+        setRequiredFields(false, false, true, true, false, false);
+        assertEquals(EditorInfo.IME_ACTION_NEXT,
+                ((TextView) mCardForm.findViewById(R.id.bt_card_form_cardholder_name)).getImeOptions());
+
+        setRequiredFields(false, false, false, true, true, false);
+        assertEquals(EditorInfo.IME_ACTION_NEXT,
+                ((TextView) mCardForm.findViewById(R.id.bt_card_form_cardholder_name)).getImeOptions());
+
+        setRequiredFields(false, false, false, true, false, true);
+        assertEquals(EditorInfo.IME_ACTION_NEXT,
+                ((TextView) mCardForm.findViewById(R.id.bt_card_form_cardholder_name)).getImeOptions());
+    }
+
+    @Test
     public void setsIMEActionAsNextForCardNumberIfAnyOtherFieldIsRequired() {
         setRequiredFields(true, true, false, false, false, false);
         assertEquals(EditorInfo.IME_ACTION_NEXT,
                 ((TextView) mCardForm.findViewById(R.id.bt_card_form_card_number)).getImeOptions());
 
         setRequiredFields(true, false, true, false, false, false);
-        assertEquals(EditorInfo.IME_ACTION_NEXT,
-                ((TextView) mCardForm.findViewById(R.id.bt_card_form_card_number)).getImeOptions());
-
-        setRequiredFields(true, false, false, true, false, false);
         assertEquals(EditorInfo.IME_ACTION_NEXT,
                 ((TextView) mCardForm.findViewById(R.id.bt_card_form_card_number)).getImeOptions());
 
@@ -408,21 +427,6 @@ public class CardFormTest {
         setText(expiration, "0812");
 
         assertTrue(expiration.hasFocus());
-    }
-
-    @Test
-    public void cvvAdvancesToCardholderNameWhenComplete() {
-        setRequiredFields(false, false, true, true, true, false);
-        CvvEditText cvv = (CvvEditText) mCardForm.findViewById(R.id.bt_card_form_cvv);
-        CardholderNameEditText cardholderName = (CardholderNameEditText) mCardForm.findViewById(R.id.bt_card_form_cardholder_name);
-        setText(((CardEditText) mCardForm.findViewById(R.id.bt_card_form_card_number)), VISA);
-        cvv.requestFocus();
-        assertTrue(cvv.hasFocus());
-        assertFalse(cardholderName.hasFocus());
-
-        setText(cvv, "123");
-
-        assertTrue(cardholderName.hasFocus());
     }
 
     @Test
