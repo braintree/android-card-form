@@ -5,8 +5,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build.VERSION_CODES;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import android.support.annotation.DrawableRes;
 import android.support.design.widget.TextInputEditText;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -235,23 +234,19 @@ public class CardForm extends LinearLayout implements OnCardTypeChangedListener,
     /**
      * Sets the icon to the left of the card number entry field, overriding the default icon.
      *
-     * If {@code null} is passed, the card number field's icon will be hidden.
-     *
-     * @param drawableRes The drawable resource for the card number icon, or {@code null}
+     * @param res The drawable resource for the card number icon
      */
-    public void setCardNumberIcon(@Nullable Integer drawableRes) {
-        setIconForImageView(mCardNumberIcon, drawableRes);
+    public void setCardNumberIcon(@DrawableRes int res) {
+        mCardNumberIcon.setImageResource(res);
     }
 
     /**
      * Sets the icon to the left of the postal code entry field, overriding the default icon.
      *
-     * If {@code null} is passed, the postal code's icon will be hidden.
-     *
-     * @param drawableRes The drawable resource for the postal code icon, or {@code null}
+     * @param res The drawable resource for the postal code icon.
      */
-    public void setPostalCodeIcon(@Nullable Integer drawableRes) {
-        setIconForImageView(mPostalCodeIcon, drawableRes);
+    public void setPostalCodeIcon(@DrawableRes int res) {
+        mPostalCodeIcon.setImageResource(res);
     }
 
     /**
@@ -259,18 +254,10 @@ public class CardForm extends LinearLayout implements OnCardTypeChangedListener,
      *
      * If {@code null} is passed, the mobile number's icon will be hidden.
      *
-     * @param drawableRes The drawable resource for the mobile number icon, or {@code null}
+     * @param res The drawable resource for the mobile number icon.
      */
-    public void setMobileNumberIcon(@Nullable Integer drawableRes) {
-        setIconForImageView(mMobileNumberIcon, drawableRes);
-    }
-
-    private void setIconForImageView(@NonNull ImageView imageView, @Nullable Integer drawableRes) {
-        if (drawableRes == null) {
-            imageView.setVisibility(View.INVISIBLE);
-        } else {
-            imageView.setImageResource(drawableRes);
-        }
+    public void setMobileNumberIcon(@DrawableRes int res) {
+        mMobileNumberIcon.setImageResource(res);
     }
 
     /**
