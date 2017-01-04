@@ -141,6 +141,30 @@ public class CardFormTest {
     }
 
     @Test
+    public void setCardNumberIcon_withRes_overridesDefaultIcon() {
+        setRequiredFields(true, true, true, true, true);
+
+        mCardForm.setCardNumberIcon(R.drawable.bt_ic_amex);
+        assertDrawableIsFromResource(R.id.bt_card_form_card_number_icon, R.drawable.bt_ic_amex);
+    }
+
+    @Test
+    public void setPostalCodeIcon_withRes_overridesDefaultIcon() {
+        setRequiredFields(true, true, true, true, true);
+
+        mCardForm.setPostalCodeIcon(R.drawable.bt_ic_amex);
+        assertDrawableIsFromResource(R.id.bt_card_form_postal_code_icon, R.drawable.bt_ic_amex);
+    }
+
+    @Test
+    public void setMobileNumberIcon_withRes_overridesDefaultIcon() {
+        setRequiredFields(true, true, true, true, true);
+
+        mCardForm.setMobileNumberIcon(R.drawable.bt_ic_amex);
+        assertDrawableIsFromResource(R.id.bt_card_form_mobile_number_icon, R.drawable.bt_ic_amex);
+    }
+
+    @Test
     public void cardNumberIsShownIfRequired() {
         setRequiredFields(true, false, false, false, false);
         assertFieldsVisible(VISIBLE, GONE, GONE, GONE, GONE);

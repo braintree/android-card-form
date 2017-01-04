@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build.VERSION_CODES;
+import android.support.annotation.DrawableRes;
 import android.support.design.widget.TextInputEditText;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -228,6 +229,35 @@ public class CardForm extends LinearLayout implements OnCardTypeChangedListener,
         }
 
         setVisibility(VISIBLE);
+    }
+
+    /**
+     * Sets the icon to the left of the card number entry field, overriding the default icon.
+     *
+     * @param res The drawable resource for the card number icon
+     */
+    public void setCardNumberIcon(@DrawableRes int res) {
+        mCardNumberIcon.setImageResource(res);
+    }
+
+    /**
+     * Sets the icon to the left of the postal code entry field, overriding the default icon.
+     *
+     * @param res The drawable resource for the postal code icon.
+     */
+    public void setPostalCodeIcon(@DrawableRes int res) {
+        mPostalCodeIcon.setImageResource(res);
+    }
+
+    /**
+     * Sets the icon to the left of the mobile number entry field, overriding the default icon.
+     *
+     * If {@code null} is passed, the mobile number's icon will be hidden.
+     *
+     * @param res The drawable resource for the mobile number icon.
+     */
+    public void setMobileNumberIcon(@DrawableRes int res) {
+        mMobileNumberIcon.setImageResource(res);
     }
 
     /**
