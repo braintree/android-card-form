@@ -146,16 +146,21 @@ public class ExpirationDateDialog extends Dialog implements DialogInterface.OnSh
         }
     }
 
+    /**
+     * @deprecated Please use {@link #show(View)} instead.
+     */
     @Deprecated
     @Override
-    public void show() {}
+    public void show() {
+        super.show();
+    }
 
     public void show(final View view) {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
                 if (view.isFocused()) {
-                    ExpirationDateDialog.super.show();
+                    show();
                 }
             }
         }, mAnimationDelay);
