@@ -34,7 +34,7 @@ android {
 
 dependencies {
     compile 'com.android.support:design:[25.0.0,26.0.0)'
-    compile 'io.card:android-sdk:[5.3.0,6.0.0)'
+    compile 'io.card:android-sdk:[5.5.0,6.0.0)'
 
     testCompile 'junit:junit:4.12'
     testCompile 'org.robolectric:robolectric:3.1.2'

@@ -73,7 +73,7 @@ To use card.io, add the dependency in your `build.gradle`:
 
 ```groovy
 dependencies {
-    compile 'io.card:android-sdk:[5.3.0,6.0.0)'
+    compile 'io.card:android-sdk:[5.5.0,6.0.0)'
 }
 ```
 
