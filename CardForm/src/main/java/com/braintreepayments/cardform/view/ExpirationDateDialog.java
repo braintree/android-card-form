@@ -22,6 +22,7 @@ import android.widget.GridView;
 import android.widget.LinearLayout;
 
 import com.braintreepayments.cardform.R;
+import com.braintreepayments.cardform.utils.DateValidator;
 import com.braintreepayments.cardform.utils.ExpirationDateDialogTheme;
 import com.braintreepayments.cardform.utils.ExpirationDateItemAdapter;
 
@@ -88,7 +89,7 @@ public class ExpirationDateDialog extends Dialog implements DialogInterface.OnSh
 
         setOnShowListener(this);
 
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < DateValidator.MAXIMUM_VALID_YEAR_DIFFERENCE; i++) {
             mYears.add(Integer.toString(CURRENT_YEAR + i));
         }
 
