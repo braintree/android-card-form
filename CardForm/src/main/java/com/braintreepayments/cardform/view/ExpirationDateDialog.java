@@ -43,6 +43,7 @@ public class ExpirationDateDialog extends Dialog implements DialogInterface.OnSh
     private int mAnimationDelay;
     private ExpirationDateEditText mEditText;
     private ExpirationDateDialogTheme mTheme;
+    private GridView mYearGridView;
     private boolean mHasSelectedMonth;
     private boolean mHasSelectedYear;
     private int mSelectedMonth = -1;
@@ -113,8 +114,8 @@ public class ExpirationDateDialog extends Dialog implements DialogInterface.OnSh
             }
         });
 
-        GridView yearsGridView = (GridView) findViewById(R.id.bt_expiration_year_grid_view);
-        yearsGridView.setAdapter(yearAdapter);
+        mYearGridView = (GridView) findViewById(R.id.bt_expiration_year_grid_view);
+        mYearGridView.setAdapter(yearAdapter);
         yearAdapter.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -147,21 +148,13 @@ public class ExpirationDateDialog extends Dialog implements DialogInterface.OnSh
         }
     }
 
-    /**
-     * @deprecated Please use {@link #show(View)} instead.
-     */
-    @Deprecated
     @Override
     public void show() {
-        super.show();
-    }
-
-    public void show(final View view) {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                if (view.isFocused()) {
-                    show();
+                if (mEditText.isFocused()) {
+                    ExpirationDateDialog.super.show();
                 }
             }
         }, mAnimationDelay);
@@ -169,6 +162,10 @@ public class ExpirationDateDialog extends Dialog implements DialogInterface.OnSh
 
     @Override
     public void onShow(DialogInterface dialog) {
+        if (mSelectedYear > 0) {
+            mYearGridView.smoothScrollToPosition(mSelectedYear);
+        }
+
         mHasSelectedMonth = false;
         mHasSelectedYear = false;
     }
