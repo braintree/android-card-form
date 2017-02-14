@@ -43,7 +43,7 @@ import static com.braintreepayments.cardform.test.ColorTestUtils.getColor;
 import static com.braintreepayments.cardform.test.TestCardNumbers.AMEX;
 import static com.braintreepayments.cardform.test.TestCardNumbers.INVALID_VISA;
 import static com.braintreepayments.cardform.test.TestCardNumbers.VISA;
-import static com.braintreepayments.cardform.test.TextExpirationDate.getValidExpiration;
+import static com.braintreepayments.cardform.test.TestExpirationDate.getValidExpiration;
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertFalse;
 import static junit.framework.Assert.assertTrue;
