@@ -13,7 +13,4 @@ android:
     - android-25
     - extra-android-support
     - extra-android-m2repository
-env:
-  global:
-    - TERM=dumb
 script: ./gradlew --info clean lint test
