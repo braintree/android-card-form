@@ -1,5 +1,6 @@
 package com.braintreepayments.cardform.view;
 
+import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.os.Build;
@@ -16,6 +17,7 @@ import java.util.List;
 /**
  * Display a set of icons for a list of supported card types.
  */
+@SuppressLint("AppCompatCustomView")
 public class SupportedCardTypesView extends TextView {
 
     private List<CardType> mSupportedCardTypes;
