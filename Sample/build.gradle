@@ -21,7 +21,7 @@ android {
 
 dependencies {
     compile project(':CardForm')
-    compile 'com.android.support:appcompat-v7:25.0.0'
+    compile 'com.android.support:appcompat-v7:25.2.0'
     compile 'com.squareup.leakcanary:leakcanary-android:1.4'
     compile 'com.facebook.stetho:stetho:1.4.1'
 }
