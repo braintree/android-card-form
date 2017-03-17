@@ -14,12 +14,7 @@ public class VibrationHelper {
     }
 
     public static boolean hasVibrationPermission(Context context) {
-        // temporary workaround until https://github.com/robolectric/robolectric/pull/2047 is released
-        try {
-            return (context.getPackageManager().checkPermission(Manifest.permission.VIBRATE,
-                    context.getPackageName()) == PackageManager.PERMISSION_GRANTED);
-        } catch (NullPointerException e) {
-            return false;
-        }
+        return (context.getPackageManager().checkPermission(Manifest.permission.VIBRATE,
+                context.getPackageName()) == PackageManager.PERMISSION_GRANTED);
     }
 }

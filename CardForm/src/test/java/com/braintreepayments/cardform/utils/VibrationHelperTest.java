@@ -44,6 +44,7 @@ public class VibrationHelperTest {
         Vibrator vibrator = mock(Vibrator.class);
         Context context = mock(Context.class);
         when(context.getPackageManager()).thenReturn(packageManager);
+        when(context.getPackageName()).thenReturn("com.braintreepayments.cardform.test");
         when(context.getSystemService(Context.VIBRATOR_SERVICE)).thenReturn(vibrator);
 
         VibrationHelper.vibrate(context, 1000);
@@ -69,6 +70,7 @@ public class VibrationHelperTest {
                 .thenReturn(PackageManager.PERMISSION_DENIED);
         Context context = mock(Context.class);
         when(context.getPackageManager()).thenReturn(packageManager);
+        when(context.getPackageName()).thenReturn("com.braintreepayments.cardform.test");
 
         assertFalse(VibrationHelper.hasVibrationPermission(context));
     }
