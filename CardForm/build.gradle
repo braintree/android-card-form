@@ -33,7 +33,7 @@ android {
 }
 
 dependencies {
-    compile 'com.android.support:design:[25.0.0,26.0.0)'
+    compile 'com.android.support:design:25.+'
     compile 'io.card:android-sdk:[5.5.0,6.0.0)'
 
     testCompile 'junit:junit:4.12'
