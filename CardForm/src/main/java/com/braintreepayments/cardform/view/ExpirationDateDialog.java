@@ -153,7 +153,7 @@ public class ExpirationDateDialog extends Dialog implements DialogInterface.OnSh
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                if (mEditText.isFocused()) {
+                if (mEditText.isFocused() && !ExpirationDateDialog.super.getOwnerActivity().isFinishing()) {
                     ExpirationDateDialog.super.show();
                 }
             }
