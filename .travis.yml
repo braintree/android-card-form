@@ -11,4 +11,6 @@ android:
     - platform-tools
     - build-tools-25.0.3
     - android-25
+    - extra-android-support
+    - extra-android-m2repository
 script: ./gradlew clean lint test
