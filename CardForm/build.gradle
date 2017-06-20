@@ -10,8 +10,8 @@ android {
     defaultConfig {
         minSdkVersion 16
         targetSdkVersion 25
-        versionCode 33
-        versionName '3.0.5'
+        versionCode 34
+        versionName '3.0.6-SNAPSHOT'
 
         consumerProguardFiles 'proguard.cfg'
     }
@@ -71,8 +71,8 @@ nexusStaging {
     packageGroup = "com.braintreepayments"
 }
 
-def sonatypeUsername = System.properties.containsKey('sonatypeUsername') ? System.properties['sonatypeUsername'] : ''
-def sonatypePassword = System.properties.containsKey('sonatypePassword') ? System.properties['sonatypePassword'] : ''
+def sonatypeUsername = System.env['SONATYPE_USERNAME']
+def sonatypePassword = System.env['SONATYPE_PASSWORD']
 
 uploadArchives {
     repositories {

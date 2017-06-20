@@ -7,11 +7,19 @@ accept credit and debit cards.
 
 ## Adding It To Your Project
 
-In your `build.gradle`:
+Add the dependency in your `build.gradle`:
 
 ```groovy
 dependencies {
     compile 'com.braintreepayments:card-form:3.0.5'
+}
+```
+
+To use the latest build from the `master` branch use:
+
+```groovy
+dependencies {
+    compile 'com.braintreepayments:card-form:3.0.6-SNAPSHOT'
 }
 ```
 
