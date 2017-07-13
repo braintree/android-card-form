@@ -33,12 +33,12 @@ android {
 }
 
 dependencies {
-    compile 'com.android.support:design:25.0.0'
-    compile 'io.card:android-sdk:5.5.1'
+    compile 'com.android.support:design:25.4.0'
+    provided 'io.card:android-sdk:5.5.1'
 
     testCompile 'junit:junit:4.12'
     testCompile 'org.robolectric:robolectric:3.3'
-    testCompile 'org.mockito:mockito-core:2.7.11'
+    testCompile 'org.mockito:mockito-core:2.8.47'
 }
 
 /* maven release */
