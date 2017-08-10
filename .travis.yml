@@ -12,3 +12,4 @@ android:
     - build-tools-26.0.0
     - android-26
 script: ./gradlew clean lint test
+after_success: ./deploy_snapshot.sh
