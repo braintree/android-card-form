@@ -19,7 +19,7 @@ To use the latest build from the `master` branch use:
 
  ```groovy
  dependencies {
-    compile 'com.braintreepayments:card-form:3.0.7-SNAPSHOT'
+    compile 'com.braintreepayments:card-form:3.1.1-SNAPSHOT'
  }
 
 ## Usage
