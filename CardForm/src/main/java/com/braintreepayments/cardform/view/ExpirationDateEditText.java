@@ -56,7 +56,7 @@ public class ExpirationDateEditText extends ErrorEditText implements TextWatcher
         super.setOnClickListener(this);
     }
 
-    protected void setActivity(Activity activity) {
+    public void setActivity(Activity activity) {
         mExpirationDateDialog = ExpirationDateDialog.create(activity, this);
     }
 
