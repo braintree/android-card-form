@@ -56,6 +56,12 @@ public class ExpirationDateEditText extends ErrorEditText implements TextWatcher
         super.setOnClickListener(this);
     }
 
+    /**
+     * Used to set an activity for the expiration date dialog. Must be set in order to use the
+     * dialog for expiration date entry.
+     *
+     * @param activity used as the parent activity for the dialog
+     */
     public void setActivity(Activity activity) {
         mExpirationDateDialog = ExpirationDateDialog.create(activity, this);
     }
