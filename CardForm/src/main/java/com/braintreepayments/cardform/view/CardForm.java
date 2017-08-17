@@ -38,9 +38,6 @@ import java.util.List;
 import io.card.payment.CardIOActivity;
 import io.card.payment.CreditCard;
 
-import static android.os.Build.VERSION.SDK_INT;
-import static android.os.Build.VERSION_CODES.ICE_CREAM_SANDWICH;
-
 public class CardForm extends LinearLayout implements OnCardTypeChangedListener, OnFocusChangeListener, OnClickListener,
         OnEditorActionListener, TextWatcher {
 
@@ -191,10 +188,8 @@ public class CardForm extends LinearLayout implements OnCardTypeChangedListener,
      * @param activity Used to set {@link android.view.WindowManager.LayoutParams#FLAG_SECURE} to prevent screenshots
      */
     public void setup(Activity activity) {
-        if (SDK_INT >= ICE_CREAM_SANDWICH) {
-            activity.getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE,
-                    WindowManager.LayoutParams.FLAG_SECURE);
-        }
+        activity.getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE,
+                WindowManager.LayoutParams.FLAG_SECURE);
 
         boolean isDarkBackground = ViewUtils.isDarkBackground(activity);
         mCardNumberIcon.setImageResource(isDarkBackground ? R.drawable.bt_ic_card_dark : R.drawable.bt_ic_card);
