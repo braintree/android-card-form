@@ -95,16 +95,16 @@ public class CardForm extends LinearLayout implements OnCardTypeChangedListener,
 
         inflate(getContext(), R.layout.bt_card_form_fields, this);
 
-        mCardNumberIcon = (ImageView) findViewById(R.id.bt_card_form_card_number_icon);
-        mCardNumber = (CardEditText) findViewById(R.id.bt_card_form_card_number);
-        mExpiration = (ExpirationDateEditText) findViewById(R.id.bt_card_form_expiration);
-        mCvv = (CvvEditText) findViewById(R.id.bt_card_form_cvv);
-        mPostalCodeIcon = (ImageView) findViewById(R.id.bt_card_form_postal_code_icon);
-        mPostalCode = (PostalCodeEditText) findViewById(R.id.bt_card_form_postal_code);
-        mMobileNumberIcon = (ImageView) findViewById(R.id.bt_card_form_mobile_number_icon);
-        mCountryCode = (CountryCodeEditText) findViewById(R.id.bt_card_form_country_code);
-        mMobileNumber = (MobileNumberEditText) findViewById(R.id.bt_card_form_mobile_number);
-        mMobileNumberExplanation = (TextView) findViewById(R.id.bt_card_form_mobile_number_explanation);
+        mCardNumberIcon = findViewById(R.id.bt_card_form_card_number_icon);
+        mCardNumber = findViewById(R.id.bt_card_form_card_number);
+        mExpiration = findViewById(R.id.bt_card_form_expiration);
+        mCvv = findViewById(R.id.bt_card_form_cvv);
+        mPostalCodeIcon = findViewById(R.id.bt_card_form_postal_code_icon);
+        mPostalCode = findViewById(R.id.bt_card_form_postal_code);
+        mMobileNumberIcon = findViewById(R.id.bt_card_form_mobile_number_icon);
+        mCountryCode = findViewById(R.id.bt_card_form_country_code);
+        mMobileNumber = findViewById(R.id.bt_card_form_mobile_number);
+        mMobileNumberExplanation = findViewById(R.id.bt_card_form_mobile_number_explanation);
 
         mVisibleEditTexts = new ArrayList<>();
 

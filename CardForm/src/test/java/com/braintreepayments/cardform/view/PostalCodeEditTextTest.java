@@ -21,7 +21,7 @@ public class PostalCodeEditTextTest {
 
     @Before
     public void setup() {
-        mView = (PostalCodeEditText) Robolectric.setupActivity(TestActivity.class)
+        mView = Robolectric.setupActivity(TestActivity.class)
                 .findViewById(R.id.bt_card_form_postal_code);
     }
 

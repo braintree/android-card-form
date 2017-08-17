@@ -32,7 +32,7 @@ public class CardEditTextTest {
 
     @Before
     public void setup() {
-        mView = (CardEditText) Robolectric.setupActivity(TestActivity.class)
+        mView = Robolectric.setupActivity(TestActivity.class)
                 .findViewById(R.id.bt_card_form_card_number);
     }
 

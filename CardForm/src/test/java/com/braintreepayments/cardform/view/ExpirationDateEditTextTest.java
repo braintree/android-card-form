@@ -25,7 +25,7 @@ public class ExpirationDateEditTextTest {
 
     @Before
     public void setup() {
-        mView = (ExpirationDateEditText) Robolectric.setupActivity(TestActivity.class)
+        mView = Robolectric.setupActivity(TestActivity.class)
                 .findViewById(R.id.bt_card_form_expiration);
     }
 

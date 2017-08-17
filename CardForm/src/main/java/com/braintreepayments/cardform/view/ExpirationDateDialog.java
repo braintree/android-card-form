@@ -97,7 +97,7 @@ public class ExpirationDateDialog extends Dialog implements DialogInterface.OnSh
         final ExpirationDateItemAdapter monthAdapter = new ExpirationDateItemAdapter(getContext(), mTheme, MONTHS);
         final ExpirationDateItemAdapter yearAdapter = new ExpirationDateItemAdapter(getContext(), mTheme, mYears);
 
-        GridView monthsGridView = (GridView) findViewById(R.id.bt_expiration_month_grid_view);
+        GridView monthsGridView = findViewById(R.id.bt_expiration_month_grid_view);
         monthsGridView.setAdapter(monthAdapter);
         monthAdapter.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -114,7 +114,7 @@ public class ExpirationDateDialog extends Dialog implements DialogInterface.OnSh
             }
         });
 
-        mYearGridView = (GridView) findViewById(R.id.bt_expiration_year_grid_view);
+        mYearGridView = findViewById(R.id.bt_expiration_year_grid_view);
         mYearGridView.setAdapter(yearAdapter);
         yearAdapter.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
