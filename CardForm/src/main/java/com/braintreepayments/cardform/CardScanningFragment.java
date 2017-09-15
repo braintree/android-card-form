@@ -45,6 +45,7 @@ public class CardScanningFragment extends Fragment {
                 .putExtra(CardIOActivity.EXTRA_HIDE_CARDIO_LOGO, true)
                 .putExtra(CardIOActivity.EXTRA_USE_PAYPAL_ACTIONBAR_ICON, false)
                 .putExtra(CardIOActivity.EXTRA_SUPPRESS_MANUAL_ENTRY, true)
+                .putExtra(CardIOActivity.EXTRA_SUPPRESS_CONFIRMATION, true)
                 .putExtra(CardIOActivity.EXTRA_SCAN_EXPIRY, true)
                 .putExtra(CardIOActivity.EXTRA_REQUIRE_CVV, false)
                 .putExtra(CardIOActivity.EXTRA_REQUIRE_POSTAL_CODE, false)
