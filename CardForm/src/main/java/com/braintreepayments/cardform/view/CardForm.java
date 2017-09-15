@@ -1,5 +1,6 @@
 package com.braintreepayments.cardform.view;
 
+import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
@@ -281,6 +282,7 @@ public class CardForm extends LinearLayout implements OnCardTypeChangedListener,
         }
     }
 
+    @SuppressLint("DefaultLocale")
     public void handleCardIOResponse(Intent data) {
         if (data != null && data.hasExtra(CardIOActivity.EXTRA_SCAN_RESULT)) {
             CreditCard scanResult = data.getParcelableExtra(CardIOActivity.EXTRA_SCAN_RESULT);
@@ -291,7 +293,7 @@ public class CardForm extends LinearLayout implements OnCardTypeChangedListener,
             }
 
             if (scanResult.isExpiryValid() && mExpirationRequired) {
-                mExpiration.setText(Integer.toString(scanResult.expiryMonth) + Integer.toString(scanResult.expiryYear));
+                mExpiration.setText(String.format("%02d%d", scanResult.expiryMonth, scanResult.expiryYear));
                 mExpiration.focusNextView();
             }
         }

@@ -1059,6 +1059,19 @@ public class CardFormTest {
     }
 
     @Test
+    public void handleCardIOResponse_handlesSingleDigitExpirationMonths() {
+        setRequiredFields(false, true, true, false, false);
+        Intent intent = new Intent()
+                .putExtra(CardIOActivity.EXTRA_SCAN_RESULT, new CreditCard(VISA, 7, 2020, "", "", ""));
+
+        mCardForm.handleCardIOResponse(intent);
+
+        assertEquals("07", ((ExpirationDateEditText) mActivity.findViewById(R.id.bt_card_form_expiration)).getMonth());
+        assertEquals("2020", ((ExpirationDateEditText) mActivity.findViewById(R.id.bt_card_form_expiration)).getYear());
+        assertTrue(mCardForm.findViewById(R.id.bt_card_form_cvv).hasFocus());
+    }
+
+    @Test
     public void handleCardIOResponse_doesNotSetExpirationDateIfExpirationDateInvalid() {
         setRequiredFields(true, true, false, false, false);
         Intent intent = new Intent()
