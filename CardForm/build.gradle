@@ -3,7 +3,7 @@ apply plugin: 'maven'
 apply plugin: 'signing'
 apply plugin: 'io.codearte.nexus-staging'
 
-version '3.1.2-SNAPSHOT'
+version '3.2.0'
 
 android {
     compileSdkVersion 27
