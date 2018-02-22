@@ -1,9 +1,11 @@
 package com.braintreepayments.cardform.view;
 
 import android.text.Editable;
+import android.text.method.TransformationMethod;
 
 import com.braintreepayments.cardform.R;
 import com.braintreepayments.cardform.test.TestActivity;
+import com.braintreepayments.cardform.utils.CardNumberTransformation;
 import com.braintreepayments.cardform.utils.CardType;
 
 import org.junit.Before;
@@ -21,6 +23,7 @@ import static com.braintreepayments.cardform.test.Assertions.assertIconHintIs;
 import static com.braintreepayments.cardform.test.Assertions.assertNoHintIcon;
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertFalse;
+import static junit.framework.Assert.assertNotNull;
 import static junit.framework.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
@@ -79,6 +82,73 @@ public class CardEditTextTest {
     @Test
     public void testUnknown() {
         helper("1", "111 1111 1111 1111111", R.drawable.bt_ic_unknown, 4, 8, 12);
+    }
+
+    @Test
+    public void showsMaskedInputWhenValidAndFocusChanges() {
+        mView.setMask(true);
+
+        type("4111111111111111");
+        mView.onFocusChanged(false, 1, null);
+
+        assertNotNull(mView.getTransformationMethod());
+        assertTrue(mView.getTransformationMethod() instanceof CardNumberTransformation);
+    }
+
+    @Test
+    public void doesNotMaskIfMaskingIsNotEnabled() {
+        TransformationMethod originalMethod = mView.getTransformationMethod();
+
+        type("4111111111111111");
+        mView.onFocusChanged(false, 1, null);
+
+        assertEquals(originalMethod, mView.getTransformationMethod());
+    }
+
+    @Test
+    public void doesNotMaskIfFieldIsInvalid() {
+        TransformationMethod originalMethod = mView.getTransformationMethod();
+
+        mView.setMask(true);
+        type("4111111111111112");
+
+        assertEquals(originalMethod, mView.getTransformationMethod());
+    }
+
+    @Test
+    public void unmasksWhenFocusChangesBackToCardEditText() {
+        TransformationMethod originalMethod = mView.getTransformationMethod();
+
+        mView.setMask(true);
+
+        type("4111111111111111");
+        mView.onFocusChanged(false, 1, null);
+
+        assertTrue(mView.getTransformationMethod() instanceof CardNumberTransformation);
+
+        mView.onFocusChanged(true, 1, null);
+
+        assertEquals(originalMethod, mView.getTransformationMethod());
+    }
+
+    @Test
+    public void remasksWhenFocusMovesAwayFromCardEditText() {
+        TransformationMethod originalMethod = mView.getTransformationMethod();
+
+        mView.setMask(true);
+
+        type("4111111111111111");
+        mView.onFocusChanged(false, 1, null);
+
+        assertTrue(mView.getTransformationMethod() instanceof CardNumberTransformation);
+
+        mView.onFocusChanged(true, 1, null);
+
+        assertEquals(originalMethod, mView.getTransformationMethod());
+
+        mView.onFocusChanged(false, 1, null);
+
+        assertTrue(mView.getTransformationMethod() instanceof CardNumberTransformation);
     }
 
     @Test
@@ -216,6 +286,7 @@ public class CardEditTextTest {
     }
 
     private CardEditTextTest type(String text) {
+        mView.requestFocus();
         Editable editable = mView.getText();
         for (char c : text.toCharArray()) {
             if (c != ' ') {

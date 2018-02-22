@@ -32,6 +32,8 @@ public class BaseCardFormActivity extends AppCompatActivity implements OnCardFor
 
         mCardForm = findViewById(R.id.card_form);
         mCardForm.cardRequired(true)
+                .maskCardNumber(true)
+                .maskCvv(true)
                 .expirationRequired(true)
                 .cvvRequired(true)
                 .postalCodeRequired(true)

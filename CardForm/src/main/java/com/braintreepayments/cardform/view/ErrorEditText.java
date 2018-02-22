@@ -53,7 +53,9 @@ public class ErrorEditText extends TextInputEditText {
     @Override
     public void onTextChanged(CharSequence text, int start, int lengthBefore, int lengthAfter) {
         super.onTextChanged(text, start, lengthBefore, lengthAfter);
-        setError(null);
+        if (lengthBefore != lengthAfter) {
+            setError(null);
+        }
     }
 
     @Override

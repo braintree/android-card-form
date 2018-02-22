@@ -2,6 +2,7 @@ package com.braintreepayments.cardform.view;
 
 import android.support.design.widget.TextInputLayout;
 import android.text.Editable;
+import android.text.InputType;
 
 import com.braintreepayments.cardform.R;
 import com.braintreepayments.cardform.test.TestActivity;
@@ -66,6 +67,27 @@ public class CvvEditTextTest {
             assertEquals(RuntimeEnvironment.application.getString(cardType.getSecurityCodeName()),
                     mView.getContentDescription());
         }
+    }
+
+    @Test
+    public void appliesPasswordInputTypeWhenMasked() {
+        mView.setMask(true);
+
+        assertEquals(InputType.TYPE_NUMBER_VARIATION_PASSWORD | InputType.TYPE_CLASS_NUMBER, mView.getInputType());
+    }
+
+    @Test
+    public void doesNotApplyPasswordInputTypeWhenNotMasked() {
+        assertEquals(InputType.TYPE_CLASS_NUMBER, mView.getInputType());
+    }
+
+    @Test
+    public void appliesNumberInputTypeWhenUnmasked() {
+        mView.setMask(true);
+        assertEquals(InputType.TYPE_NUMBER_VARIATION_PASSWORD | InputType.TYPE_CLASS_NUMBER, mView.getInputType());
+
+        mView.setMask(false);
+        assertEquals(InputType.TYPE_CLASS_NUMBER, mView.getInputType());
     }
 
     @Test

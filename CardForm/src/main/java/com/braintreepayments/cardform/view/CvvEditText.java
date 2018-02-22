@@ -61,6 +61,17 @@ public class CvvEditText extends ErrorEditText implements TextWatcher {
         invalidate();
     }
 
+    /**
+     * @param mask if {@code true}, this field will be masked.
+     */
+    public void setMask(boolean mask) {
+        if (mask) {
+            setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_VARIATION_PASSWORD);
+        } else {
+            setInputType(InputType.TYPE_CLASS_NUMBER);
+        }
+    }
+
     @Override
     public void afterTextChanged(Editable editable) {
         if (mCardType == null) {

@@ -182,6 +182,22 @@ public class CardForm extends LinearLayout implements OnCardTypeChangedListener,
     }
 
     /**
+     * @param mask if {@code true}, card number input will be masked.
+     */
+    public CardForm maskCardNumber(boolean mask) {
+        mCardNumber.setMask(mask);
+        return this;
+    }
+
+    /**
+     * @param mask if {@code true}, CVV input will be masked.
+     */
+    public CardForm maskCvv(boolean mask) {
+        mCvv.setMask(mask);
+        return this;
+    }
+
+    /**
      * Sets up the card form for display to the user using the values provided in {@link CardForm#cardRequired(boolean)},
      * {@link CardForm#expirationRequired(boolean)}, ect. If {@link #setup(android.app.Activity)} is not called,
      * the form will not be visible.
