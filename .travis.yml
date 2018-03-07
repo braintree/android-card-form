@@ -12,6 +12,6 @@ android:
     - build-tools-27.0.3
     - android-27
 before_install:
-  - yes | sdkmanager "platforms;android-27"
+  - yes | sdkmanager --licenses "platforms;android-27"
 script: ./gradlew clean lint test
 after_success: ./deploy_snapshot.sh
