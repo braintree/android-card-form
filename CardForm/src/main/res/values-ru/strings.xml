@@ -16,12 +16,12 @@
     <string name="bt_year">Год</string>
 
     <string name="bt_card_number_required">Номер карты обязателен</string>
-    <string name="bt_card_number_invalid">Номер карты недействит</string>
+    <string name="bt_card_number_invalid">Номер карты недействителен</string>
     <string name="bt_cvv_required">%s — обязат. поле</string>
-    <string name="bt_cvv_invalid">Данные в поле %s недействит</string>
+    <string name="bt_cvv_invalid">Данные в поле %s недействительны</string>
     <string name="bt_expiration_required">Срок действия обязателен</string>
-    <string name="bt_expiration_invalid">Срок действия недейств</string>
+    <string name="bt_expiration_invalid">Срок действия недействителен</string>
     <string name="bt_postal_code_required">Индекс обязателен</string>
     <string name="bt_country_code_required">Код страны обязателен</string>
-    <string name="bt_mobile_number_required">Номер мобильного обязат</string>
+    <string name="bt_mobile_number_required">Номер мобильного обязателен</string>
 </resources>
