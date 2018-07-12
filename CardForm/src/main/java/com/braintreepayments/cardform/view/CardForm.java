@@ -1,10 +1,12 @@
 package com.braintreepayments.cardform.view;
 
+import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build.VERSION_CODES;
+import android.support.annotation.DrawableRes;
 import android.support.design.widget.TextInputEditText;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -36,9 +38,6 @@ import java.util.List;
 
 import io.card.payment.CardIOActivity;
 import io.card.payment.CreditCard;
-
-import static android.os.Build.VERSION.SDK_INT;
-import static android.os.Build.VERSION_CODES.ICE_CREAM_SANDWICH;
 
 public class CardForm extends LinearLayout implements OnCardTypeChangedListener, OnFocusChangeListener, OnClickListener,
         OnEditorActionListener, TextWatcher {
@@ -100,18 +99,18 @@ public class CardForm extends LinearLayout implements OnCardTypeChangedListener,
 
         inflate(getContext(), R.layout.bt_card_form_fields, this);
 
-        mCardholderName = (CardholderNameEditText) findViewById(R.id.bt_card_form_cardholder_name);
-        mCardholderNameIcon = (ImageView) findViewById(R.id.bt_card_form_cardholder_name_icon);
-        mCardNumberIcon = (ImageView) findViewById(R.id.bt_card_form_card_number_icon);
-        mCardNumber = (CardEditText) findViewById(R.id.bt_card_form_card_number);
-        mExpiration = (ExpirationDateEditText) findViewById(R.id.bt_card_form_expiration);
-        mCvv = (CvvEditText) findViewById(R.id.bt_card_form_cvv);
-        mPostalCodeIcon = (ImageView) findViewById(R.id.bt_card_form_postal_code_icon);
-        mPostalCode = (PostalCodeEditText) findViewById(R.id.bt_card_form_postal_code);
-        mMobileNumberIcon = (ImageView) findViewById(R.id.bt_card_form_mobile_number_icon);
-        mCountryCode = (CountryCodeEditText) findViewById(R.id.bt_card_form_country_code);
-        mMobileNumber = (MobileNumberEditText) findViewById(R.id.bt_card_form_mobile_number);
-        mMobileNumberExplanation = (TextView) findViewById(R.id.bt_card_form_mobile_number_explanation);
+        mCardholderName = findViewById(R.id.bt_card_form_cardholder_name);
+        mCardholderNameIcon = findViewById(R.id.bt_card_form_cardholder_name_icon);
+        mCardNumberIcon = findViewById(R.id.bt_card_form_card_number_icon);
+        mCardNumber = findViewById(R.id.bt_card_form_card_number);
+        mExpiration = findViewById(R.id.bt_card_form_expiration);
+        mCvv = findViewById(R.id.bt_card_form_cvv);
+        mPostalCodeIcon = findViewById(R.id.bt_card_form_postal_code_icon);
+        mPostalCode = findViewById(R.id.bt_card_form_postal_code);
+        mMobileNumberIcon = findViewById(R.id.bt_card_form_mobile_number_icon);
+        mCountryCode = findViewById(R.id.bt_card_form_country_code);
+        mMobileNumber = findViewById(R.id.bt_card_form_mobile_number);
+        mMobileNumberExplanation = findViewById(R.id.bt_card_form_mobile_number_explanation);
 
         mVisibleEditTexts = new ArrayList<>();
 
@@ -198,6 +197,22 @@ public class CardForm extends LinearLayout implements OnCardTypeChangedListener,
     }
 
     /**
+     * @param mask if {@code true}, card number input will be masked.
+     */
+    public CardForm maskCardNumber(boolean mask) {
+        mCardNumber.setMask(mask);
+        return this;
+    }
+
+    /**
+     * @param mask if {@code true}, CVV input will be masked.
+     */
+    public CardForm maskCvv(boolean mask) {
+        mCvv.setMask(mask);
+        return this;
+    }
+
+    /**
      * Sets up the card form for display to the user using the values provided in {@link CardForm#cardRequired(boolean)},
      * {@link CardForm#expirationRequired(boolean)}, ect. If {@link #setup(android.app.Activity)} is not called,
      * the form will not be visible.
@@ -205,10 +220,8 @@ public class CardForm extends LinearLayout implements OnCardTypeChangedListener,
      * @param activity Used to set {@link android.view.WindowManager.LayoutParams#FLAG_SECURE} to prevent screenshots
      */
     public void setup(Activity activity) {
-        if (SDK_INT >= ICE_CREAM_SANDWICH) {
-            activity.getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE,
-                    WindowManager.LayoutParams.FLAG_SECURE);
-        }
+        activity.getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE,
+                WindowManager.LayoutParams.FLAG_SECURE);
 
         boolean isDarkBackground = ViewUtils.isDarkBackground(activity);
         mCardholderNameIcon.setImageResource(isDarkBackground ? R.drawable.bt_ic_cardholder_name_dark: R.drawable.bt_ic_cardholder_name);
@@ -216,7 +229,7 @@ public class CardForm extends LinearLayout implements OnCardTypeChangedListener,
         mPostalCodeIcon.setImageResource(isDarkBackground ? R.drawable.bt_ic_postal_code_dark : R.drawable.bt_ic_postal_code);
         mMobileNumberIcon.setImageResource(isDarkBackground? R.drawable.bt_ic_mobile_number_dark : R.drawable.bt_ic_mobile_number);
 
-        mExpiration.setActivity(activity);
+        mExpiration.useDialogForExpirationDateEntry(activity, true);
 
         setViewVisibility(mCardholderNameIcon, mCardholderNameRequired);
         setFieldVisibility(mCardholderName, mCardholderNameRequired);
@@ -249,6 +262,35 @@ public class CardForm extends LinearLayout implements OnCardTypeChangedListener,
     }
 
     /**
+     * Sets the icon to the left of the card number entry field, overriding the default icon.
+     *
+     * @param res The drawable resource for the card number icon
+     */
+    public void setCardNumberIcon(@DrawableRes int res) {
+        mCardNumberIcon.setImageResource(res);
+    }
+
+    /**
+     * Sets the icon to the left of the postal code entry field, overriding the default icon.
+     *
+     * @param res The drawable resource for the postal code icon.
+     */
+    public void setPostalCodeIcon(@DrawableRes int res) {
+        mPostalCodeIcon.setImageResource(res);
+    }
+
+    /**
+     * Sets the icon to the left of the mobile number entry field, overriding the default icon.
+     *
+     * If {@code null} is passed, the mobile number's icon will be hidden.
+     *
+     * @param res The drawable resource for the mobile number icon.
+     */
+    public void setMobileNumberIcon(@DrawableRes int res) {
+        mMobileNumberIcon.setImageResource(res);
+    }
+
+    /**
      * Check if card scanning is available.
      *
      * Card scanning requires the card.io dependency and camera support.
@@ -274,6 +316,7 @@ public class CardForm extends LinearLayout implements OnCardTypeChangedListener,
         }
     }
 
+    @SuppressLint("DefaultLocale")
     public void handleCardIOResponse(Intent data) {
         if (data != null && data.hasExtra(CardIOActivity.EXTRA_SCAN_RESULT)) {
             CreditCard scanResult = data.getParcelableExtra(CardIOActivity.EXTRA_SCAN_RESULT);
@@ -284,7 +327,7 @@ public class CardForm extends LinearLayout implements OnCardTypeChangedListener,
             }
 
             if (scanResult.isExpiryValid() && mExpirationRequired) {
-                mExpiration.setText(Integer.toString(scanResult.expiryMonth) + Integer.toString(scanResult.expiryYear));
+                mExpiration.setText(String.format("%02d%d", scanResult.expiryMonth, scanResult.expiryYear));
                 mExpiration.focusNextView();
             }
         }

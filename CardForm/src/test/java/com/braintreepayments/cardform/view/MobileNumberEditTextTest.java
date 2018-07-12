@@ -21,7 +21,7 @@ public class MobileNumberEditTextTest {
 
     @Before
     public void setup() {
-        mView = (MobileNumberEditText) Robolectric.setupActivity(TestActivity.class)
+        mView = Robolectric.setupActivity(TestActivity.class)
                 .findViewById(R.id.bt_card_form_mobile_number);
     }
 

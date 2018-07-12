@@ -1,17 +1,25 @@
 # Card Form
 
+[![Build Status](https://travis-ci.org/braintree/android-card-form.svg?branch=master)](https://travis-ci.org/braintree/android-card-form)
+
 Card Form is a ready made card form layout that can be included in your app making it easy to
 accept credit and debit cards.
 
-[![Build Status](https://travis-ci.org/braintree/android-card-form.svg?branch=master)](https://travis-ci.org/braintree/android-card-form)
-
 ## Adding It To Your Project
 
-In your `build.gradle`:
+Add the dependency in your `build.gradle`:
 
 ```groovy
 dependencies {
-    compile 'com.braintreepayments:card-form:3.0.2'
+    compile 'com.braintreepayments:card-form:3.3.0'
+}
+```
+
+To use the latest build from the `master` branch use:
+
+ ```groovy
+dependencies {
+    compile 'com.braintreepayments:card-form:3.3.1-SNAPSHOT'
 }
 ```
 
@@ -75,7 +83,7 @@ To use card.io, add the dependency in your `build.gradle`:
 
 ```groovy
 dependencies {
-    compile 'io.card:android-sdk:[5.3.0,6.0.0)'
+    compile 'io.card:android-sdk:[5.5.0,6.0.0)'
 }
 ```
 

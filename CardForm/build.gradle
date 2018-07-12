@@ -3,15 +3,17 @@ apply plugin: 'maven'
 apply plugin: 'signing'
 apply plugin: 'io.codearte.nexus-staging'
 
+version '3.3.1-SNAPSHOT'
+
 android {
-    compileSdkVersion 25
-    buildToolsVersion '25.0.0'
+    compileSdkVersion 27
+    buildToolsVersion '27.0.3'
 
     defaultConfig {
-        minSdkVersion 15
-        targetSdkVersion 25
-        versionCode 30
-        versionName '3.0.2-SNAPSHOT'
+        minSdkVersion 16
+        targetSdkVersion 27
+        versionCode 39
+        versionName version
 
         consumerProguardFiles 'proguard.cfg'
     }
@@ -33,12 +35,12 @@ android {
 }
 
 dependencies {
-    compile 'com.android.support:design:[25.0.0,26.0.0)'
-    compile 'io.card:android-sdk:[5.3.0,6.0.0)'
+    compile 'com.android.support:design:27.0.0'
+    compile 'io.card:android-sdk:5.5.1'
 
     testCompile 'junit:junit:4.12'
-    testCompile 'org.robolectric:robolectric:3.1.2'
-    testCompile 'org.mockito:mockito-core:1.10.19'
+    testCompile 'org.robolectric:robolectric:3.3.2'
+    testCompile 'org.mockito:mockito-core:2.8.9'
 }
 
 /* maven release */
@@ -64,6 +66,7 @@ artifacts {
 }
 
 signing {
+    required { !version.endsWith("SNAPSHOT") }
     sign configurations.archives
 }
 
@@ -71,8 +74,8 @@ nexusStaging {
     packageGroup = "com.braintreepayments"
 }
 
-def sonatypeUsername = System.properties.containsKey('sonatypeUsername') ? System.properties['sonatypeUsername'] : ''
-def sonatypePassword = System.properties.containsKey('sonatypePassword') ? System.properties['sonatypePassword'] : ''
+def sonatypeUsername = System.env['SONATYPE_USERNAME']
+def sonatypePassword = System.env['SONATYPE_PASSWORD']
 
 uploadArchives {
     repositories {

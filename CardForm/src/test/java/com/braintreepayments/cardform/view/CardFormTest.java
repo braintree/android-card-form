@@ -27,7 +27,7 @@ import org.junit.runner.RunWith;
 import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.RuntimeEnvironment;
-import org.robolectric.util.ActivityController;
+import org.robolectric.android.controller.ActivityController;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -43,7 +43,7 @@ import static com.braintreepayments.cardform.test.ColorTestUtils.getColor;
 import static com.braintreepayments.cardform.test.TestCardNumbers.AMEX;
 import static com.braintreepayments.cardform.test.TestCardNumbers.INVALID_VISA;
 import static com.braintreepayments.cardform.test.TestCardNumbers.VISA;
-import static com.braintreepayments.cardform.test.TextExpirationDate.getValidExpiration;
+import static com.braintreepayments.cardform.test.TestExpirationDate.getValidExpiration;
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertFalse;
 import static junit.framework.Assert.assertTrue;
@@ -64,7 +64,7 @@ public class CardFormTest {
     public void setup() {
         mActivityController = Robolectric.buildActivity(TestActivity.class);
         mActivity = mActivityController.setup().get();
-        mCardForm = (CardForm) mActivity.findViewById(android.R.id.custom);
+        mCardForm = mActivity.findViewById(android.R.id.custom);
     }
 
     @Test
@@ -145,6 +145,30 @@ public class CardFormTest {
         assertDrawableIsFromResource(R.id.bt_card_form_cardholder_name_icon, R.drawable.bt_ic_cardholder_name);
         assertDrawableIsFromResource(R.id.bt_card_form_postal_code_icon, R.drawable.bt_ic_postal_code);
         assertDrawableIsFromResource(R.id.bt_card_form_mobile_number_icon, R.drawable.bt_ic_mobile_number);
+    }
+
+    @Test
+    public void setCardNumberIcon_withRes_overridesDefaultIcon() {
+        setRequiredFields(true, true, true, true, true);
+
+        mCardForm.setCardNumberIcon(R.drawable.bt_ic_amex);
+        assertDrawableIsFromResource(R.id.bt_card_form_card_number_icon, R.drawable.bt_ic_amex);
+    }
+
+    @Test
+    public void setPostalCodeIcon_withRes_overridesDefaultIcon() {
+        setRequiredFields(true, true, true, true, true);
+
+        mCardForm.setPostalCodeIcon(R.drawable.bt_ic_amex);
+        assertDrawableIsFromResource(R.id.bt_card_form_postal_code_icon, R.drawable.bt_ic_amex);
+    }
+
+    @Test
+    public void setMobileNumberIcon_withRes_overridesDefaultIcon() {
+        setRequiredFields(true, true, true, true, true);
+
+        mCardForm.setMobileNumberIcon(R.drawable.bt_ic_amex);
+        assertDrawableIsFromResource(R.id.bt_card_form_mobile_number_icon, R.drawable.bt_ic_amex);
     }
 
     @Test
@@ -380,8 +404,8 @@ public class CardFormTest {
     @Test
     public void cardNumberAdvancesToExpirationWhenCompleteAndValid() {
         setRequiredFields(true, true, false, false, false, false);
-        CardEditText card = (CardEditText) mCardForm.findViewById(R.id.bt_card_form_card_number);
-        ExpirationDateEditText expiration = (ExpirationDateEditText) mCardForm.findViewById(R.id.bt_card_form_expiration);
+        CardEditText card = mCardForm.findViewById(R.id.bt_card_form_card_number);
+        ExpirationDateEditText expiration = mCardForm.findViewById(R.id.bt_card_form_expiration);
         card.requestFocus();
         assertTrue(card.hasFocus());
         assertFalse(expiration.hasFocus());
@@ -394,7 +418,7 @@ public class CardFormTest {
     @Test
     public void cardNumberDoesNotAdvanceWhenCompleteAndInvalid() {
         setRequiredFields(true, true, true, true, true, true);
-        CardEditText card = (CardEditText) mCardForm.findViewById(R.id.bt_card_form_card_number);
+        CardEditText card = mCardForm.findViewById(R.id.bt_card_form_card_number);
         card.requestFocus();
 
         setText(card, INVALID_VISA);
@@ -406,8 +430,8 @@ public class CardFormTest {
     @Test
     public void expirationAdvancesToCvvWhenComplete() {
         setRequiredFields(false, true, true, false, false, false);
-        ExpirationDateEditText expiration = (ExpirationDateEditText) mCardForm.findViewById(R.id.bt_card_form_expiration);
-        CvvEditText cvv = (CvvEditText) mCardForm.findViewById(R.id.bt_card_form_cvv);
+        ExpirationDateEditText expiration = mCardForm.findViewById(R.id.bt_card_form_expiration);
+        CvvEditText cvv = mCardForm.findViewById(R.id.bt_card_form_cvv);
         expiration.requestFocus();
         assertTrue(expiration.hasFocus());
         assertFalse(cvv.hasFocus());
@@ -420,7 +444,7 @@ public class CardFormTest {
     @Test
     public void expirationDoesNotAdvanceWhenCompleteAndInvalid() {
         setRequiredFields(true, true, true, true, true, true);
-        ExpirationDateEditText expiration = (ExpirationDateEditText) mCardForm.findViewById(R.id.bt_card_form_expiration);
+        ExpirationDateEditText expiration = mCardForm.findViewById(R.id.bt_card_form_expiration);
         expiration.requestFocus();
         assertTrue(expiration.hasFocus());
 
@@ -430,10 +454,10 @@ public class CardFormTest {
     }
 
     @Test
-    public void cvvAdvancesToPostalIfCardholderNameDisabledWhenComplete() {
+    public void cvvAdvancesToPostalWhenComplete() {
         setRequiredFields(false, false, true, false, true, false);
-        CvvEditText cvv = (CvvEditText) mCardForm.findViewById(R.id.bt_card_form_cvv);
-        PostalCodeEditText postalCode = (PostalCodeEditText) mCardForm.findViewById(R.id.bt_card_form_postal_code);
+        CvvEditText cvv = mCardForm.findViewById(R.id.bt_card_form_cvv);
+        PostalCodeEditText postalCode = mCardForm.findViewById(R.id.bt_card_form_postal_code);
         setText(((CardEditText) mCardForm.findViewById(R.id.bt_card_form_card_number)), VISA);
         cvv.requestFocus();
         assertTrue(cvv.hasFocus());
@@ -772,7 +796,7 @@ public class CardFormTest {
     @Test
     public void marksCardNumberAsErrorWhenFocusChangesAndCardNumberFailsValidation() {
         setRequiredFields(true, true, true, true, true, true);
-        CardEditText card = (CardEditText) mActivity.findViewById(R.id.bt_card_form_card_number);
+        CardEditText card = mActivity.findViewById(R.id.bt_card_form_card_number);
         card.requestFocus();
 
         setText(card, "4");
@@ -787,7 +811,7 @@ public class CardFormTest {
     @Test
     public void marksExpirationAsErrorWhenFocusChangesAndExpirationFailsValidation() {
         setRequiredFields(true, true, true, true, true, true);
-        ExpirationDateEditText expiration = (ExpirationDateEditText) mActivity.findViewById(R.id.bt_card_form_expiration);
+        ExpirationDateEditText expiration = mActivity.findViewById(R.id.bt_card_form_expiration);
         expiration.requestFocus();
 
         setText(expiration, "1");
@@ -802,7 +826,7 @@ public class CardFormTest {
     @Test
     public void marksCvvAsErrorWhenFocusChangesAndCvvNotProperLength() {
         setRequiredFields(true, true, true, true, true, true);
-        CvvEditText cvv = (CvvEditText) mCardForm.findViewById(R.id.bt_card_form_cvv);
+        CvvEditText cvv = mCardForm.findViewById(R.id.bt_card_form_cvv);
         cvv.requestFocus();
 
         setText(cvv, "1");
@@ -817,8 +841,8 @@ public class CardFormTest {
     @Test
     public void marksCvvAsErrorWhenCardChangesToAmex() {
         setRequiredFields(true, true, true, true, true, true);
-        CardEditText card = (CardEditText) mCardForm.findViewById(R.id.bt_card_form_card_number);
-        CvvEditText cvv = (CvvEditText) mCardForm.findViewById(R.id.bt_card_form_cvv);
+        CardEditText card = mCardForm.findViewById(R.id.bt_card_form_card_number);
+        CvvEditText cvv = mCardForm.findViewById(R.id.bt_card_form_cvv);
 
         setText(cvv, "111");
         card.requestFocus();
@@ -835,7 +859,7 @@ public class CardFormTest {
     @Test
     public void marksMobileNumberAsErrorWhenFocusChangesAndMobileNumberNotMinimumLength() {
         setRequiredFields(true, true, true, true, true, true);
-        MobileNumberEditText mobileNumber = (MobileNumberEditText) mCardForm.findViewById(R.id.bt_card_form_mobile_number);
+        MobileNumberEditText mobileNumber = mCardForm.findViewById(R.id.bt_card_form_mobile_number);
         mobileNumber.requestFocus();
 
         setText(mobileNumber, "1");
@@ -850,7 +874,7 @@ public class CardFormTest {
     @Test
     public void doesNotMarkCardNumberAsErrorWhenFocusChangesAndCardNumberEmpty() {
         setRequiredFields(true, true, true, true, true, true);
-        CardEditText cardEditText = (CardEditText) mCardForm.findViewById(R.id.bt_card_form_card_number);
+        CardEditText cardEditText = mCardForm.findViewById(R.id.bt_card_form_card_number);
         cardEditText.requestFocus();
         assertTrue(cardEditText.isFocused());
         assertFalse(cardEditText.isError());
@@ -863,8 +887,7 @@ public class CardFormTest {
     @Test
     public void doesNotMarkExpirationAsErrorWhenFocusChangesAndExpirationEmpty() {
         setRequiredFields(true, true, true, true, true, true);
-        ExpirationDateEditText expirationDateEditText =
-                (ExpirationDateEditText) mCardForm.findViewById(R.id.bt_card_form_expiration);
+        ExpirationDateEditText expirationDateEditText = mCardForm.findViewById(R.id.bt_card_form_expiration);
         expirationDateEditText.requestFocus();
         assertTrue(expirationDateEditText.isFocused());
         assertFalse(expirationDateEditText.isError());
@@ -877,7 +900,7 @@ public class CardFormTest {
     @Test
     public void doesNotMarkCvvAsErrorWhenFocusChangesAndCvvEmpty() {
         setRequiredFields(true, true, true, true, true, true);
-        CvvEditText cvvEditText = (CvvEditText) mCardForm.findViewById(R.id.bt_card_form_cvv);
+        CvvEditText cvvEditText = mCardForm.findViewById(R.id.bt_card_form_cvv);
         cvvEditText.requestFocus();
         assertTrue(cvvEditText.isFocused());
         assertFalse(cvvEditText.isError());
@@ -890,7 +913,7 @@ public class CardFormTest {
     @Test
     public void doesNotMarkPostalCodeAsErrorWhenFocusChangesAndPostalCodeEmpty() {
         setRequiredFields(true, true, true, true, true, true);
-        PostalCodeEditText postalCode = (PostalCodeEditText) mCardForm.findViewById(R.id.bt_card_form_postal_code);
+        PostalCodeEditText postalCode = mCardForm.findViewById(R.id.bt_card_form_postal_code);
         postalCode.requestFocus();
         assertTrue(postalCode.isFocused());
         assertFalse(postalCode.isError());
@@ -903,7 +926,7 @@ public class CardFormTest {
     @Test
     public void doesNotMarkMobileNumberAsErrorWhenFocusChangesAndMobileNumberEmpty() {
         setRequiredFields(true, true, true, true, true, true);
-        MobileNumberEditText mobileNumber = (MobileNumberEditText) mCardForm.findViewById(R.id.bt_card_form_mobile_number);
+        MobileNumberEditText mobileNumber = mCardForm.findViewById(R.id.bt_card_form_mobile_number);
         mobileNumber.requestFocus();
         assertTrue(mobileNumber.isFocused());
         assertFalse(mobileNumber.isError());
@@ -1000,7 +1023,7 @@ public class CardFormTest {
     public void correctCardHintsAreDisplayed() {
         setRequiredFields(true, true, true, true, true, true);
 
-        CardEditText card = (CardEditText) mCardForm.findViewById(R.id.bt_card_form_card_number);
+        CardEditText card = mCardForm.findViewById(R.id.bt_card_form_card_number);
 
         assertNoHintIcon(card);
 
@@ -1111,6 +1134,19 @@ public class CardFormTest {
         mCardForm.handleCardIOResponse(intent);
 
         assertEquals("122020", ((EditText) mActivity.findViewById(R.id.bt_card_form_expiration)).getText().toString());
+        assertTrue(mCardForm.findViewById(R.id.bt_card_form_cvv).hasFocus());
+    }
+
+    @Test
+    public void handleCardIOResponse_handlesSingleDigitExpirationMonths() {
+        setRequiredFields(false, true, true, false, false);
+        Intent intent = new Intent()
+                .putExtra(CardIOActivity.EXTRA_SCAN_RESULT, new CreditCard(VISA, 7, 2020, "", "", ""));
+
+        mCardForm.handleCardIOResponse(intent);
+
+        assertEquals("07", ((ExpirationDateEditText) mActivity.findViewById(R.id.bt_card_form_expiration)).getMonth());
+        assertEquals("2020", ((ExpirationDateEditText) mActivity.findViewById(R.id.bt_card_form_expiration)).getYear());
         assertTrue(mCardForm.findViewById(R.id.bt_card_form_cvv).hasFocus());
     }
 

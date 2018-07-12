@@ -22,6 +22,7 @@ import android.widget.GridView;
 import android.widget.LinearLayout;
 
 import com.braintreepayments.cardform.R;
+import com.braintreepayments.cardform.utils.DateValidator;
 import com.braintreepayments.cardform.utils.ExpirationDateDialogTheme;
 import com.braintreepayments.cardform.utils.ExpirationDateItemAdapter;
 
@@ -42,6 +43,7 @@ public class ExpirationDateDialog extends Dialog implements DialogInterface.OnSh
     private int mAnimationDelay;
     private ExpirationDateEditText mEditText;
     private ExpirationDateDialogTheme mTheme;
+    private GridView mYearGridView;
     private boolean mHasSelectedMonth;
     private boolean mHasSelectedYear;
     private int mSelectedMonth = -1;
@@ -88,14 +90,14 @@ public class ExpirationDateDialog extends Dialog implements DialogInterface.OnSh
 
         setOnShowListener(this);
 
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < DateValidator.MAXIMUM_VALID_YEAR_DIFFERENCE; i++) {
             mYears.add(Integer.toString(CURRENT_YEAR + i));
         }
 
         final ExpirationDateItemAdapter monthAdapter = new ExpirationDateItemAdapter(getContext(), mTheme, MONTHS);
         final ExpirationDateItemAdapter yearAdapter = new ExpirationDateItemAdapter(getContext(), mTheme, mYears);
 
-        GridView monthsGridView = (GridView) findViewById(R.id.bt_expiration_month_grid_view);
+        GridView monthsGridView = findViewById(R.id.bt_expiration_month_grid_view);
         monthsGridView.setAdapter(monthAdapter);
         monthAdapter.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -112,8 +114,8 @@ public class ExpirationDateDialog extends Dialog implements DialogInterface.OnSh
             }
         });
 
-        GridView yearsGridView = (GridView) findViewById(R.id.bt_expiration_year_grid_view);
-        yearsGridView.setAdapter(yearAdapter);
+        mYearGridView = findViewById(R.id.bt_expiration_year_grid_view);
+        mYearGridView.setAdapter(yearAdapter);
         yearAdapter.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -146,15 +148,13 @@ public class ExpirationDateDialog extends Dialog implements DialogInterface.OnSh
         }
     }
 
-    @Deprecated
     @Override
-    public void show() {}
-
-    public void show(final View view) {
+    public void show() {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                if (view.isFocused()) {
+                Activity ownerActivity = ExpirationDateDialog.this.getOwnerActivity();
+                if (mEditText.isFocused() && ownerActivity != null && !ownerActivity.isFinishing()) {
                     ExpirationDateDialog.super.show();
                 }
             }
@@ -163,6 +163,10 @@ public class ExpirationDateDialog extends Dialog implements DialogInterface.OnSh
 
     @Override
     public void onShow(DialogInterface dialog) {
+        if (mSelectedYear > 0) {
+            mYearGridView.smoothScrollToPosition(mSelectedYear);
+        }
+
         mHasSelectedMonth = false;
         mHasSelectedYear = false;
     }

@@ -1,6 +1,7 @@
 package com.braintreepayments.cardform.view;
 
 import android.content.Context;
+import android.graphics.Rect;
 import android.support.v4.widget.TextViewCompat;
 import android.text.Editable;
 import android.text.InputFilter;
@@ -9,9 +10,11 @@ import android.text.InputType;
 import android.text.Spanned;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.text.method.TransformationMethod;
 import android.util.AttributeSet;
 
 import com.braintreepayments.cardform.R;
+import com.braintreepayments.cardform.utils.CardNumberTransformation;
 import com.braintreepayments.cardform.utils.CardType;
 
 /**
@@ -24,8 +27,10 @@ public class CardEditText extends ErrorEditText implements TextWatcher {
     }
 
     private boolean mDisplayCardIcon = true;
+    private boolean mMask = false;
     private CardType mCardType;
     private OnCardTypeChangedListener mOnCardTypeChangedListener;
+    private TransformationMethod mSavedTranformationMethod;
 
     public CardEditText(Context context) {
         super(context);
@@ -47,6 +52,7 @@ public class CardEditText extends ErrorEditText implements TextWatcher {
         setCardIcon(R.drawable.bt_ic_unknown);
         addTextChangedListener(this);
         updateCardType();
+        mSavedTranformationMethod = getTransformationMethod();
     }
 
     /**
@@ -70,6 +76,30 @@ public class CardEditText extends ErrorEditText implements TextWatcher {
      */
     public CardType getCardType() {
         return mCardType;
+    }
+
+    /**
+     * @param mask if {@code true}, all but the last four digits of the card number will be masked when
+     * focus leaves the card field. Uses {@link CardNumberTransformation}, transforming the number from
+     * something like "4111111111111111" to "•••• 1111".
+     */
+    public void setMask(boolean mask) {
+        mMask = mask;
+    }
+
+    @Override
+    protected void onFocusChanged(boolean focused, int direction, Rect previouslyFocusedRect) {
+        super.onFocusChanged(focused, direction, previouslyFocusedRect);
+
+        if (focused) {
+            unmaskNumber();
+
+            if (getText().toString().length() > 0) {
+                setSelection(getText().toString().length());
+            }
+        } else if (mMask && isValid()) {
+            maskNumber();
+        }
     }
 
     /**
@@ -98,6 +128,12 @@ public class CardEditText extends ErrorEditText implements TextWatcher {
 
             if (isValid()) {
                 focusNextView();
+            } else {
+                unmaskNumber();
+            }
+        } else if (!hasFocus()) {
+            if (mMask) {
+                maskNumber();
             }
         }
     }
@@ -113,6 +149,20 @@ public class CardEditText extends ErrorEditText implements TextWatcher {
             return getContext().getString(R.string.bt_card_number_required);
         } else {
             return getContext().getString(R.string.bt_card_number_invalid);
+        }
+    }
+
+    private void maskNumber() {
+        if (!(getTransformationMethod() instanceof CardNumberTransformation)) {
+            mSavedTranformationMethod = getTransformationMethod();
+
+            setTransformationMethod(new CardNumberTransformation());
+        }
+    }
+
+    private void unmaskNumber() {
+        if (getTransformationMethod() != mSavedTranformationMethod) {
+            setTransformationMethod(mSavedTranformationMethod);
         }
     }
 

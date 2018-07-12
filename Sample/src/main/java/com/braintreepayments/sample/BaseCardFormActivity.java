@@ -27,11 +27,13 @@ public class BaseCardFormActivity extends AppCompatActivity implements OnCardFor
         super.onCreate(savedInstanceState);
         setContentView(R.layout.card_form);
 
-        mSupportedCardTypesView = (SupportedCardTypesView) findViewById(R.id.supported_card_types);
+        mSupportedCardTypesView = findViewById(R.id.supported_card_types);
         mSupportedCardTypesView.setSupportedCardTypes(SUPPORTED_CARD_TYPES);
 
-        mCardForm = (CardForm) findViewById(R.id.card_form);
+        mCardForm = findViewById(R.id.card_form);
         mCardForm.cardRequired(true)
+                .maskCardNumber(true)
+                .maskCvv(true)
                 .expirationRequired(true)
                 .cvvRequired(true)
                 .postalCodeRequired(true)
