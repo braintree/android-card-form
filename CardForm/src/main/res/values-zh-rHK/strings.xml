@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <resources>
     <string name="bt_form_hint_card_number">卡號</string>
     <string name="bt_form_hint_expiration">到期日</string>

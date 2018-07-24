@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <resources>
     <string name="bt_form_hint_card_number">Kortnummer</string>
     <string name="bt_form_hint_expiration">Udløbsdato</string>
