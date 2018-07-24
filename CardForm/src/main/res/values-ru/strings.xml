@@ -7,8 +7,8 @@
     <string name="bt_form_hint_country_code">Код страны</string>
     <string name="bt_form_hint_mobile_number">Мобильный</string>
 
-    <string name="bt_cvv">Код безопасности</string>
-    <string name="bt_cvc">Код безопасности</string>
+    <string name="bt_cvv">CVV-код</string>
+    <string name="bt_cvc">CVC-код</string>
     <string name="bt_cid">Код безопасности</string>
     <string name="bt_cvn">Код безопасности</string>
 
@@ -16,12 +16,12 @@
     <string name="bt_year">Год</string>
 
     <string name="bt_card_number_required">Номер карты обязателен</string>
-    <string name="bt_card_number_invalid">Номер карты недействит</string>
-    <string name="bt_cvv_required">%s — обязат. поле</string>
-    <string name="bt_cvv_invalid">Данные в поле %s недействит</string>
+    <string name="bt_card_number_invalid">Номер карты недействителен</string>
+    <string name="bt_cvv_required">Обязательно: %s</string>
+    <string name="bt_cvv_invalid">Недействительно: %s</string>
     <string name="bt_expiration_required">Срок действия обязателен</string>
-    <string name="bt_expiration_invalid">Срок действия недейств</string>
+    <string name="bt_expiration_invalid">Срок действия недействителен</string>
     <string name="bt_postal_code_required">Индекс обязателен</string>
     <string name="bt_country_code_required">Код страны обязателен</string>
-    <string name="bt_mobile_number_required">Номер мобильного обязат</string>
+    <string name="bt_mobile_number_required">Номер мобильного обязателен</string>
 </resources>
