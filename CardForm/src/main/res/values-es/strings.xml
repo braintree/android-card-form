@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <resources>
     <string name="bt_form_hint_card_number">Número de tarjeta</string>
     <string name="bt_form_hint_expiration">Fecha de vencimiento</string>
@@ -17,11 +17,11 @@
 
     <string name="bt_card_number_required">El número de tarjeta es obligatorio</string>
     <string name="bt_card_number_invalid">Número de tarjeta no válido</string>
-    <string name="bt_cvv_required">%s es obligatorio</string>
-    <string name="bt_cvv_invalid">%s no válido</string>
+    <string name="bt_cvv_required">El valor %s es obligatorio</string>
+    <string name="bt_cvv_invalid">El valor %s no es válido</string>
     <string name="bt_expiration_required">La fecha de vencimiento es obligatoria</string>
     <string name="bt_expiration_invalid">Fecha de vencimiento no válida</string>
-    <string name="bt_postal_code_required">El código postal es obligatorio</string>
-    <string name="bt_country_code_required">El código de país es obligatorio</string>
-    <string name="bt_mobile_number_required">El número de móvil es obligatorio</string>
+    <string name="bt_postal_code_required">El código postal es obligatorio.</string>
+    <string name="bt_country_code_required">El código de país es obligatorio.</string>
+    <string name="bt_mobile_number_required">El número de móvil es obligatorio.</string>
 </resources>

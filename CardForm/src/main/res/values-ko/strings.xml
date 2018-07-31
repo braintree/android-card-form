@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <resources>
     <string name="bt_form_hint_card_number">카드 번호</string>
     <string name="bt_form_hint_expiration">만료일</string>
@@ -15,13 +15,13 @@
     <string name="bt_month">월</string>
     <string name="bt_year">연도</string>
 
-    <string name="bt_card_number_required">카드 번호가 필요합니다</string>
-    <string name="bt_card_number_invalid">카드 번호가 올바르지 않습니다</string>
-    <string name="bt_cvv_required">%s이(가) 필요합니다</string>
-    <string name="bt_cvv_invalid">%s이(가) 올바르지 않습니다.</string>
-    <string name="bt_expiration_required">만료일이 필요합니다</string>
-    <string name="bt_expiration_invalid">만료일이 올바르지 않습니다</string>
-    <string name="bt_postal_code_required">우편번호가 필요합니다</string>
-    <string name="bt_country_code_required">국가코드가 필요합니다</string>
-    <string name="bt_mobile_number_required">휴대폰 번호가 필요합니다</string>
+    <string name="bt_card_number_required">카드 번호가 필요합니다.</string>
+    <string name="bt_card_number_invalid">카드 번호가 올바르지 않습니다.</string>
+    <string name="bt_cvv_required">%s이(가) 필요합니다.</string>
+    <string name="bt_cvv_invalid">%s이(가) 유효하지 않습니다.</string>
+    <string name="bt_expiration_required">만료일이 필요합니다.</string>
+    <string name="bt_expiration_invalid">만료일이 올바르지 않습니다.</string>
+    <string name="bt_postal_code_required">우편번호가 필요합니다.</string>
+    <string name="bt_country_code_required">국가코드가 필요합니다.</string>
+    <string name="bt_mobile_number_required">휴대폰 번호가 필요합니다.</string>
 </resources>
