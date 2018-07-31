@@ -115,6 +115,9 @@ public class CvvEditText extends ErrorEditText implements TextWatcher {
             return mCardType.getSecurityCodeLength();
         }
     }
+    public int setSecurityCodeLength(int length) {
+        DEFAULT_MAX_LENGTH = length;
+    }
 
     @Override
     public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
