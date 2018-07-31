@@ -18,7 +18,7 @@
     <string name="bt_card_number_required">Kortnummeret skal angives</string>
     <string name="bt_card_number_invalid">Kortnummeret er ugyldigt</string>
     <string name="bt_cvv_required">%s skal angives</string>
-    <string name="bt_cvv_invalid">%s er ugyldige</string>
+    <string name="bt_cvv_invalid">%s er ugyldigt</string>
     <string name="bt_expiration_required">Udløbsdatoen skal angives</string>
     <string name="bt_expiration_invalid">Udløbsdato er ugyldig</string>
     <string name="bt_postal_code_required">Postnr. skal angives</string>

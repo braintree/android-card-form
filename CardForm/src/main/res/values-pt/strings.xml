@@ -15,13 +15,13 @@
     <string name="bt_month">Mês</string>
     <string name="bt_year">Ano</string>
 
-    <string name="bt_card_number_required">O número do cartão é obrigatório</string>
-    <string name="bt_card_number_invalid">O número do cartão é inválido</string>
-    <string name="bt_cvv_required">O %s é obrigatório</string>
-    <string name="bt_cvv_invalid">O %s é inválido</string>
-    <string name="bt_expiration_required">A data de validade é obrigatória</string>
-    <string name="bt_expiration_invalid">A data de validade é inválida</string>
-    <string name="bt_postal_code_required">O código postal é obrigatório</string>
-    <string name="bt_country_code_required">O código do país é obrigatório</string>
-    <string name="bt_mobile_number_required">O número de telemóvel é obrigatório</string>
+    <string name="bt_card_number_required">O número do cartão é obrigatório.</string>
+    <string name="bt_card_number_invalid">O número do cartão é inválido.</string>
+    <string name="bt_cvv_required">%s é obrigatório</string>
+    <string name="bt_cvv_invalid">%s é inválido</string>
+    <string name="bt_expiration_required">A data de validade é obrigatória.</string>
+    <string name="bt_expiration_invalid">A data de validade é inválida.</string>
+    <string name="bt_postal_code_required">O código postal é obrigatório.</string>
+    <string name="bt_country_code_required">O código do país é obrigatório.</string>
+    <string name="bt_mobile_number_required">O número de telemóvel é obrigatório.</string>
 </resources>

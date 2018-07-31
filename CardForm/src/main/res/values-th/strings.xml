@@ -17,8 +17,8 @@
 
     <string name="bt_card_number_required">ต้องระบุหมายเลขบัตร</string>
     <string name="bt_card_number_invalid">หมายเลขบัตรไม่ถูกต้อง</string>
-    <string name="bt_cvv_required">ต้องระบุ %s</string>
-    <string name="bt_cvv_invalid">%s ไม่ถูกต้อง</string>
+    <string name="bt_cvv_required">ต้องมี %s</string>
+    <string name="bt_cvv_invalid">%s ไม่สามารถใช้ได้</string>
     <string name="bt_expiration_required">ต้องระบุวันหมดอายุ</string>
     <string name="bt_expiration_invalid">วันหมดอายุไม่ถูกต้อง</string>
     <string name="bt_postal_code_required">ต้องระบุรหัสไปรษณีย์</string>

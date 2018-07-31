@@ -17,7 +17,7 @@
 
     <string name="bt_card_number_required">Kart numarası gereklidir</string>
     <string name="bt_card_number_invalid">Kart numarası geçersiz</string>
-    <string name="bt_cvv_required">%s gereklidir</string>
+    <string name="bt_cvv_required">%s zorunludur</string>
     <string name="bt_cvv_invalid">%s geçersiz</string>
     <string name="bt_expiration_required">Son kullanım tarihi gereklidir</string>
     <string name="bt_expiration_invalid">Son kullanım tarihi geçersiz</string>

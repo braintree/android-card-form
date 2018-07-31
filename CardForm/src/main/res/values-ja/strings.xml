@@ -7,7 +7,7 @@
     <string name="bt_form_hint_country_code">国コード</string>
     <string name="bt_form_hint_mobile_number">携帯電話番号</string>
 
-    <string name="bt_cvv">CVV</string>
+    <string name="bt_cvv">セキュリティコード</string>
     <string name="bt_cvc">CVC</string>
     <string name="bt_cid">CID</string>
     <string name="bt_cvn">CVN</string>

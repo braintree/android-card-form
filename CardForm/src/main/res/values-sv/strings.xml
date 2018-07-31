@@ -17,7 +17,7 @@
 
     <string name="bt_card_number_required">Kortnummer måste anges</string>
     <string name="bt_card_number_invalid">Kontonumret är ogiltigt</string>
-    <string name="bt_cvv_required">%s måste anges</string>
+    <string name="bt_cvv_required">%s krävs</string>
     <string name="bt_cvv_invalid">%s är ogiltigt</string>
     <string name="bt_expiration_required">Utgångsdatum måste anges</string>
     <string name="bt_expiration_invalid">Utgångsdatumet är ogiltigt</string>

@@ -17,8 +17,8 @@
 
     <string name="bt_card_number_required">必須填寫卡號</string>
     <string name="bt_card_number_invalid">卡號無效</string>
-    <string name="bt_cvv_required">必須填寫 %s</string>
-    <string name="bt_cvv_invalid">%s 無效</string>
+    <string name="bt_cvv_required">必須填寫%s</string>
+    <string name="bt_cvv_invalid">%s無效</string>
     <string name="bt_expiration_required">必須填寫到期日</string>
     <string name="bt_expiration_invalid">到期日無效</string>
     <string name="bt_postal_code_required">必須填寫郵遞區號</string>
