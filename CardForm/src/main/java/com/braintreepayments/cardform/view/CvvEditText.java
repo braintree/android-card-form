@@ -17,8 +17,8 @@ import com.braintreepayments.cardform.utils.CardType;
  */
 public class CvvEditText extends ErrorEditText implements TextWatcher {
 
-    private static final int DEFAULT_MAX_LENGTH = 3;
-
+    public static int DEFAULT_MAX_LENGTH = 3;
+  
     private CardType mCardType;
 
     public CvvEditText(Context context) {
@@ -114,6 +114,9 @@ public class CvvEditText extends ErrorEditText implements TextWatcher {
         } else {
             return mCardType.getSecurityCodeLength();
         }
+    }
+    public void setSecurityCodeLength(int length) {
+        DEFAULT_MAX_LENGTH = length;
     }
 
     @Override
