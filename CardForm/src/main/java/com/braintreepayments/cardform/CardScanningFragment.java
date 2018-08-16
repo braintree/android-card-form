@@ -58,7 +58,6 @@ public class CardScanningFragment extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == CARD_IO_REQUEST_CODE) {
-            mCardForm.handleCardIOResponse(data);
 
             if (getActivity() != null) {
                 getActivity().getFragmentManager()

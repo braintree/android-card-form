@@ -22,6 +22,7 @@ android {
 
 dependencies {
     compile project(':CardForm')
+//    implementation 'com.github.skedgo:android-card-form:master-SNAPSHOT'
 
     compile 'com.android.support:appcompat-v7:27.0.0'
 

@@ -1,6 +1,7 @@
 <?xml version="1.0"?>
 <resources>
     <string name="bt_form_hint_card_number">Card Number</string>
+    <string name="bt_form_hint_card_holder_name">Card Holder Name</string>
     <string name="bt_form_hint_expiration">Expiration Date</string>
     <string name="bt_form_hint_cvv">@string/bt_cvv</string>
     <string name="bt_form_hint_postal_code">Postal Code</string>
@@ -18,6 +19,8 @@
     <string name="bt_card_number_required">Card number is required</string>
     <string name="bt_card_number_invalid">Card number is invalid</string>
     <string name="bt_cvv_required">%s is required</string>
+    <string name="bt_cardholder_name_required">Cardholder name is required</string>
+    <string name="bt_cardholder_name_invalid">Cardholder name is invalid</string>
     <string name="bt_cvv_invalid">%s is invalid</string>
     <string name="bt_expiration_required">Expiration date is required</string>
     <string name="bt_expiration_invalid">Expiration date is invalid</string>

@@ -1,7 +1,6 @@
 apply plugin: 'com.android.library'
 apply plugin: 'maven'
 apply plugin: 'signing'
-apply plugin: 'io.codearte.nexus-staging'
 
 version '3.3.1-SNAPSHOT'
 
@@ -70,9 +69,9 @@ signing {
     sign configurations.archives
 }
 
-nexusStaging {
-    packageGroup = "com.braintreepayments"
-}
+//nexusStaging {
+//    packageGroup = "com.braintreepayments"
+//}
 
 def sonatypeUsername = System.env['SONATYPE_USERNAME']
 def sonatypePassword = System.env['SONATYPE_PASSWORD']

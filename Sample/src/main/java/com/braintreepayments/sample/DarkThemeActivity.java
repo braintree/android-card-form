@@ -8,10 +8,6 @@ public class DarkThemeActivity extends BaseCardFormActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
 
-        if (mCardForm.isCardScanningAvailable()) {
-            getMenuInflater().inflate(R.menu.card_io_dark, menu);
-        }
-
         return true;
     }
 }

@@ -8,10 +8,6 @@ public class LightThemeActivity extends BaseCardFormActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
 
-        if (mCardForm.isCardScanningAvailable()) {
-            getMenuInflater().inflate(R.menu.card_io, menu);
-        }
-
         return true;
     }
 }
