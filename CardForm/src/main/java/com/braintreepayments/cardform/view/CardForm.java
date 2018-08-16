@@ -1,43 +1,30 @@
 package com.braintreepayments.cardform.view;
 
-import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Build.VERSION_CODES;
-import android.support.annotation.DrawableRes;
 import android.support.design.widget.TextInputEditText;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.view.KeyEvent;
 import android.view.View;
-import android.view.View.OnClickListener;
-import android.view.View.OnFocusChangeListener;
 import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
 
-import com.braintreepayments.cardform.CardScanningFragment;
-import com.braintreepayments.cardform.OnCardFormFieldFocusedListener;
 import com.braintreepayments.cardform.OnCardFormSubmitListener;
 import com.braintreepayments.cardform.OnCardFormValidListener;
 import com.braintreepayments.cardform.R;
-import com.braintreepayments.cardform.utils.CardType;
-import com.braintreepayments.cardform.utils.ViewUtils;
-import com.braintreepayments.cardform.view.CardEditText.OnCardTypeChangedListener;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import io.card.payment.CardIOActivity;
-import io.card.payment.CreditCard;
 
 public class CardForm extends LinearLayout implements
     OnEditorActionListener, TextWatcher {
