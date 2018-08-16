@@ -10,16 +10,14 @@
       style="@style/bt_text_input_layout"
       android:labelFor="@+id/bt_card_form_card_holder_name"
       android:paddingEnd="0dp"
-      android:paddingLeft="@dimen/bt_edit_text_icon_padding"
-      android:paddingStart="@dimen/bt_edit_text_icon_padding"
       tools:ignore="RtlCompat">
 
       <com.braintreepayments.cardform.view.CardHolderNameEditText
         android:id="@+id/bt_card_form_card_holder_name"
         style="@style/bt_card_form_field"
         android:contentDescription="@string/bt_form_hint_card_number"
-        android:inputType="textCapCharacters"
         android:hint="@string/bt_form_hint_card_holder_name"
+        android:inputType="textCapCharacters"
         android:textAllCaps="true" />
 
     </android.support.design.widget.TextInputLayout>
@@ -32,8 +30,6 @@
       style="@style/bt_text_input_layout"
       android:labelFor="@+id/bt_card_form_card_number"
       android:paddingEnd="0dp"
-      android:paddingLeft="@dimen/bt_edit_text_icon_padding"
-      android:paddingStart="@dimen/bt_edit_text_icon_padding"
       tools:ignore="RtlCompat">
 
       <com.braintreepayments.cardform.view.CardEditText
@@ -50,8 +46,6 @@
   <LinearLayout
     style="@style/bt_field_container"
     android:paddingEnd="0dp"
-    android:paddingLeft="@dimen/bt_edit_text_icon_padding"
-    android:paddingStart="@dimen/bt_edit_text_icon_padding"
     android:weightSum="2"
     tools:ignore="RtlCompat">
 

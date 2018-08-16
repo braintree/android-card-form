@@ -46,6 +46,7 @@ public class CardForm extends LinearLayout implements
 
   private CardEditText mCardNumber;
   private ExpirationDateEditText mExpiration;
+  private CardHolderNameEditText mCardHolderName;
   private CvvEditText mCvv;
 
   private boolean mValid = false;
@@ -82,10 +83,12 @@ public class CardForm extends LinearLayout implements
 
     mCardNumber = findViewById(R.id.bt_card_form_card_number);
     mExpiration = findViewById(R.id.bt_card_form_expiration);
+    mCardHolderName = findViewById(R.id.bt_card_form_card_holder_name);
     mCvv = findViewById(R.id.bt_card_form_cvv);
 
     mVisibleEditTexts = new ArrayList<>();
 
+    setListeners(mCardHolderName);
     setListeners(mCardNumber);
     setListeners(mExpiration);
     setListeners(mCvv);
@@ -191,20 +194,10 @@ public class CardForm extends LinearLayout implements
    * @return {@code true} if all require fields are valid, otherwise {@code false}
    */
   public boolean isValid() {
-    boolean valid = true;
-    valid = valid && mCardNumber.isValid();
-    valid = valid && mExpiration.isValid();
-    valid = valid && mCvv.isValid();
-    return valid;
-  }
-
-  /**
-   * Validate all required fields and mark invalid fields with an error indicator
-   */
-  public void validate() {
-    mCardNumber.validate();
-    mExpiration.validate();
-    mCvv.validate();
+    return mCardNumber.isValid()
+        && mExpiration.isValid()
+        && mCvv.isValid()
+        && mCardHolderName.isValid();
   }
 
   /**
@@ -235,17 +228,17 @@ public class CardForm extends LinearLayout implements
   }
 
   /**
-   * Attempt to close the soft keyboard. Will have no effect if the keyboard is not open.
+   * @return the text in the card number field
    */
-  public void closeSoftKeyboard() {
-    mCardNumber.closeSoftKeyboard();
+  public String getCardNumber() {
+    return mCardNumber.getText().toString();
   }
 
   /**
    * @return the text in the card number field
    */
-  public String getCardNumber() {
-    return mCardNumber.getText().toString();
+  public String getCardHolderName() {
+    return mCardHolderName.getText().toString();
   }
 
   /**
@@ -265,6 +258,8 @@ public class CardForm extends LinearLayout implements
   }
 
   /**
+   * r
+   *
    * @return the text in the cvv field
    */
   public String getCvv() {
