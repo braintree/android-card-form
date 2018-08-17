@@ -83,12 +83,34 @@ public enum CardType {
      * match.
      */
     public static CardType forCardNumber(String cardNumber) {
+        CardType patternMatch = forCardNumberPattern(cardNumber);
+        if (patternMatch != EMPTY && patternMatch != UNKNOWN) {
+            return patternMatch;
+        }
+
+        CardType relaxedPrefixPatternMatch = forCardNumberRelaxedPrefixPattern(cardNumber);
+        if (relaxedPrefixPatternMatch != EMPTY && relaxedPrefixPatternMatch != UNKNOWN) {
+            return relaxedPrefixPatternMatch;
+        }
+
+        if (!cardNumber.isEmpty()) {
+            return UNKNOWN;
+        }
+
+        return EMPTY;
+    }
+
+    private static CardType forCardNumberPattern(String cardNumber) {
         for (CardType cardType : values()) {
             if (cardType.getPattern().matcher(cardNumber).matches()) {
                 return cardType;
             }
         }
 
+        return EMPTY;
+    }
+
+    private static CardType forCardNumberRelaxedPrefixPattern(String cardNumber) {
         for (CardType cardTypeRelaxed : values()) {
             if (cardTypeRelaxed.getRelaxedPrefixPattern() != null) {
                 if (cardTypeRelaxed.getRelaxedPrefixPattern().matcher(cardNumber).matches()) {
