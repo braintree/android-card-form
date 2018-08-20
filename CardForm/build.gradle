@@ -5,66 +5,66 @@ apply plugin: 'signing'
 version '3.3.1-SNAPSHOT'
 
 android {
-    compileSdkVersion 27
-    buildToolsVersion '27.0.3'
+  compileSdkVersion 27
+  buildToolsVersion '27.0.3'
 
-    defaultConfig {
-        minSdkVersion 15
-        targetSdkVersion 27
-        versionCode 39
-        versionName version
+  defaultConfig {
+    minSdkVersion 15
+    targetSdkVersion 27
+    versionCode 39
+    versionName version
 
-        consumerProguardFiles 'proguard.cfg'
+    consumerProguardFiles 'proguard.cfg'
+  }
+
+  testOptions {
+    unitTests {
+      all {
+        jvmArgs '-noverify'
+      }
     }
+  }
 
-    testOptions {
-        unitTests {
-            all {
-                jvmArgs '-noverify'
-            }
-        }
-    }
+  lintOptions {
+    textReport true
+    textOutput 'stdout'
+  }
 
-    lintOptions {
-        textReport true
-        textOutput 'stdout'
-    }
-
-    resourcePrefix 'bt_'
+  resourcePrefix 'bt_'
 }
 
 dependencies {
-    compile 'com.android.support:design:27.0.0'
-    testCompile 'junit:junit:4.12'
-    testCompile 'org.robolectric:robolectric:3.3.2'
-    testCompile 'org.mockito:mockito-core:2.8.9'
+  implementation 'com.android.support:design:27.0.0'
+  testImplementation 'junit:junit:4.12'
+  testImplementation 'org.robolectric:robolectric:3.3.2'
+  testImplementation 'org.mockito:mockito-core:2.8.9'
 }
 
 /* maven release */
 task javadocs(type: Javadoc) {
-    source = android.sourceSets.main.java.srcDirs
-    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
-    failOnError false
+  source = android.sourceSets.main.java.srcDirs
+  classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+  failOnError false
 }
 
 task javadocsJar(type: Jar, dependsOn: javadocs) {
-    classifier = 'javadoc'
-    from javadocs.destinationDir
+  classifier = 'javadoc'
+  from javadocs.destinationDir
 }
 
 task sourcesJar(type: Jar) {
-    classifier = 'sources'
-    from android.sourceSets.main.java.srcDirs
+  classifier = 'sources'
+  from android.sourceSets.main.java.srcDirs
 }
 
 artifacts {
-    archives javadocsJar
-    archives sourcesJar
+  archives javadocsJar
+  archives sourcesJar
 }
 
 signing {
-    required { !version.endsWith("SNAPSHOT") }
-    sign configurations.archives
+  required { !version.endsWith("SNAPSHOT") }
+  sign configurations.archives
 }
 
 //nexusStaging {
@@ -75,57 +75,57 @@ def sonatypeUsername = System.env['SONATYPE_USERNAME']
 def sonatypePassword = System.env['SONATYPE_PASSWORD']
 
 uploadArchives {
-    repositories {
-        mavenDeployer {
-            beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
+  repositories {
+    mavenDeployer {
+      beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
 
-            repository(url: 'https://oss.sonatype.org/service/local/staging/deploy/maven2/') {
-                authentication(userName: sonatypeUsername, password: sonatypePassword)
-            }
-            snapshotRepository(url: 'https://oss.sonatype.org/content/repositories/snapshots/') {
-                authentication(userName: sonatypeUsername, password: sonatypePassword)
-            }
+      repository(url: 'https://oss.sonatype.org/service/local/staging/deploy/maven2/') {
+        authentication(userName: sonatypeUsername, password: sonatypePassword)
+      }
+      snapshotRepository(url: 'https://oss.sonatype.org/content/repositories/snapshots/') {
+        authentication(userName: sonatypeUsername, password: sonatypePassword)
+      }
 
-            pom.setArtifactId 'card-form'
+      pom.setArtifactId 'card-form'
 
-            pom.project {
-                name 'card-form'
-                groupId = 'com.braintreepayments'
-                version = "${android.defaultConfig.versionName}"
-                packaging 'aar'
-                description 'A ready-made card form layout that can be included in your Android app, making it easy to accept credit and debit cards.'
+      pom.project {
+        name 'card-form'
+        groupId = 'com.braintreepayments'
+        version = "${android.defaultConfig.versionName}"
+        packaging 'aar'
+        description 'A ready-made card form layout that can be included in your Android app, making it easy to accept credit and debit cards.'
 
-                url 'https://github.com/braintree/android-card-form'
+        url 'https://github.com/braintree/android-card-form'
 
-                scm {
-                    url 'scm:git@github.com:braintree/android-card-form.git'
-                    connection 'scm:git@github.com:braintree/android-card-form.git'
-                    developerConnection 'scm:git@github.com:braintree/android-card-form.git'
-                }
-
-                developers {
-                    developer {
-                        id 'devs'
-                        name 'Braintree Payments'
-                    }
-                }
-
-                licenses {
-                    license {
-                        name 'MIT'
-                        url 'http://opensource.org/licenses/MIT'
-                        distribution 'repo'
-                    }
-                }
-            }
-
-            pom.whenConfigured { MavenPom pom ->
-                pom.dependencies.each {
-                    if (it.artifactId == 'android-sdk') {
-                        it.optional = true
-                    }
-                }
-            }
+        scm {
+          url 'scm:git@github.com:braintree/android-card-form.git'
+          connection 'scm:git@github.com:braintree/android-card-form.git'
+          developerConnection 'scm:git@github.com:braintree/android-card-form.git'
         }
+
+        developers {
+          developer {
+            id 'devs'
+            name 'Braintree Payments'
+          }
+        }
+
+        licenses {
+          license {
+            name 'MIT'
+            url 'http://opensource.org/licenses/MIT'
+            distribution 'repo'
+          }
+        }
+      }
+
+      pom.whenConfigured { MavenPom pom ->
+        pom.dependencies.each {
+          if (it.artifactId == 'android-sdk') {
+            it.optional = true
+          }
+        }
+      }
     }
+  }
 }
