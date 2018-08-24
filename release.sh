@@ -11,11 +11,18 @@ if [[ $(./gradlew :CardForm:properties | grep version) == *-SNAPSHOT ]]; then
   exit 1
 fi
 
+echo -n "Enter Sonatype username:"
+read username
+
+echo -n "Enter Sonatype password:"
+read -s password
+echo
+
 ./gradlew --info clean lint test
-./gradlew :CardForm:uploadArchives :CardForm:closeAndPromoteRepository
+SONATYPE_USERNAME=$username SONATYPE_PASSWORD=$password ./gradlew :CardForm:uploadArchives :CardForm:closeAndPromoteRepository
 
 echo "Release complete. Be sure to commit, tag and push your changes."
 echo "After the tag has been pushed, update the releases tab on GitHub with the changes for this release."
 echo "Remember to bump the version and add '-SNAPSHOT' to the version after the release."
-echo "\n"
+echo
 read
