@@ -14,48 +14,50 @@ public enum CardType {
     VISA("^4\\d*",
             R.drawable.bt_ic_visa,
             16, 16,
-            3, R.string.bt_cvv),
+            3, R.string.bt_cvv, null),
     MASTERCARD("^(5[1-5]|222[1-9]|22[3-9]|2[3-6]|27[0-1]|2720)\\d*",
             R.drawable.bt_ic_mastercard,
             16, 16,
-            3, R.string.bt_cvc),
+            3, R.string.bt_cvc, null),
     DISCOVER("^(6011|65|64[4-9]|622)\\d*",
             R.drawable.bt_ic_discover,
             16, 16,
-            3, R.string.bt_cid),
+            3, R.string.bt_cid, null),
     AMEX("^3[47]\\d*",
             R.drawable.bt_ic_amex,
             15, 15,
-            4, R.string.bt_cid),
+            4, R.string.bt_cid, null),
     DINERS_CLUB("^(36|38|30[0-5])\\d*",
             R.drawable.bt_ic_diners_club,
             14, 14,
-            3, R.string.bt_cvv),
+            3, R.string.bt_cvv, null),
     JCB("^35\\d*",
             R.drawable.bt_ic_jcb,
             16, 16,
-            3, R.string.bt_cvv),
+            3, R.string.bt_cvv, null),
     MAESTRO("^(5018|5020|5038|6020|6304|6703|6759|676[1-3])\\d*",
             R.drawable.bt_ic_maestro,
             12, 19,
-            3, R.string.bt_cvc),
+            3, R.string.bt_cvc,
+            "^6\\d*"),
     UNIONPAY("^62\\d*",
             R.drawable.bt_ic_unionpay,
             16, 19,
-            3, R.string.bt_cvn),
+            3, R.string.bt_cvn, null),
     UNKNOWN("\\d+",
             R.drawable.bt_ic_unknown,
             12, 19,
-            3, R.string.bt_cvv),
+            3, R.string.bt_cvv, null),
     EMPTY("^$",
             R.drawable.bt_ic_unknown,
             12, 19,
-            3, R.string.bt_cvv);
+            3, R.string.bt_cvv, null);
 
     private static final int[] AMEX_SPACE_INDICES = { 4, 10 };
     private static final int[] DEFAULT_SPACE_INDICES = { 4, 8, 12 };
 
     private final Pattern mPattern;
+    private final Pattern mRelaxedPrefixPattern;
     private final int mFrontResource;
     private final int mMinCardLength;
     private final int mMaxCardLength;
@@ -63,8 +65,9 @@ public enum CardType {
     private final int mSecurityCodeName;
 
     CardType(String regex, int frontResource, int minCardLength, int maxCardLength, int securityCodeLength,
-             int securityCodeName) {
+             int securityCodeName, String relaxedPrefixPattern) {
         mPattern = Pattern.compile(regex);
+        mRelaxedPrefixPattern = relaxedPrefixPattern == null ? null : Pattern.compile(relaxedPrefixPattern);
         mFrontResource = frontResource;
         mMinCardLength = minCardLength;
         mMaxCardLength = maxCardLength;
@@ -80,11 +83,42 @@ public enum CardType {
      * match.
      */
     public static CardType forCardNumber(String cardNumber) {
+        CardType patternMatch = forCardNumberPattern(cardNumber);
+        if (patternMatch != EMPTY && patternMatch != UNKNOWN) {
+            return patternMatch;
+        }
+
+        CardType relaxedPrefixPatternMatch = forCardNumberRelaxedPrefixPattern(cardNumber);
+        if (relaxedPrefixPatternMatch != EMPTY && relaxedPrefixPatternMatch != UNKNOWN) {
+            return relaxedPrefixPatternMatch;
+        }
+
+        if (!cardNumber.isEmpty()) {
+            return UNKNOWN;
+        }
+
+        return EMPTY;
+    }
+
+    private static CardType forCardNumberPattern(String cardNumber) {
         for (CardType cardType : values()) {
             if (cardType.getPattern().matcher(cardNumber).matches()) {
                 return cardType;
             }
         }
+
+        return EMPTY;
+    }
+
+    private static CardType forCardNumberRelaxedPrefixPattern(String cardNumber) {
+        for (CardType cardTypeRelaxed : values()) {
+            if (cardTypeRelaxed.getRelaxedPrefixPattern() != null) {
+                if (cardTypeRelaxed.getRelaxedPrefixPattern().matcher(cardNumber).matches()) {
+                    return cardTypeRelaxed;
+                }
+            }
+        }
+
         return EMPTY;
     }
 
@@ -93,6 +127,13 @@ public enum CardType {
      */
     public Pattern getPattern() {
         return mPattern;
+    }
+
+    /**
+     * @return The relaxed prefix regex matching this card type. To be used in determining card type if no pattern matches.
+     */
+    public Pattern getRelaxedPrefixPattern() {
+        return mRelaxedPrefixPattern;
     }
 
     /**
