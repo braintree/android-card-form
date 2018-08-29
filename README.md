@@ -11,7 +11,7 @@ Add the dependency in your `build.gradle`:
 
 ```groovy
 dependencies {
-    compile 'com.braintreepayments:card-form:3.4.0'
+    compile 'com.braintreepayments:card-form:3.4.1'
 }
 ```
 
@@ -19,7 +19,7 @@ To use the latest build from the `master` branch use:
 
  ```groovy
 dependencies {
-    compile 'com.braintreepayments:card-form:3.4.1-SNAPSHOT'
+    compile 'com.braintreepayments:card-form:3.4.2-SNAPSHOT'
 }
 ```
 
