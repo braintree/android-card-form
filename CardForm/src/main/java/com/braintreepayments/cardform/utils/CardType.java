@@ -220,7 +220,7 @@ public enum CardType {
         final int numberLength = cardNumber.length();
         if (numberLength < mMinCardLength || numberLength > mMaxCardLength) {
             return false;
-        } else if (!mPattern.matcher(cardNumber).matches()) {
+        } else if (!mPattern.matcher(cardNumber).matches() && !mRelaxedPrefixPattern.matcher(cardNumber).matches()) {
             return false;
         }
         return isLuhnValid(cardNumber);
