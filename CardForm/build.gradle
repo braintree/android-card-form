@@ -3,7 +3,7 @@ apply plugin: 'maven'
 apply plugin: 'signing'
 apply plugin: 'io.codearte.nexus-staging'
 
-version '3.4.1'
+version '3.4.2-SNAPSHOT'
 
 android {
     compileSdkVersion 27
@@ -12,7 +12,7 @@ android {
     defaultConfig {
         minSdkVersion 16
         targetSdkVersion 27
-        versionCode 39
+        versionCode 40
         versionName version
 
         consumerProguardFiles 'proguard.cfg'
