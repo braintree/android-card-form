@@ -42,6 +42,7 @@ CardForm cardForm = (CardForm) findViewById(R.id.card_form);
 cardForm.cardRequired(true)
         .expirationRequired(true)
         .cvvRequired(true)
+        .nameRequired(true)
         .postalCodeRequired(true)
         .mobileNumberRequired(true)
         .mobileNumberExplanation("SMS is required on this number")
@@ -56,6 +57,7 @@ cardForm.getCardNumber();
 cardForm.getExpirationMonth();
 cardForm.getExpirationYear();
 cardForm.getCvv();
+cardForm.getName();
 cardForm.getPostalCode();
 cardForm.getCountryCode();
 cardForm.getMobileNumber();
