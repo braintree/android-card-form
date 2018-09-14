@@ -2,7 +2,8 @@ apply plugin: 'com.android.library'
 apply plugin: 'maven'
 apply plugin: 'signing'
 
-version '3.3.1-SNAPSHOT'
+version '3.3.1'
+group = 'com.braintreepayments'
 
 android {
   compileSdkVersion 27
@@ -60,11 +61,6 @@ task sourcesJar(type: Jar) {
 artifacts {
   archives javadocsJar
   archives sourcesJar
-}
-
-signing {
-  required { !version.endsWith("SNAPSHOT") }
-  sign configurations.archives
 }
 
 //nexusStaging {
