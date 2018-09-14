@@ -71,61 +71,10 @@ signing {
 //    packageGroup = "com.braintreepayments"
 //}
 
-def sonatypeUsername = System.env['SONATYPE_USERNAME']
-def sonatypePassword = System.env['SONATYPE_PASSWORD']
-
 uploadArchives {
   repositories {
     mavenDeployer {
-      beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
-
-      repository(url: 'https://oss.sonatype.org/service/local/staging/deploy/maven2/') {
-        authentication(userName: sonatypeUsername, password: sonatypePassword)
-      }
-      snapshotRepository(url: 'https://oss.sonatype.org/content/repositories/snapshots/') {
-        authentication(userName: sonatypeUsername, password: sonatypePassword)
-      }
-
-      pom.setArtifactId 'card-form'
-
-      pom.project {
-        name 'card-form'
-        groupId = 'com.braintreepayments'
-        version = "${android.defaultConfig.versionName}"
-        packaging 'aar'
-        description 'A ready-made card form layout that can be included in your Android app, making it easy to accept credit and debit cards.'
-
-        url 'https://github.com/braintree/android-card-form'
-
-        scm {
-          url 'scm:git@github.com:braintree/android-card-form.git'
-          connection 'scm:git@github.com:braintree/android-card-form.git'
-          developerConnection 'scm:git@github.com:braintree/android-card-form.git'
-        }
-
-        developers {
-          developer {
-            id 'devs'
-            name 'Braintree Payments'
-          }
-        }
-
-        licenses {
-          license {
-            name 'MIT'
-            url 'http://opensource.org/licenses/MIT'
-            distribution 'repo'
-          }
-        }
-      }
-
-      pom.whenConfigured { MavenPom pom ->
-        pom.dependencies.each {
-          if (it.artifactId == 'android-sdk') {
-            it.optional = true
-          }
-        }
-      }
+      repository(url: "file://${localMaven}")
     }
   }
 }
