@@ -103,8 +103,8 @@ public class CardForm extends LinearLayout implements OnCardTypeChangedListener,
         mCardNumber = findViewById(R.id.bt_card_form_card_number);
         mExpiration = findViewById(R.id.bt_card_form_expiration);
         mCvv = findViewById(R.id.bt_card_form_cvv);
-        mCardholderName = findViewById(R.id.bt_card_form_name);
-        mCardholderNameIcon = findViewById(R.id.bt_card_form_name_icon);
+        mCardholderName = findViewById(R.id.bt_card_form_cardholder_name);
+        mCardholderNameIcon = findViewById(R.id.bt_card_form_cardholder_name_icon);
         mPostalCodeIcon = findViewById(R.id.bt_card_form_postal_code_icon);
         mPostalCode = findViewById(R.id.bt_card_form_postal_code);
         mMobileNumberIcon = findViewById(R.id.bt_card_form_mobile_number_icon);
