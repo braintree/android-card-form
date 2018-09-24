@@ -448,9 +448,6 @@ public class CardForm extends LinearLayout implements OnCardTypeChangedListener,
         if (mCvvRequired) {
             mCvv.validate();
         }
-        if (mCardholderNameRequired) {
-            mCardholderName.validate();
-        }
         if (mPostalCodeRequired) {
             mPostalCode.validate();
         }
