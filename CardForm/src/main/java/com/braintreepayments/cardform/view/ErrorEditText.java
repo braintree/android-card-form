@@ -214,7 +214,7 @@ public class ErrorEditText extends TextInputEditText {
         if (SDK_INT >= JELLY_BEAN_MR1) {
             if (getResources().getConfiguration().getLayoutDirection() == View.LAYOUT_DIRECTION_RTL) {
                 setTextDirection(View.TEXT_DIRECTION_LTR);
-                setGravity(Gravity.RIGHT);
+                setGravity(Gravity.END);
             }
         }
     }
