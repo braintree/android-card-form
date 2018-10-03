@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Build.VERSION_CODES;
 import android.support.annotation.DrawableRes;
+import android.support.annotation.IntDef;
 import android.support.design.widget.TextInputEditText;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -33,6 +34,8 @@ import com.braintreepayments.cardform.utils.CardType;
 import com.braintreepayments.cardform.utils.ViewUtils;
 import com.braintreepayments.cardform.view.CardEditText.OnCardTypeChangedListener;
 
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,6 +44,27 @@ import io.card.payment.CreditCard;
 
 public class CardForm extends LinearLayout implements OnCardTypeChangedListener, OnFocusChangeListener, OnClickListener,
         OnEditorActionListener, TextWatcher {
+
+    /**
+     * Hides the card holder name.
+     *
+     * This is the default value.
+     */
+    public static final int CARDHOLDER_NAME_DISABLED = 0;
+//    public static final int CARDHOLDER_NAME_OPTIONAL = 1;
+    /**
+     * Shows the card holder name.
+     * Required cardholder name to be non empty to validate the card form.
+     */
+    public static final int CARDHOLDER_NAME_REQUIRED = 2;
+
+    /**
+     * Use this option to specify the card holder name status.
+     * Use this option to specify the PayPal page to display when a user lands on the PayPal site to complete the payment.
+     */
+    @Retention(RetentionPolicy.SOURCE)
+    @IntDef({CARDHOLDER_NAME_DISABLED, CARDHOLDER_NAME_REQUIRED})
+    @interface CardHolderNameStatus {}
 
     private List<ErrorEditText> mVisibleEditTexts;
 
@@ -60,7 +84,7 @@ public class CardForm extends LinearLayout implements OnCardTypeChangedListener,
     private boolean mCardNumberRequired;
     private boolean mExpirationRequired;
     private boolean mCvvRequired;
-    private boolean mCardholderNameRequired;
+    private int mCardholderNameStatus = CARDHOLDER_NAME_DISABLED;
     private boolean mPostalCodeRequired;
     private boolean mMobileNumberRequired;
     private String mActionLabel;
@@ -152,11 +176,13 @@ public class CardForm extends LinearLayout implements OnCardTypeChangedListener,
     }
 
     /**
-     * @param required {@code true} to show and require a cardholder name, {@code false} otherwise. Defaults to {@code false}.
+     * @param cardHolderNameStatus can be one of the {@link CardHolderNameStatus} options.
+     *                             - {@link CardForm#CARDHOLDER_NAME_DISABLED} to hide this field.
+     *                             - {@link CardForm#CARDHOLDER_NAME_REQUIRED} to show this field and make it required to validate the card form.
      * @return {@link CardForm} for method chaining
      */
-    public CardForm cardholderNameRequired(boolean required) {
-        mCardholderNameRequired = required;
+    public CardForm cardholderName(@CardHolderNameStatus int cardHolderNameStatus) {
+        mCardholderNameStatus = cardHolderNameStatus;
         return this;
     }
 
@@ -223,6 +249,7 @@ public class CardForm extends LinearLayout implements OnCardTypeChangedListener,
         activity.getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE,
                 WindowManager.LayoutParams.FLAG_SECURE);
 
+        boolean cardHolderNameVisible = mCardholderNameStatus != CARDHOLDER_NAME_DISABLED;
         boolean isDarkBackground = ViewUtils.isDarkBackground(activity);
         mCardholderNameIcon.setImageResource(isDarkBackground ? R.drawable.bt_ic_cardholder_name_dark: R.drawable.bt_ic_cardholder_name);
         mCardNumberIcon.setImageResource(isDarkBackground ? R.drawable.bt_ic_card_dark : R.drawable.bt_ic_card);
@@ -231,8 +258,8 @@ public class CardForm extends LinearLayout implements OnCardTypeChangedListener,
 
         mExpiration.useDialogForExpirationDateEntry(activity, true);
 
-        setViewVisibility(mCardholderNameIcon, mCardholderNameRequired);
-        setFieldVisibility(mCardholderName, mCardholderNameRequired);
+        setViewVisibility(mCardholderNameIcon,  cardHolderNameVisible);
+        setFieldVisibility(mCardholderName, cardHolderNameVisible);
         setViewVisibility(mCardNumberIcon, mCardNumberRequired);
         setFieldVisibility(mCardNumber, mCardNumberRequired);
         setFieldVisibility(mExpiration, mExpirationRequired);
@@ -411,7 +438,7 @@ public class CardForm extends LinearLayout implements OnCardTypeChangedListener,
      */
     public boolean isValid() {
         boolean valid = true;
-        if (mCardholderNameRequired) {
+        if (mCardholderNameStatus == CARDHOLDER_NAME_REQUIRED) {
             valid = valid && mCardholderName.isValid();
         }
         if (mCardNumberRequired) {
@@ -436,7 +463,7 @@ public class CardForm extends LinearLayout implements OnCardTypeChangedListener,
      * Validate all required fields and mark invalid fields with an error indicator
      */
     public void validate() {
-        if (mCardholderNameRequired) {
+        if (mCardholderNameStatus == CARDHOLDER_NAME_REQUIRED) {
             mCardholderName.validate();
         }
         if (mCardNumberRequired) {
@@ -512,7 +539,7 @@ public class CardForm extends LinearLayout implements OnCardTypeChangedListener,
      * @param errorMessage the error message to display
      */
     public void setCardholderNameError(String errorMessage) {
-        if (mCardholderNameRequired) {
+        if (mCardholderNameStatus == CARDHOLDER_NAME_REQUIRED) {
             mCardholderName.setError(errorMessage);
             if (!mCardNumber.isFocused() && !mExpiration.isFocused() && !mCvv.isFocused()) {
                 requestEditTextFocus(mCardholderName);
