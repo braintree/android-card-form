@@ -270,6 +270,15 @@ public class CardFormTest {
     }
 
     @Test
+    public void cardholderNameIsShownWhenOptional() {
+        mCardForm.cardholderName(CardForm.CARDHOLDER_NAME_OPTIONAL)
+                .setup(mActivity);
+
+        assertEquals(VISIBLE, mCardForm.findViewById(R.id.bt_card_form_cardholder_name).getVisibility());
+        assertEquals(VISIBLE, mCardForm.findViewById(R.id.bt_card_form_cardholder_name_icon).getVisibility());
+    }
+
+    @Test
     public void postalCodeIsShownIfRequired() {
         mCardForm.cardRequired(false)
                 .expirationRequired(false)
@@ -900,6 +909,17 @@ public class CardFormTest {
 
         mCardForm.setEnabled(false);
         assertFieldsEnabled(false, false, false, false, false, false);
+    }
+
+    @Test
+    public void isValid_whenCardHolderNameIsOptionalAndEmpty_returnsTrue() {
+        mCardForm.cardRequired(true)
+                .cardholderName(CardForm.CARDHOLDER_NAME_OPTIONAL)
+                .setup(mActivity);
+
+        assertFalse(mCardForm.isValid());
+        setText(((EditText) mCardForm.findViewById(R.id.bt_card_form_card_number)), VISA);
+        assertTrue(mCardForm.isValid());
     }
 
     @Test

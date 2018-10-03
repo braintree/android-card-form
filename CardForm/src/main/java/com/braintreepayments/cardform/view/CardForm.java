@@ -51,7 +51,12 @@ public class CardForm extends LinearLayout implements OnCardTypeChangedListener,
      * This is the default value.
      */
     public static final int CARDHOLDER_NAME_DISABLED = 0;
-//    public static final int CARDHOLDER_NAME_OPTIONAL = 1;
+
+    /**
+     * Shows the card holder name and makes the field optional.
+     */
+    public static final int CARDHOLDER_NAME_OPTIONAL = 1;
+
     /**
      * Shows the card holder name.
      * Required cardholder name to be non empty to validate the card form.
