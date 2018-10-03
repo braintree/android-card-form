@@ -3,6 +3,7 @@
     <string name="bt_form_hint_card_number">Numéro de carte </string>
     <string name="bt_form_hint_expiration">Date d\'expiration</string>
     <string name="bt_form_hint_cvv">@string/bt_cvv</string>
+    <string name="bt_form_hint_cardholder_name">Nom du titulaire de la carte</string>
     <string name="bt_form_hint_postal_code">Code postal</string>
     <string name="bt_form_hint_country_code">Code de pays</string>
     <string name="bt_form_hint_mobile_number">Numéro de téléphone mobile</string>
@@ -15,12 +16,13 @@
     <string name="bt_month">Mois</string>
     <string name="bt_year">Année</string>
 
-    <string name="bt_card_number_required">Le numéro de la carte est obligatoire</string>
+    <string name="bt_card_number_required">Numéro de carte requis</string>
     <string name="bt_card_number_invalid">Le numéro de la carte n\'est pas valide</string>
     <string name="bt_cvv_required">%s est obligatoire</string>
     <string name="bt_cvv_invalid">%s n\'est pas valide</string>
     <string name="bt_expiration_required">La date d\'expiration est obligatoire</string>
     <string name="bt_expiration_invalid">La date d\'expiration n\'est pas valide</string>
+    <string name="bt_cardholder_name_required">Le nom du titulaire de la carte est obligatoire</string>
     <string name="bt_postal_code_required">Le code postal est obligatoire</string>
     <string name="bt_country_code_required">L\'indicatif régional est obligatoire</string>
     <string name="bt_mobile_number_required">Le numéro de téléphone mobile est obligatoire</string>

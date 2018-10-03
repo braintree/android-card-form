@@ -3,6 +3,7 @@
     <string name="bt_form_hint_card_number">Kortnummer</string>
     <string name="bt_form_hint_expiration">Utløpsdato</string>
     <string name="bt_form_hint_cvv">@string/bt_cvv</string>
+    <string name="bt_form_hint_cardholder_name">Kortinnehaverens navn</string>
     <string name="bt_form_hint_postal_code">Postnummer</string>
     <string name="bt_form_hint_country_code">Landskode</string>
     <string name="bt_form_hint_mobile_number">Mobilnummer</string>
@@ -21,6 +22,7 @@
     <string name="bt_cvv_invalid">%s er ugyldig</string>
     <string name="bt_expiration_required">Utløpsdato er obligatorisk</string>
     <string name="bt_expiration_invalid">Utløpsdatoen er ugyldig</string>
+    <string name="bt_cardholder_name_required">Kortinnehaverens navn er påkrevd</string>
     <string name="bt_postal_code_required">Postnummer er obligatorisk</string>
     <string name="bt_country_code_required">Landskod er obligatorisk</string>
     <string name="bt_mobile_number_required">Mobilnummer er obligatorisk</string>
