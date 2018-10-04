@@ -68,7 +68,7 @@ public class CardForm extends LinearLayout implements OnCardTypeChangedListener,
      * Use this option to specify the PayPal page to display when a user lands on the PayPal site to complete the payment.
      */
     @Retention(RetentionPolicy.SOURCE)
-    @IntDef({CARDHOLDER_NAME_DISABLED, CARDHOLDER_NAME_REQUIRED})
+    @IntDef({CARDHOLDER_NAME_DISABLED, CARDHOLDER_NAME_OPTIONAL, CARDHOLDER_NAME_REQUIRED})
     @interface CardHolderNameStatus {}
 
     private List<ErrorEditText> mVisibleEditTexts;
@@ -183,6 +183,7 @@ public class CardForm extends LinearLayout implements OnCardTypeChangedListener,
     /**
      * @param cardHolderNameStatus can be one of the {@link CardHolderNameStatus} options.
      *                             - {@link CardForm#CARDHOLDER_NAME_DISABLED} to hide this field.
+     *                             - {@link CardForm#CARDHOLDER_NAME_OPTIONAL} to show this field but make it optional field.
      *                             - {@link CardForm#CARDHOLDER_NAME_REQUIRED} to show this field and make it required to validate the card form.
      * @return {@link CardForm} for method chaining
      */
