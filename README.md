@@ -42,7 +42,7 @@ CardForm cardForm = (CardForm) findViewById(R.id.card_form);
 cardForm.cardRequired(true)
         .expirationRequired(true)
         .cvvRequired(true)
-        .cardholderName(CardForm.CARDHOLDER_NAME_REQUIRED)
+        .cardholderName(CardForm.FIELD_REQUIRED)
         .postalCodeRequired(true)
         .mobileNumberRequired(true)
         .mobileNumberExplanation("SMS is required on this number")
