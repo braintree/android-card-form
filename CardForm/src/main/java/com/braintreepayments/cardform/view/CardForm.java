@@ -46,9 +46,7 @@ public class CardForm extends LinearLayout implements OnCardTypeChangedListener,
         OnEditorActionListener, TextWatcher {
 
     /**
-     * Hides the card holder name.
-     *
-     * This is the default value.
+     * Hides the card holder name. This is the default value.
      */
     public static final int CARDHOLDER_NAME_DISABLED = 0;
 
@@ -58,14 +56,12 @@ public class CardForm extends LinearLayout implements OnCardTypeChangedListener,
     public static final int CARDHOLDER_NAME_OPTIONAL = 1;
 
     /**
-     * Shows the card holder name.
-     * Required cardholder name to be non empty to validate the card form.
+     * Shows the card holder name. Required cardholder name to be non empty to validate the card form.
      */
     public static final int CARDHOLDER_NAME_REQUIRED = 2;
 
     /**
      * Use this option to specify the card holder name status.
-     * Use this option to specify the PayPal page to display when a user lands on the PayPal site to complete the payment.
      */
     @Retention(RetentionPolicy.SOURCE)
     @IntDef({CARDHOLDER_NAME_DISABLED, CARDHOLDER_NAME_OPTIONAL, CARDHOLDER_NAME_REQUIRED})
@@ -182,9 +178,10 @@ public class CardForm extends LinearLayout implements OnCardTypeChangedListener,
 
     /**
      * @param cardHolderNameStatus can be one of the {@link CardHolderNameStatus} options.
-     *                             - {@link CardForm#CARDHOLDER_NAME_DISABLED} to hide this field.
-     *                             - {@link CardForm#CARDHOLDER_NAME_OPTIONAL} to show this field but make it optional field.
-     *                             - {@link CardForm#CARDHOLDER_NAME_REQUIRED} to show this field and make it required to validate the card form.
+     * - {@link CardForm#CARDHOLDER_NAME_DISABLED} to hide this field. This is the default option.
+     * - {@link CardForm#CARDHOLDER_NAME_OPTIONAL} to show this field but make it an optional field.
+     * - {@link CardForm#CARDHOLDER_NAME_REQUIRED} to show this field and make it required to validate the card form.
+     *
      * @return {@link CardForm} for method chaining
      */
     public CardForm cardholderName(@CardHolderNameStatus int cardHolderNameStatus) {
