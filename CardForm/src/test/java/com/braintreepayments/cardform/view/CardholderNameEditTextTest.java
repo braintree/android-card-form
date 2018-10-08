@@ -10,6 +10,8 @@ import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.RuntimeEnvironment;
 
+import edu.emory.mathcs.backport.java.util.Collections;
+
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertFalse;
 import static junit.framework.Assert.assertTrue;
@@ -21,7 +23,7 @@ public class CardholderNameEditTextTest {
 
     @Before
     public void setup() {
-        mView = (CardholderNameEditText) Robolectric.setupActivity(TestActivity.class)
+        mView = Robolectric.setupActivity(TestActivity.class)
                 .findViewById(R.id.bt_card_form_cardholder_name);
     }
 
@@ -41,6 +43,19 @@ public class CardholderNameEditTextTest {
         mView.setOptional(true);
 
         assertTrue(mView.isValid());
+    }
+
+    @Test
+    public void hasMaxAllowedLength() {
+        int maxLength = 255;
+        String justRight = String.join("", Collections.nCopies(maxLength, "a"));
+        String tooLong = justRight + "a";
+
+        mView.setText(justRight);
+        assertEquals(maxLength, mView.getText().length());
+
+        mView.setText(tooLong);
+        assertEquals(maxLength, mView.getText().length());
     }
 
     @Test

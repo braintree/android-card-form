@@ -30,7 +30,7 @@ public class CardholderNameEditText extends ErrorEditText {
 
     private void init() {
         setInputType(InputType.TYPE_CLASS_TEXT);
-        InputFilter[] filters = { new LengthFilter(30) };
+        InputFilter[] filters = { new LengthFilter(255) };
         setFilters(filters);
     }
 
