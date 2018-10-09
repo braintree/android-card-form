@@ -3,6 +3,7 @@
     <string name="bt_form_hint_card_number">카드 번호</string>
     <string name="bt_form_hint_expiration">만료일</string>
     <string name="bt_form_hint_cvv">@string/bt_cvv</string>
+    <string name="bt_form_hint_cardholder_name">카드 소유자 이름</string>
     <string name="bt_form_hint_postal_code">우편번호</string>
     <string name="bt_form_hint_country_code">국가번호</string>
     <string name="bt_form_hint_mobile_number">휴대폰 번호</string>
@@ -21,6 +22,7 @@
     <string name="bt_cvv_invalid">%s이(가) 유효하지 않습니다.</string>
     <string name="bt_expiration_required">만료일이 필요합니다.</string>
     <string name="bt_expiration_invalid">만료일이 올바르지 않습니다.</string>
+    <string name="bt_cardholder_name_required">카드 소유자 이름은 필수 항목입니다.</string>
     <string name="bt_postal_code_required">우편번호가 필요합니다.</string>
     <string name="bt_country_code_required">국가코드가 필요합니다.</string>
     <string name="bt_mobile_number_required">휴대폰 번호가 필요합니다.</string>

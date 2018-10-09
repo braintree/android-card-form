@@ -17,6 +17,7 @@
 
     <style name="bt_base_textview">
         <item name="android:textSize">@dimen/bt_input_text_size</item>
+        <item name="android:fontFamily">sans-serif-light</item>
     </style>
 
     <style name="bt_text_input_layout">

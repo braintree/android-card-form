@@ -3,6 +3,7 @@
     <string name="bt_form_hint_card_number">Numero di carta</string>
     <string name="bt_form_hint_expiration">Data di scadenza</string>
     <string name="bt_form_hint_cvv">@string/bt_cvv</string>
+    <string name="bt_form_hint_cardholder_name">Titolare della carta</string>
     <string name="bt_form_hint_postal_code">CAP</string>
     <string name="bt_form_hint_country_code">Prefisso internazionale</string>
     <string name="bt_form_hint_mobile_number">Numero di cellulare</string>
@@ -21,6 +22,7 @@
     <string name="bt_cvv_invalid">%s non è un valore valido</string>
     <string name="bt_expiration_required">La data di scadenza è obbligatoria</string>
     <string name="bt_expiration_invalid">La data di scadenza non è valida</string>
+    <string name="bt_cardholder_name_required">Il nome del titolare della carta è obbligatorio</string>
     <string name="bt_postal_code_required">Il CAP è obbligatorio</string>
     <string name="bt_country_code_required">Il codice Paese è obbligatorio</string>
     <string name="bt_mobile_number_required">Il numero di cellulare è obbligatorio</string>
