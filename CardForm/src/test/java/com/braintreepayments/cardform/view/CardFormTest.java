@@ -923,6 +923,18 @@ public class CardFormTest {
     }
 
     @Test
+    public void isValid_whenCardHolderNameIsRequiredAndEmpty_returnsFalse() {
+        mCardForm.cardholderName(CardForm.FIELD_REQUIRED)
+                .setup(mActivity);
+
+        assertFalse(mCardForm.isValid());
+        setText(((EditText) mCardForm.findViewById(R.id.bt_card_form_cardholder_name)), " ");
+        assertFalse(mCardForm.isValid());
+        setText(((EditText) mCardForm.findViewById(R.id.bt_card_form_cardholder_name)), "a");
+        assertTrue(mCardForm.isValid());
+    }
+
+    @Test
     public void isValidOnlyValidatesRequiredFields() {
         mCardForm.cardRequired(true)
                 .expirationRequired(false)
