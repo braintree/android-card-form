@@ -3,12 +3,14 @@ package com.braintreepayments.cardform.view;
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build.VERSION_CODES;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.IntDef;
 import android.support.design.widget.TextInputEditText;
+import android.support.v4.app.FragmentManager;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
@@ -59,6 +61,7 @@ public class CardForm extends LinearLayout implements OnCardTypeChangedListener,
      * Shows the field, and require the field value to be non empty when validating the card form.
      */
     public static final int FIELD_REQUIRED = 2;
+    private CardScanningFragment mCardScanningFragment;
 
     /**
      * The statuses a field can be.
@@ -249,6 +252,13 @@ public class CardForm extends LinearLayout implements OnCardTypeChangedListener,
      * @param activity Used to set {@link android.view.WindowManager.LayoutParams#FLAG_SECURE} to prevent screenshots
      */
     public void setup(Activity activity) {
+        mCardScanningFragment = (CardScanningFragment) activity.getFragmentManager()
+                .findFragmentByTag(CardScanningFragment.TAG);
+
+        if (mCardScanningFragment != null) {
+            mCardScanningFragment.setCardForm(this);
+        }
+
         activity.getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE,
                 WindowManager.LayoutParams.FLAG_SECURE);
 
@@ -341,13 +351,26 @@ public class CardForm extends LinearLayout implements OnCardTypeChangedListener,
      * @param activity
      */
     public void scanCard(Activity activity) {
-        if (isCardScanningAvailable()) {
-            CardScanningFragment.requestScan(activity, this);
+        if (isCardScanningAvailable() && mCardScanningFragment == null) {
+            mCardScanningFragment = CardScanningFragment.requestScan(activity, this);
         }
     }
 
+    /**
+     * Use {@link #handleCardIOResponse(int, Intent)} instead.
+     */
     @SuppressLint("DefaultLocale")
+    @Deprecated
     public void handleCardIOResponse(Intent data) {
+        handleCardIOResponse(Integer.MIN_VALUE, data);
+    }
+
+    @SuppressLint("DefaultLocale")
+    public void handleCardIOResponse(int resultCode, Intent data) {
+        if (resultCode == Activity.RESULT_CANCELED || resultCode == Activity.RESULT_OK) {
+            mCardScanningFragment = null;
+        }
+
         if (data != null && data.hasExtra(CardIOActivity.EXTRA_SCAN_RESULT)) {
             CreditCard scanResult = data.getParcelableExtra(CardIOActivity.EXTRA_SCAN_RESULT);
 

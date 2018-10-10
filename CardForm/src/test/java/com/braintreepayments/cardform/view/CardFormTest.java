@@ -15,6 +15,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.braintreepayments.cardform.CardScanningFragment;
 import com.braintreepayments.cardform.OnCardFormFieldFocusedListener;
 import com.braintreepayments.cardform.OnCardFormValidListener;
 import com.braintreepayments.cardform.R;
@@ -29,6 +30,7 @@ import org.robolectric.RobolectricTestRunner;
 import org.robolectric.RuntimeEnvironment;
 import org.robolectric.android.controller.ActivityController;
 
+import java.lang.reflect.Field;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -47,6 +49,8 @@ import static com.braintreepayments.cardform.test.TestExpirationDate.getValidExp
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertFalse;
 import static junit.framework.Assert.assertTrue;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.verify;
@@ -1850,7 +1854,7 @@ public class CardFormTest {
                 .mobileNumberExplanation("Make sure SMS is supported")
                 .setup(mActivity);
 
-        mCardForm.handleCardIOResponse(null);
+        mCardForm.handleCardIOResponse(Integer.MIN_VALUE, null);
 
         assertEquals("", ((EditText) mActivity.findViewById(R.id.bt_card_form_card_number)).getText().toString());
         assertEquals("", ((EditText) mActivity.findViewById(R.id.bt_card_form_expiration)).getText().toString());
@@ -1858,6 +1862,68 @@ public class CardFormTest {
         assertEquals("", ((EditText) mActivity.findViewById(R.id.bt_card_form_cardholder_name)).getText().toString());
         assertEquals("", ((EditText) mActivity.findViewById(R.id.bt_card_form_postal_code)).getText().toString());
         assertEquals("", ((EditText) mActivity.findViewById(R.id.bt_card_form_mobile_number)).getText().toString());
+    }
+
+    @Test
+    public void handleCardIOResponse_whenResultCancelled_clearsFragment() throws Exception {
+        mCardForm.cardRequired(true)
+                .expirationRequired(true)
+                .cvvRequired(true)
+                .cardholderName(CardForm.FIELD_REQUIRED)
+                .postalCodeRequired(true)
+                .mobileNumberRequired(true)
+                .mobileNumberExplanation("Make sure SMS is supported")
+                .setup(mActivity);
+
+        Field mCardScanningFragmentField = CardForm.class
+                .getDeclaredField("mCardScanningFragment");
+        mCardScanningFragmentField.setAccessible(true);
+        mCardScanningFragmentField.set(mCardForm, new CardScanningFragment());
+
+        mCardForm.handleCardIOResponse(Activity.RESULT_CANCELED, null);
+
+        assertNull(mCardScanningFragmentField.get(mCardForm));
+    }
+
+    @Test
+    public void handleCardIOResponse_whenResultOK_clearsFragment() throws Exception {
+        mCardForm.cardRequired(true)
+                .expirationRequired(true)
+                .cvvRequired(true)
+                .cardholderName(CardForm.FIELD_REQUIRED)
+                .postalCodeRequired(true)
+                .mobileNumberRequired(true)
+                .mobileNumberExplanation("Make sure SMS is supported")
+                .setup(mActivity);
+
+        Field mCardScanningFragmentField = CardForm.class
+                .getDeclaredField("mCardScanningFragment");
+        mCardScanningFragmentField.setAccessible(true);
+        mCardScanningFragmentField.set(mCardForm, new CardScanningFragment());
+        mCardForm.handleCardIOResponse(Activity.RESULT_OK, null);
+
+        assertNull(mCardScanningFragmentField.get(mCardForm));
+    }
+
+    @Test
+    public void handleCardIOResponse_whenResultNotOkOrCancelled_retainsFragment() throws Exception {
+        mCardForm.cardRequired(true)
+                .expirationRequired(true)
+                .cvvRequired(true)
+                .cardholderName(CardForm.FIELD_REQUIRED)
+                .postalCodeRequired(true)
+                .mobileNumberRequired(true)
+                .mobileNumberExplanation("Make sure SMS is supported")
+                .setup(mActivity);
+
+        Field mCardScanningFragmentField = CardForm.class
+                .getDeclaredField("mCardScanningFragment");
+        mCardScanningFragmentField.setAccessible(true);
+        mCardScanningFragmentField.set(mCardForm, new CardScanningFragment());
+
+        mCardForm.handleCardIOResponse(Activity.RESULT_FIRST_USER, null);
+
+        assertNotNull(mCardScanningFragmentField.get(mCardForm));
     }
 
     @Test
@@ -1871,7 +1937,7 @@ public class CardFormTest {
                 .mobileNumberExplanation("Make sure SMS is supported")
                 .setup(mActivity);
 
-        mCardForm.handleCardIOResponse(new Intent());
+        mCardForm.handleCardIOResponse(Integer.MIN_VALUE, new Intent());
 
         assertEquals("", ((EditText) mActivity.findViewById(R.id.bt_card_form_card_number)).getText().toString());
         assertEquals("", ((EditText) mActivity.findViewById(R.id.bt_card_form_expiration)).getText().toString());
@@ -1894,7 +1960,7 @@ public class CardFormTest {
         Intent intent = new Intent()
                 .putExtra(CardIOActivity.EXTRA_SCAN_RESULT, new CreditCard(VISA, 0, 0, "", "", ""));
 
-        mCardForm.handleCardIOResponse(intent);
+        mCardForm.handleCardIOResponse(Activity.RESULT_OK, intent);
 
         assertEquals(VISA, ((EditText) mActivity.findViewById(R.id.bt_card_form_card_number)).getText().toString());
         assertTrue(mCardForm.findViewById(R.id.bt_card_form_expiration).hasFocus());
@@ -1913,7 +1979,7 @@ public class CardFormTest {
         Intent intent = new Intent()
                 .putExtra(CardIOActivity.EXTRA_SCAN_RESULT, new CreditCard(VISA, 0, 0, "", "", ""));
 
-        mCardForm.handleCardIOResponse(intent);
+        mCardForm.handleCardIOResponse(Activity.RESULT_OK, intent);
 
         assertEquals("", ((EditText) mActivity.findViewById(R.id.bt_card_form_card_number)).getText().toString());
     }
@@ -1931,7 +1997,7 @@ public class CardFormTest {
         Intent intent = new Intent()
                 .putExtra(CardIOActivity.EXTRA_SCAN_RESULT, new CreditCard(VISA, 12, 2020, "", "", ""));
 
-        mCardForm.handleCardIOResponse(intent);
+        mCardForm.handleCardIOResponse(Activity.RESULT_OK, intent);
 
         assertEquals("122020", ((EditText) mActivity.findViewById(R.id.bt_card_form_expiration)).getText().toString());
         assertTrue(mCardForm.findViewById(R.id.bt_card_form_cvv).hasFocus());
@@ -1950,7 +2016,7 @@ public class CardFormTest {
         Intent intent = new Intent()
                 .putExtra(CardIOActivity.EXTRA_SCAN_RESULT, new CreditCard(VISA, 7, 2020, "", "", ""));
 
-        mCardForm.handleCardIOResponse(intent);
+        mCardForm.handleCardIOResponse(Activity.RESULT_OK, intent);
 
         assertEquals("07", ((ExpirationDateEditText) mActivity.findViewById(R.id.bt_card_form_expiration)).getMonth());
         assertEquals("2020", ((ExpirationDateEditText) mActivity.findViewById(R.id.bt_card_form_expiration)).getYear());
@@ -1970,7 +2036,7 @@ public class CardFormTest {
         Intent intent = new Intent()
                 .putExtra(CardIOActivity.EXTRA_SCAN_RESULT, new CreditCard(VISA, 12, 2000, "", "", ""));
 
-        mCardForm.handleCardIOResponse(intent);
+        mCardForm.handleCardIOResponse(Activity.RESULT_OK, intent);
 
         assertEquals("", ((EditText) mActivity.findViewById(R.id.bt_card_form_expiration)).getText().toString());
         assertTrue(mCardForm.findViewById(R.id.bt_card_form_expiration).hasFocus());
@@ -1989,7 +2055,7 @@ public class CardFormTest {
         Intent intent = new Intent()
                 .putExtra(CardIOActivity.EXTRA_SCAN_RESULT, new CreditCard(VISA, 12, 2020, "", "", ""));
 
-        mCardForm.handleCardIOResponse(intent);
+        mCardForm.handleCardIOResponse(Activity.RESULT_OK, intent);
 
         assertEquals("", ((EditText) mActivity.findViewById(R.id.bt_card_form_expiration)).getText().toString());
         assertTrue(mCardForm.findViewById(R.id.bt_card_form_cvv).hasFocus());
