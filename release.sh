@@ -11,15 +11,24 @@ if [[ $(./gradlew :CardForm:properties | grep version) == *-SNAPSHOT ]]; then
   exit 1
 fi
 
-echo -n "Enter Sonatype username:"
-read username
+if [ -z "$SONATYPE_USERNAME" ]; then
+  echo "Enter Sonatype username:"
+  read username
+  export SONATYPE_USERNAME=$(echo "${username}")
+fi
 
-echo -n "Enter Sonatype password:"
-read -s password
-echo
-
+if [ -z "$SONATYPE_PASSWORD" ]; then
+  echo "Enter Sonatype password:"
+  read -s password
+  export SONATYPE_PASSWORD=$(echo "${password}")
+fi
 ./gradlew --info clean lint test
-SONATYPE_USERNAME=$username SONATYPE_PASSWORD=$password ./gradlew :CardForm:uploadArchives :CardForm:closeAndPromoteRepository
+
+./gradlew :CardForm:uploadArchives
+./gradlew :CardForm:closeRepository
+echo "Sleeping for one minute to allow CardForm module to close"
+sleep 60
+./gradlew :CardForm:promoteRepository
 
 echo "Release complete. Be sure to commit, tag and push your changes."
 echo "After the tag has been pushed, update the releases tab on GitHub with the changes for this release."
