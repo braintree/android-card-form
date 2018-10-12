@@ -33,7 +33,7 @@ public enum CardType {
             3, R.string.bt_cvv, null),
     JCB("^35\\d*",
             R.drawable.bt_ic_jcb,
-            16, 16,
+            16, 19,
             3, R.string.bt_cvv, null),
     MAESTRO("^(5018|5020|5038|6020|6304|6703|6759|676[1-3])\\d*",
             R.drawable.bt_ic_maestro,
