@@ -29,7 +29,7 @@ public enum CardType {
             4, R.string.bt_cid, null),
     DINERS_CLUB("^(36|38|30[0-5])\\d*",
             R.drawable.bt_ic_diners_club,
-            14, 14,
+            14, 19,
             3, R.string.bt_cvv, null),
     JCB("^35\\d*",
             R.drawable.bt_ic_jcb,
