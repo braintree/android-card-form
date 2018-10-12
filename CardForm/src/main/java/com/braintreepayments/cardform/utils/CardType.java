@@ -13,7 +13,7 @@ public enum CardType {
 
     VISA("^4\\d*",
             R.drawable.bt_ic_visa,
-            16, 16,
+            16, 19,
             3, R.string.bt_cvv, null),
     MASTERCARD("^(5[1-5]|222[1-9]|22[3-9]|2[3-6]|27[0-1]|2720)\\d*",
             R.drawable.bt_ic_mastercard,
