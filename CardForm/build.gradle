@@ -6,8 +6,8 @@ version '3.3.1'
 group = 'com.braintreepayments'
 
 android {
-  compileSdkVersion 27
-  buildToolsVersion '27.0.3'
+  compileSdkVersion 28
+  buildToolsVersion '28.0.3'
 
   defaultConfig {
     minSdkVersion 15
