@@ -39,6 +39,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.util.ArrayList;
 import java.util.List;
 
+import androidx.appcompat.app.AppCompatActivity;
 import io.card.payment.CardIOActivity;
 import io.card.payment.CreditCard;
 
@@ -250,8 +251,12 @@ public class CardForm extends LinearLayout implements OnCardTypeChangedListener,
      * @param activity Used to set {@link android.view.WindowManager.LayoutParams#FLAG_SECURE} to prevent screenshots
      */
     public void setup(Activity activity) {
-        mCardScanningFragment = (CardScanningFragment) activity.getFragmentManager()
-                .findFragmentByTag(CardScanningFragment.TAG);
+        if (activity instanceof AppCompatActivity) {
+            AppCompatActivity appCompatActivity = (AppCompatActivity)activity;
+            mCardScanningFragment = (CardScanningFragment) appCompatActivity
+                    .getSupportFragmentManager()
+                    .findFragmentByTag(CardScanningFragment.TAG);
+        }
 
         if (mCardScanningFragment != null) {
             mCardScanningFragment.setCardForm(this);
@@ -348,7 +353,7 @@ public class CardForm extends LinearLayout implements OnCardTypeChangedListener,
      *
      * @param activity
      */
-    public void scanCard(Activity activity) {
+    public void scanCard(AppCompatActivity activity) {
         if (isCardScanningAvailable() && mCardScanningFragment == null) {
             mCardScanningFragment = CardScanningFragment.requestScan(activity, this);
         }
