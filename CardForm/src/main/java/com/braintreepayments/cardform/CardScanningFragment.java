@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.VisibleForTesting;
 
 import com.braintreepayments.cardform.utils.ColorUtils;
 import com.braintreepayments.cardform.view.CardForm;
