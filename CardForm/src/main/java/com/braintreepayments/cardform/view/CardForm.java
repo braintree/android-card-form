@@ -9,6 +9,7 @@ import android.os.Build.VERSION_CODES;
 import androidx.annotation.DrawableRes;
 import androidx.annotation.IntDef;
 import com.google.android.material.textfield.TextInputEditText;
+
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
@@ -245,18 +246,15 @@ public class CardForm extends LinearLayout implements OnCardTypeChangedListener,
 
     /**
      * Sets up the card form for display to the user using the values provided in {@link CardForm#cardRequired(boolean)},
-     * {@link CardForm#expirationRequired(boolean)}, ect. If {@link #setup(android.app.Activity)} is not called,
+     * {@link CardForm#expirationRequired(boolean)}, ect. If {@link CardForm#setup(AppCompatActivity)} is not called,
      * the form will not be visible.
      *
      * @param activity Used to set {@link android.view.WindowManager.LayoutParams#FLAG_SECURE} to prevent screenshots
      */
-    public void setup(Activity activity) {
-        if (activity instanceof AppCompatActivity) {
-            AppCompatActivity appCompatActivity = (AppCompatActivity)activity;
-            mCardScanningFragment = (CardScanningFragment) appCompatActivity
-                    .getSupportFragmentManager()
-                    .findFragmentByTag(CardScanningFragment.TAG);
-        }
+    public void setup(AppCompatActivity activity) {
+        mCardScanningFragment = (CardScanningFragment)activity
+                .getSupportFragmentManager()
+                .findFragmentByTag(CardScanningFragment.TAG);
 
         if (mCardScanningFragment != null) {
             mCardScanningFragment.setCardForm(this);
