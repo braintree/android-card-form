@@ -34,6 +34,7 @@ import java.lang.reflect.Field;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import androidx.appcompat.app.AppCompatActivity;
 import io.card.payment.CardIOActivity;
 import io.card.payment.CreditCard;
 
@@ -61,7 +62,7 @@ import static org.robolectric.Shadows.shadowOf;
 public class CardFormTest {
 
     private ActivityController<TestActivity> mActivityController;
-    private Activity mActivity;
+    private AppCompatActivity mActivity;
     private CardForm mCardForm;
 
     @Before

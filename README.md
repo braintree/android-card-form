@@ -35,7 +35,7 @@ Card Form is a LinearLayout that you can add to your layout:
 ```
 
 To initialize the view and change which fields are required for the user to enter, use the required
-field methods and `CardForm#setup(Activity activity)`.
+field methods and `CardForm#setup(AppCompatActivity activity)`.
 
 ```java
 CardForm cardForm = (CardForm) findViewById(R.id.card_form);
