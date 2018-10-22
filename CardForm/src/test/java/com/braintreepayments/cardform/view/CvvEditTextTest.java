@@ -1,6 +1,6 @@
 package com.braintreepayments.cardform.view;
 
-import android.support.design.widget.TextInputLayout;
+import com.google.android.material.textfield.TextInputLayout;
 import android.text.Editable;
 import android.text.InputType;
 

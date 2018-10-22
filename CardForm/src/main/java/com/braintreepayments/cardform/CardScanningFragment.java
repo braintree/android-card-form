@@ -1,14 +1,13 @@
 package com.braintreepayments.cardform;
 
-import android.app.Activity;
-import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.VisibleForTesting;
 
 import com.braintreepayments.cardform.utils.ColorUtils;
 import com.braintreepayments.cardform.view.CardForm;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import io.card.payment.CardIOActivity;
 
 public class CardScanningFragment extends Fragment {
@@ -18,11 +17,12 @@ public class CardScanningFragment extends Fragment {
 
     private CardForm mCardForm;
 
-    public static CardScanningFragment requestScan(Activity activity, CardForm cardForm) {
-        CardScanningFragment fragment = (CardScanningFragment) activity.getFragmentManager().findFragmentByTag(TAG);
+    public static CardScanningFragment requestScan(AppCompatActivity activity, CardForm cardForm) {
+        CardScanningFragment fragment = (CardScanningFragment) activity.getSupportFragmentManager()
+                .findFragmentByTag(TAG);
 
         if (fragment != null) {
-            activity.getFragmentManager()
+            activity.getSupportFragmentManager()
                     .beginTransaction()
                     .remove(fragment)
                     .commit();
@@ -31,7 +31,7 @@ public class CardScanningFragment extends Fragment {
         fragment = new CardScanningFragment();
         fragment.mCardForm = cardForm;
 
-        activity.getFragmentManager()
+        activity.getSupportFragmentManager()
                 .beginTransaction()
                 .add(fragment, TAG)
                 .commit();
@@ -78,7 +78,7 @@ public class CardScanningFragment extends Fragment {
             mCardForm.handleCardIOResponse(resultCode, data);
 
             if (getActivity() != null) {
-                getActivity().getFragmentManager()
+                getActivity().getSupportFragmentManager()
                         .beginTransaction()
                         .remove(this)
                         .commit();

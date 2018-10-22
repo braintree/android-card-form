@@ -3,11 +3,11 @@ apply plugin: 'maven'
 apply plugin: 'signing'
 apply plugin: 'io.codearte.nexus-staging'
 
-version '3.5.2-SNAPSHOT'
+version '4.0.0-SNAPSHOT'
 
 android {
     compileSdkVersion 28
-    buildToolsVersion '28.0.2'
+    buildToolsVersion '28.0.3'
 
     defaultConfig {
         minSdkVersion 16
@@ -36,7 +36,7 @@ android {
 }
 
 dependencies {
-    implementation 'com.android.support:design:28.0.0-rc02'
+    implementation 'com.google.android.material:material:1.0.0'
     implementation 'io.card:android-sdk:5.5.1'
 
     testImplementation 'junit:junit:4.12'

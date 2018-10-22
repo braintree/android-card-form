@@ -4,13 +4,13 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_margin="16dp"
     tools:context="com.braintreepayments.sample.SampleActivity">
 
     <Button
         android:id="@+id/material_light_theme_form"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
         android:text="@string/light_theme_form"
         android:textAllCaps="true"
         android:onClick="onClick" />
@@ -19,9 +19,15 @@
         android:id="@+id/material_dark_theme_form"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
         android:text="@string/dark_theme_form"
         android:textAllCaps="true"
         android:onClick="onClick" />
+
+    <CheckBox
+        android:id="@+id/vibrate_permission_enabled"
+        android:text="Vibrate Permission Granted"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="onClick"/>
 
 </LinearLayout>

@@ -11,7 +11,7 @@ Add the dependency in your `build.gradle`:
 
 ```groovy
 dependencies {
-    implementation 'com.braintreepayments:card-form:3.5.1'
+    implementation 'com.braintreepayments:card-form:4.0.0'
 }
 ```
 
@@ -19,7 +19,7 @@ To use the latest build from the `master` branch use:
 
  ```groovy
 dependencies {
-    implementation 'com.braintreepayments:card-form:3.5.2-SNAPSHOT'
+    implementation 'com.braintreepayments:card-form:4.0.1-SNAPSHOT'
 }
 ```
 
@@ -35,7 +35,7 @@ Card Form is a LinearLayout that you can add to your layout:
 ```
 
 To initialize the view and change which fields are required for the user to enter, use the required
-field methods and `CardForm#setup(Activity activity)`.
+field methods and `CardForm#setup(AppCompatActivity activity)`.
 
 ```java
 CardForm cardForm = (CardForm) findViewById(R.id.card_form);
