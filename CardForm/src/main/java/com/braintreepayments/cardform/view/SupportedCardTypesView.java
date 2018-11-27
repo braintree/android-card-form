@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.braintreepayments.cardform.utils.CardType;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -20,7 +21,7 @@ import java.util.List;
 @SuppressLint("AppCompatCustomView")
 public class SupportedCardTypesView extends TextView {
 
-    private List<CardType> mSupportedCardTypes;
+    private List<CardType> mSupportedCardTypes = new ArrayList<>();
 
     public SupportedCardTypesView(Context context) {
         super(context);
@@ -49,10 +50,23 @@ public class SupportedCardTypesView extends TextView {
             cardTypes = new CardType[]{};
         }
 
-        mSupportedCardTypes = Arrays.asList(cardTypes);
+        mSupportedCardTypes.clear();
+        mSupportedCardTypes.addAll(Arrays.asList(cardTypes));
+
         setSelected(cardTypes);
     }
 
+    /**
+     * Selects the intersection between the {@link CardType}s passed into
+     * {@link #setSupportedCardTypes(CardType...)} and {@link CardType}s passed into
+     * this method as visually enabled.
+     *
+     * The remaining supported card types will become visually disabled.
+     *
+     * {@link #setSupportedCardTypes(CardType...)} must be called prior to using this method.
+     *
+     * @param cardTypes The {@link CardType}s to set as visually enabled.
+     */
     public void setSelected(@Nullable CardType... cardTypes) {
         if (cardTypes == null) {
             cardTypes = new CardType[]{};

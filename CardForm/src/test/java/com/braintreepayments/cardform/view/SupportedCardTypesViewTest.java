@@ -88,4 +88,13 @@ public class SupportedCardTypesViewTest {
         assertTrue(allSpans.get(6).isDisabled());
         assertTrue(allSpans.get(7).isDisabled());
     }
+
+    @Test
+    public void setSelected_withoutSetSupportedCardTypes_returnsEmptyText() {
+        SupportedCardTypesView supportedCardTypesView = new SupportedCardTypesView(RuntimeEnvironment.application);
+
+        supportedCardTypesView.setSelected(CardType.VISA);
+
+        assertEquals("", supportedCardTypesView.getText().toString());
+    }
 }
