@@ -90,7 +90,7 @@ public class SupportedCardTypesViewTest {
     }
 
     @Test
-    public void setSelected_withoutSetSupportedCardTypes_returnsEmptyText() {
+    public void setSelected_withoutSettingSupportedCardTypes_doesNothing() {
         SupportedCardTypesView supportedCardTypesView = new SupportedCardTypesView(RuntimeEnvironment.application);
 
         supportedCardTypesView.setSelected(CardType.VISA);
