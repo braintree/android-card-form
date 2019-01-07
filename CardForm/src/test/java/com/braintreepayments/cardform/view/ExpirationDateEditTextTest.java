@@ -14,6 +14,8 @@ import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.RuntimeEnvironment;
 
+import java.util.Calendar;
+
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertFalse;
 import static junit.framework.Assert.assertTrue;
@@ -125,7 +127,7 @@ public class ExpirationDateEditTextTest {
 
     @Test
     public void isValid_returnsTrueForValidDate() {
-        setText("1218");
+        setText("12" + getCurrent2DigitYear());
 
         assertTrue(mView.isValid());
     }
@@ -170,5 +172,11 @@ public class ExpirationDateEditTextTest {
     private void setText(CharSequence seq) {
         mView.setText("");
         mView.setText(seq);
+    }
+
+    /** Gets the current years last two digits */
+    private String getCurrent2DigitYear() {
+        String year = String.valueOf(Calendar.getInstance().get(Calendar.YEAR));
+        return year.substring(2);
     }
 }
