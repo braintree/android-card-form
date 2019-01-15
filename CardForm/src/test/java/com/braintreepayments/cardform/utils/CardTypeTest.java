@@ -165,4 +165,9 @@ public class CardTypeTest {
         assertFalse(CardType.UNKNOWN.validate("Not-A-Number"));
         assertFalse(CardType.UNKNOWN.validate("@#$%^&"));
     }
+
+    @Test
+    public void validate_whenPatternFailsAndNoRelaxedPatternExists_returnsFalse() {
+        assertFalse(CardType.VISA.validate("9999999999999999"));
+    }
 }
