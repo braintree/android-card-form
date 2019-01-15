@@ -10,6 +10,7 @@ import java.util.regex.Pattern;
 
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertTrue;
+import static org.junit.Assert.assertFalse;
 
 @RunWith(RobolectricTestRunner.class)
 public class CardTypeTest {
@@ -156,5 +157,12 @@ public class CardTypeTest {
                         cardType.validate(cardNumber));
             }
         }
+    }
+
+    @Test
+    public void validate_whenGivenNonDigits_returnsFalse() {
+        assertFalse(CardType.UNKNOWN.validate(""));
+        assertFalse(CardType.UNKNOWN.validate("Not-A-Number"));
+        assertFalse(CardType.UNKNOWN.validate("@#$%^&"));
     }
 }

@@ -215,6 +215,8 @@ public enum CardType {
     public boolean validate(String cardNumber) {
         if (TextUtils.isEmpty(cardNumber)) {
             return false;
+        } else if (!TextUtils.isDigitsOnly(cardNumber)) {
+            return false;
         }
 
         final int numberLength = cardNumber.length();
