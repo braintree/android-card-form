@@ -30,6 +30,28 @@
     </LinearLayout>
 
     <LinearLayout
+        style="@style/bt_field_container"
+        android:baselineAligned="false"
+        tools:ignore="RtlCompat"
+        android:weightSum="2"
+        android:paddingLeft="@dimen/bt_no_edit_text_icon_padding"
+        android:paddingStart="@dimen/bt_no_edit_text_icon_padding"
+        android:paddingEnd="0dp">
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/bt_text_input_layout"
+            android:labelFor="@+id/bt_card_form_address_line1">
+
+            <com.braintreepayments.cardform.view.AddressLine1EditText
+                style="@style/bt_card_form_field"
+                android:id="@+id/bt_card_form_address_line1"
+                android:hint="@string/bt_form_hint_address_line1"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
         style="@style/bt_field_container">
 
         <ImageView
