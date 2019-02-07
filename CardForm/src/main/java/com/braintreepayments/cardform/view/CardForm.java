@@ -87,6 +87,7 @@ public class CardForm extends LinearLayout implements OnCardTypeChangedListener,
     private StreetAddressEditText mStreetAddress;
     private ExtendedAddressEditText mExtendedAddress;
     private LocalityEditText mLocality;
+    private RegionEditText mRegion;
 
     private boolean mCardNumberRequired;
     private boolean mExpirationRequired;
@@ -750,6 +751,13 @@ public class CardForm extends LinearLayout implements OnCardTypeChangedListener,
      */
     public String getLocality() {
         return mLocality.getText().toString();
+    }
+
+    /**
+     * @return the text in the region field
+     */
+    public String getRegion() {
+        return mRegion.getText().toString();
     }
 
     @Override
