@@ -9,6 +9,7 @@
     <string name="bt_form_hint_mobile_number">Mobile Number</string>
     <string name="bt_form_hint_street_address">Address Line 1</string>
     <string name="bt_form_hint_extended_address">Address Line 1</string>
+    <string name="bt_form_hint_locality">City</string>
 
     <string name="bt_cvv">CVV</string>
     <string name="bt_cvc">CVC</string>
@@ -29,4 +30,5 @@
     <string name="bt_country_code_required">Country code is required</string>
     <string name="bt_mobile_number_required">Mobile number is required</string>
     <string name="bt_street_address_required">Address line 1 is required</string>
+    <string name="bt_locality_required">City is required</string>
 </resources>

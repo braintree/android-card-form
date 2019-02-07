@@ -9,7 +9,7 @@ import android.util.AttributeSet;
 import com.braintreepayments.cardform.R;
 
 /**
- * Input for extended address. Validated for presence only.
+ * Input for extended address.
  */
 public class ExtendedAddressEditText extends ErrorEditText {
 
