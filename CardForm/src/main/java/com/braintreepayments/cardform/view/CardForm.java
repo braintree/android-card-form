@@ -84,7 +84,7 @@ public class CardForm extends LinearLayout implements OnCardTypeChangedListener,
     private CountryCodeEditText mCountryCode;
     private MobileNumberEditText mMobileNumber;
     private TextView mMobileNumberExplanation;
-    private AddressLine1EditText mAddressLine1;
+    private StreetAddressEditText mStreetAddress;
 
     private boolean mCardNumberRequired;
     private boolean mExpirationRequired;
@@ -140,7 +140,7 @@ public class CardForm extends LinearLayout implements OnCardTypeChangedListener,
         mCountryCode = findViewById(R.id.bt_card_form_country_code);
         mMobileNumber = findViewById(R.id.bt_card_form_mobile_number);
         mMobileNumberExplanation = findViewById(R.id.bt_card_form_mobile_number_explanation);
-        mAddressLine1 = findViewById(R.id.bt_card_form_address_line1);
+        mStreetAddress = findViewById(R.id.bt_card_form_street_address);
 
         mVisibleEditTexts = new ArrayList<>();
 
@@ -730,10 +730,10 @@ public class CardForm extends LinearLayout implements OnCardTypeChangedListener,
     }
 
     /**
-     * @return the text in the address line 1field
+     * @return the text in the street address field
      */
-    public String getAddressLine1() {
-        return mAddressLine1.getText().toString();
+    public String getStreetAddress() {
+        return mStreetAddress.getText().toString();
     }
 
     @Override

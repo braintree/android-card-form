@@ -4,7 +4,7 @@
     <string name="bt_form_hint_expiration">Expiration Date</string>
     <string name="bt_form_hint_cvv">@string/bt_cvv</string>
     <string name="bt_form_hint_cardholder_name">Cardholder Name</string>
-    <string name="bt_form_hint_address_line1">Address Line 1</string>
+    <string name="bt_form_hint_street_address">Address Line 1</string>
     <string name="bt_form_hint_postal_code">Postal Code</string>
     <string name="bt_form_hint_country_code">Country Code</string>
     <string name="bt_form_hint_mobile_number">Mobile Number</string>
@@ -24,7 +24,7 @@
     <string name="bt_expiration_required">Expiration date is required</string>
     <string name="bt_expiration_invalid">Expiration date is invalid</string>
     <string name="bt_cardholder_name_required">Cardholder name is required</string>
-    <string name="bt_address_line1_required">Address line 1 is required</string>
+    <string name="bt_street_address_required">Address line 1 is required</string>
     <string name="bt_postal_code_required">Postal code is required</string>
     <string name="bt_country_code_required">Country code is required</string>
     <string name="bt_mobile_number_required">Mobile number is required</string>

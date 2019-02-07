@@ -40,12 +40,12 @@
 
         <com.google.android.material.textfield.TextInputLayout
             style="@style/bt_text_input_layout"
-            android:labelFor="@+id/bt_card_form_address_line1">
+            android:labelFor="@+id/bt_card_form_street_address">
 
-            <com.braintreepayments.cardform.view.AddressLine1EditText
+            <com.braintreepayments.cardform.view.StreetAddressEditText
                 style="@style/bt_card_form_field"
-                android:id="@+id/bt_card_form_address_line1"
-                android:hint="@string/bt_form_hint_address_line1"/>
+                android:id="@+id/bt_card_form_street_address"
+                android:hint="@string/bt_form_hint_street_address"/>
 
         </com.google.android.material.textfield.TextInputLayout>
 

@@ -9,21 +9,21 @@ import android.util.AttributeSet;
 import com.braintreepayments.cardform.R;
 
 /**
- * Input for address line 1. Validated for presence only.
+ * Input for street address. Validated for presence only.
  */
-public class AddressLine1EditText extends ErrorEditText {
+public class StreetAddressEditText extends ErrorEditText {
 
-    public AddressLine1EditText(Context context) {
+    public StreetAddressEditText(Context context) {
         super(context);
         init();
     }
 
-    public AddressLine1EditText(Context context, AttributeSet attrs) {
+    public StreetAddressEditText(Context context, AttributeSet attrs) {
         super(context, attrs);
         init();
     }
 
-    public AddressLine1EditText(Context context, AttributeSet attrs, int defStyle) {
+    public StreetAddressEditText(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         init();
     }
@@ -41,6 +41,6 @@ public class AddressLine1EditText extends ErrorEditText {
 
     @Override
     public String getErrorMessage() {
-        return getContext().getString(R.string.bt_address_line1_required);
+        return getContext().getString(R.string.bt_street_address_required);
     }
 }
