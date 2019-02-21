@@ -80,6 +80,12 @@ public class CardTypeTest {
         SAMPLE_CARDS.put("6240888888888885", CardType.UNIONPAY);
         SAMPLE_CARDS.put("6240888888888885127", CardType.UNIONPAY);
 
+        // Hiper
+        SAMPLE_CARDS.put("6370950000000005", CardType.HIPER);
+
+        // Hipercard
+        SAMPLE_CARDS.put("6062820524845321", CardType.HIPERCARD);
+
         // Unknown
         SAMPLE_CARDS.put("2721000000000004", CardType.UNKNOWN);
         SAMPLE_CARDS.put("1", CardType.UNKNOWN);
