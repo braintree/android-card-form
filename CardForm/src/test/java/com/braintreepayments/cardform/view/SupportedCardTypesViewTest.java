@@ -25,7 +25,7 @@ public class SupportedCardTypesViewTest {
 
         supportedCardTypesView.setSupportedCardTypes(CardType.VISA, CardType.MASTERCARD, CardType.DISCOVER,
                 CardType.AMEX, CardType.DINERS_CLUB, CardType.JCB, CardType.MAESTRO, CardType.UNIONPAY,
-                CardType.Hiper, CardType.Hipercard);
+                CardType.HIPER, CardType.HIPERCARD);
 
         List<PaddedImageSpan> allSpans = Arrays.asList(new SpannableString(supportedCardTypesView.getText())
                 .getSpans(0, supportedCardTypesView.length(), PaddedImageSpan.class));
