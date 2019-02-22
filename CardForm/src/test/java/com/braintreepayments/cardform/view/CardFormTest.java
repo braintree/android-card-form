@@ -1806,10 +1806,10 @@ public class CardFormTest {
         assertIconHintIs(card, R.drawable.bt_ic_maestro);
 
         setText(card, "637568");
-        assertIconHintIs(card, R.drawable.bt_ic_hiper);
+        assertIconHintIs(card, R.drawable.bt_ic_unknown);
 
         setText(card, "606282");
-        assertIconHintIs(card, R.drawable.bt_ic_hipercard);
+        assertIconHintIs(card, R.drawable.bt_ic_unknown);
 
         setText(card, "1234");
         assertIconHintIs(card, R.drawable.bt_ic_unknown);
