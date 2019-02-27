@@ -81,12 +81,12 @@ public class CardEditTextTest {
 
     @Test
     public void testHiper() {
-        helper("6370 95", "00 0000 0005", R.drawable.bt_ic_unknown, 4, 8, 12);
+        helper("6370 95", "00 0000 0005", R.drawable.bt_ic_hiper, 4, 8, 12);
     }
 
     @Test
     public void testHipercard() {
-        helper("6062 82", "05 2484 5321", R.drawable.bt_ic_unknown, 4, 8, 12);
+        helper("6062 82", "05 2484 5321", R.drawable.bt_ic_hipercard, 4, 8, 12);
     }
 
     @Test
