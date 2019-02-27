@@ -82,6 +82,10 @@ public class CardTypeTest {
 
         // Hiper
         SAMPLE_CARDS.put("6370950000000005", CardType.HIPER);
+        SAMPLE_CARDS.put("6375680000000003", CardType.HIPER);
+        SAMPLE_CARDS.put("6375990000000006", CardType.HIPER);
+        SAMPLE_CARDS.put("6376090000000004", CardType.HIPER);
+        SAMPLE_CARDS.put("6376120000000009", CardType.HIPER);
 
         // Hipercard
         SAMPLE_CARDS.put("6062820524845321", CardType.HIPERCARD);
