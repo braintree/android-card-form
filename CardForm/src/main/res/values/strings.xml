@@ -8,9 +8,10 @@
     <string name="bt_form_hint_country_code">Country Code</string>
     <string name="bt_form_hint_mobile_number">Mobile Number</string>
     <string name="bt_form_hint_street_address">Address Line 1</string>
-    <string name="bt_form_hint_extended_address">Address Line 1</string>
+    <string name="bt_form_hint_extended_address">Address Line 2</string>
     <string name="bt_form_hint_locality">City</string>
     <string name="bt_form_hint_region">State</string>
+    <string name="bt_form_hint_country_code_alpha2">Country</string>
 
     <string name="bt_cvv">CVV</string>
     <string name="bt_cvc">CVC</string>
@@ -28,9 +29,11 @@
     <string name="bt_expiration_invalid">Expiration date is invalid</string>
     <string name="bt_cardholder_name_required">Cardholder name is required</string>
     <string name="bt_postal_code_required">Postal code is required</string>
-    <string name="bt_country_code_required">Country code is required</string>
+    <string name="bt_country_code_required">Mobile country code is required</string>
     <string name="bt_mobile_number_required">Mobile number is required</string>
     <string name="bt_street_address_required">Address line 1 is required</string>
+    <string name="bt_extended_address_required">Address line 2 is required</string>
     <string name="bt_locality_required">City is required</string>
     <string name="bt_region_required">State is required</string>
+    <string name="bt_country_code_alpha2_required">Country code is required</string>
 </resources>

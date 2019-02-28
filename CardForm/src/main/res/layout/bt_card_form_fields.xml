@@ -96,6 +96,90 @@
         style="@style/bt_field_container"
         android:weightSum="2">
 
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/bt_text_input_layout"
+            tools:ignore="RtlCompat"
+            android:paddingLeft="@dimen/bt_edit_text_icon_padding"
+            android:paddingStart="@dimen/bt_no_edit_text_icon_padding"
+            android:paddingEnd="0dp"
+            android:labelFor="@+id/bt_card_form_street_address">
+
+            <com.braintreepayments.cardform.view.StreetAddressEditText
+                style="@style/bt_card_form_field"
+                android:id="@+id/bt_card_form_street_address"
+                android:hint="@string/bt_form_hint_street_address"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        style="@style/bt_field_container"
+        android:weightSum="2">
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/bt_text_input_layout"
+            tools:ignore="RtlCompat"
+            android:paddingLeft="@dimen/bt_edit_text_icon_padding"
+            android:paddingStart="@dimen/bt_no_edit_text_icon_padding"
+            android:paddingEnd="0dp"
+            android:labelFor="@+id/bt_card_form_extended_address">
+
+            <com.braintreepayments.cardform.view.ExtendedAddressEditText
+                style="@style/bt_card_form_field"
+                android:id="@+id/bt_card_form_extended_address"
+                android:hint="@string/bt_form_hint_extended_address"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        style="@style/bt_field_container"
+        android:weightSum="2">
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/bt_text_input_layout"
+            tools:ignore="RtlCompat"
+            android:paddingLeft="@dimen/bt_edit_text_icon_padding"
+            android:paddingStart="@dimen/bt_no_edit_text_icon_padding"
+            android:paddingEnd="0dp"
+            android:labelFor="@+id/bt_card_form_locality">
+
+            <com.braintreepayments.cardform.view.LocalityEditText
+                style="@style/bt_card_form_field"
+                android:id="@+id/bt_card_form_locality"
+                android:hint="@string/bt_form_hint_locality"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        style="@style/bt_field_container"
+        android:weightSum="2">
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/bt_text_input_layout"
+            tools:ignore="RtlCompat"
+            android:paddingLeft="@dimen/bt_edit_text_icon_padding"
+            android:paddingStart="@dimen/bt_no_edit_text_icon_padding"
+            android:paddingEnd="0dp"
+            android:labelFor="@+id/bt_card_form_region">
+
+            <com.braintreepayments.cardform.view.RegionEditText
+                style="@style/bt_card_form_field"
+                android:id="@+id/bt_card_form_region"
+                android:hint="@string/bt_form_hint_region"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        style="@style/bt_field_container"
+        android:weightSum="5">
+
         <ImageView
             style="@style/bt_card_form_icon"
             tools:ignore="ContentDescription"
@@ -104,6 +188,8 @@
         <com.google.android.material.textfield.TextInputLayout
             style="@style/bt_text_input_layout"
             tools:ignore="RtlCompat"
+            android:layout_width="0dp"
+            android:layout_weight="2"
             android:paddingLeft="@dimen/bt_edit_text_icon_padding"
             android:paddingStart="@dimen/bt_edit_text_icon_padding"
             android:paddingEnd="0dp"
@@ -113,6 +199,19 @@
                 style="@style/bt_card_form_field"
                 android:id="@+id/bt_card_form_postal_code"
                 android:hint="@string/bt_form_hint_postal_code"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/bt_text_input_layout"
+            android:layout_width="0dp"
+            android:layout_weight="3"
+            android:labelFor="@+id/bt_card_form_country_code_alpha2">
+
+            <com.braintreepayments.cardform.view.CountryCodeAlpha2EditText
+                style="@style/bt_card_form_field"
+                android:id="@+id/bt_card_form_country_code_alpha2"
+                android:hint="@string/bt_form_hint_country_code_alpha2"/>
 
         </com.google.android.material.textfield.TextInputLayout>
 

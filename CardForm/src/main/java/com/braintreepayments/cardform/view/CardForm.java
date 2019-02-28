@@ -88,6 +88,7 @@ public class CardForm extends LinearLayout implements OnCardTypeChangedListener,
     private ExtendedAddressEditText mExtendedAddress;
     private LocalityEditText mLocality;
     private RegionEditText mRegion;
+    private CountryCodeAlpha2EditText mCountryCodeAlpha2;
 
     private boolean mCardNumberRequired;
     private boolean mExpirationRequired;
@@ -95,6 +96,7 @@ public class CardForm extends LinearLayout implements OnCardTypeChangedListener,
     private int mCardholderNameStatus = FIELD_DISABLED;
     private boolean mPostalCodeRequired;
     private boolean mMobileNumberRequired;
+    private boolean mBillingAddressRequired;
     private String mActionLabel;
 
     private boolean mValid = false;
@@ -143,7 +145,11 @@ public class CardForm extends LinearLayout implements OnCardTypeChangedListener,
         mCountryCode = findViewById(R.id.bt_card_form_country_code);
         mMobileNumber = findViewById(R.id.bt_card_form_mobile_number);
         mMobileNumberExplanation = findViewById(R.id.bt_card_form_mobile_number_explanation);
-        // TODO: Instantiate billing address fields
+        mStreetAddress = findViewById(R.id.bt_card_form_street_address);
+        mExtendedAddress = findViewById(R.id.bt_card_form_extended_address);
+        mLocality = findViewById(R.id.bt_card_form_locality);
+        mRegion = findViewById(R.id.bt_card_form_region);
+        mCountryCodeAlpha2 = findViewById(R.id.bt_card_form_country_code_alpha2);
 
         mVisibleEditTexts = new ArrayList<>();
 
@@ -212,6 +218,15 @@ public class CardForm extends LinearLayout implements OnCardTypeChangedListener,
      */
     public CardForm mobileNumberRequired(boolean required) {
         mMobileNumberRequired = required;
+        return this;
+    }
+
+    /**
+     * @param required {@code true} to show and require billing address fields, {@code false} otherwise. Defaults to {@code false}.
+     * @return {@link CardForm} for method chaining
+     */
+    public CardForm billingAddressRequired(boolean required) {
+        mBillingAddressRequired = required;
         return this;
     }
 
@@ -289,6 +304,11 @@ public class CardForm extends LinearLayout implements OnCardTypeChangedListener,
         setFieldVisibility(mCountryCode, mMobileNumberRequired);
         setFieldVisibility(mMobileNumber, mMobileNumberRequired);
         setViewVisibility(mMobileNumberExplanation, mMobileNumberRequired);
+        setFieldVisibility(mStreetAddress, mBillingAddressRequired);
+        setFieldVisibility(mExtendedAddress, mBillingAddressRequired);
+        setFieldVisibility(mRegion, mBillingAddressRequired);
+        setFieldVisibility(mLocality, mBillingAddressRequired);
+        setFieldVisibility(mCountryCodeAlpha2, mBillingAddressRequired);
 
         TextInputEditText editText;
         for (int i = 0; i < mVisibleEditTexts.size(); i++) {
@@ -488,6 +508,13 @@ public class CardForm extends LinearLayout implements OnCardTypeChangedListener,
         if (mMobileNumberRequired) {
             valid = valid && mCountryCode.isValid() && mMobileNumber.isValid();
         }
+        if (mBillingAddressRequired) {
+            valid = valid && mStreetAddress.isValid() &
+                    mExtendedAddress.isValid() &&
+                    mLocality.isValid() &&
+                    mRegion.isValid() &&
+                    mCountryCodeAlpha2.isValid();
+        }
         return valid;
     }
 
@@ -513,6 +540,13 @@ public class CardForm extends LinearLayout implements OnCardTypeChangedListener,
         if (mMobileNumberRequired) {
             mCountryCode.validate();
             mMobileNumber.validate();
+        }
+        if (mBillingAddressRequired) {
+            mStreetAddress.validate();
+            mExtendedAddress.validate();
+            mLocality.validate();
+            mRegion.validate();
+            mCountryCodeAlpha2.validate();
         }
     }
 
@@ -661,6 +695,8 @@ public class CardForm extends LinearLayout implements OnCardTypeChangedListener,
         }
     }
 
+    // TODO: Set error messages for incomplete billing address fields
+
     private void requestEditTextFocus(EditText editText) {
         editText.requestFocus();
         ((InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE))
@@ -759,6 +795,14 @@ public class CardForm extends LinearLayout implements OnCardTypeChangedListener,
     public String getRegion() {
         return mRegion.getText().toString();
     }
+
+    /**
+     * @return the text in the country code alpha2 field
+     */
+    public String getCountryCodeAlpha2() {
+        return mCountryCodeAlpha2.getText().toString();
+    }
+
 
     @Override
     public void onCardTypeChanged(CardType cardType) {
