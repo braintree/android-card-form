@@ -33,4 +33,14 @@ public class ExtendedAddressEditText extends ErrorEditText {
         InputFilter[] filters = { new LengthFilter(255) };
         setFilters(filters);
     }
+
+    @Override
+    public boolean isValid() {
+        return isOptional() || !getText().toString().trim().isEmpty();
+    }
+
+    @Override
+    public String getErrorMessage() {
+        return getContext().getString(R.string.bt_extended_address_required);
+    }
 }

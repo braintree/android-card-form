@@ -108,6 +108,31 @@ public class CardFormTest {
     }
 
     @Test
+    public void getStreetAddressEditText() {
+        assertEquals(mCardForm.findViewById(R.id.bt_card_form_street_address), mCardForm.getStreetAddressEditText());
+    }
+
+    @Test
+    public void getExtendedAddressEditText() {
+        assertEquals(mCardForm.findViewById(R.id.bt_card_form_extended_address), mCardForm.getExtendedAddressEditText());
+    }
+
+    @Test
+    public void getLocalityEditText() {
+        assertEquals(mCardForm.findViewById(R.id.bt_card_form_locality), mCardForm.getLocalityEditText());
+    }
+
+    @Test
+    public void getRegionEditText() {
+        assertEquals(mCardForm.findViewById(R.id.bt_card_form_region), mCardForm.getRegionEditText());
+    }
+
+    @Test
+    public void getCountryCodeAlpha2EditText() {
+        assertEquals(mCardForm.findViewById(R.id.bt_card_form_country_code_alpha2), mCardForm.getCountryCodeAlpha2EditText());
+    }
+
+    @Test
     public void visibilityIsGoneBeforeSetupIsCalled() {
         assertEquals(GONE, mCardForm.getVisibility());
     }
@@ -325,6 +350,8 @@ public class CardFormTest {
 
         assertFieldsVisible(GONE, GONE, GONE, GONE ,GONE, GONE);
     }
+
+    // TODO: Add tests for billing address required field visibility
 
     @Test
     public void repeatedCallsToSetupSetCorrectVisibility() {

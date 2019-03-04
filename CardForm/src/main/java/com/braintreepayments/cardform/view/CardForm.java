@@ -600,6 +600,41 @@ public class CardForm extends LinearLayout implements OnCardTypeChangedListener,
     }
 
     /**
+     * @return {@link StreetAddressEditText} view in the card form
+     */
+    public StreetAddressEditText getStreetAddressEditText() {
+        return mStreetAddress;
+    }
+
+    /**
+     * @return {@link ExtendedAddressEditText} view in the card form
+     */
+    public ExtendedAddressEditText getExtendedAddressEditText() {
+        return mExtendedAddress;
+    }
+
+    /**
+     * @return {@link RegionEditText} view in the card form
+     */
+    public RegionEditText getRegionEditText() {
+        return mRegion;
+    }
+
+    /**
+     * @return {@link LocalityEditText} view in the card form
+     */
+    public LocalityEditText getLocalityEditText() {
+        return mLocality;
+    }
+
+    /**
+     * @return {@link CountryCodeAlpha2EditText} view in the card form
+     */
+    public CountryCodeAlpha2EditText getCountryCodeAlpha2EditText() {
+        return mCountryCodeAlpha2;
+    }
+
+    /**
      * Set visual indicator on name to indicate error
      *
      * @param errorMessage the error message to display

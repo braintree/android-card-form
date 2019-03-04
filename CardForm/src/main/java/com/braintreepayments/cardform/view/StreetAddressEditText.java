@@ -39,6 +39,7 @@ public class StreetAddressEditText extends ErrorEditText {
         return isOptional() || !getText().toString().trim().isEmpty();
     }
 
+
     @Override
     public String getErrorMessage() {
         return getContext().getString(R.string.bt_street_address_required);
