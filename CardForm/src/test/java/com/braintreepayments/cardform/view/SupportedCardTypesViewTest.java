@@ -24,7 +24,8 @@ public class SupportedCardTypesViewTest {
         SupportedCardTypesView supportedCardTypesView = new SupportedCardTypesView(RuntimeEnvironment.application);
 
         supportedCardTypesView.setSupportedCardTypes(CardType.VISA, CardType.MASTERCARD, CardType.DISCOVER,
-                CardType.AMEX, CardType.DINERS_CLUB, CardType.JCB, CardType.MAESTRO, CardType.UNIONPAY);
+                CardType.AMEX, CardType.DINERS_CLUB, CardType.JCB, CardType.MAESTRO, CardType.UNIONPAY,
+                CardType.HIPER, CardType.HIPERCARD);
 
         List<PaddedImageSpan> allSpans = Arrays.asList(new SpannableString(supportedCardTypesView.getText())
                 .getSpans(0, supportedCardTypesView.length(), PaddedImageSpan.class));
@@ -36,6 +37,8 @@ public class SupportedCardTypesViewTest {
         assertEquals(CardType.JCB.getFrontResource(), allSpans.get(5).getResourceId());
         assertEquals(CardType.MAESTRO.getFrontResource(), allSpans.get(6).getResourceId());
         assertEquals(CardType.UNIONPAY.getFrontResource(), allSpans.get(7).getResourceId());
+        assertEquals(CardType.HIPER.getFrontResource(), allSpans.get(8).getResourceId());
+        assertEquals(CardType.HIPERCARD.getFrontResource(), allSpans.get(9).getResourceId());
     }
 
     @Test
@@ -53,7 +56,8 @@ public class SupportedCardTypesViewTest {
     public void setSelectedCardTypes_disablesNonSelectedCardTypes() {
         SupportedCardTypesView supportedCardTypesView = new SupportedCardTypesView(RuntimeEnvironment.application);
         supportedCardTypesView.setSupportedCardTypes(CardType.VISA, CardType.MASTERCARD, CardType.DISCOVER,
-                CardType.AMEX, CardType.DINERS_CLUB, CardType.JCB, CardType.MAESTRO, CardType.UNIONPAY);
+                CardType.AMEX, CardType.DINERS_CLUB, CardType.JCB, CardType.MAESTRO, CardType.UNIONPAY,
+                CardType.HIPER, CardType.HIPERCARD);
 
         supportedCardTypesView.setSelected(CardType.VISA);
 
@@ -67,13 +71,16 @@ public class SupportedCardTypesViewTest {
         assertTrue(allSpans.get(5).isDisabled());
         assertTrue(allSpans.get(6).isDisabled());
         assertTrue(allSpans.get(7).isDisabled());
+        assertTrue(allSpans.get(8).isDisabled());
+        assertTrue(allSpans.get(9).isDisabled());
     }
 
     @Test
     public void setSelectedCardTypes_handlesNull() {
         SupportedCardTypesView supportedCardTypesView = new SupportedCardTypesView(RuntimeEnvironment.application);
         supportedCardTypesView.setSupportedCardTypes(CardType.VISA, CardType.MASTERCARD, CardType.DISCOVER,
-                CardType.AMEX, CardType.DINERS_CLUB, CardType.JCB, CardType.MAESTRO, CardType.UNIONPAY);
+                CardType.AMEX, CardType.DINERS_CLUB, CardType.JCB, CardType.MAESTRO, CardType.UNIONPAY,
+                CardType.HIPER, CardType.HIPERCARD);
 
         supportedCardTypesView.setSelected((CardType[]) null);
 
@@ -87,6 +94,8 @@ public class SupportedCardTypesViewTest {
         assertTrue(allSpans.get(5).isDisabled());
         assertTrue(allSpans.get(6).isDisabled());
         assertTrue(allSpans.get(7).isDisabled());
+        assertTrue(allSpans.get(8).isDisabled());
+        assertTrue(allSpans.get(9).isDisabled());
     }
 
     @Test

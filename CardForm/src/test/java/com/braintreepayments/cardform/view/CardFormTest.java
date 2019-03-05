@@ -1805,6 +1805,12 @@ public class CardFormTest {
         setText(card, "5018");
         assertIconHintIs(card, R.drawable.bt_ic_maestro);
 
+        setText(card, "637568");
+        assertIconHintIs(card, R.drawable.bt_ic_hiper);
+
+        setText(card, "606282");
+        assertIconHintIs(card, R.drawable.bt_ic_hipercard);
+
         setText(card, "1234");
         assertIconHintIs(card, R.drawable.bt_ic_unknown);
     }
