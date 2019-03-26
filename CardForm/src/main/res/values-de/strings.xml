@@ -26,4 +26,6 @@
     <string name="bt_postal_code_required">Geben Sie eine PLZ ein.</string>
     <string name="bt_country_code_required">Ländervorwahl ist erforderlich</string>
     <string name="bt_mobile_number_required">Handynummer ist erforderlich</string>
+
+    <string name="bt_save_card_checkbox_name">Karte speichern</string>
 </resources>

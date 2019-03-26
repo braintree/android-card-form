@@ -16,7 +16,7 @@
     <string name="bt_month">Mois</string>
     <string name="bt_year">Année</string>
 
-    <string name="bt_card_number_required">Numéro de carte requis</string>
+    <string name="bt_card_number_required">Numéro de carte obligatoire</string>
     <string name="bt_card_number_invalid">Le numéro de la carte n\'est pas valide</string>
     <string name="bt_cvv_required">%s est obligatoire</string>
     <string name="bt_cvv_invalid">%s n\'est pas valide</string>
@@ -26,4 +26,6 @@
     <string name="bt_postal_code_required">Le code postal est obligatoire</string>
     <string name="bt_country_code_required">L\'indicatif régional est obligatoire</string>
     <string name="bt_mobile_number_required">Le numéro de téléphone mobile est obligatoire</string>
+
+    <string name="bt_save_card_checkbox_name">Enregistrer la carte</string>
 </resources>

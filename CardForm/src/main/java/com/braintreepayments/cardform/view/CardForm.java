@@ -84,6 +84,7 @@ public class CardForm extends LinearLayout implements OnCardTypeChangedListener,
     private CountryCodeEditText mCountryCode;
     private MobileNumberEditText mMobileNumber;
     private TextView mMobileNumberExplanation;
+    private InitialValueCheckBox mSaveCardCheckBox;
 
     private boolean mCardNumberRequired;
     private boolean mExpirationRequired;
@@ -92,6 +93,8 @@ public class CardForm extends LinearLayout implements OnCardTypeChangedListener,
     private boolean mPostalCodeRequired;
     private boolean mMobileNumberRequired;
     private String mActionLabel;
+    private boolean mSaveCardCheckBoxVisible;
+    private boolean mSaveCardCheckBoxChecked;
 
     private boolean mValid = false;
 
@@ -139,6 +142,7 @@ public class CardForm extends LinearLayout implements OnCardTypeChangedListener,
         mCountryCode = findViewById(R.id.bt_card_form_country_code);
         mMobileNumber = findViewById(R.id.bt_card_form_mobile_number);
         mMobileNumberExplanation = findViewById(R.id.bt_card_form_mobile_number_explanation);
+        mSaveCardCheckBox = findViewById(R.id.bt_card_form_save_card_checkbox);
 
         mVisibleEditTexts = new ArrayList<>();
 
@@ -245,6 +249,25 @@ public class CardForm extends LinearLayout implements OnCardTypeChangedListener,
     }
 
     /**
+     * @param visible Determines if the save card CheckBox should be shown. Defaults to hidden / {@code false}
+     * @return {@link CardForm} for method chaining
+     */
+    public CardForm saveCardCheckBoxVisible(boolean visible) {
+        mSaveCardCheckBoxVisible = visible;
+        return this;
+    }
+
+    /**
+     * @param checked The default value for the Save Card CheckBox.
+     * @return {@link CardForm} for method chaining
+     */
+    public CardForm saveCardCheckBoxChecked(boolean checked) {
+        mSaveCardCheckBoxChecked = checked;
+        return this;
+    }
+
+
+    /**
      * Sets up the card form for display to the user using the values provided in {@link CardForm#cardRequired(boolean)},
      * {@link CardForm#expirationRequired(boolean)}, ect. If {@link CardForm#setup(AppCompatActivity)} is not called,
      * the form will not be visible.
@@ -284,6 +307,7 @@ public class CardForm extends LinearLayout implements OnCardTypeChangedListener,
         setFieldVisibility(mCountryCode, mMobileNumberRequired);
         setFieldVisibility(mMobileNumber, mMobileNumberRequired);
         setViewVisibility(mMobileNumberExplanation, mMobileNumberRequired);
+        setViewVisibility(mSaveCardCheckBox, mSaveCardCheckBoxVisible);
 
         TextInputEditText editText;
         for (int i = 0; i < mVisibleEditTexts.size(); i++) {
@@ -298,6 +322,8 @@ public class CardForm extends LinearLayout implements OnCardTypeChangedListener,
                 editText.setOnEditorActionListener(null);
             }
         }
+
+        mSaveCardCheckBox.setInitiallyChecked(mSaveCardCheckBoxChecked);
 
         setVisibility(VISIBLE);
     }
@@ -726,6 +752,14 @@ public class CardForm extends LinearLayout implements OnCardTypeChangedListener,
     public String getMobileNumber() {
         return mMobileNumber.getMobileNumber();
     }
+
+    /**
+     * @return whether or not the save card CheckBox is checked
+     */
+    public boolean isSaveCardCheckBoxChecked() {
+        return mSaveCardCheckBox.isChecked();
+    }
+
 
     @Override
     public void onCardTypeChanged(CardType cardType) {

@@ -170,4 +170,19 @@
         android:paddingStart="@dimen/bt_mobile_number_explanation_padding"
         android:paddingEnd="0dp"/>
 
+    <LinearLayout
+        style="@style/bt_field_container"
+        android:paddingRight="0dp"
+        android:paddingLeft="@dimen/bt_mobile_number_explanation_padding"
+        android:paddingStart="@dimen/bt_mobile_number_explanation_padding"
+        android:paddingEnd="0dp">
+
+        <com.braintreepayments.cardform.view.InitialValueCheckBox
+            android:id="@+id/bt_card_form_save_card_checkbox"
+            android:layout_marginStart="@dimen/bt_save_card_checkbox_left_margin"
+            android:layout_marginLeft="@dimen/bt_save_card_checkbox_left_margin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/bt_save_card_checkbox_name"/>
+    </LinearLayout>
 </merge>

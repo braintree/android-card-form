@@ -6,7 +6,7 @@
     <string name="bt_form_hint_cardholder_name">Imię i nazwisko posiadacza karty</string>
     <string name="bt_form_hint_postal_code">Kod pocztowy</string>
     <string name="bt_form_hint_country_code">Kod kraju</string>
-    <string name="bt_form_hint_mobile_number">Numer telefonu kom.</string>
+    <string name="bt_form_hint_mobile_number">Numer komórkowy</string>
 
     <string name="bt_cvv">Kod CVC</string>
     <string name="bt_cvc">Kod CVC</string>
@@ -16,14 +16,16 @@
     <string name="bt_month">Miesiąc</string>
     <string name="bt_year">Rok</string>
 
-    <string name="bt_card_number_required">Wymagane jest podanie numeru karty</string>
+    <string name="bt_card_number_required">Numer karty jest wymagany</string>
     <string name="bt_card_number_invalid">Numer karty jest nieprawidłowy</string>
-    <string name="bt_cvv_required">Wartość %s jest obowiązkowa.</string>
+    <string name="bt_cvv_required">Wartość %s jest wymagana.</string>
     <string name="bt_cvv_invalid">Wartość %s jest nieprawidłowa.</string>
-    <string name="bt_expiration_required">Podaj datę ważności</string>
+    <string name="bt_expiration_required">Data ważności jest wymagana</string>
     <string name="bt_expiration_invalid">Data ważności jest nieprawidłowa</string>
-    <string name="bt_cardholder_name_required">Wymagane jest podanie imienia i nazwiska posiadacza karty</string>
+    <string name="bt_cardholder_name_required">Imię i nazwisko posiadacza karty jest wymagane</string>
     <string name="bt_postal_code_required">Kod pocztowy jest wymagany</string>
-    <string name="bt_country_code_required">Wymagane jest podanie kodu kraju</string>
-    <string name="bt_mobile_number_required">Wymagane jest podanie numeru telefonu komórkowego</string>
+    <string name="bt_country_code_required">Kod kraju jest wymagany</string>
+    <string name="bt_mobile_number_required">Numer komórkowy jest wymagany</string>
+
+    <string name="bt_save_card_checkbox_name">Zapisz kartę</string>
 </resources>

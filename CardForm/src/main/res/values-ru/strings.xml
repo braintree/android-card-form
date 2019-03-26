@@ -26,4 +26,6 @@
     <string name="bt_postal_code_required">Индекс обязателен</string>
     <string name="bt_country_code_required">Код страны обязателен</string>
     <string name="bt_mobile_number_required">Номер мобильного обязателен</string>
+
+    <string name="bt_save_card_checkbox_name">Сохранить карту</string>
 </resources>

@@ -26,4 +26,6 @@
     <string name="bt_postal_code_required">Postal code is required</string>
     <string name="bt_country_code_required">Country code is required</string>
     <string name="bt_mobile_number_required">Mobile number is required</string>
+
+    <string name="bt_save_card_checkbox_name">Save card</string>
 </resources>

@@ -26,4 +26,6 @@
     <string name="bt_postal_code_required">Kode pos wajib diisi</string>
     <string name="bt_country_code_required">Kode negara wajib diisi</string>
     <string name="bt_mobile_number_required">Nomor telepon seluler wajib diisi</string>
+
+    <string name="bt_save_card_checkbox_name">Simpan kartu</string>
 </resources>

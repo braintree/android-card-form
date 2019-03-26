@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -324,6 +325,44 @@ public class CardFormTest {
                 .setup(mActivity);
 
         assertFieldsVisible(GONE, GONE, GONE, GONE ,GONE, GONE);
+    }
+
+    @Test
+    public void saveCardCheckBoxShownIfRequestedVisible() {
+        mCardForm.saveCardCheckBoxVisible(true)
+                .setup(mActivity);
+
+        assertEquals(VISIBLE, mCardForm.findViewById(R.id.bt_card_form_save_card_checkbox).getVisibility());
+    }
+
+    @Test
+    public void saveCardCheckBoxNotShownIfRequestedNotVisible() {
+        mCardForm.saveCardCheckBoxVisible(false)
+                .setup(mActivity);
+
+        assertEquals(GONE, mCardForm.findViewById(R.id.bt_card_form_save_card_checkbox).getVisibility());
+    }
+
+    @Test
+    public void saveCardCheckBoxDefaultCheckedTrue() {
+        mCardForm.saveCardCheckBoxVisible(true)
+                .saveCardCheckBoxChecked(true)
+                .setup(mActivity);
+
+        assertEquals(VISIBLE, mCardForm.findViewById(R.id.bt_card_form_save_card_checkbox).getVisibility());
+        CheckBox saveCardCheckBox = (CheckBox) mCardForm.findViewById(R.id.bt_card_form_save_card_checkbox);
+        assertEquals(true, saveCardCheckBox.isChecked());
+    }
+
+    @Test
+    public void saveCardCheckBoxDefaultCheckedFalse() {
+        mCardForm.saveCardCheckBoxVisible(true)
+                .saveCardCheckBoxChecked(false)
+                .setup(mActivity);
+
+        assertEquals(VISIBLE, mCardForm.findViewById(R.id.bt_card_form_save_card_checkbox).getVisibility());
+        CheckBox saveCardCheckBox = (CheckBox) mCardForm.findViewById(R.id.bt_card_form_save_card_checkbox);
+        assertEquals(false, saveCardCheckBox.isChecked());
     }
 
     @Test
@@ -1172,6 +1211,35 @@ public class CardFormTest {
         setText(((EditText) mCardForm.findViewById(R.id.bt_card_form_mobile_number)), "5555555555");
 
         assertEquals("5555555555", mCardForm.getMobileNumber());
+    }
+
+    @Test
+    public void isSaveCardCheckBoxChecked_returnsCheckBoxValue_whenSetTrue() {
+        mCardForm.saveCardCheckBoxVisible(true)
+                .saveCardCheckBoxChecked(true)
+                .setup(mActivity);
+
+        assertTrue(mCardForm.isSaveCardCheckBoxChecked());
+    }
+
+    @Test
+    public void isSaveCardCheckBoxChecked_returnsCheckBoxValue_whenSetFalse() {
+        mCardForm.saveCardCheckBoxVisible(true)
+                .saveCardCheckBoxChecked(false)
+                .setup(mActivity);
+
+        assertFalse(mCardForm.isSaveCardCheckBoxChecked());
+    }
+
+    @Test
+    public void getSaveCardCheckBoxValue_returnsCheckBoxValue_whenToggled() {
+        mCardForm.saveCardCheckBoxVisible(true)
+                .saveCardCheckBoxChecked(false)
+                .setup(mActivity);
+
+        CheckBox saveCardCheckBox = (CheckBox) mCardForm.findViewById(R.id.bt_card_form_save_card_checkbox);
+        saveCardCheckBox.setChecked(true);
+        assertTrue(mCardForm.isSaveCardCheckBoxChecked());
     }
 
     @Test

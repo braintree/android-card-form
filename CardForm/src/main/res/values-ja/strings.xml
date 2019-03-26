@@ -26,4 +26,6 @@
     <string name="bt_postal_code_required">郵便番号が必要です</string>
     <string name="bt_country_code_required">国コードが必要です</string>
     <string name="bt_mobile_number_required">携帯電話番号が必要です</string>
+
+    <string name="bt_save_card_checkbox_name">カードを保存</string>
 </resources>
