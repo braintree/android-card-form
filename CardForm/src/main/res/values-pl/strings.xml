@@ -7,6 +7,11 @@
     <string name="bt_form_hint_postal_code">Kod pocztowy</string>
     <string name="bt_form_hint_country_code">Kod kraju</string>
     <string name="bt_form_hint_mobile_number">Numer telefonu kom.</string>
+    <string name="bt_form_hint_street_address">Ulica/Numer posesji</string>
+    <string name="bt_form_hint_extended_address">Numer lokalu</string>
+    <string name="bt_form_hint_locality">Miasto</string>
+    <string name="bt_form_hint_region">Województwo</string>
+    <string name="bt_form_hint_country_code_alpha2">Kraj</string>
 
     <string name="bt_cvv">Kod CVC</string>
     <string name="bt_cvc">Kod CVC</string>
@@ -26,4 +31,9 @@
     <string name="bt_postal_code_required">Kod pocztowy jest wymagany</string>
     <string name="bt_country_code_required">Wymagane jest podanie kodu kraju</string>
     <string name="bt_mobile_number_required">Wymagane jest podanie numeru telefonu komórkowego</string>
+    <string name="bt_street_address_required">Adres jest wymagany</string>
+    <string name="bt_extended_address_required">Numer lokalu jest wymagany</string>
+    <string name="bt_locality_required">Podaj miasto</string>
+    <string name="bt_region_required">Podaj województwo</string>
+    <string name="bt_country_code_alpha2_required">Kod kraju jest wymagany</string>
 </resources>
