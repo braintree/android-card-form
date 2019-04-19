@@ -67,7 +67,9 @@ artifacts {
 }
 
 signing {
-    required { !version.endsWith("SNAPSHOT") }
+    required {
+        !version.endsWith("SNAPSHOT") && !version.endsWith("DEVELOPMENT")
+    }
     sign configurations.archives
 }
 
@@ -83,8 +85,12 @@ uploadArchives {
         mavenDeployer {
             beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
 
-            repository(url: 'https://oss.sonatype.org/service/local/staging/deploy/maven2/') {
-                authentication(userName: sonatypeUsername, password: sonatypePassword)
+            if (version.endsWith("DEVELOPMENT")) {
+                repository(url: 'file:///tmp/maven/')
+            } else {
+                repository(url: 'https://oss.sonatype.org/service/local/staging/deploy/maven2/') {
+                    authentication(userName: sonatypeUsername, password: sonatypePassword)
+                }
             }
             snapshotRepository(url: 'https://oss.sonatype.org/content/repositories/snapshots/') {
                 authentication(userName: sonatypeUsername, password: sonatypePassword)

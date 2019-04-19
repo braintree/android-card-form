@@ -26,4 +26,6 @@
     <string name="bt_postal_code_required">우편번호가 필요합니다.</string>
     <string name="bt_country_code_required">국가코드가 필요합니다.</string>
     <string name="bt_mobile_number_required">휴대폰 번호가 필요합니다.</string>
+
+    <string name="bt_save_card_checkbox_name">카드 저장</string>
 </resources>

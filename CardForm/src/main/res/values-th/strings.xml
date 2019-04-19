@@ -26,4 +26,6 @@
     <string name="bt_postal_code_required">ต้องระบุรหัสไปรษณีย์</string>
     <string name="bt_country_code_required">ต้องระบุรหัสประเทศ</string>
     <string name="bt_mobile_number_required">ต้องระบุหมายเลขโทรศัพท์มือถือ</string>
+
+    <string name="bt_save_card_checkbox_name">บันทึกบัตร</string>
 </resources>

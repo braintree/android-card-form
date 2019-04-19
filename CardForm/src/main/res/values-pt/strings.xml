@@ -26,4 +26,6 @@
     <string name="bt_postal_code_required">O código postal é obrigatório.</string>
     <string name="bt_country_code_required">O código do país é obrigatório.</string>
     <string name="bt_mobile_number_required">O número de telemóvel é obrigatório.</string>
+
+    <string name="bt_save_card_checkbox_name">Guardar cartão</string>
 </resources>

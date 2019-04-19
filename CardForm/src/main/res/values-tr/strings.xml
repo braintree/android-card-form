@@ -26,4 +26,6 @@
     <string name="bt_postal_code_required">Posta kodu gereklidir</string>
     <string name="bt_country_code_required">Ülke kodu gereklidir</string>
     <string name="bt_mobile_number_required">Cep telefonu numarası gereklidir</string>
+
+    <string name="bt_save_card_checkbox_name">Kartı kaydet</string>
 </resources>

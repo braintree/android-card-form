@@ -26,4 +26,6 @@
     <string name="bt_postal_code_required">Postnummer måste anges</string>
     <string name="bt_country_code_required">Landskod måste anges</string>
     <string name="bt_mobile_number_required">Mobilnummer måste anges</string>
+
+    <string name="bt_save_card_checkbox_name">Spara kort</string>
 </resources>

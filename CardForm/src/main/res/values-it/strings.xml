@@ -26,4 +26,6 @@
     <string name="bt_postal_code_required">Il CAP è obbligatorio</string>
     <string name="bt_country_code_required">Il codice Paese è obbligatorio</string>
     <string name="bt_mobile_number_required">Il numero di cellulare è obbligatorio</string>
+
+    <string name="bt_save_card_checkbox_name">Salva carta</string>
 </resources>

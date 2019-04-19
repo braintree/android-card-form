@@ -26,4 +26,6 @@
     <string name="bt_postal_code_required">必須填寫郵遞區號</string>
     <string name="bt_country_code_required">必須填寫國家或地區代碼</string>
     <string name="bt_mobile_number_required">必須填寫手機號碼</string>
+
+    <string name="bt_save_card_checkbox_name">儲存信用卡</string>
 </resources>
