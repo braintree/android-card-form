@@ -33,8 +33,12 @@ task :release => :unit_tests do
   puts "Ensure integration tests are passing by executing `rake integration_tests`."
   $stdin.gets
 
-  puts "What version are you releasing? (x.x.x format)"
-  version = $stdin.gets.chomp
+  if ENV['RELEASE_VERSION']
+    version = ENV['RELEASE_VERSION']
+  else
+    puts "What version are you releasing? (x.x.x format)"
+    version = $stdin.gets.chomp
+  end
 
   update_version(version)
   update_readme_version(version)

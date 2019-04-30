@@ -11,7 +11,7 @@ Add the dependency in your `build.gradle`:
 
 ```groovy
 dependencies {
-    implementation 'com.braintreepayments:card-form:4.1.0'
+    implementation 'com.braintreepayments:card-form:4.2.0'
 }
 ```
 
