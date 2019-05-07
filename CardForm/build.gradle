@@ -6,12 +6,12 @@ apply plugin: 'io.codearte.nexus-staging'
 version '4.2.1-SNAPSHOT'
 
 android {
-    compileSdkVersion 28
+    compileSdkVersion 'android-Q'
     buildToolsVersion '28.0.3'
 
     defaultConfig {
         minSdkVersion 16
-        targetSdkVersion 28
+        targetSdkVersion 'Q'
         versionCode 45
         versionName version
 
