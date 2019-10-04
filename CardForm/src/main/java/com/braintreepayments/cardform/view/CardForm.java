@@ -329,6 +329,15 @@ public class CardForm extends LinearLayout implements OnCardTypeChangedListener,
     }
 
     /**
+     * Sets the icon to the left of the card-holder name entry field, overriding the default icon.
+     *
+     * @param res The drawable resource for the card-holder name icon
+     */
+    public void setCardholderNameIcon(@DrawableRes int res) {
+        mCardholderNameIcon.setImageResource(res);
+    }
+
+    /**
      * Sets the icon to the left of the card number entry field, overriding the default icon.
      *
      * @param res The drawable resource for the card number icon
