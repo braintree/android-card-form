@@ -5,5 +5,4 @@
     <string name="invalid">Form is invalid</string>
     <string name="light_theme_form">Light Theme</string>
     <string name="dark_theme_form">Dark Theme</string>
-    <string name="scan_with_card_io">Scan with card.io</string>
 </resources>

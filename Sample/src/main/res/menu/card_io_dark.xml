@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android"
-      xmlns:app="http://schemas.android.com/apk/res-auto">
-    <item android:id="@+id/card_io_item"
-          android:title="@string/scan_with_card_io"
-          android:icon="@drawable/bt_ic_camera_dark"
-          app:showAsAction="always"/>
-</menu>

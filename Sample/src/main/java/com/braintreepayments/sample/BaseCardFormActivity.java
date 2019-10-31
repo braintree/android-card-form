@@ -1,8 +1,6 @@
 package com.braintreepayments.sample;
 
 import android.os.Bundle;
-import androidx.appcompat.app.AppCompatActivity;
-import android.view.MenuItem;
 import android.view.WindowManager;
 import android.widget.Toast;
 
@@ -11,6 +9,8 @@ import com.braintreepayments.cardform.utils.CardType;
 import com.braintreepayments.cardform.view.CardEditText;
 import com.braintreepayments.cardform.view.CardForm;
 import com.braintreepayments.cardform.view.SupportedCardTypesView;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class BaseCardFormActivity extends AppCompatActivity implements OnCardFormSubmitListener,
         CardEditText.OnCardTypeChangedListener {
@@ -70,17 +70,5 @@ public class BaseCardFormActivity extends AppCompatActivity implements OnCardFor
             mCardForm.validate();
             Toast.makeText(this, R.string.invalid, Toast.LENGTH_SHORT).show();
         }
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        super.onOptionsItemSelected(item);
-
-        if (item.getItemId() == R.id.card_io_item) {
-            mCardForm.scanCard(this);
-            return true;
-        }
-
-        return false;
     }
 }
