@@ -24,6 +24,7 @@ import com.braintreepayments.cardform.test.TestActivity;
 import com.braintreepayments.cardform.utils.CardType;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.Robolectric;
@@ -1918,7 +1919,7 @@ public class CardFormTest {
         assertEquals("1 234-567-8", ((EditText) mActivity.findViewById(R.id.bt_card_form_mobile_number)).getText().toString());
     }
 
-    @Test
+    @Ignore("card.io is no longer maintained")
     public void handleCardIOResponse_doesNothingIfDataIsNull() {
         mCardForm.cardRequired(true)
                 .expirationRequired(true)
@@ -2022,7 +2023,7 @@ public class CardFormTest {
         assertEquals("", ((EditText) mActivity.findViewById(R.id.bt_card_form_mobile_number)).getText().toString());
     }
 
-    @Test
+    @Ignore("card.io is no longer maintained")
     public void handleCardIOResponse_setsCardNumber() {
         mCardForm.cardRequired(true)
                 .expirationRequired(true)
@@ -2041,7 +2042,7 @@ public class CardFormTest {
         assertTrue(mCardForm.findViewById(R.id.bt_card_form_expiration).hasFocus());
     }
 
-    @Test
+    @Ignore("card.io is no longer maintained")
     public void handleCardIOResponse_doesNotSetCardNumberIfCardNumberNotRequired() {
         mCardForm.cardRequired(false)
                 .expirationRequired(true)
@@ -2059,7 +2060,7 @@ public class CardFormTest {
         assertEquals("", ((EditText) mActivity.findViewById(R.id.bt_card_form_card_number)).getText().toString());
     }
 
-    @Test
+    @Ignore("card.io is no longer maintained")
     public void handleCardIOResponse_setsExpirationDate() {
         mCardForm.cardRequired(false)
                 .expirationRequired(true)
@@ -2078,7 +2079,7 @@ public class CardFormTest {
         assertTrue(mCardForm.findViewById(R.id.bt_card_form_cvv).hasFocus());
     }
 
-    @Test
+    @Ignore("card.io is no longer maintained")
     public void handleCardIOResponse_handlesSingleDigitExpirationMonths() {
         mCardForm.cardRequired(false)
                 .expirationRequired(true)
@@ -2098,7 +2099,7 @@ public class CardFormTest {
         assertTrue(mCardForm.findViewById(R.id.bt_card_form_cvv).hasFocus());
     }
 
-    @Test
+    @Ignore("card.io is no longer maintained")
     public void handleCardIOResponse_doesNotSetExpirationDateIfExpirationDateInvalid() {
         mCardForm.cardRequired(true)
                 .expirationRequired(true)
@@ -2117,7 +2118,7 @@ public class CardFormTest {
         assertTrue(mCardForm.findViewById(R.id.bt_card_form_expiration).hasFocus());
     }
 
-    @Test
+    @Ignore("card.io is no longer maintained")
     public void handleCardIOResponse_doesNotSetExpirationDateIfExpirationDateNotRequired() {
         mCardForm.cardRequired(true)
                 .expirationRequired(false)
