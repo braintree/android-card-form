@@ -27,9 +27,9 @@ public enum ExpirationDateDialogTheme {
     public static ExpirationDateDialogTheme detectTheme(Activity activity) {
         ExpirationDateDialogTheme theme;
         if (ViewUtils.isDarkBackground(activity)) {
-            theme = ExpirationDateDialogTheme.LIGHT;
-        } else {
             theme = ExpirationDateDialogTheme.DARK;
+        } else {
+            theme = ExpirationDateDialogTheme.LIGHT;
         }
 
         theme.mResolvedItemTextColor = activity.getResources().getColor(theme.mItemTextColor);
