@@ -211,11 +211,8 @@ public class ExpirationDateEditText extends ErrorEditText implements TextWatcher
         final int index = 2;
         final int length = editable.length();
         if (index <= length) {
-            boolean hasSlash = editable.toString().contains("/");
-            if (!hasSlash) {
-                editable.setSpan(new SlashSpan(), index - 1, index,
-                        Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-            }
+            editable.setSpan(new SlashSpan(), index - 1, index,
+                    Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         }
     }
 
