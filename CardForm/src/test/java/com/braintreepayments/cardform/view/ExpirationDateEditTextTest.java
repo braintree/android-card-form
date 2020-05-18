@@ -84,6 +84,16 @@ public class ExpirationDateEditTextTest {
     }
 
     @Test
+    public void doesNotAddSlashIfNotNeeded() {
+        setText("12/18");
+        Spanned spanned = mView.getText();
+
+        SlashSpan[] appendSlashSpan =
+            spanned.getSpans(0, mView.getText().toString().length(), SlashSpan.class);
+        assertEquals(0, appendSlashSpan.length);
+    }
+
+    @Test
     public void maxLengthIsSix() {
         type('1', '2', '2', '0', '0', '1', '5');
         assertTextIs("122001");
