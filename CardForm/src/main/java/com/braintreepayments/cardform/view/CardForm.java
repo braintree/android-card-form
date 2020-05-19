@@ -293,7 +293,7 @@ public class CardForm extends LinearLayout implements OnCardTypeChangedListener,
         mPostalCodeIcon.setImageResource(isDarkBackground ? R.drawable.bt_ic_postal_code_dark : R.drawable.bt_ic_postal_code);
         mMobileNumberIcon.setImageResource(isDarkBackground? R.drawable.bt_ic_mobile_number_dark : R.drawable.bt_ic_mobile_number);
 
-        mExpiration.useDialogForExpirationDateEntry(activity, true);
+        mExpiration.useDialogForExpirationDateEntry(activity, false);
 
         setViewVisibility(mCardholderNameIcon,  cardHolderNameVisible);
         setFieldVisibility(mCardholderName, cardHolderNameVisible);

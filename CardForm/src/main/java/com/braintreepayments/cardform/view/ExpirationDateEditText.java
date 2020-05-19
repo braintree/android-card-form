@@ -31,6 +31,8 @@ public class ExpirationDateEditText extends ErrorEditText implements TextWatcher
     private boolean mUseExpirationDateDialog = false;
     private ExpirationDateDialog mExpirationDateDialog;
 
+    private ExpirationDateTextWatcher expDateTextWatcher;
+
     public ExpirationDateEditText(Context context) {
         super(context);
         init();
@@ -50,10 +52,13 @@ public class ExpirationDateEditText extends ErrorEditText implements TextWatcher
         setInputType(InputType.TYPE_CLASS_NUMBER);
         InputFilter[] filters = { new LengthFilter(6) };
         setFilters(filters);
-        addTextChangedListener(this);
+//        addTextChangedListener(this);
         setShowKeyboardOnFocus(!mUseExpirationDateDialog);
         setCursorVisible(!mUseExpirationDateDialog);
         super.setOnClickListener(this);
+
+        expDateTextWatcher = ExpirationDateTextWatcher.newInstance();
+        addTextChangedListener(expDateTextWatcher);
     }
 
     /**
