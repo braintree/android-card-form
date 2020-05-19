@@ -50,16 +50,18 @@ public class ExpirationDateEditText extends ErrorEditText implements TextWatcher
 
     private void init() {
         setInputType(InputType.TYPE_CLASS_NUMBER);
-
-        LengthFilter lengthFilter = new LengthFilter(MAX_NUM_CHARS);
-        RemoveSlashesFilter removeSlashesFilter = RemoveSlashesFilter.newInstance(MAX_NUM_CHARS);
-
-        InputFilter[] filters = { lengthFilter, removeSlashesFilter };
-        setFilters(filters);
+        setInputFilters();
         addTextChangedListener(this);
         setShowKeyboardOnFocus(!mUseExpirationDateDialog);
         setCursorVisible(!mUseExpirationDateDialog);
         super.setOnClickListener(this);
+    }
+
+    private void setInputFilters() {
+        LengthFilter lengthFilter = new LengthFilter(MAX_NUM_CHARS);
+        RemoveSlashesFilter removeSlashesFilter = RemoveSlashesFilter.newInstance(MAX_NUM_CHARS);
+        InputFilter[] filters = { lengthFilter, removeSlashesFilter };
+        setFilters(filters);
     }
 
     /**
