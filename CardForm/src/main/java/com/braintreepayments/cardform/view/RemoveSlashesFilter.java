@@ -7,6 +7,8 @@ import androidx.annotation.VisibleForTesting;
 
 class RemoveSlashesFilter implements InputFilter {
 
+    private StringBuilder stringBuilder;
+
     static RemoveSlashesFilter newInstance(int maxStringLength) {
         return newInstance(new StringBuilder(maxStringLength));
     }
@@ -15,8 +17,6 @@ class RemoveSlashesFilter implements InputFilter {
     static RemoveSlashesFilter newInstance(StringBuilder stringBuilder) {
         return new RemoveSlashesFilter(stringBuilder);
     }
-
-    private StringBuilder stringBuilder;
 
     private RemoveSlashesFilter(StringBuilder stringBuilder) {
         this.stringBuilder = stringBuilder;
