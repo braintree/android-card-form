@@ -59,8 +59,8 @@ public class ExpirationDateEditText extends ErrorEditText implements TextWatcher
 
     private void setInputFilters() {
         LengthFilter lengthFilter = new LengthFilter(MAX_NUM_CHARS);
-        RemoveSlashesFilter removeSlashesFilter = RemoveSlashesFilter.newInstance(MAX_NUM_CHARS);
-        InputFilter[] filters = { lengthFilter, removeSlashesFilter };
+        DigitsOnlyFilter digitsOnlyFilter = DigitsOnlyFilter.newInstance(MAX_NUM_CHARS);
+        InputFilter[] filters = { lengthFilter, digitsOnlyFilter};
         setFilters(filters);
     }
 
