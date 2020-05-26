@@ -26,6 +26,8 @@ import java.lang.reflect.Method;
  */
 public class ExpirationDateEditText extends ErrorEditText implements TextWatcher, View.OnClickListener {
 
+    private static final int MAX_NUM_CHARS = 6;
+
     private boolean mChangeWasAddition;
     private OnClickListener mClickListener;
     private boolean mUseExpirationDateDialog = false;
@@ -48,12 +50,18 @@ public class ExpirationDateEditText extends ErrorEditText implements TextWatcher
 
     private void init() {
         setInputType(InputType.TYPE_CLASS_NUMBER);
-        InputFilter[] filters = { new LengthFilter(6) };
-        setFilters(filters);
+        setInputFilters();
         addTextChangedListener(this);
         setShowKeyboardOnFocus(!mUseExpirationDateDialog);
         setCursorVisible(!mUseExpirationDateDialog);
         super.setOnClickListener(this);
+    }
+
+    private void setInputFilters() {
+        LengthFilter lengthFilter = new LengthFilter(MAX_NUM_CHARS);
+        DigitsOnlyFilter digitsOnlyFilter = DigitsOnlyFilter.newInstance(MAX_NUM_CHARS);
+        InputFilter[] filters = { lengthFilter, digitsOnlyFilter};
+        setFilters(filters);
     }
 
     /**
