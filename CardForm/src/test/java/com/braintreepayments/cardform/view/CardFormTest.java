@@ -1881,7 +1881,7 @@ public class CardFormTest {
         assertIconHintIs(card, R.drawable.bt_ic_hipercard);
 
         setText(card, "1234");
-        assertIconHintIs(card, R.drawable.bt_ic_unknown);
+        assertIconHintIs(card, R.drawable.bt_ic_vaulted_unknown);
     }
 
     @Test
