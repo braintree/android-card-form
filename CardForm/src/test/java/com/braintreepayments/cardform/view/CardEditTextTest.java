@@ -91,7 +91,7 @@ public class CardEditTextTest {
 
     @Test
     public void testUnknown() {
-        helper("1", "111 1111 1111 1111111", R.drawable.bt_ic_vaulted_unknown, 4, 8, 12);
+        helper("1", "111 1111 1111 1111111", R.drawable.bt_ic_unknown, 4, 8, 12);
     }
 
     @Test
