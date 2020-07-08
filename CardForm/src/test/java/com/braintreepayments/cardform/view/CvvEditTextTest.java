@@ -3,6 +3,8 @@ package com.braintreepayments.cardform.view;
 import com.google.android.material.textfield.TextInputLayout;
 import android.text.Editable;
 import android.text.InputType;
+import android.text.method.PasswordTransformationMethod;
+import android.text.method.SingleLineTransformationMethod;
 
 import com.braintreepayments.cardform.R;
 import com.braintreepayments.cardform.test.TestActivity;
@@ -18,6 +20,10 @@ import org.robolectric.RuntimeEnvironment;
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertFalse;
 import static junit.framework.Assert.assertTrue;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertSame;
+import static org.mockito.Mockito.spy;
+import static org.mockito.Mockito.verify;
 
 @RunWith(RobolectricTestRunner.class)
 public class CvvEditTextTest {
@@ -70,24 +76,21 @@ public class CvvEditTextTest {
     }
 
     @Test
-    public void appliesPasswordInputTypeWhenMasked() {
-        mView.setMask(true);
-
-        assertEquals(InputType.TYPE_NUMBER_VARIATION_PASSWORD | InputType.TYPE_CLASS_NUMBER, mView.getInputType());
-    }
-
-    @Test
-    public void doesNotApplyPasswordInputTypeWhenNotMasked() {
+    public void onInit_setsInputTypeToNumberAndKeepsDefaultTransformationMethod() {
         assertEquals(InputType.TYPE_CLASS_NUMBER, mView.getInputType());
+        assertSame(mView.getTransformationMethod(), SingleLineTransformationMethod.getInstance());
     }
 
     @Test
-    public void appliesNumberInputTypeWhenUnmasked() {
+    public void setMaskToTrue_appliesPasswordTransformationMethod() {
         mView.setMask(true);
-        assertEquals(InputType.TYPE_NUMBER_VARIATION_PASSWORD | InputType.TYPE_CLASS_NUMBER, mView.getInputType());
+        assertSame(mView.getTransformationMethod(), PasswordTransformationMethod.getInstance());
+    }
 
+    @Test
+    public void setMaskToFalse_doesNotApplyPasswordTransformationMethod() {
         mView.setMask(false);
-        assertEquals(InputType.TYPE_CLASS_NUMBER, mView.getInputType());
+        assertSame(mView.getTransformationMethod(), SingleLineTransformationMethod.getInstance());
     }
 
     @Test

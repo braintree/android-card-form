@@ -7,6 +7,9 @@ import android.text.InputFilter.LengthFilter;
 import android.text.InputType;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.text.method.PasswordTransformationMethod;
+import android.text.method.SingleLineTransformationMethod;
+import android.text.method.TransformationMethod;
 import android.util.AttributeSet;
 
 import com.braintreepayments.cardform.R;
@@ -20,6 +23,7 @@ public class CvvEditText extends ErrorEditText implements TextWatcher {
     private static final int DEFAULT_MAX_LENGTH = 3;
 
     private CardType mCardType;
+    private TransformationMethod mDefaultTransformationMethod = null;
 
     public CvvEditText(Context context) {
         super(context);
@@ -65,10 +69,15 @@ public class CvvEditText extends ErrorEditText implements TextWatcher {
      * @param mask if {@code true}, this field will be masked.
      */
     public void setMask(boolean mask) {
+        if (mDefaultTransformationMethod == null) {
+            // capture reference to allow fallback to default TextView behavior
+            mDefaultTransformationMethod = getTransformationMethod();
+        }
+
         if (mask) {
-            setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_VARIATION_PASSWORD);
+            setTransformationMethod(PasswordTransformationMethod.getInstance());
         } else {
-            setInputType(InputType.TYPE_CLASS_NUMBER);
+            setTransformationMethod(mDefaultTransformationMethod);
         }
     }
 

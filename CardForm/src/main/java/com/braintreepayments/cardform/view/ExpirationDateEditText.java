@@ -70,8 +70,9 @@ public class ExpirationDateEditText extends ErrorEditText implements TextWatcher
      *
      * @param activity used as the parent activity for the dialog
      * @param useDialog {@code false} to use a numeric keyboard to enter the expiration date,
-     * {@code true} to use a custom dialog to enter the expiration date. Defaults to {@code true}.
+     * {@code true} to use a custom dialog to enter the expiration date. Defaults to {@code false}.
      */
+    @Deprecated
     public void useDialogForExpirationDateEntry(Activity activity, boolean useDialog) {
         mExpirationDateDialog = ExpirationDateDialog.create(activity, this);
         mUseExpirationDateDialog = useDialog;
