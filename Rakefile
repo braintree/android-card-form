@@ -9,7 +9,7 @@ task :lint do
 end
 
 desc "Run Android unit tests and tests on a device or emulator"
-task :tests => [:unit_tests, :integration_tests]
+task :tests => [:unit_tests]
 
 desc "Run Android unit tests"
 task :unit_tests => :lint do
@@ -18,19 +18,12 @@ end
 
 desc "Run Android tests on a device or emulator"
 task :integration_tests do
-  output = `adb devices`
-  if output.match(/device$/)
-      sh "./gradlew --continue connectedAndroidTest"
-  else
-    puts "Please connect a device or start an emulator and try again"
-    exit 1
-  end
+  puts "This project has no integration tests 🙏"
 end
 
 desc "Interactive release to publish new version"
 task :release => :unit_tests do
   puts "Ensure unit tests build above was successful."
-  puts "Ensure integration tests are passing by executing `rake integration_tests`."
   $stdin.gets
 
   if ENV['RELEASE_VERSION']
