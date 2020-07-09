@@ -1,9 +1,6 @@
 package com.braintreepayments.cardform.view;
 
-import android.app.Activity;
 import android.content.Context;
-import android.graphics.Rect;
-import android.os.Build;
 import android.text.Editable;
 import android.text.InputFilter;
 import android.text.InputFilter.LengthFilter;
@@ -13,12 +10,9 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.view.View;
-import android.widget.EditText;
 
 import com.braintreepayments.cardform.R;
 import com.braintreepayments.cardform.utils.DateValidator;
-
-import java.lang.reflect.Method;
 
 /**
  * An {@link android.widget.EditText} for entering dates, used for card expiration dates.
