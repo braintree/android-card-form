@@ -1,5 +1,9 @@
 # Android Card Form Release Notes
 
+## unreleased
+* Breaking Changes
+  * Remove CardIO
+
 ## 4.3.0
 
 * Fix autofill issue that causes multiple slashes to be displayed in the expiration date field (resolves #88)
