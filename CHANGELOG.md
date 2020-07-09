@@ -3,9 +3,9 @@
 ## unreleased
 * Breaking Changes
   * Remove CardIO
-* Deprecate `useDialogForExpirationDateEntry()`
-* Changed default expiration date keyboard to use a system numeric keyboard
-* Updated cvv keyboard to be numeric only
+  * Deprecate `useDialogForExpirationDateEntry()`
+  * Update cvv keyboard to be numeric only
+  * Change default expiration date keyboard to use a system numeric keyboard
 
 ## 4.3.0
 
