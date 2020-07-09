@@ -5,6 +5,4 @@ build
 gradle.properties
 local.properties
 .DS_Store
-
 *.swp
-
