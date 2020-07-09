@@ -23,7 +23,6 @@ public class CvvEditText extends ErrorEditText implements TextWatcher {
     private static final int DEFAULT_MAX_LENGTH = 3;
 
     private CardType mCardType;
-    private TransformationMethod mDefaultTransformationMethod = null;
 
     public CvvEditText(Context context) {
         super(context);
@@ -69,15 +68,10 @@ public class CvvEditText extends ErrorEditText implements TextWatcher {
      * @param mask if {@code true}, this field will be masked.
      */
     public void setMask(boolean mask) {
-        if (mDefaultTransformationMethod == null) {
-            // capture reference to allow fallback to default TextView behavior
-            mDefaultTransformationMethod = getTransformationMethod();
-        }
-
         if (mask) {
             setTransformationMethod(PasswordTransformationMethod.getInstance());
         } else {
-            setTransformationMethod(mDefaultTransformationMethod);
+            setTransformationMethod(SingleLineTransformationMethod.getInstance());
         }
     }
 
