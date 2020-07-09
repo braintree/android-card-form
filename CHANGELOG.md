@@ -3,9 +3,9 @@
 ## unreleased
 * Breaking Changes
   * Remove CardIO
-  * Deprecate `useDialogForExpirationDateEntry()`
-  * Update cvv keyboard to be numeric only
-  * Change default expiration date keyboard to use a system numeric keyboard
+  * Remove `ExpirationDateEditText::useDialogForExpirationDateEntry()`
+  * Remove `ExpirationDateDialog` and default to numeric keyboard for expiration date field
+  * Update CVV keyboard to be numeric only
 
 ## 4.3.0
 
