@@ -14,16 +14,11 @@ android {
         targetSdkVersion 28
         versionCode 46
         versionName version
-
-        consumerProguardFiles 'proguard.cfg'
     }
 
     testOptions {
         unitTests {
             includeAndroidResources true
-            all {
-                jvmArgs '-noverify'
-            }
         }
     }
 
@@ -37,7 +32,6 @@ android {
 
 dependencies {
     implementation 'com.google.android.material:material:1.0.0'
-    implementation 'io.card:android-sdk:5.5.1'
 
     testImplementation 'junit:junit:4.12'
     testImplementation 'org.robolectric:robolectric:3.8'
@@ -125,14 +119,6 @@ uploadArchives {
                         name 'MIT'
                         url 'http://opensource.org/licenses/MIT'
                         distribution 'repo'
-                    }
-                }
-            }
-
-            pom.whenConfigured { MavenPom pom ->
-                pom.dependencies.each {
-                    if (it.artifactId == 'android-sdk') {
-                        it.optional = true
                     }
                 }
             }

@@ -26,7 +26,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
 
-import com.braintreepayments.cardform.CardScanningFragment;
 import com.braintreepayments.cardform.OnCardFormFieldFocusedListener;
 import com.braintreepayments.cardform.OnCardFormSubmitListener;
 import com.braintreepayments.cardform.OnCardFormValidListener;
@@ -41,8 +40,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import androidx.appcompat.app.AppCompatActivity;
-import io.card.payment.CardIOActivity;
-import io.card.payment.CreditCard;
 
 public class CardForm extends LinearLayout implements OnCardTypeChangedListener, OnFocusChangeListener, OnClickListener,
         OnEditorActionListener, TextWatcher {
@@ -61,7 +58,6 @@ public class CardForm extends LinearLayout implements OnCardTypeChangedListener,
      * Shows the field, and require the field value to be non empty when validating the card form.
      */
     public static final int FIELD_REQUIRED = 2;
-    private CardScanningFragment mCardScanningFragment;
 
     /**
      * The statuses a field can be.
@@ -275,14 +271,6 @@ public class CardForm extends LinearLayout implements OnCardTypeChangedListener,
      * @param activity Used to set {@link android.view.WindowManager.LayoutParams#FLAG_SECURE} to prevent screenshots
      */
     public void setup(AppCompatActivity activity) {
-        mCardScanningFragment = (CardScanningFragment)activity
-                .getSupportFragmentManager()
-                .findFragmentByTag(CardScanningFragment.TAG);
-
-        if (mCardScanningFragment != null) {
-            mCardScanningFragment.setCardForm(this);
-        }
-
         activity.getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE,
                 WindowManager.LayoutParams.FLAG_SECURE);
 
@@ -364,62 +352,6 @@ public class CardForm extends LinearLayout implements OnCardTypeChangedListener,
      */
     public void setMobileNumberIcon(@DrawableRes int res) {
         mMobileNumberIcon.setImageResource(res);
-    }
-
-    /**
-     * Check if card scanning is available.
-     *
-     * Card scanning requires the card.io dependency and camera support.
-     *
-     * @return {@code true} if available, {@code false} otherwise.
-     */
-    public boolean isCardScanningAvailable() {
-        try {
-            return CardIOActivity.canReadCardWithCamera();
-        } catch (NoClassDefFoundError e) {
-            return false;
-        }
-    }
-
-    /**
-     * Launches card.io card scanning is {@link #isCardScanningAvailable()} is {@code true}.
-     *
-     * @param activity
-     */
-    public void scanCard(AppCompatActivity activity) {
-        if (isCardScanningAvailable() && mCardScanningFragment == null) {
-            mCardScanningFragment = CardScanningFragment.requestScan(activity, this);
-        }
-    }
-
-    /**
-     * Use {@link #handleCardIOResponse(int, Intent)} instead.
-     */
-    @SuppressLint("DefaultLocale")
-    @Deprecated
-    public void handleCardIOResponse(Intent data) {
-        handleCardIOResponse(Integer.MIN_VALUE, data);
-    }
-
-    @SuppressLint("DefaultLocale")
-    public void handleCardIOResponse(int resultCode, Intent data) {
-        if (resultCode == Activity.RESULT_CANCELED || resultCode == Activity.RESULT_OK) {
-            mCardScanningFragment = null;
-        }
-
-        if (data != null && data.hasExtra(CardIOActivity.EXTRA_SCAN_RESULT)) {
-            CreditCard scanResult = data.getParcelableExtra(CardIOActivity.EXTRA_SCAN_RESULT);
-
-            if (mCardNumberRequired) {
-                mCardNumber.setText(scanResult.cardNumber);
-                mCardNumber.focusNextView();
-            }
-
-            if (scanResult.isExpiryValid() && mExpirationRequired) {
-                mExpiration.setText(String.format("%02d%d", scanResult.expiryMonth, scanResult.expiryYear));
-                mExpiration.focusNextView();
-            }
-        }
     }
 
     private void setListeners(EditText editText) {
