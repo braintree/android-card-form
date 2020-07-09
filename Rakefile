@@ -49,12 +49,12 @@ task :assumptions do
 end
 
 task :release_android_card_form_module do
-  sh "./gradlew clean :CardForm:uploadArchives"
-  sh "./gradlew :CardForm:closeRepository"
-  puts "Sleeping for one minute to allow CardForm module to close"
-  sleep 60
-  sh "./gradlew :CardForm:promoteRepository"
+  sh "./gradlew clean :CardForm:publishToSonatype"
+  sh "./gradlew closeAndReleaseRepository"
+
+  post_release(version)
 end
+
 
 def prompt_for_sonatype_username_and_password
   puts "Enter Sonatype username:"
