@@ -1,10 +1,4 @@
 apply plugin: 'com.android.library'
-apply plugin: 'maven-publish'
-apply plugin: 'signing'
-apply plugin: 'io.codearte.nexus-staging'
-apply plugin: "de.marcphilipp.nexus-publish"
-
-version '4.3.1-SNAPSHOT'
 
 android {
     compileSdkVersion 28
@@ -14,7 +8,7 @@ android {
         minSdkVersion 21
         targetSdkVersion 28
         versionCode 46
-        versionName version
+        versionName rootProject.ext.versionName
     }
 
     testOptions {
@@ -59,23 +53,6 @@ task sourcesJar(type: Jar) {
 artifacts {
     archives javadocsJar
     archives sourcesJar
-}
-
-signing {
-    required {
-        !version.endsWith("SNAPSHOT") && !version.endsWith("DEVELOPMENT")
-    }
-    sign publishing.publications
-}
-
-def sonatypeUsername = System.env['SONATYPE_USERNAME']
-def sonatypePassword = System.env['SONATYPE_PASSWORD']
-
-nexusStaging {
-    packageGroup = "com.braintreepayments"
-    stagingProfileId = 'd2424106a9f1f'
-    username = sonatypeUsername
-    password = sonatypePassword
 }
 
 afterEvaluate {
