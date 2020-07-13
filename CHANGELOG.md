@@ -1,8 +1,12 @@
 # Android Card Form Release Notes
 
 ## unreleased
+
 * Breaking Changes
   * Remove CardIO
+  * Remove `ExpirationDateEditText::useDialogForExpirationDateEntry()`
+  * Remove `ExpirationDateDialog` and default to numeric keyboard for expiration date field
+  * Update CVV keyboard to be numeric only
 
 ## 4.3.0
 

@@ -32,11 +32,6 @@ public class ExpirationDateEditTextTest {
     }
 
     @Test
-    public void onDetachedFromWindow_handlesNullDialog() {
-        mView.onDetachedFromWindow();
-    }
-
-    @Test
     public void onFocusChanged_handlesNullDialog() {
         mView.onFocusChanged(true, View.FOCUS_DOWN, null);
     }

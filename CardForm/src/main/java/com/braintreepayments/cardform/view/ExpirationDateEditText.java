@@ -1,9 +1,6 @@
 package com.braintreepayments.cardform.view;
 
-import android.app.Activity;
 import android.content.Context;
-import android.graphics.Rect;
-import android.os.Build;
 import android.text.Editable;
 import android.text.InputFilter;
 import android.text.InputFilter.LengthFilter;
@@ -13,12 +10,9 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.view.View;
-import android.widget.EditText;
 
 import com.braintreepayments.cardform.R;
 import com.braintreepayments.cardform.utils.DateValidator;
-
-import java.lang.reflect.Method;
 
 /**
  * An {@link android.widget.EditText} for entering dates, used for card expiration dates.
@@ -30,8 +24,6 @@ public class ExpirationDateEditText extends ErrorEditText implements TextWatcher
 
     private boolean mChangeWasAddition;
     private OnClickListener mClickListener;
-    private boolean mUseExpirationDateDialog = false;
-    private ExpirationDateDialog mExpirationDateDialog;
 
     public ExpirationDateEditText(Context context) {
         super(context);
@@ -52,8 +44,6 @@ public class ExpirationDateEditText extends ErrorEditText implements TextWatcher
         setInputType(InputType.TYPE_CLASS_NUMBER);
         setInputFilters();
         addTextChangedListener(this);
-        setShowKeyboardOnFocus(!mUseExpirationDateDialog);
-        setCursorVisible(!mUseExpirationDateDialog);
         super.setOnClickListener(this);
     }
 
@@ -64,21 +54,6 @@ public class ExpirationDateEditText extends ErrorEditText implements TextWatcher
         setFilters(filters);
     }
 
-    /**
-     * Used to enable or disable entry of the expiration date using {@link ExpirationDateDialog}.
-     * Defaults to false.
-     *
-     * @param activity used as the parent activity for the dialog
-     * @param useDialog {@code false} to use a numeric keyboard to enter the expiration date,
-     * {@code true} to use a custom dialog to enter the expiration date. Defaults to {@code true}.
-     */
-    public void useDialogForExpirationDateEntry(Activity activity, boolean useDialog) {
-        mExpirationDateDialog = ExpirationDateDialog.create(activity, this);
-        mUseExpirationDateDialog = useDialog;
-        setShowKeyboardOnFocus(!mUseExpirationDateDialog);
-        setCursorVisible(!mUseExpirationDateDialog);
-    }
-
     @Override
     public void setOnClickListener(OnClickListener l) {
         mClickListener = l;
@@ -86,37 +61,8 @@ public class ExpirationDateEditText extends ErrorEditText implements TextWatcher
 
     @Override
     public void onClick(View v) {
-        if (mUseExpirationDateDialog) {
-            closeSoftKeyboard();
-            mExpirationDateDialog.show();
-        }
-
         if (mClickListener != null) {
             mClickListener.onClick(v);
-        }
-    }
-
-    @Override
-    protected void onFocusChanged(boolean focused, int direction, Rect previouslyFocusedRect) {
-        super.onFocusChanged(focused, direction, previouslyFocusedRect);
-
-        if (mExpirationDateDialog == null) {
-            return;
-        }
-
-        if (focused && mUseExpirationDateDialog) {
-            closeSoftKeyboard();
-            mExpirationDateDialog.show();
-        } else if (mUseExpirationDateDialog) {
-            mExpirationDateDialog.dismiss();
-        }
-    }
-
-    @Override
-    protected void onDetachedFromWindow() {
-        super.onDetachedFromWindow();
-        if (mExpirationDateDialog != null && mExpirationDateDialog.isShowing()) {
-            mExpirationDateDialog.dismiss();
         }
     }
 
@@ -185,28 +131,6 @@ public class ExpirationDateEditText extends ErrorEditText implements TextWatcher
         if (((getSelectionStart() == 4 && !editable.toString().endsWith("20")) || getSelectionStart() == 6)
                 && isValid()) {
             focusNextView();
-        }
-    }
-
-    private void setShowKeyboardOnFocus(boolean showKeyboardOnFocus) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            setShowSoftInputOnFocus(showKeyboardOnFocus);
-        } else {
-            try {
-                // API 16-21
-                final Method method = EditText.class.getMethod("setShowSoftInputOnFocus", boolean.class);
-                method.setAccessible(true);
-                method.invoke(this, showKeyboardOnFocus);
-            } catch (Exception e) {
-                try {
-                    // API 15
-                    final Method method = EditText.class.getMethod("setSoftInputShownOnFocus", boolean.class);
-                    method.setAccessible(true);
-                    method.invoke(this, showKeyboardOnFocus);
-                } catch (Exception e1) {
-                    mUseExpirationDateDialog = false;
-                }
-            }
         }
     }
 
