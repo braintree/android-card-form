@@ -3,8 +3,6 @@ package com.braintreepayments.sample;
 import androidx.test.core.app.ActivityScenario;
 import androidx.test.runner.AndroidJUnit4;
 
-import com.lukekorth.deviceautomator.AutomatorAssertion;
-
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
