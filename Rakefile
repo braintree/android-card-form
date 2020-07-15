@@ -34,7 +34,7 @@ task :release => :unit_tests do
   puts "What version are you releasing? (x.x.x format)"
   version = $stdin.gets.chomp
 
-  update_version(version)
+  #post release
   update_readme_version(version)
 
   prompt_for_sonatype_username_and_password
@@ -137,4 +137,3 @@ def update_readme_snapshot_version(snapshot_version)
     end
   )
 end
-
