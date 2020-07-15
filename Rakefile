@@ -18,7 +18,13 @@ end
 
 desc "Run Android tests on a device or emulator"
 task :integration_tests do
-  puts "This project has no integration tests 🙏"
+  output = `adb devices`
+  if output.match(/device$/)
+      sh "./gradlew --continue connectedAndroidTest"
+  else
+    puts "Please connect a device or start an emulator and try again"
+    exit 1
+  end
 end
 
 desc "Interactive release to publish new version"
