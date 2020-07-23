@@ -43,7 +43,6 @@ subprojects {
 
     nexusStaging {
         packageGroup = "com.braintreepayments"
-        stagingProfileId = 'd2424106a9f1f'
         username = sonatypeUsername
         password = sonatypePassword
     }
