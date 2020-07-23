@@ -48,6 +48,7 @@ subprojects {
     }
 
     nexusPublishing {
+        packageGroup = "com.braintreepayments"
         repositories {
             sonatype {
                 username = sonatypeUsername
