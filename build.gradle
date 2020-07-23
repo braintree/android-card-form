@@ -30,6 +30,12 @@ def sonatypePassword = System.env['SONATYPE_PASSWORD']
 
 apply plugin: 'io.codearte.nexus-staging'
 
+nexusStaging {
+    packageGroup = "com.braintreepayments"
+    username = sonatypeUsername
+    password = sonatypePassword
+}
+
 subprojects {
     apply plugin: 'signing'
     apply plugin: 'de.marcphilipp.nexus-publish'
@@ -41,19 +47,9 @@ subprojects {
         sign publishing.publications
     }
 
-    nexusStaging {
-        packageGroup = "com.braintreepayments"
-        username = sonatypeUsername
-        password = sonatypePassword
-    }
-
     nexusPublishing {
-        packageGroup = "com.braintreepayments"
         repositories {
-            sonatype {
-                username = sonatypeUsername
-                password = sonatypePassword
-            }
+            sonatype()
         }
     }
 }
