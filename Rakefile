@@ -136,4 +136,3 @@ def update_readme_snapshot_version(snapshot_version)
     end
   )
 end
-
