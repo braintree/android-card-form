@@ -2,14 +2,15 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 28
-    buildToolsVersion '28.0.3'
+    buildToolsVersion '29.0.3'
 
     defaultConfig {
         applicationId 'com.braintreepayments.sample'
-        minSdkVersion 16
+        minSdkVersion 21
         targetSdkVersion 28
         versionCode 1
         versionName '1.0.0'
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
     lintOptions {
@@ -28,4 +29,9 @@ dependencies {
 
     implementation 'com.squareup.leakcanary:leakcanary-android:1.4'
     implementation 'com.facebook.stetho:stetho:1.5.0'
+
+    androidTestImplementation 'androidx.test:runner:1.1.0'
+    androidTestImplementation 'androidx.test:rules:1.1.0'
+    androidTestImplementation 'androidx.test:core:1.0.0'
+    androidTestImplementation 'com.lukekorth:device-automator:1.0.0'
 }

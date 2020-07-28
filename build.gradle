@@ -2,10 +2,14 @@ buildscript {
     repositories {
         google()
         jcenter()
+        maven {
+            url = "https://plugins.gradle.org/m2/"
+        }
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.2.1'
-        classpath 'io.codearte.gradle.nexus:gradle-nexus-staging-plugin:0.5.3'
+        classpath 'com.android.tools.build:gradle:4.0.1'
+        classpath 'io.codearte.gradle.nexus:gradle-nexus-staging-plugin:0.21.2'
+        classpath 'de.marcphilipp.gradle:nexus-publish-plugin:0.4.0'
     }
 }
 
@@ -13,5 +17,39 @@ allprojects {
     repositories {
         google()
         jcenter()
+    }
+}
+
+version = '4.3.1-SNAPSHOT'
+ext {
+    versionName = version
+}
+
+def sonatypeUsername = System.env['SONATYPE_USERNAME']
+def sonatypePassword = System.env['SONATYPE_PASSWORD']
+
+apply plugin: 'io.codearte.nexus-staging'
+
+nexusStaging {
+    packageGroup = "com.braintreepayments"
+    username = sonatypeUsername
+    password = sonatypePassword
+}
+
+subprojects {
+    apply plugin: 'signing'
+    apply plugin: 'de.marcphilipp.nexus-publish'
+
+    signing {
+        required {
+            !version.endsWith("SNAPSHOT") && !version.endsWith("DEVELOPMENT")
+        }
+        sign publishing.publications
+    }
+
+    nexusPublishing {
+        repositories {
+            sonatype()
+        }
     }
 }

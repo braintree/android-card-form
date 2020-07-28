@@ -9,7 +9,7 @@ task :lint do
 end
 
 desc "Run Android unit tests and tests on a device or emulator"
-task :tests => [:unit_tests, :integration_tests]
+task :tests => [:unit_tests]
 
 desc "Run Android unit tests"
 task :unit_tests => :lint do
@@ -29,30 +29,38 @@ end
 
 desc "Interactive release to publish new version"
 task :release => :unit_tests do
-  puts "Ensure unit tests build above was successful."
-  puts "Ensure integration tests are passing by executing `rake integration_tests`."
-  $stdin.gets
+  Rake::Task["assumptions"].invoke
 
-  if ENV['RELEASE_VERSION']
-    version = ENV['RELEASE_VERSION']
-  else
-    puts "What version are you releasing? (x.x.x format)"
-    version = $stdin.gets.chomp
-  end
+  puts "What version are you releasing? (x.x.x format)"
+  version = $stdin.gets.chomp
 
   update_version(version)
   update_readme_version(version)
 
   prompt_for_sonatype_username_and_password
 
-  sh "./gradlew clean :CardForm:uploadArchives"
-  sh "./gradlew :CardForm:closeRepository"
-  puts "Sleeping for one minute to allow CardForm module to close"
-  sleep 60
-  sh "./gradlew :CardForm:promoteRepository"
+  Rake::Task["release_android_card_form_module"].invoke
 
   post_release(version)
 end
+
+task :assumptions do
+    puts "Release Assumptions"
+    puts "* [ ] You are on the branch and commit you want to release."
+    puts "* [ ] You have already merged hotfixes and pulled changes."
+    puts "* [ ] You have already reviewed the diff between the current release and the last tag, noting breaking changes in the semver and CHANGELOG."
+
+    puts "Ready to release? Press any key to continue. "
+    $stdin.gets
+end
+
+task :release_android_card_form_module do
+  sh "./gradlew clean :CardForm:publishToSonatype"
+  sh "./gradlew closeAndReleaseRepository"
+
+  post_release(version)
+end
+
 
 def prompt_for_sonatype_username_and_password
   puts "Enter Sonatype username:"
