@@ -32,6 +32,8 @@ apply plugin: 'io.codearte.nexus-staging'
 
 nexusStaging {
     packageGroup = "com.braintreepayments"
+    // give nexus sonatype more time to close the staging repository
+    delayBetweenRetriesInMillis = 20000
     username = sonatypeUsername
     password = sonatypePassword
 }
@@ -48,7 +50,7 @@ subprojects {
     }
 
     nexusPublishing {
-        // give nexus staging more time to prevent release failures
+        // give nexus sonatype more time to initialize the staging repository
         clientTimeout = Duration.ofMinutes(3)
         repositories {
             sonatype()
