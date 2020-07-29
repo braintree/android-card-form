@@ -57,8 +57,6 @@ end
 task :release_android_card_form_module do
   sh "./gradlew clean :CardForm:publishToSonatype"
   sh "./gradlew closeAndReleaseRepository"
-
-  post_release(version)
 end
 
 def prompt_for_sonatype_username_and_password
