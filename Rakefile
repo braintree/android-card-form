@@ -61,7 +61,6 @@ task :release_android_card_form_module do
   post_release(version)
 end
 
-
 def prompt_for_sonatype_username_and_password
   puts "Enter Sonatype username:"
   ENV["SONATYPE_USERNAME"] = $stdin.gets.chomp
@@ -93,7 +92,7 @@ end
 
 def get_current_version
   current_version = nil
-  File.foreach("CardForm/build.gradle") do |line|
+  File.foreach("build.gradle") do |line|
     if match = line.match(/version '(\d+\.\d+\.\d+(-SNAPSHOT)?)'/)
       current_version = match.captures
     end
@@ -104,19 +103,19 @@ end
 
 def increment_version_code
   new_build_file = ""
-  File.foreach("CardForm/build.gradle") do |line|
+  File.foreach("build.gradle") do |line|
     if line.match(/versionCode (\d+)/)
       new_build_file += line.gsub(/versionCode \d+/, "versionCode #{$1.to_i + 1}")
     else
       new_build_file += line
     end
   end
-  IO.write('CardForm/build.gradle', new_build_file)
+  IO.write('build.gradle', new_build_file)
 end
 
 def update_version(version)
-  IO.write("CardForm/build.gradle",
-    File.open("CardForm/build.gradle") do |file|
+  IO.write("build.gradle",
+    File.open("build.gradle") do |file|
       file.read.gsub(/version '\d+\.\d+\.\d+(-SNAPSHOT)?'/, "version '#{version}'")
     end
   )
@@ -137,4 +136,3 @@ def update_readme_snapshot_version(snapshot_version)
     end
   )
 end
-

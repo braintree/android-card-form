@@ -7,11 +7,10 @@ sudo: true
 android:
   components:
     - tools
-    - tools
     - platform-tools
     - build-tools-29.0.3
     - android-28
 before_install:
   - yes | sdkmanager "platforms;android-28"
-script: ./gradlew clean lint test
+script: ./gradlew --stacktrace clean lint testRelease
 after_success: ./deploy_snapshot.sh
