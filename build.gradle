@@ -48,6 +48,8 @@ subprojects {
     }
 
     nexusPublishing {
+        // give nexus staging more time to prevent release failures
+        clientTimeout = Duration.ofMinutes(3)
         repositories {
             sonatype()
         }
