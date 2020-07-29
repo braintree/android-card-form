@@ -13,5 +13,5 @@ android:
     - android-28
 before_install:
   - yes | sdkmanager "platforms;android-28"
-script: ./gradlew clean lint test
+script: ./gradlew -d clean lint test
 after_success: ./deploy_snapshot.sh
