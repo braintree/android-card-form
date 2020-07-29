@@ -20,7 +20,7 @@ allprojects {
     }
 }
 
-version '5.0.0'
+version '5.0.1-SNAPSHOT'
 ext {
     versionName = version
 }
