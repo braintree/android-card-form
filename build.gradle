@@ -40,4 +40,3 @@ nexusStaging {
     username = System.env['SONATYPE_USERNAME']
     password = System.env['SONATYPE_PASSWORD']
 }
-
