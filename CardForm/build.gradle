@@ -36,7 +36,8 @@ dependencies {
     testImplementation 'org.mockito:mockito-core:2.8.9'
 }
 
-/* maven release */
+// region signing and publishing
+
 task javadocs(type: Javadoc) {
     source = android.sourceSets.main.java.srcDirs
     classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
@@ -44,12 +45,12 @@ task javadocs(type: Javadoc) {
 }
 
 task javadocsJar(type: Jar, dependsOn: javadocs) {
-    classifier = 'javadoc'
+    archiveClassifier.set('javadoc')
     from javadocs.destinationDir
 }
 
 task sourcesJar(type: Jar) {
-    classifier = 'sources'
+    archiveClassifier.set('sources')
     from android.sourceSets.main.java.srcDirs
 }
 
@@ -57,8 +58,6 @@ artifacts {
     archives javadocsJar
     archives sourcesJar
 }
-
-// region signing and publishing
 
 signing {
     required {
