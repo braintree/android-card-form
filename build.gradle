@@ -13,6 +13,10 @@ buildscript {
     }
 }
 
+plugins {
+    id 'io.codearte.nexus-staging' version '0.21.2'
+}
+
 allprojects {
     repositories {
         google()
@@ -31,8 +35,6 @@ ext {
 
 def sonatypeUsername = System.env['SONATYPE_USERNAME']
 def sonatypePassword = System.env['SONATYPE_PASSWORD']
-
-apply plugin: 'io.codearte.nexus-staging'
 
 nexusStaging {
     packageGroup = "com.braintreepayments"
