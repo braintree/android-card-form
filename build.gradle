@@ -17,13 +17,6 @@ plugins {
     id 'io.codearte.nexus-staging' version '0.21.2'
 }
 
-allprojects {
-    repositories {
-        google()
-        jcenter()
-    }
-}
-
 version '5.0.1-SNAPSHOT'
 ext {
     compileSdkVersion = 28
@@ -33,33 +26,18 @@ ext {
     versionName = version
 }
 
-def sonatypeUsername = System.env['SONATYPE_USERNAME']
-def sonatypePassword = System.env['SONATYPE_PASSWORD']
+allprojects {
+    repositories {
+        google()
+        jcenter()
+    }
+}
 
 nexusStaging {
     packageGroup = "com.braintreepayments"
     // give nexus sonatype more time to close the staging repository
     delayBetweenRetriesInMillis = 20000
-    username = sonatypeUsername
-    password = sonatypePassword
+    username = System.env['SONATYPE_USERNAME']
+    password = System.env['SONATYPE_PASSWORD']
 }
 
-subprojects {
-    apply plugin: 'signing'
-    apply plugin: 'de.marcphilipp.nexus-publish'
-
-    signing {
-        required {
-            !version.endsWith("SNAPSHOT") && !version.endsWith("DEVELOPMENT")
-        }
-        sign publishing.publications
-    }
-
-    nexusPublishing {
-        // give nexus sonatype more time to initialize the staging repository
-        clientTimeout = Duration.ofMinutes(3)
-        repositories {
-            sonatype()
-        }
-    }
-}

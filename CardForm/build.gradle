@@ -1,4 +1,8 @@
-apply plugin: 'com.android.library'
+plugins {
+    id 'com.android.library'
+    id 'de.marcphilipp.nexus-publish'
+    id 'signing'
+}
 
 android {
     compileSdkVersion rootProject.compileSdkVersion
@@ -54,6 +58,23 @@ artifacts {
     archives sourcesJar
 }
 
+// region signing and publishing
+
+signing {
+    required {
+        !version.endsWith("SNAPSHOT") && !version.endsWith("DEVELOPMENT")
+    }
+    sign publishing.publications
+}
+
+nexusPublishing {
+    // give nexus sonatype more time to initialize the staging repository
+    clientTimeout = Duration.ofMinutes(3)
+    repositories {
+        sonatype()
+    }
+}
+
 afterEvaluate {
     publishing {
         publications {
@@ -62,7 +83,7 @@ afterEvaluate {
 
                 groupId = 'com.braintreepayments'
                 artifactId = 'card-form'
-                version = "${android.defaultConfig.versionName}"
+                version = rootProject.versionName
 
                 pom {
                     name = 'card-form'
@@ -95,3 +116,5 @@ afterEvaluate {
         }
     }
 }
+
+// endregion
