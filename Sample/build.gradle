@@ -1,15 +1,17 @@
-apply plugin: 'com.android.application'
+plugins {
+    id 'com.android.application'
+}
 
 android {
-    compileSdkVersion 28
+    compileSdkVersion rootProject.compileSdkVersion
     buildToolsVersion '29.0.3'
 
     defaultConfig {
         applicationId 'com.braintreepayments.sample'
-        minSdkVersion 21
-        targetSdkVersion 28
-        versionCode 1
-        versionName '1.0.0'
+        minSdkVersion rootProject.minSdkVersion
+        targetSdkVersion rootProject.targetSdkVersion
+        versionCode rootProject.versionCode
+        versionName rootProject.versionName
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -24,14 +26,13 @@ android {
 dependencies {
     implementation project(':CardForm')
 
-    implementation 'com.google.android.material:material:1.0.0'
     implementation 'androidx.appcompat:appcompat:1.0.0'
-
-    implementation 'com.squareup.leakcanary:leakcanary-android:1.4'
     implementation 'com.facebook.stetho:stetho:1.5.0'
+    implementation 'com.google.android.material:material:1.0.0'
+    implementation 'com.squareup.leakcanary:leakcanary-android:1.4'
 
-    androidTestImplementation 'androidx.test:runner:1.1.0'
-    androidTestImplementation 'androidx.test:rules:1.1.0'
     androidTestImplementation 'androidx.test:core:1.0.0'
+    androidTestImplementation 'androidx.test:rules:1.1.0'
+    androidTestImplementation 'androidx.test:runner:1.1.0'
     androidTestImplementation 'com.lukekorth:device-automator:1.0.0'
 }
