@@ -101,14 +101,14 @@ end
 
 def increment_version_code
   new_build_file = ""
-  File.foreach("CardForm/build.gradle") do |line|
-    if line.match(/versionCode (\d+)/)
-      new_build_file += line.gsub(/versionCode \d+/, "versionCode #{$1.to_i + 1}")
+  File.foreach("build.gradle") do |line|
+    if line.match(/versionCode = (\d+)/)
+      new_build_file += line.gsub(/versionCode = \d+/, "versionCode = #{$1.to_i + 1}")
     else
       new_build_file += line
     end
   end
-  IO.write('CardForm/build.gradle', new_build_file)
+  IO.write('build.gradle', new_build_file)
 end
 
 def update_version(version)
