@@ -18,6 +18,6 @@ elif [[ $(./gradlew properties | grep versionName) != *-SNAPSHOT ]]; then
   echo "Skipping snapshot deployment: not a snapshot version."
 else
   echo "Deploying snapshot..."
-  ./gradlew publishToSonatype
+  ./gradlew :CardForm:publishToSonatype
   echo "Snapshot deployed!"
 fi
