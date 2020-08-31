@@ -1,14 +1,18 @@
-apply plugin: 'com.android.library'
+plugins {
+    id 'com.android.library'
+    id 'de.marcphilipp.nexus-publish'
+    id 'signing'
+}
 
 android {
-    compileSdkVersion 28
+    compileSdkVersion rootProject.compileSdkVersion
     buildToolsVersion '29.0.3'
 
     defaultConfig {
-        minSdkVersion 21
-        targetSdkVersion 28
-        versionCode 47
-        versionName rootProject.ext.versionName
+        minSdkVersion rootProject.minSdkVersion
+        targetSdkVersion rootProject.targetSdkVersion
+        versionCode rootProject.versionCode
+        versionName rootProject.versionName
     }
 
     testOptions {
@@ -29,11 +33,12 @@ dependencies {
     implementation 'com.google.android.material:material:1.0.0'
 
     testImplementation 'junit:junit:4.12'
-    testImplementation 'org.robolectric:robolectric:4.3'
     testImplementation 'org.mockito:mockito-core:2.8.9'
+    testImplementation 'org.robolectric:robolectric:4.3'
 }
 
-/* maven release */
+// region signing and publishing
+
 task javadocs(type: Javadoc) {
     source = android.sourceSets.main.java.srcDirs
     classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
@@ -41,18 +46,33 @@ task javadocs(type: Javadoc) {
 }
 
 task javadocsJar(type: Jar, dependsOn: javadocs) {
-    classifier = 'javadoc'
+    archiveClassifier.set('javadoc')
     from javadocs.destinationDir
 }
 
 task sourcesJar(type: Jar) {
-    classifier = 'sources'
+    archiveClassifier.set('sources')
     from android.sourceSets.main.java.srcDirs
 }
 
 artifacts {
     archives javadocsJar
     archives sourcesJar
+}
+
+signing {
+    required {
+        !version.endsWith("SNAPSHOT") && !version.endsWith("DEVELOPMENT")
+    }
+    sign publishing.publications
+}
+
+nexusPublishing {
+    // give nexus sonatype more time to initialize the staging repository
+    clientTimeout = Duration.ofMinutes(3)
+    repositories {
+        sonatype()
+    }
 }
 
 afterEvaluate {
@@ -63,7 +83,7 @@ afterEvaluate {
 
                 groupId = 'com.braintreepayments'
                 artifactId = 'card-form'
-                version = "${android.defaultConfig.versionName}"
+                version = rootProject.versionName
 
                 pom {
                     name = 'card-form'
@@ -96,3 +116,5 @@ afterEvaluate {
         }
     }
 }
+
+// endregion

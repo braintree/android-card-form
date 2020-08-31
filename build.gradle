@@ -8,9 +8,22 @@ buildscript {
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:4.0.1'
-        classpath 'io.codearte.gradle.nexus:gradle-nexus-staging-plugin:0.21.2'
         classpath 'de.marcphilipp.gradle:nexus-publish-plugin:0.4.0'
+        classpath 'io.codearte.gradle.nexus:gradle-nexus-staging-plugin:0.21.2'
     }
+}
+
+plugins {
+    id 'io.codearte.nexus-staging' version '0.21.2'
+}
+
+version '5.0.1-SNAPSHOT'
+ext {
+    compileSdkVersion = 28
+    minSdkVersion = 21
+    targetSdkVersion = 28
+    versionCode = 47
+    versionName = version
 }
 
 allprojects {
@@ -20,40 +33,10 @@ allprojects {
     }
 }
 
-version '5.0.1-SNAPSHOT'
-ext {
-    versionName = version
-}
-
-def sonatypeUsername = System.env['SONATYPE_USERNAME']
-def sonatypePassword = System.env['SONATYPE_PASSWORD']
-
-apply plugin: 'io.codearte.nexus-staging'
-
 nexusStaging {
     packageGroup = "com.braintreepayments"
     // give nexus sonatype more time to close the staging repository
     delayBetweenRetriesInMillis = 20000
-    username = sonatypeUsername
-    password = sonatypePassword
-}
-
-subprojects {
-    apply plugin: 'signing'
-    apply plugin: 'de.marcphilipp.nexus-publish'
-
-    signing {
-        required {
-            !version.endsWith("SNAPSHOT") && !version.endsWith("DEVELOPMENT")
-        }
-        sign publishing.publications
-    }
-
-    nexusPublishing {
-        // give nexus sonatype more time to initialize the staging repository
-        clientTimeout = Duration.ofMinutes(3)
-        repositories {
-            sonatype()
-        }
-    }
+    username = System.env['SONATYPE_USERNAME']
+    password = System.env['SONATYPE_PASSWORD']
 }
