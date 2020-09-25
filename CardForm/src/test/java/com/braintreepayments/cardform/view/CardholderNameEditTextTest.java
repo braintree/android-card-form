@@ -2,6 +2,7 @@ package com.braintreepayments.cardform.view;
 
 import com.braintreepayments.cardform.R;
 import com.braintreepayments.cardform.test.TestActivity;
+import com.braintreepayments.cardform.utils.CardType;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -29,6 +30,13 @@ public class CardholderNameEditTextTest {
 
     @Test
     public void invalidIfEmpty() {
+        assertFalse(mView.isValid());
+    }
+
+    @Test
+    public void invalidIfLuhnValidNumber() {
+        mView.setText( "4111111111111111");
+        assertTrue(CardType.isLuhnValid( "4111111111111111"));
         assertFalse(mView.isValid());
     }
 

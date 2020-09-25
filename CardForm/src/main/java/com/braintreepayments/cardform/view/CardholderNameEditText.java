@@ -4,9 +4,11 @@ import android.content.Context;
 import android.text.InputFilter;
 import android.text.InputFilter.LengthFilter;
 import android.text.InputType;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 
 import com.braintreepayments.cardform.R;
+import com.braintreepayments.cardform.utils.CardType;
 
 /**
  * Input for cardholder name. Validated for presence only.
@@ -36,7 +38,10 @@ public class CardholderNameEditText extends ErrorEditText {
 
     @Override
     public boolean isValid() {
-        return isOptional() || !getText().toString().trim().isEmpty();
+        String cardholderNameText = getText().toString().trim();
+        boolean isCardNumber = TextUtils.isDigitsOnly(cardholderNameText) && CardType.isLuhnValid(cardholderNameText);
+        boolean isValidCardholderName = !cardholderNameText.isEmpty() && !isCardNumber;
+        return isOptional() || isValidCardholderName;
     }
 
     @Override
