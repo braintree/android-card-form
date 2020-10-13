@@ -15,14 +15,6 @@ dependencies {
 }
 ```
 
-To use the latest build from the `master` branch use:
-
- ```groovy
-dependencies {
-    implementation 'com.braintreepayments:card-form:5.0.1-SNAPSHOT'
-}
-```
-
 ## Usage
 
 Card Form is a LinearLayout that you can add to your layout:

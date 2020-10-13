@@ -75,7 +75,6 @@ def post_release(version)
   version_values = version.split('.')
   version_values[2] = version_values[2].to_i + 1
   update_version("#{version_values.join('.')}-SNAPSHOT")
-  update_readme_snapshot_version(version_values.join('.'))
   increment_version_code
   sh "git commit -am 'Prepare for development'"
 
@@ -127,10 +126,3 @@ def update_readme_version(version)
   )
 end
 
-def update_readme_snapshot_version(snapshot_version)
-  IO.write("README.md",
-    File.open("README.md") do |file|
-      file.read.gsub(/:card-form:\d+\.\d+\.\d+-SNAPSHOT'/, ":card-form:#{snapshot_version}-SNAPSHOT'")
-    end
-  )
-end
