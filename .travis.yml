@@ -1,16 +1,11 @@
 language: android
 jdk: oraclejdk8
-notifications:
-  email:
-    - external-ci-notifications+android-card-form@getbraintree.com
-sudo: true
 android:
   components:
     - tools
     - platform-tools
-    - build-tools-29.0.3
-    - android-28
+    - build-tools-30.0.2
+    - android-30
 before_install:
-  - yes | sdkmanager "platforms;android-28"
-script: ./gradlew --stacktrace clean lint testRelease
-after_success: ./deploy_snapshot.sh
+  - yes | sdkmanager "platforms;android-30"
+script: ./gradlew --stacktrace clean testRelease
