@@ -6,9 +6,9 @@ import androidx.test.runner.AndroidJUnit4;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import static com.lukekorth.deviceautomator.AutomatorAssertion.visible;
-import static com.lukekorth.deviceautomator.DeviceAutomator.onDevice;
-import static com.lukekorth.deviceautomator.UiObjectMatcher.withText;
+import static com.braintreepayments.AutomatorAssertion.visible;
+import static com.braintreepayments.DeviceAutomator.onDevice;
+import static com.braintreepayments.UiObjectMatcher.withText;
 
 @RunWith(AndroidJUnit4.class)
 public class CardFormTest {

@@ -1,5 +1,8 @@
 # Android Card Form Release Notes
 
+## unreleased
+  * Bump `compileSdkVersion` and `targetSdkVersion` to API level 30
+  
 ## 5.0.0
 
 * Breaking Changes
