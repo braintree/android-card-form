@@ -2,6 +2,7 @@
 
 ## unreleased
   * Bump `compileSdkVersion` and `targetSdkVersion` to API level 30
+  * Support Maestro cards beginning in 5043
   
 ## 5.0.0
 
