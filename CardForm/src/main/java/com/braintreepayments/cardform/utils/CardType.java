@@ -11,6 +11,13 @@ import java.util.regex.Pattern;
  */
 public enum CardType {
 
+    // order matters here for Maestro since visa regex will detect anything starting with a 4 as Visa
+    MAESTRO("^(493698|5018|5020|5038|5043|5[6-9]|6020|6304|6703|6759|676[1-3])\\d*",
+            R.drawable.bt_ic_maestro,
+            12, 19,
+            3, R.string.bt_cvc,
+            "^6\\d*"),
+
     VISA("^4\\d*",
             R.drawable.bt_ic_visa,
             16, 16,
@@ -35,11 +42,6 @@ public enum CardType {
             R.drawable.bt_ic_jcb,
             16, 16,
             3, R.string.bt_cvv, null),
-    MAESTRO("^(493698|5018|5020|5038|5043|5[6-9]|6020|6304|6703|6759|676[1-3])\\d*",
-            R.drawable.bt_ic_maestro,
-            12, 19,
-            3, R.string.bt_cvc,
-            "^6\\d*"),
     UNIONPAY("^62\\d*",
             R.drawable.bt_ic_unionpay,
             16, 19,
