@@ -1,6 +1,6 @@
 # Android Card Form Release Notes
 
-## unreleased
+## 5.1.0
   * Bump `compileSdkVersion` and `targetSdkVersion` to API level 30
   * Add support for Maestro cards beginning in 5043
   * Update Visa card icons (fixes #103)
