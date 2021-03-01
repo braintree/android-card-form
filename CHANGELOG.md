@@ -3,6 +3,7 @@
 ## unreleased
   * Bump `compileSdkVersion` and `targetSdkVersion` to API level 30
   * Add support for Maestro cards beginning in 5043
+  * Update Visa card icons (fixes #103)
   
 ## 5.0.0
 
