@@ -1,6 +1,7 @@
 package com.braintreepayments.cardform.view;
 
 import android.content.Context;
+import android.text.Editable;
 import android.text.InputFilter;
 import android.text.InputFilter.LengthFilter;
 import android.text.InputType;
@@ -8,10 +9,14 @@ import android.util.AttributeSet;
 
 import com.braintreepayments.cardform.R;
 
+import java.util.regex.Pattern;
+
 /**
  * Input for cardholder name. Validated for presence only.
  */
 public class CardholderNameEditText extends ErrorEditText {
+
+    private static final Pattern sensitiveDataRegex = Pattern.compile("^[\\d\\s-]+$");
 
     public CardholderNameEditText(Context context) {
         super(context);
@@ -36,16 +41,24 @@ public class CardholderNameEditText extends ErrorEditText {
 
     @Override
     public boolean isValid() {
-        return isOptional() || !isTextEmpty() || !isPotentiallySensitiveInformation();
+        if (isOptional()) {
+            return hasValidCardholderNameText();
+        } else {
+            return !isTextEmpty() && hasValidCardholderNameText();
+        }
     }
 
     private boolean isTextEmpty() {
         return getText().toString().trim().isEmpty();
     }
 
-    private boolean isPotentiallySensitiveInformation() {
-        // TODO: implement
-        return false;
+    private boolean hasValidCardholderNameText() {
+        Editable text = getText();
+        if (text != null) {
+            return !sensitiveDataRegex.matcher(text).matches();
+        }
+        // empty text does not contain sensitive data
+        return true;
     }
 
     @Override
