@@ -28,21 +28,43 @@ public class CardholderNameEditTextTest {
     }
 
     @Test
-    public void invalidIfEmpty() {
+    public void isValid_isRequiredByDefault() {
+        assertFalse(mView.isOptional());
+    }
+
+    @Test
+    public void isValid_whenIsRequiredAndTextIsEmpty_returnsFalse() {
         assertFalse(mView.isValid());
     }
 
     @Test
-    public void validIfNotEmpty() {
+    public void isValid_whenIsRequiredAndTextIsNotEmpty_returnsTrue() {
         mView.setText("John Doe");
         assertTrue(mView.isValid());
     }
 
     @Test
-    public void validIfEmptyAndOptional() {
+    public void isValid_whenIsOptionalAndTextIsEmpty_returnsTrue() {
         mView.setOptional(true);
-
         assertTrue(mView.isValid());
+    }
+
+    @Test
+    public void isValid_whenIsRequiredAndIsAlphanumericWithSpaces_returnsTrue() {
+        mView.setText("Jane Doe 123");
+        assertTrue(mView.isValid());
+    }
+
+    @Test
+    public void isValid_whenIsRequiredAndIsOnlyNumericWithHyphensAndSpaces_returnsFalse() {
+        mView.setText("4111-111-1111 1111");
+        assertFalse(mView.isValid());
+    }
+
+    @Test
+    public void isValid_whenIsOptionalAndIsOnlyNumericWithHyphensAndSpaces_returnsFalse() {
+        mView.setText("4111-111-1111 1111");
+        assertFalse(mView.isValid());
     }
 
     @Test
