@@ -36,7 +36,16 @@ public class CardholderNameEditText extends ErrorEditText {
 
     @Override
     public boolean isValid() {
-        return isOptional() || !getText().toString().trim().isEmpty();
+        return isOptional() || !isTextEmpty() || !isPotentiallySensitiveInformation();
+    }
+
+    private boolean isTextEmpty() {
+        return getText().toString().trim().isEmpty();
+    }
+
+    private boolean isPotentiallySensitiveInformation() {
+        // TODO: implement
+        return false;
     }
 
     @Override
