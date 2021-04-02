@@ -1,5 +1,8 @@
 # Android Card Form Release Notes
 
+## unreleased
+  * Validate Cardholder Name field to prevent sensitive data from being input
+
 ## 5.1.0
   * Bump `compileSdkVersion` and `targetSdkVersion` to API level 30
   * Add support for Maestro cards beginning in 5043
