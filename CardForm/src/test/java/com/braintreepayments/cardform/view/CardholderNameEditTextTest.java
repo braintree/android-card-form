@@ -63,6 +63,7 @@ public class CardholderNameEditTextTest {
 
     @Test
     public void isValid_whenIsOptionalAndIsOnlyNumericWithHyphensAndSpaces_returnsFalse() {
+        mView.setOptional(true);
         mView.setText("4111-111-1111 1111");
         assertFalse(mView.isValid());
     }
