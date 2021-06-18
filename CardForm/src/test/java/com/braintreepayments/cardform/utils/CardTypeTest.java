@@ -49,6 +49,7 @@ public class CardTypeTest {
         // Discover
         SAMPLE_CARDS.put("6011111111111117", CardType.DISCOVER);
         SAMPLE_CARDS.put("6011000990139424", CardType.DISCOVER);
+        SAMPLE_CARDS.put("6500000000000000003", CardType.DISCOVER);
 
         // Amex
         SAMPLE_CARDS.put("378282246310005", CardType.AMEX);
