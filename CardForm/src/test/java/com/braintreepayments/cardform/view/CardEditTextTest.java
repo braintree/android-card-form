@@ -51,7 +51,7 @@ public class CardEditTextTest {
 
     @Test
     public void testDiscover() {
-        helper("6011", "1111 1111 1117", R.drawable.bt_ic_discover, 4, 8, 12);
+        helper("6011", "1111 1111 1111117", R.drawable.bt_ic_discover, 4, 8, 12);
     }
 
     @Test

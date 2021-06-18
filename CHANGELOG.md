@@ -1,5 +1,8 @@
 # Android Card Form Release Notes
 
+## unreleased
+  * Increase valid Discover card length to 19 digits
+
 ## 5.1.1
   * Validate Cardholder Name field to prevent sensitive data from being input
 
