@@ -27,6 +27,11 @@ task :integration_tests do
   end
 end
 
+desc "Interactive release to publish new version to maven local"
+task :release_local do
+  sh "./gradlew clean publishToMavenLocal"
+end
+
 desc "Interactive release to publish new version"
 task :release => :unit_tests do
   Rake::Task["assumptions"].invoke

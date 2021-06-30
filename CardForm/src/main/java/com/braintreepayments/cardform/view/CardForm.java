@@ -1,10 +1,7 @@
 package com.braintreepayments.cardform.view;
 
-import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
-import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Build.VERSION_CODES;
 import androidx.annotation.DrawableRes;
 import androidx.annotation.IntDef;
@@ -39,7 +36,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.util.ArrayList;
 import java.util.List;
 
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentActivity;
 
 public class CardForm extends LinearLayout implements OnCardTypeChangedListener, OnFocusChangeListener, OnClickListener,
         OnEditorActionListener, TextWatcher {
@@ -265,12 +262,12 @@ public class CardForm extends LinearLayout implements OnCardTypeChangedListener,
 
     /**
      * Sets up the card form for display to the user using the values provided in {@link CardForm#cardRequired(boolean)},
-     * {@link CardForm#expirationRequired(boolean)}, ect. If {@link CardForm#setup(AppCompatActivity)} is not called,
+     * {@link CardForm#expirationRequired(boolean)}, ect. If {@link CardForm#setup(FragmentActivity)} is not called,
      * the form will not be visible.
      *
-     * @param activity Used to set {@link android.view.WindowManager.LayoutParams#FLAG_SECURE} to prevent screenshots
+     * @param activity Used to set {@link WindowManager.LayoutParams#FLAG_SECURE} to prevent screenshots
      */
-    public void setup(AppCompatActivity activity) {
+    public void setup(FragmentActivity activity) {
         activity.getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE,
                 WindowManager.LayoutParams.FLAG_SECURE);
 
