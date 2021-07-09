@@ -2,6 +2,7 @@
 
 ## unreleased
   * Increase valid Discover card length to 19 digits
+  * Add CardForm#setup(FragmentActivity) overload
 
 ## 5.1.1
   * Validate Cardholder Name field to prevent sensitive data from being input
