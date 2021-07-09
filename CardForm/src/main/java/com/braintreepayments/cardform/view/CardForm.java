@@ -36,6 +36,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.util.ArrayList;
 import java.util.List;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentActivity;
 
 public class CardForm extends LinearLayout implements OnCardTypeChangedListener, OnFocusChangeListener, OnClickListener,
@@ -262,8 +263,19 @@ public class CardForm extends LinearLayout implements OnCardTypeChangedListener,
 
     /**
      * Sets up the card form for display to the user using the values provided in {@link CardForm#cardRequired(boolean)},
-     * {@link CardForm#expirationRequired(boolean)}, ect. If {@link CardForm#setup(FragmentActivity)} is not called,
-     * the form will not be visible.
+     * {@link CardForm#expirationRequired(boolean)}, ect. If {@link CardForm#setup(AppCompatActivity)}
+     * or {@link CardForm#setup(FragmentActivity)} is not called, the form will not be visible.
+     *
+     * @param activity Used to set {@link WindowManager.LayoutParams#FLAG_SECURE} to prevent screenshots
+     */
+    public void setup(AppCompatActivity activity) {
+        setup((FragmentActivity) activity);
+    }
+
+    /**
+     * Sets up the card form for display to the user using the values provided in {@link CardForm#cardRequired(boolean)},
+     * {@link CardForm#expirationRequired(boolean)}, ect. If {@link CardForm#setup(AppCompatActivity)}
+     * or {@link CardForm#setup(FragmentActivity)} is not called, the form will not be visible.
      *
      * @param activity Used to set {@link WindowManager.LayoutParams#FLAG_SECURE} to prevent screenshots
      */
