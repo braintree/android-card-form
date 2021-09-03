@@ -280,9 +280,11 @@ public class CardForm extends LinearLayout implements OnCardTypeChangedListener,
      * @param activity Used to set {@link WindowManager.LayoutParams#FLAG_SECURE} to prevent screenshots
      */
     public void setup(FragmentActivity activity) {
-        activity.getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE,
+         if (!BuildConfig.DEBUG) {
+               activity.getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE,
                 WindowManager.LayoutParams.FLAG_SECURE);
-
+        }
+            
         boolean cardHolderNameVisible = mCardholderNameStatus != FIELD_DISABLED;
         boolean isDarkBackground = ViewUtils.isDarkBackground(activity);
         mCardholderNameIcon.setImageResource(isDarkBackground ? R.drawable.bt_ic_cardholder_name_dark: R.drawable.bt_ic_cardholder_name);
