@@ -82,7 +82,7 @@ public class CardForm extends LinearLayout implements OnCardTypeChangedListener,
 
     private boolean mCardNumberRequired;
     private boolean mExpirationRequired;
-    private boolean mSecureFlagRequired;
+    private boolean mSecureFlagRequired = true;
     private boolean mCvvRequired;
     private int mCardholderNameStatus = FIELD_DISABLED;
     private boolean mPostalCodeRequired;
@@ -169,7 +169,7 @@ public class CardForm extends LinearLayout implements OnCardTypeChangedListener,
         return this;
     }
     /*
-    * @param required Used to set {@link WindowManager.LayoutParams#FLAG_SECURE} to prevent screenshots
+    * @param required Used to set {@link WindowManager.LayoutParams#FLAG_SECURE} to prevent screenshots. Defaults to {@code true}.
      */
                 
     public CardForm secureFlag(boolean required) {
@@ -288,11 +288,10 @@ public class CardForm extends LinearLayout implements OnCardTypeChangedListener,
      * @param activity Used to set {@link WindowManager.LayoutParams#FLAG_SECURE} to prevent screenshots
      */
     public void setup(FragmentActivity activity) {
-                if(mSecureFlagRequired) { 
-                        activity.getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE,
-                        WindowManager.LayoutParams.FLAG_SECURE);
-                }
-        
+        if(mSecureFlagRequired) { 
+             activity.getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE,
+                WindowManager.LayoutParams.FLAG_SECURE);
+        }
             
         boolean cardHolderNameVisible = mCardholderNameStatus != FIELD_DISABLED;
         boolean isDarkBackground = ViewUtils.isDarkBackground(activity);
