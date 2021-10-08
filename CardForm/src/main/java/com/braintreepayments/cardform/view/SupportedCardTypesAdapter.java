@@ -62,8 +62,10 @@ public class SupportedCardTypesAdapter extends RecyclerView.Adapter<SupportedCar
         // contents of the view with that element
 
         viewHolder.getImageView().setImageResource(supportedCardTypes[position].getCardType().getFrontResource());
-        if (supportedCardTypes[position].isSelected()) {
-            viewHolder.getImageView().setAlpha(80);
+        if (supportedCardTypes[position].isDisabled()) {
+            viewHolder.getImageView().setImageAlpha(80);
+        } else {
+            viewHolder.getImageView().setImageAlpha(255);
         }
     }
 
@@ -75,8 +77,10 @@ public class SupportedCardTypesAdapter extends RecyclerView.Adapter<SupportedCar
 
     public void setSelected(CardType cardType) {
         for(SelectableCardType selectableCardType : supportedCardTypes) {
-            if(selectableCardType.getCardType() == cardType) {
-                selectableCardType.setSelected(true);
+            if(selectableCardType.getCardType() != cardType) {
+                selectableCardType.setDisabled(true);
+            } else {
+                selectableCardType.setDisabled(false);
             }
         }
     }

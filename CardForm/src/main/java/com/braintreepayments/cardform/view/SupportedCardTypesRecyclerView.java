@@ -48,6 +48,7 @@ public class SupportedCardTypesRecyclerView extends RecyclerView {
 //            cardTypes = new CardType[]{};
 //        }
         adapter.setSelected(cardType);
+        adapter.notifyDataSetChanged();
 //
 //        SpannableString spannableString = new SpannableString(new String(new char[mSupportedCardTypes.size()]));
 //        PaddedImageSpan span;

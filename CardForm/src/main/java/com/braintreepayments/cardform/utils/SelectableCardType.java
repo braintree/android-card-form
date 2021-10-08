@@ -3,18 +3,18 @@ package com.braintreepayments.cardform.utils;
 public class SelectableCardType {
 
     CardType cardType;
-    boolean selected = false;
+    boolean disabled = false;
 
     public SelectableCardType(CardType cardType) {
         this.cardType = cardType;
     }
 
-    public void setSelected(boolean selected) {
-        this.selected = selected;
+    public void setDisabled(boolean disabled) {
+        this.disabled = disabled;
     }
 
-    public boolean isSelected() {
-        return selected;
+    public boolean isDisabled() {
+        return disabled;
     }
 
     public CardType getCardType() {
