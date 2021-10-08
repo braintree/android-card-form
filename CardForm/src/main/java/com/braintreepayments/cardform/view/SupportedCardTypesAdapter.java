@@ -14,6 +14,9 @@ import com.braintreepayments.cardform.utils.SelectableCardType;
 
 class SupportedCardTypesAdapter extends RecyclerView.Adapter<SupportedCardTypesAdapter.SupportedCardTypesViewHolder> {
 
+    private final int OPAQUE = 255;
+    private final int SEMI_TRANSPARENT = 80;
+
     private final SelectableCardType[] supportedCardTypes;
 
     static class SupportedCardTypesViewHolder extends RecyclerView.ViewHolder {
@@ -49,9 +52,9 @@ class SupportedCardTypesAdapter extends RecyclerView.Adapter<SupportedCardTypesA
 
         viewHolder.getImageView().setContentDescription(selectableCardType.getCardType().toString());
         if (selectableCardType.isDisabled()) {
-            viewHolder.getImageView().setImageAlpha(80);
+            viewHolder.getImageView().setImageAlpha(SEMI_TRANSPARENT);
         } else {
-            viewHolder.getImageView().setImageAlpha(255);
+            viewHolder.getImageView().setImageAlpha(OPAQUE);
         }
     }
 
