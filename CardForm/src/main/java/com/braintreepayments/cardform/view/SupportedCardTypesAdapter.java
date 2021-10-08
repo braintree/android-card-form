@@ -64,8 +64,10 @@ class SupportedCardTypesAdapter extends RecyclerView.Adapter<SupportedCardTypesA
     }
 
     void setSelected(CardType cardType) {
-        for(SelectableCardType selectableCardType : supportedCardTypes) {
-            selectableCardType.setDisabled(selectableCardType.getCardType() != cardType);
+        if (supportedCardTypes != null) {
+            for (SelectableCardType selectableCardType : supportedCardTypes) {
+                selectableCardType.setDisabled(selectableCardType.getCardType() != cardType);
+            }
         }
     }
 }

@@ -5,6 +5,7 @@ import android.util.AttributeSet;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.VisibleForTesting;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -14,6 +15,7 @@ import com.braintreepayments.cardform.utils.SelectableCardType;
 
 public class AccessibleSupportedCardTypesView extends RecyclerView {
 
+    @VisibleForTesting
     SupportedCardTypesAdapter adapter;
 
     public AccessibleSupportedCardTypesView(@NonNull Context context) {
@@ -28,10 +30,15 @@ public class AccessibleSupportedCardTypesView extends RecyclerView {
         super(context, attrs, defStyleAttr);
     }
 
-    public void setSupportedCardTypes(CardType[] cardTypes) {
+    public void setSupportedCardTypes(@Nullable CardType... cardTypes) {
+        if (cardTypes == null) {
+            cardTypes = new CardType[]{};
+        }
         // Limit view to 5 card icons in one row
         int rows;
-        if (cardTypes.length % 5 == 0) {
+        if (cardTypes.length == 0) {
+            rows = 1;
+        } else if (cardTypes.length % 5 == 0) {
             rows = cardTypes.length / 5;
         } else {
             rows = (cardTypes.length / 5) + 1;
@@ -47,7 +54,9 @@ public class AccessibleSupportedCardTypesView extends RecyclerView {
     }
 
     public void setSelected(@Nullable CardType cardType) {
-        adapter.setSelected(cardType);
-        adapter.notifyDataSetChanged();
+        if (adapter != null) {
+            adapter.setSelected(cardType);
+            adapter.notifyDataSetChanged();
+        }
     }
 }
