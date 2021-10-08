@@ -24,7 +24,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:paddingTop="20dp"/>
+                android:paddingTop="20dp"
+                android:contentDescription="@string/bt_supported_card_types_description"/>
 
             <com.braintreepayments.cardform.view.CardForm
                 android:id="@+id/card_form"

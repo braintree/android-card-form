@@ -44,8 +44,13 @@ public class SupportedCardTypesAdapter extends RecyclerView.Adapter<SupportedCar
 
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, final int position) {
-        viewHolder.getImageView().setImageResource(supportedCardTypes[position].getCardType().getFrontResource());
-        if (supportedCardTypes[position].isDisabled()) {
+        SelectableCardType selectableCardType = supportedCardTypes[position];
+        viewHolder.getImageView().setImageResource(selectableCardType.getCardType().getFrontResource());
+
+        String descripion = selectableCardType.getCardType().toString();
+
+        viewHolder.getImageView().setContentDescription(selectableCardType.getCardType().toString());
+        if (selectableCardType.isDisabled()) {
             viewHolder.getImageView().setImageAlpha(80);
         } else {
             viewHolder.getImageView().setImageAlpha(255);
