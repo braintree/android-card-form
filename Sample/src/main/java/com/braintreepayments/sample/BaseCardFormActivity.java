@@ -2,15 +2,20 @@ package com.braintreepayments.sample;
 
 import android.os.Bundle;
 import android.view.WindowManager;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import com.braintreepayments.cardform.OnCardFormSubmitListener;
 import com.braintreepayments.cardform.utils.CardType;
 import com.braintreepayments.cardform.view.CardEditText;
 import com.braintreepayments.cardform.view.CardForm;
-import com.braintreepayments.cardform.view.SupportedCardTypesView;
+import com.braintreepayments.cardform.view.SupportedCardTypesAdapter;
+import com.braintreepayments.cardform.view.SupportedCardTypesRecyclerView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
+
+import java.util.Arrays;
 
 public class BaseCardFormActivity extends AppCompatActivity implements OnCardFormSubmitListener,
         CardEditText.OnCardTypeChangedListener {
@@ -19,7 +24,7 @@ public class BaseCardFormActivity extends AppCompatActivity implements OnCardFor
                 CardType.AMEX, CardType.DINERS_CLUB, CardType.JCB, CardType.MAESTRO, CardType.UNIONPAY,
                 CardType.HIPER, CardType.HIPERCARD };
 
-    private SupportedCardTypesView mSupportedCardTypesView;
+    private SupportedCardTypesRecyclerView mSupportedCardTypesView;
 
     protected CardForm mCardForm;
 
@@ -30,6 +35,8 @@ public class BaseCardFormActivity extends AppCompatActivity implements OnCardFor
 
         mSupportedCardTypesView = findViewById(R.id.supported_card_types);
         mSupportedCardTypesView.setSupportedCardTypes(SUPPORTED_CARD_TYPES);
+
+//        mSupportedCardTypesView.setSupportedCardTypes(SUPPORTED_CARD_TYPES);
 
         mCardForm = findViewById(R.id.card_form);
         mCardForm.cardRequired(true)
@@ -55,11 +62,11 @@ public class BaseCardFormActivity extends AppCompatActivity implements OnCardFor
 
     @Override
     public void onCardTypeChanged(CardType cardType) {
-        if (cardType == CardType.EMPTY) {
-            mSupportedCardTypesView.setSupportedCardTypes(SUPPORTED_CARD_TYPES);
-        } else {
-            mSupportedCardTypesView.setSelected(cardType);
-        }
+//        if (cardType == CardType.EMPTY) {
+//            mSupportedCardTypesView.setSupportedCardTypes(SUPPORTED_CARD_TYPES);
+//        } else {
+//            mSupportedCardTypesView.setSelected(cardType);
+//        }
     }
 
     @Override
