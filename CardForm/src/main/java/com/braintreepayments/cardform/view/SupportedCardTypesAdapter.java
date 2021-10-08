@@ -6,20 +6,22 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.braintreepayments.cardform.R;
 import com.braintreepayments.cardform.utils.CardType;
 import com.braintreepayments.cardform.utils.SelectableCardType;
 
-public class SupportedCardTypesAdapter extends RecyclerView.Adapter<SupportedCardTypesAdapter.ViewHolder> {
+class SupportedCardTypesAdapter extends RecyclerView.Adapter<SupportedCardTypesAdapter.SupportedCardTypesViewHolder> {
 
     private final SelectableCardType[] supportedCardTypes;
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    static class SupportedCardTypesViewHolder extends RecyclerView.ViewHolder {
         private final ImageView imageView;
 
-        public ViewHolder(View view) {
+        public SupportedCardTypesViewHolder(View view) {
             super(view);
             imageView = view.findViewById(R.id.bt_supported_card_icon);
         }
@@ -29,25 +31,23 @@ public class SupportedCardTypesAdapter extends RecyclerView.Adapter<SupportedCar
         }
     }
 
-    public SupportedCardTypesAdapter(SelectableCardType[] dataSet) {
-        supportedCardTypes = dataSet;
+    SupportedCardTypesAdapter(SelectableCardType[] cardTypes) {
+        supportedCardTypes = cardTypes;
     }
 
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
+    public SupportedCardTypesViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
         View view = LayoutInflater.from(viewGroup.getContext())
                 .inflate(R.layout.bt_supported_card_type, viewGroup, false);
 
-        return new ViewHolder(view);
+        return new SupportedCardTypesViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder viewHolder, final int position) {
+    public void onBindViewHolder(SupportedCardTypesViewHolder viewHolder, final int position) {
         SelectableCardType selectableCardType = supportedCardTypes[position];
         viewHolder.getImageView().setImageResource(selectableCardType.getCardType().getFrontResource());
-
-        String descripion = selectableCardType.getCardType().toString();
 
         viewHolder.getImageView().setContentDescription(selectableCardType.getCardType().toString());
         if (selectableCardType.isDisabled()) {
@@ -62,7 +62,7 @@ public class SupportedCardTypesAdapter extends RecyclerView.Adapter<SupportedCar
         return supportedCardTypes.length;
     }
 
-    public void setSelected(CardType cardType) {
+    void setSelected(CardType cardType) {
         for(SelectableCardType selectableCardType : supportedCardTypes) {
             selectableCardType.setDisabled(selectableCardType.getCardType() != cardType);
         }

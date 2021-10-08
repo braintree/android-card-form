@@ -1,22 +1,16 @@
 package com.braintreepayments.sample;
 
-import android.app.ApplicationErrorReport;
 import android.os.Bundle;
 import android.view.WindowManager;
-import android.widget.ListView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.braintreepayments.cardform.OnCardFormSubmitListener;
 import com.braintreepayments.cardform.utils.CardType;
 import com.braintreepayments.cardform.view.CardEditText;
 import com.braintreepayments.cardform.view.CardForm;
-import com.braintreepayments.cardform.view.SupportedCardTypesAdapter;
 import com.braintreepayments.cardform.view.SupportedCardTypesRecyclerView;
-
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.RecyclerView;
-
-import java.util.Arrays;
 
 public class BaseCardFormActivity extends AppCompatActivity implements OnCardFormSubmitListener,
         CardEditText.OnCardTypeChangedListener {
