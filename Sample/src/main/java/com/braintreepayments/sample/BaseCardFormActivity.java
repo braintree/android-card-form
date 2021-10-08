@@ -1,5 +1,6 @@
 package com.braintreepayments.sample;
 
+import android.app.ApplicationErrorReport;
 import android.os.Bundle;
 import android.view.WindowManager;
 import android.widget.ListView;

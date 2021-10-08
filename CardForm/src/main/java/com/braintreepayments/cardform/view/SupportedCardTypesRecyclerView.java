@@ -1,7 +1,6 @@
 package com.braintreepayments.cardform.view;
 
 import android.content.Context;
-import android.text.SpannableString;
 import android.util.AttributeSet;
 
 import androidx.annotation.NonNull;
@@ -12,8 +11,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.braintreepayments.cardform.utils.CardType;
 import com.braintreepayments.cardform.utils.SelectableCardType;
-
-import java.util.Arrays;
 
 public class SupportedCardTypesRecyclerView extends RecyclerView {
 
@@ -32,7 +29,14 @@ public class SupportedCardTypesRecyclerView extends RecyclerView {
     }
 
     public void setSupportedCardTypes(CardType[] cardTypes) {
-        setLayoutManager(new GridLayoutManager(getContext(), 2, LinearLayoutManager.HORIZONTAL, false));
+        // Limit view to 5 card icons in one row
+        int rows;
+        if (cardTypes.length % 5 == 0) {
+            rows = cardTypes.length / 5;
+        } else {
+            rows = (cardTypes.length / 5) + 1;
+        }
+        setLayoutManager(new GridLayoutManager(getContext(), rows, LinearLayoutManager.HORIZONTAL, false));
 
         SelectableCardType[] selectableCardTypes = new SelectableCardType[cardTypes.length];
         for(int i = 0; i < cardTypes.length; i++) {
@@ -40,24 +44,10 @@ public class SupportedCardTypesRecyclerView extends RecyclerView {
         }
         adapter = new SupportedCardTypesAdapter(selectableCardTypes);
         setAdapter(adapter);
-//        setSelected(cardTypes);
     }
 
     public void setSelected(@Nullable CardType cardType) {
-//        if (cardTypes == null) {
-//            cardTypes = new CardType[]{};
-//        }
         adapter.setSelected(cardType);
         adapter.notifyDataSetChanged();
-//
-//        SpannableString spannableString = new SpannableString(new String(new char[mSupportedCardTypes.size()]));
-//        PaddedImageSpan span;
-//        for (int i = 0; i < mSupportedCardTypes.size(); i++) {
-//            span = new PaddedImageSpan(getContext(), mSupportedCardTypes.get(i).getFrontResource());
-//            span.setDisabled(!Arrays.asList(cardTypes).contains(mSupportedCardTypes.get(i)));
-//            spannableString.setSpan(span, i, i + 1, SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE);
-//        }
-//
-//        setText(spannableString);
     }
 }
