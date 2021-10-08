@@ -62,11 +62,11 @@ public class BaseCardFormActivity extends AppCompatActivity implements OnCardFor
 
     @Override
     public void onCardTypeChanged(CardType cardType) {
-//        if (cardType == CardType.EMPTY) {
-//            mSupportedCardTypesView.setSupportedCardTypes(SUPPORTED_CARD_TYPES);
-//        } else {
-//            mSupportedCardTypesView.setSelected(cardType);
-//        }
+        if (cardType == CardType.EMPTY) {
+            mSupportedCardTypesView.setSupportedCardTypes(SUPPORTED_CARD_TYPES);
+        } else {
+            mSupportedCardTypesView.setSelected(cardType);
+        }
     }
 
     @Override

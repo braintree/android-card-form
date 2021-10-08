@@ -9,10 +9,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.braintreepayments.cardform.R;
 import com.braintreepayments.cardform.utils.CardType;
+import com.braintreepayments.cardform.utils.SelectableCardType;
 
 public class SupportedCardTypesAdapter extends RecyclerView.Adapter<SupportedCardTypesAdapter.ViewHolder> {
 
-    private CardType[] supportedCardTypes;
+    private SelectableCardType[] supportedCardTypes;
 
     /**
      * Provide a reference to the type of views that you are using
@@ -39,7 +40,7 @@ public class SupportedCardTypesAdapter extends RecyclerView.Adapter<SupportedCar
      * @param dataSet String[] containing the data to populate views to be used
      * by RecyclerView.
      */
-    public SupportedCardTypesAdapter(CardType[] dataSet) {
+    public SupportedCardTypesAdapter(SelectableCardType[] dataSet) {
         supportedCardTypes = dataSet;
     }
 
@@ -60,12 +61,23 @@ public class SupportedCardTypesAdapter extends RecyclerView.Adapter<SupportedCar
         // Get element from your dataset at this position and replace the
         // contents of the view with that element
 
-        viewHolder.getImageView().setImageResource(supportedCardTypes[position].getFrontResource());
+        viewHolder.getImageView().setImageResource(supportedCardTypes[position].getCardType().getFrontResource());
+        if (supportedCardTypes[position].isSelected()) {
+            viewHolder.getImageView().setAlpha(80);
+        }
     }
 
     // Return the size of your dataset (invoked by the layout manager)
     @Override
     public int getItemCount() {
         return supportedCardTypes.length;
+    }
+
+    public void setSelected(CardType cardType) {
+        for(SelectableCardType selectableCardType : supportedCardTypes) {
+            if(selectableCardType.getCardType() == cardType) {
+                selectableCardType.setSelected(true);
+            }
+        }
     }
 }
