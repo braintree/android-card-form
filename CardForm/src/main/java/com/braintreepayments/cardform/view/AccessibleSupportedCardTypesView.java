@@ -12,19 +12,19 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.braintreepayments.cardform.utils.CardType;
 import com.braintreepayments.cardform.utils.SelectableCardType;
 
-public class SupportedCardTypesRecyclerView extends RecyclerView {
+public class AccessibleSupportedCardTypesView extends RecyclerView {
 
     SupportedCardTypesAdapter adapter;
 
-    public SupportedCardTypesRecyclerView(@NonNull Context context) {
+    public AccessibleSupportedCardTypesView(@NonNull Context context) {
         super(context);
     }
 
-    public SupportedCardTypesRecyclerView(Context context, AttributeSet attrs) {
+    public AccessibleSupportedCardTypesView(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
-    public SupportedCardTypesRecyclerView(Context context, AttributeSet attrs, int defStyleAttr) {
+    public AccessibleSupportedCardTypesView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
 

@@ -10,7 +10,7 @@ import com.braintreepayments.cardform.OnCardFormSubmitListener;
 import com.braintreepayments.cardform.utils.CardType;
 import com.braintreepayments.cardform.view.CardEditText;
 import com.braintreepayments.cardform.view.CardForm;
-import com.braintreepayments.cardform.view.SupportedCardTypesRecyclerView;
+import com.braintreepayments.cardform.view.AccessibleSupportedCardTypesView;
 
 public class BaseCardFormActivity extends AppCompatActivity implements OnCardFormSubmitListener,
         CardEditText.OnCardTypeChangedListener {
@@ -19,7 +19,7 @@ public class BaseCardFormActivity extends AppCompatActivity implements OnCardFor
             CardType.AMEX, CardType.DINERS_CLUB, CardType.JCB, CardType.MAESTRO, CardType.UNIONPAY,
             CardType.HIPER, CardType.HIPERCARD };
 
-    private SupportedCardTypesRecyclerView mSupportedCardTypesView;
+    private AccessibleSupportedCardTypesView mSupportedCardTypesView;
 
     protected CardForm mCardForm;
 
