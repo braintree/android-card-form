@@ -8,9 +8,11 @@ import static org.mockito.Mockito.verify;
 import androidx.test.core.app.ApplicationProvider;
 
 import com.braintreepayments.cardform.utils.CardType;
+import com.braintreepayments.cardform.utils.SelectableCardType;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.ArgumentCaptor;
 import org.robolectric.RobolectricTestRunner;
 
 @RunWith(RobolectricTestRunner.class)
@@ -26,7 +28,16 @@ public class AccessibleSupportedCardTypesViewTest {
 
         assertEquals(10, sut.getAdapter().getItemCount());
 
-        // TODO: assert on card types
+        assertEquals(CardType.VISA, sut.adapter.getSupportedCardTypes()[0].getCardType());
+        assertEquals(CardType.MASTERCARD, sut.adapter.getSupportedCardTypes()[1].getCardType());
+        assertEquals(CardType.DISCOVER, sut.adapter.getSupportedCardTypes()[2].getCardType());
+        assertEquals(CardType.AMEX, sut.adapter.getSupportedCardTypes()[3].getCardType());
+        assertEquals(CardType.DINERS_CLUB, sut.adapter.getSupportedCardTypes()[4].getCardType());
+        assertEquals(CardType.JCB, sut.adapter.getSupportedCardTypes()[5].getCardType());
+        assertEquals(CardType.MAESTRO, sut.adapter.getSupportedCardTypes()[6].getCardType());
+        assertEquals(CardType.UNIONPAY, sut.adapter.getSupportedCardTypes()[7].getCardType());
+        assertEquals(CardType.HIPER, sut.adapter.getSupportedCardTypes()[8].getCardType());
+        assertEquals(CardType.HIPERCARD, sut.adapter.getSupportedCardTypes()[9].getCardType());
     }
 
     @Test

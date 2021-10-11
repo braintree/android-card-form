@@ -6,6 +6,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.VisibleForTesting;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.braintreepayments.cardform.R;
@@ -61,6 +62,11 @@ class SupportedCardTypesAdapter extends RecyclerView.Adapter<SupportedCardTypesA
     @Override
     public int getItemCount() {
         return supportedCardTypes.length;
+    }
+
+    @VisibleForTesting
+    SelectableCardType[] getSupportedCardTypes() {
+        return supportedCardTypes;
     }
 
     void setSelected(CardType cardType) {
