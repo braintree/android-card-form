@@ -16,6 +16,9 @@ import com.google.android.flexbox.FlexDirection;
 import com.google.android.flexbox.FlexboxLayoutManager;
 import com.google.android.flexbox.JustifyContent;
 
+/**
+ * Display a set of icons for a list of supported card types.
+ */
 public class AccessibleSupportedCardTypesView extends RecyclerView {
 
     @VisibleForTesting
@@ -33,6 +36,11 @@ public class AccessibleSupportedCardTypesView extends RecyclerView {
         super(context, attrs, defStyleAttr);
     }
 
+    /**
+     * Sets the supported {@link CardType}s on the view to display the card icons.
+     *
+     * @param cardTypes The {@link CardType}s to display
+     */
     public void setSupportedCardTypes(@Nullable CardType... cardTypes) {
         FlexboxLayoutManager layoutManager = new FlexboxLayoutManager(getContext(), FlexDirection.ROW);
         layoutManager.setJustifyContent(JustifyContent.CENTER);
@@ -49,6 +57,15 @@ public class AccessibleSupportedCardTypesView extends RecyclerView {
         setAdapter(adapter);
     }
 
+    /**
+     * Sets the {@link CardType} passed into this method as visually enabled.
+     *
+     * The remaining supported card types will become visually disabled.
+     *
+     * {@link #setSupportedCardTypes(CardType...)} must be called prior to using this method.
+     *
+     * @param cardType The {@link CardType} to set as visually enabled.
+     */
     public void setSelected(@Nullable CardType cardType) {
         if (adapter != null) {
             adapter.setSelected(cardType);
