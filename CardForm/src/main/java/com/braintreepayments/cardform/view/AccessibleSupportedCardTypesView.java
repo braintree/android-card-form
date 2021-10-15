@@ -12,6 +12,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.braintreepayments.cardform.utils.CardType;
 import com.braintreepayments.cardform.utils.SelectableCardType;
+import com.google.android.flexbox.FlexDirection;
+import com.google.android.flexbox.FlexboxLayoutManager;
+import com.google.android.flexbox.JustifyContent;
 
 public class AccessibleSupportedCardTypesView extends RecyclerView {
 
@@ -31,20 +34,13 @@ public class AccessibleSupportedCardTypesView extends RecyclerView {
     }
 
     public void setSupportedCardTypes(@Nullable CardType... cardTypes) {
+        FlexboxLayoutManager layoutManager = new FlexboxLayoutManager(getContext(), FlexDirection.ROW);
+        layoutManager.setJustifyContent(JustifyContent.CENTER);
+        setLayoutManager(layoutManager);
+
         if (cardTypes == null) {
             cardTypes = new CardType[]{};
         }
-        // Limit view to 5 card icons in one row
-        int rows;
-        if (cardTypes.length == 0) {
-            rows = 1;
-        } else if (cardTypes.length % 5 == 0) {
-            rows = cardTypes.length / 5;
-        } else {
-            rows = (cardTypes.length / 5) + 1;
-        }
-        setLayoutManager(new GridLayoutManager(getContext(), rows, LinearLayoutManager.HORIZONTAL, false));
-
         SelectableCardType[] selectableCardTypes = new SelectableCardType[cardTypes.length];
         for(int i = 0; i < cardTypes.length; i++) {
             selectableCardTypes[i] = new SelectableCardType(cardTypes[i]);
