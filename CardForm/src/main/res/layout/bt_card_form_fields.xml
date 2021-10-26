@@ -182,7 +182,7 @@
             android:layout_marginStart="@dimen/bt_save_card_checkbox_left_margin"
             android:layout_marginLeft="@dimen/bt_save_card_checkbox_left_margin"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="48dp"
             android:text="@string/bt_save_card_checkbox_name"/>
     </LinearLayout>
 </merge>
