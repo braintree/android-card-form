@@ -19,6 +19,7 @@ import java.util.List;
  * Display a set of icons for a list of supported card types.
  */
 @SuppressLint("AppCompatCustomView")
+@Deprecated
 public class SupportedCardTypesView extends TextView {
 
     private List<CardType> mSupportedCardTypes = new ArrayList<>();

@@ -1,5 +1,9 @@
 # Android Card Form Release Notes
 
+## unreleased
+  * Add `AccessibleSupportedCardTypesView` with support for screen reading and tab navigation
+  * Deprecate `SupportedCardTypesView` in favor of `AccessibleSupportedCardTypesView`
+
 ## 5.2.0
   * Increase valid Discover card length to 19 digits
   * Add `CardForm#setup(FragmentActivity)` overload

@@ -4,22 +4,22 @@ import android.os.Bundle;
 import android.view.WindowManager;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.braintreepayments.cardform.OnCardFormSubmitListener;
 import com.braintreepayments.cardform.utils.CardType;
 import com.braintreepayments.cardform.view.CardEditText;
 import com.braintreepayments.cardform.view.CardForm;
-import com.braintreepayments.cardform.view.SupportedCardTypesView;
-
-import androidx.appcompat.app.AppCompatActivity;
+import com.braintreepayments.cardform.view.AccessibleSupportedCardTypesView;
 
 public class BaseCardFormActivity extends AppCompatActivity implements OnCardFormSubmitListener,
         CardEditText.OnCardTypeChangedListener {
 
     private static final CardType[] SUPPORTED_CARD_TYPES = { CardType.VISA, CardType.MASTERCARD, CardType.DISCOVER,
-                CardType.AMEX, CardType.DINERS_CLUB, CardType.JCB, CardType.MAESTRO, CardType.UNIONPAY,
-                CardType.HIPER, CardType.HIPERCARD };
+            CardType.AMEX, CardType.DINERS_CLUB, CardType.JCB, CardType.MAESTRO, CardType.UNIONPAY,
+            CardType.HIPER, CardType.HIPERCARD };
 
-    private SupportedCardTypesView mSupportedCardTypesView;
+    private AccessibleSupportedCardTypesView mSupportedCardTypesView;
 
     protected CardForm mCardForm;
 

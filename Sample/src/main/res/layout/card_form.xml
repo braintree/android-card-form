@@ -13,12 +13,15 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <com.braintreepayments.cardform.view.SupportedCardTypesView
+            <com.braintreepayments.cardform.view.AccessibleSupportedCardTypesView
                 android:id="@+id/supported_card_types"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center"
-                android:paddingTop="20dp" />
+                android:layout_gravity="center"
+                android:paddingTop="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:contentDescription="@string/bt_supported_card_types_description"/>
 
             <com.braintreepayments.cardform.view.CardForm
                 android:id="@+id/card_form"
