@@ -1,6 +1,6 @@
 # Android Card Form Release Notes
 
-## unreleased
+## 5.3.0
   * Add `AccessibleSupportedCardTypesView` with support for screen reading and tab navigation
   * Deprecate `SupportedCardTypesView` in favor of `AccessibleSupportedCardTypesView`
 
