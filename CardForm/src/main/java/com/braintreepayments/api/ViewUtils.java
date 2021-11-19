@@ -9,14 +9,14 @@ import android.util.TypedValue;
 
 import com.braintreepayments.api.cardform.R;
 
-public class ViewUtils {
+class ViewUtils {
 
-    public static int dp2px(Context context, float dp) {
+    static int dp2px(Context context, float dp) {
         return Math.round(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp,
                 context.getResources().getDisplayMetrics()));
     }
 
-    public static boolean isDarkBackground(Activity activity) {
+    static boolean isDarkBackground(Activity activity) {
         int color = activity.getResources().getColor(R.color.bt_white);
         try {
             Drawable background = activity.getWindow().getDecorView().getRootView().getBackground();
