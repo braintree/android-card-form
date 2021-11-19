@@ -1,8 +1,6 @@
-package com.braintreepayments.cardform.utils;
+package com.braintreepayments.cardform;
 
 import android.app.Activity;
-
-import com.braintreepayments.cardform.R;
 
 public enum ExpirationDateDialogTheme {
 

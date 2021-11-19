@@ -1,4 +1,4 @@
-package com.braintreepayments.cardform.view;
+package com.braintreepayments.cardform;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,10 +8,6 @@ import android.widget.ImageView;
 import androidx.annotation.NonNull;
 import androidx.annotation.VisibleForTesting;
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.braintreepayments.cardform.R;
-import com.braintreepayments.cardform.utils.CardType;
-import com.braintreepayments.cardform.utils.SelectableCardType;
 
 class SupportedCardTypesAdapter extends RecyclerView.Adapter<SupportedCardTypesAdapter.SupportedCardTypesViewHolder> {
 

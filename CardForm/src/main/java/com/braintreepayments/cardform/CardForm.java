@@ -1,4 +1,4 @@
-package com.braintreepayments.cardform.view;
+package com.braintreepayments.cardform;
 
 import android.annotation.TargetApi;
 import android.content.Context;
@@ -23,13 +23,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
 
-import com.braintreepayments.cardform.OnCardFormFieldFocusedListener;
-import com.braintreepayments.cardform.OnCardFormSubmitListener;
-import com.braintreepayments.cardform.OnCardFormValidListener;
-import com.braintreepayments.cardform.R;
-import com.braintreepayments.cardform.utils.CardType;
-import com.braintreepayments.cardform.utils.ViewUtils;
-import com.braintreepayments.cardform.view.CardEditText.OnCardTypeChangedListener;
+import com.braintreepayments.cardform.CardEditText.OnCardTypeChangedListener;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -412,7 +406,7 @@ public class CardForm extends LinearLayout implements OnCardTypeChangedListener,
     }
 
     /**
-     * Set the listener to receive a callback when the {@link com.braintreepayments.cardform.utils.CardType} changes.
+     * Set the listener to receive a callback when the {@link CardType} changes.
      *
      * @param listener to receive the callback
      */

@@ -1,4 +1,4 @@
-package com.braintreepayments.cardform.view;
+package com.braintreepayments.cardform;
 
 import android.content.Context;
 import android.text.Editable;
@@ -9,11 +9,7 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.text.method.PasswordTransformationMethod;
 import android.text.method.SingleLineTransformationMethod;
-import android.text.method.TransformationMethod;
 import android.util.AttributeSet;
-
-import com.braintreepayments.cardform.R;
-import com.braintreepayments.cardform.utils.CardType;
 
 /**
  * An {@link android.widget.EditText} that displays a CVV hint for a given Card type when focused.
@@ -48,7 +44,7 @@ public class CvvEditText extends ErrorEditText implements TextWatcher {
     /**
      * Sets the card type associated with the security code type. {@link CardType#AMEX} has a
      * different icon and length than other card types. Typically handled through
-     * {@link com.braintreepayments.cardform.view.CardEditText.OnCardTypeChangedListener#onCardTypeChanged(com.braintreepayments.cardform.utils.CardType)}.
+     * {@link CardEditText.OnCardTypeChangedListener#onCardTypeChanged(CardType)}.
      *
      * @param cardType Type of card represented by the current value of card number input.
      */

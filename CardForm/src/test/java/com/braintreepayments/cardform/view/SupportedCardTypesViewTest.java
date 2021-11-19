@@ -2,7 +2,9 @@ package com.braintreepayments.cardform.view;
 
 import android.text.SpannableString;
 
-import com.braintreepayments.cardform.utils.CardType;
+import com.braintreepayments.cardform.CardType;
+import com.braintreepayments.cardform.PaddedImageSpan;
+import com.braintreepayments.cardform.SupportedCardTypesView;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

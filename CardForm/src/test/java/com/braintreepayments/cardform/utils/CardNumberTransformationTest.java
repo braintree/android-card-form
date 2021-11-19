@@ -6,6 +6,8 @@ import org.robolectric.RobolectricTestRunner;
 
 import static org.junit.Assert.assertEquals;
 
+import com.braintreepayments.cardform.CardNumberTransformation;
+
 @RunWith(RobolectricTestRunner.class)
 public class CardNumberTransformationTest {
 

@@ -1,4 +1,4 @@
-package com.braintreepayments.cardform.utils;
+package com.braintreepayments.cardform;
 
 import android.graphics.Rect;
 import android.text.method.TransformationMethod;

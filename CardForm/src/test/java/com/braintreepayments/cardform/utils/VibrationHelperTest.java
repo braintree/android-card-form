@@ -18,6 +18,8 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyZeroInteractions;
 import static org.mockito.Mockito.when;
 
+import com.braintreepayments.cardform.VibrationHelper;
+
 @RunWith(RobolectricTestRunner.class)
 public class VibrationHelperTest {
 

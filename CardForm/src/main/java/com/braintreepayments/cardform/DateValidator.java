@@ -1,11 +1,11 @@
-package com.braintreepayments.cardform.utils;
+package com.braintreepayments.cardform;
 
 import android.text.TextUtils;
 
 import java.util.Calendar;
 
 /**
- * Class provided as a convenience to {@link com.braintreepayments.cardform.view.ExpirationDateEditText} to
+ * Class provided as a convenience to {@link ExpirationDateEditText} to
  * make testing easier.
  */
 public class DateValidator {

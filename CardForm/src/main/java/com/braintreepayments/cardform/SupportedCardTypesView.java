@@ -1,4 +1,4 @@
-package com.braintreepayments.cardform.view;
+package com.braintreepayments.cardform;
 
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
@@ -8,8 +8,6 @@ import androidx.annotation.Nullable;
 import android.text.SpannableString;
 import android.util.AttributeSet;
 import android.widget.TextView;
-
-import com.braintreepayments.cardform.utils.CardType;
 
 import java.util.ArrayList;
 import java.util.Arrays;

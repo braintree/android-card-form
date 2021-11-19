@@ -10,9 +10,9 @@ import static org.mockito.Mockito.when;
 
 import android.widget.ImageView;
 
-import com.braintreepayments.cardform.R;
-import com.braintreepayments.cardform.utils.CardType;
-import com.braintreepayments.cardform.utils.SelectableCardType;
+import com.braintreepayments.cardform.CardType;
+import com.braintreepayments.cardform.SelectableCardType;
+import com.braintreepayments.cardform.SupportedCardTypesAdapter;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

@@ -1,4 +1,4 @@
-package com.braintreepayments.cardform.utils;
+package com.braintreepayments.cardform;
 
 import android.Manifest;
 import android.annotation.SuppressLint;

@@ -1,8 +1,6 @@
-package com.braintreepayments.cardform.utils;
+package com.braintreepayments.cardform;
 
 import android.text.TextUtils;
-
-import com.braintreepayments.cardform.R;
 
 import java.util.regex.Pattern;
 
@@ -84,7 +82,7 @@ public enum CardType {
     }
 
     /**
-     * Returns the card type matching this account, or {@link com.braintreepayments.cardform.utils.CardType#UNKNOWN}
+     * Returns the card type matching this account, or {@link CardType#UNKNOWN}
      * for no match.
      * <p/>
      * A partial account type may be given, with the caveat that it may not have enough digits to
@@ -166,14 +164,14 @@ public enum CardType {
     }
 
     /**
-     * @return minimum length of a card for this {@link com.braintreepayments.cardform.utils.CardType}
+     * @return minimum length of a card for this {@link CardType}
      */
     public int getMinCardLength() {
         return mMinCardLength;
     }
 
     /**
-     * @return max length of a card for this {@link com.braintreepayments.cardform.utils.CardType}
+     * @return max length of a card for this {@link CardType}
      */
     public int getMaxCardLength() {
         return mMaxCardLength;

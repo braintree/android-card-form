@@ -3,7 +3,7 @@ package com.braintreepayments.cardform.test;
 import android.os.Bundle;
 import android.widget.FrameLayout;
 
-import com.braintreepayments.cardform.view.CardForm;
+import com.braintreepayments.cardform.CardForm;
 
 import androidx.appcompat.app.AppCompatActivity;
 

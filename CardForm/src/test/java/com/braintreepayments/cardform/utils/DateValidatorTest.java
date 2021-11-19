@@ -10,6 +10,8 @@ import java.util.Calendar;
 import static junit.framework.Assert.assertFalse;
 import static junit.framework.Assert.assertTrue;
 
+import com.braintreepayments.cardform.DateValidator;
+
 @RunWith(RobolectricTestRunner.class)
 public class DateValidatorTest {
 

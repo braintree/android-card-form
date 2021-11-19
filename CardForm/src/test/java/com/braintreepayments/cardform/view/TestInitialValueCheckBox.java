@@ -10,6 +10,8 @@ import org.robolectric.RuntimeEnvironment;
 import static junit.framework.TestCase.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import com.braintreepayments.cardform.InitialValueCheckBox;
+
 @RunWith(RobolectricTestRunner.class)
 public class TestInitialValueCheckBox {
     @Test

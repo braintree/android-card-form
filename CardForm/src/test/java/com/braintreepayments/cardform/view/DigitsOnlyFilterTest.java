@@ -9,6 +9,8 @@ import org.robolectric.RobolectricTestRunner;
 
 import static org.junit.Assert.assertEquals;
 
+import com.braintreepayments.cardform.DigitsOnlyFilter;
+
 @RunWith(RobolectricTestRunner.class)
 public class DigitsOnlyFilterTest {
 

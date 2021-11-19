@@ -1,5 +1,7 @@
 package com.braintreepayments.cardform.view;
 
+import com.braintreepayments.cardform.CardEditText;
+import com.braintreepayments.cardform.ErrorEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
 import com.braintreepayments.cardform.R;

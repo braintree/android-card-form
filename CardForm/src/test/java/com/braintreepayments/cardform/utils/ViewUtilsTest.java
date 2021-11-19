@@ -3,6 +3,7 @@ package com.braintreepayments.cardform.utils;
 import android.app.Activity;
 
 import com.braintreepayments.cardform.R;
+import com.braintreepayments.cardform.ViewUtils;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

@@ -13,11 +13,19 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.braintreepayments.cardform.CardEditText;
+import com.braintreepayments.cardform.CardForm;
+import com.braintreepayments.cardform.CardholderNameEditText;
+import com.braintreepayments.cardform.CvvEditText;
+import com.braintreepayments.cardform.ErrorEditText;
+import com.braintreepayments.cardform.ExpirationDateEditText;
+import com.braintreepayments.cardform.MobileNumberEditText;
 import com.braintreepayments.cardform.OnCardFormFieldFocusedListener;
 import com.braintreepayments.cardform.OnCardFormValidListener;
+import com.braintreepayments.cardform.PostalCodeEditText;
 import com.braintreepayments.cardform.R;
 import com.braintreepayments.cardform.test.TestActivity;
-import com.braintreepayments.cardform.utils.CardType;
+import com.braintreepayments.cardform.CardType;
 import com.google.android.material.textfield.TextInputLayout;
 
 import org.junit.Before;

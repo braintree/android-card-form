@@ -1,12 +1,10 @@
-package com.braintreepayments.cardform.view;
+package com.braintreepayments.cardform;
 
 import android.content.Context;
 import android.text.InputFilter;
 import android.text.InputFilter.LengthFilter;
 import android.text.InputType;
 import android.util.AttributeSet;
-
-import com.braintreepayments.cardform.R;
 
 /**
  * Input for country code. Validated for presence only due to the wide variation of country code formats worldwide.
