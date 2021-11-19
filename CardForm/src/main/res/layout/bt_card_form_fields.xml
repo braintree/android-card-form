@@ -20,7 +20,7 @@
             android:paddingEnd="0dp"
             android:labelFor="@+id/bt_card_form_cardholder_name">
 
-            <com.braintreepayments.cardform.CardholderNameEditText
+            <com.braintreepayments.api.CardholderNameEditText
                 style="@style/bt_card_form_field"
                 android:id="@+id/bt_card_form_cardholder_name"
                 android:hint="@string/bt_form_hint_cardholder_name"/>
@@ -45,7 +45,7 @@
             android:paddingEnd="0dp"
             android:labelFor="@+id/bt_card_form_card_number">
 
-            <com.braintreepayments.cardform.CardEditText
+            <com.braintreepayments.api.CardEditText
                 style="@style/bt_card_form_field"
                 android:id="@+id/bt_card_form_card_number"
                 android:hint="@string/bt_form_hint_card_number"
@@ -70,7 +70,7 @@
             android:layout_weight="1"
             android:labelFor="@+id/bt_card_form_expiration">
 
-            <com.braintreepayments.cardform.ExpirationDateEditText
+            <com.braintreepayments.api.ExpirationDateEditText
                 style="@style/bt_card_form_field"
                 android:id="@+id/bt_card_form_expiration"
                 android:hint="@string/bt_form_hint_expiration"/>
@@ -83,7 +83,7 @@
             android:layout_weight="1"
             android:labelFor="@+id/bt_card_form_cvv">
 
-            <com.braintreepayments.cardform.CvvEditText
+            <com.braintreepayments.api.CvvEditText
                 style="@style/bt_card_form_field"
                 android:id="@+id/bt_card_form_cvv"
                 android:hint="@string/bt_form_hint_cvv"/>
@@ -109,7 +109,7 @@
             android:paddingEnd="0dp"
             android:labelFor="@+id/bt_card_form_postal_code">
 
-            <com.braintreepayments.cardform.PostalCodeEditText
+            <com.braintreepayments.api.PostalCodeEditText
                 style="@style/bt_card_form_field"
                 android:id="@+id/bt_card_form_postal_code"
                 android:hint="@string/bt_form_hint_postal_code"/>
@@ -137,7 +137,7 @@
             android:paddingEnd="0dp"
             android:labelFor="@+id/bt_card_form_country_code">
 
-            <com.braintreepayments.cardform.CountryCodeEditText
+            <com.braintreepayments.api.CountryCodeEditText
                 style="@style/bt_card_form_field"
                 android:id="@+id/bt_card_form_country_code"
                 android:hint="@string/bt_form_hint_country_code"/>
@@ -150,7 +150,7 @@
             android:layout_weight="3"
             android:labelFor="@+id/bt_card_form_mobile_number">
 
-            <com.braintreepayments.cardform.MobileNumberEditText
+            <com.braintreepayments.api.MobileNumberEditText
                 style="@style/bt_card_form_field"
                 android:id="@+id/bt_card_form_mobile_number"
                 android:hint="@string/bt_form_hint_mobile_number"/>
@@ -177,7 +177,7 @@
         android:paddingStart="@dimen/bt_mobile_number_explanation_padding"
         android:paddingEnd="0dp">
 
-        <com.braintreepayments.cardform.InitialValueCheckBox
+        <com.braintreepayments.api.InitialValueCheckBox
             android:id="@+id/bt_card_form_save_card_checkbox"
             android:layout_marginStart="@dimen/bt_save_card_checkbox_left_margin"
             android:layout_marginLeft="@dimen/bt_save_card_checkbox_left_margin"
