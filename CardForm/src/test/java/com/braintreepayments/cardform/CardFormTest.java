@@ -1,4 +1,4 @@
-package com.braintreepayments.cardform.view;
+package com.braintreepayments.cardform;
 
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;

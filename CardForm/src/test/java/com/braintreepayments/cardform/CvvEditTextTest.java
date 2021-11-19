@@ -1,15 +1,12 @@
-package com.braintreepayments.cardform.view;
+package com.braintreepayments.cardform;
 
-import com.braintreepayments.cardform.CvvEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.method.PasswordTransformationMethod;
 import android.text.method.SingleLineTransformationMethod;
 
-import com.braintreepayments.cardform.R;
 import com.braintreepayments.cardform.test.TestActivity;
-import com.braintreepayments.cardform.CardType;
 
 import org.junit.Before;
 import org.junit.Test;

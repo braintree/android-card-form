@@ -1,4 +1,4 @@
-package com.braintreepayments.cardform.view;
+package com.braintreepayments.cardform;
 
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.TestCase.assertNull;
@@ -6,10 +6,6 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
 import androidx.test.core.app.ApplicationProvider;
-
-import com.braintreepayments.cardform.AccessibleSupportedCardTypesView;
-import com.braintreepayments.cardform.CardType;
-import com.braintreepayments.cardform.SupportedCardTypesAdapter;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

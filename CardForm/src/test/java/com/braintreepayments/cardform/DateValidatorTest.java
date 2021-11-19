@@ -1,4 +1,4 @@
-package com.braintreepayments.cardform.utils;
+package com.braintreepayments.cardform;
 
 import org.junit.Before;
 import org.junit.Test;

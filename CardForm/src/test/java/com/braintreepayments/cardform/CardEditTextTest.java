@@ -1,14 +1,9 @@
-package com.braintreepayments.cardform.view;
+package com.braintreepayments.cardform;
 
 import android.text.Editable;
 import android.text.method.TransformationMethod;
 
-import com.braintreepayments.cardform.CardEditText;
-import com.braintreepayments.cardform.R;
-import com.braintreepayments.cardform.SpaceSpan;
 import com.braintreepayments.cardform.test.TestActivity;
-import com.braintreepayments.cardform.CardNumberTransformation;
-import com.braintreepayments.cardform.CardType;
 
 import org.junit.Before;
 import org.junit.Test;

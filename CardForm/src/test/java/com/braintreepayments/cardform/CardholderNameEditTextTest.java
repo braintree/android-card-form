@@ -1,4 +1,4 @@
-package com.braintreepayments.cardform.view;
+package com.braintreepayments.cardform;
 
 import com.braintreepayments.cardform.CardholderNameEditText;
 import com.braintreepayments.cardform.R;

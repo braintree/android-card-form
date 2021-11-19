@@ -1,6 +1,6 @@
-package com.braintreepayments.cardform.view;
+package com.braintreepayments.cardform;
 
-import com.braintreepayments.cardform.CountryCodeEditText;
+import com.braintreepayments.cardform.PostalCodeEditText;
 import com.braintreepayments.cardform.R;
 import com.braintreepayments.cardform.test.TestActivity;
 
@@ -16,21 +16,14 @@ import static junit.framework.Assert.assertFalse;
 import static junit.framework.Assert.assertTrue;
 
 @RunWith(RobolectricTestRunner.class)
-public class CountryCodeEditTextTest {
+public class PostalCodeEditTextTest {
 
-    private CountryCodeEditText mView;
+    private PostalCodeEditText mView;
 
     @Before
     public void setup() {
         mView = Robolectric.setupActivity(TestActivity.class)
-                .findViewById(R.id.bt_card_form_country_code);
-    }
-
-    @Test
-    public void getCountryCode_returnsStrippedCountryCode() {
-        mView.setText("+86");
-
-        assertEquals("86", mView.getCountryCode());
+                .findViewById(R.id.bt_card_form_postal_code);
     }
 
     @Test
@@ -40,8 +33,7 @@ public class CountryCodeEditTextTest {
 
     @Test
     public void validIfNotEmpty() {
-        mView.setText("+86");
-
+        mView.setText("12345");
         assertTrue(mView.isValid());
     }
 
@@ -54,7 +46,6 @@ public class CountryCodeEditTextTest {
 
     @Test
     public void getErrorMessage_returnsErrorMessageWhenEmpty() {
-        assertEquals(RuntimeEnvironment.application.getString(R.string.bt_country_code_required),
-                mView.getErrorMessage());
+        assertEquals(RuntimeEnvironment.application.getString(R.string.bt_postal_code_required), mView.getErrorMessage());
     }
 }

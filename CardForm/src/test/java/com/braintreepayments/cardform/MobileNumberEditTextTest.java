@@ -1,6 +1,6 @@
-package com.braintreepayments.cardform.view;
+package com.braintreepayments.cardform;
 
-import com.braintreepayments.cardform.PostalCodeEditText;
+import com.braintreepayments.cardform.MobileNumberEditText;
 import com.braintreepayments.cardform.R;
 import com.braintreepayments.cardform.test.TestActivity;
 
@@ -16,14 +16,21 @@ import static junit.framework.Assert.assertFalse;
 import static junit.framework.Assert.assertTrue;
 
 @RunWith(RobolectricTestRunner.class)
-public class PostalCodeEditTextTest {
+public class MobileNumberEditTextTest {
 
-    private PostalCodeEditText mView;
+    private MobileNumberEditText mView;
 
     @Before
     public void setup() {
         mView = Robolectric.setupActivity(TestActivity.class)
-                .findViewById(R.id.bt_card_form_postal_code);
+                .findViewById(R.id.bt_card_form_mobile_number);
+    }
+
+    @Test
+    public void getMobileNumber_returnsStrippedMobileNumber() {
+        mView.setText("(555) 555-5555");
+
+        assertEquals("5555555555", mView.getMobileNumber());
     }
 
     @Test
@@ -32,8 +39,14 @@ public class PostalCodeEditTextTest {
     }
 
     @Test
-    public void validIfNotEmpty() {
-        mView.setText("12345");
+    public void invalidIfFewerThan8Characters() {
+        mView.setText("123");
+        assertFalse(mView.isValid());
+    }
+
+    @Test
+    public void validIfMoreThan8Characters() {
+        mView.setText("12341234");
         assertTrue(mView.isValid());
     }
 
@@ -46,6 +59,6 @@ public class PostalCodeEditTextTest {
 
     @Test
     public void getErrorMessage_returnsErrorMessageWhenEmpty() {
-        assertEquals(RuntimeEnvironment.application.getString(R.string.bt_postal_code_required), mView.getErrorMessage());
+        assertEquals(RuntimeEnvironment.application.getString(R.string.bt_mobile_number_required), mView.getErrorMessage());
     }
 }

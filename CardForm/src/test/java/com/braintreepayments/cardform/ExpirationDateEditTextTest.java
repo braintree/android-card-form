@@ -1,12 +1,9 @@
-package com.braintreepayments.cardform.view;
+package com.braintreepayments.cardform;
 
 import android.text.Editable;
 import android.text.Spanned;
 import android.view.View;
 
-import com.braintreepayments.cardform.ExpirationDateEditText;
-import com.braintreepayments.cardform.R;
-import com.braintreepayments.cardform.SlashSpan;
 import com.braintreepayments.cardform.test.TestActivity;
 
 import org.junit.Before;
