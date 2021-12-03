@@ -4,6 +4,7 @@ import android.text.Editable;
 import android.text.Spanned;
 import android.view.View;
 
+import com.braintreepayments.api.cardform.R;
 import com.braintreepayments.api.test.TestActivity;
 
 import org.junit.Before;

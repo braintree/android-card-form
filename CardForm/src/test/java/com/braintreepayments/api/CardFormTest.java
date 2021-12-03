@@ -13,7 +13,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.braintreepayments.api.R;
+import com.braintreepayments.api.cardform.R;
 import com.braintreepayments.api.test.TestActivity;
 import com.google.android.material.textfield.TextInputLayout;
 

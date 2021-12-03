@@ -3,6 +3,7 @@ package com.braintreepayments.api;
 import android.text.Editable;
 import android.text.method.TransformationMethod;
 
+import com.braintreepayments.api.cardform.R;
 import com.braintreepayments.api.test.TestActivity;
 
 import org.junit.Before;

@@ -2,7 +2,7 @@ package com.braintreepayments.api;
 
 import android.app.Activity;
 
-import com.braintreepayments.api.R;
+import com.braintreepayments.api.cardform.R;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

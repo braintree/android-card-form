@@ -2,7 +2,7 @@ package com.braintreepayments.api;
 
 import com.google.android.material.textfield.TextInputLayout;
 
-import com.braintreepayments.api.R;
+import com.braintreepayments.api.cardform.R;
 import com.braintreepayments.api.test.TestActivity;
 
 import org.junit.Before;
