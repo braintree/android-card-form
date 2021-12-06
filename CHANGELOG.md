@@ -1,5 +1,8 @@
 # Android Card Form Release Notes
 
+## unreleased
+  * Move all classes to `com.braintreepayments.api` package
+
 ## 5.3.0
   * Add `AccessibleSupportedCardTypesView` with support for screen reading and tab navigation
   * Deprecate `SupportedCardTypesView` in favor of `AccessibleSupportedCardTypesView`
