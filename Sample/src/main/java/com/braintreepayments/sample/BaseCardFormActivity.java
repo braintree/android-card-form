@@ -6,11 +6,11 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.braintreepayments.cardform.OnCardFormSubmitListener;
-import com.braintreepayments.cardform.utils.CardType;
-import com.braintreepayments.cardform.view.CardEditText;
-import com.braintreepayments.cardform.view.CardForm;
-import com.braintreepayments.cardform.view.AccessibleSupportedCardTypesView;
+import com.braintreepayments.api.OnCardFormSubmitListener;
+import com.braintreepayments.api.CardType;
+import com.braintreepayments.api.CardEditText;
+import com.braintreepayments.api.CardForm;
+import com.braintreepayments.api.AccessibleSupportedCardTypesView;
 
 public class BaseCardFormActivity extends AppCompatActivity implements OnCardFormSubmitListener,
         CardEditText.OnCardTypeChangedListener {

@@ -1,5 +1,8 @@
 # Android Card Form Release Notes
 
+## unreleased
+  * Move all classes to `com.braintreepayments.api` package
+
 ## 5.4.0
   * Update Visa card icon
 
