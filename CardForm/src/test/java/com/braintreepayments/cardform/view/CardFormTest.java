@@ -1851,7 +1851,7 @@ public class CardFormTest {
         assertNoHintIcon(card);
 
         setText(card, "4");
-        assertIconHintIs(card, R.drawable.bt_ic_visa);
+        assertIconHintIs(card, R.drawable.bt_ic_visa_vector);
 
         setText(card, "51");
         assertIconHintIs(card, R.drawable.bt_ic_mastercard);

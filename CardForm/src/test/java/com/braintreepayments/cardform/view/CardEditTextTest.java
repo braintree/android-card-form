@@ -41,7 +41,7 @@ public class CardEditTextTest {
 
     @Test
     public void testVisa() {
-        helper("4", "111 1111 1111 1111", R.drawable.bt_ic_visa, 4, 8, 12);
+        helper("4", "111 1111 1111 1111", R.drawable.bt_ic_visa_vector, 4, 8, 12);
     }
 
     @Test
