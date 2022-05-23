@@ -1,6 +1,6 @@
 # Android Card Form Release Notes
 
-## Unreleased
+## 5.4.0
   * Update Visa card icon
 
 ## 5.3.0
