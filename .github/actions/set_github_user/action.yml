@@ -1,0 +1,9 @@
+name: Set GitHub User
+description: 'Sets github user for a particular workflow'
+runs:
+  using: "composite"
+  steps:
+    - run: |
+        git config user.name paypalsdk
+        git config user.email sdks@paypal.com
+      shell: bash
