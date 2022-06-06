@@ -1,10 +1,10 @@
 name: Release
-on:
-  workflow_dispatch:
-    inputs:
-      version:
-        description: 'Version to release'
-        required: true
+on: push
+#  workflow_dispatch:
+#    inputs:
+#      version:
+#        description: 'Version to release'
+#        required: true
 env:
   SIGNING_KEY_FILE_PATH: /home/runner/secretKey.gpg
 jobs:
