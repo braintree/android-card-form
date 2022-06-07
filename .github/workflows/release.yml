@@ -77,23 +77,23 @@ jobs:
           signing_key_id: ${{ secrets.SIGNING_KEY_ID }}
           signing_key_pwd: ${{ secrets.SIGNING_KEY_PASSWORD }}
           signing_key_file: ${{ env.SIGNING_KEY_FILE_PATH }}
-#  bump_version:
-#    needs: [ publish ]
-#    name: Bump Version
-#    runs-on: ubuntu-latest
-#    steps:
-#      - name: Checkout Repository
-#        uses: actions/checkout@v2
-#      - name: Set github user
-#        uses: ./.github/actions/set_github_user
-#      - name: Update Version
-#        run: |
-#          ./gradlew -PversionParam=${{ github.event.inputs.version }} changeReleaseVersion
-#          ./gradlew -PversionParam=${{ github.event.inputs.version }} changeREADMEVersion
-#          git commit -am 'Release ${{ github.event.inputs.version }}'
-#          git tag ${{ github.event.inputs.version }} -a -m 'Release ${{ github.event.inputs.version }}'
-#
-#          ./gradlew -PversionParam=${{ github.event.inputs.version }} incrementSNAPSHOTVersion
-#          ./gradlew incrementVersionCode
-#          git commit -am 'Prepare for development'
-#          git push origin master ${{ github.event.inputs.version }}
+  bump_version:
+    needs: [ publish ]
+    name: Bump Version
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+      - name: Set github user
+        uses: ./.github/actions/set_github_user
+      - name: Update Version
+        run: |
+          ./gradlew -PversionParam=${{ github.event.inputs.version }} changeReleaseVersion
+          ./gradlew -PversionParam=${{ github.event.inputs.version }} changeREADMEVersion
+          git commit -am 'Release ${{ github.event.inputs.version }}'
+          git tag ${{ github.event.inputs.version }} -a -m 'Release ${{ github.event.inputs.version }}'
+
+          ./gradlew -PversionParam=${{ github.event.inputs.version }} incrementSNAPSHOTVersion
+          ./gradlew incrementVersionCode
+          git commit -am 'Prepare for development'
+          git push origin master ${{ github.event.inputs.version }}
