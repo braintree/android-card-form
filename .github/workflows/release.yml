@@ -15,7 +15,7 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
-      - name: Set up Java 11
+      - name: Set up Java 8
         uses: actions/setup-java@v3
         with:
           java-version: '8'
@@ -38,7 +38,7 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
-      - name: Set up Java 11
+      - name: Set up Java 8
         uses: actions/setup-java@v2
         with:
           java-version: '8'
@@ -47,12 +47,12 @@ jobs:
         run: ./gradlew --stacktrace testRelease
   publish:
     needs: [ unit_test, build_aar ]
-    name: Publish Drop-in
+    name: Publish Card Form
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
-      - name: Set up Java 11
+      - name: Set up Java 8
         uses: actions/setup-java@v3
         with:
           java-version: '8'
@@ -71,7 +71,7 @@ jobs:
       - name: Publish Drop-in
         uses: ./.github/actions/publish_module
         with:
-          module: Drop-In
+          module: CardForm
           sonatype_usr: ${{ secrets.SONATYPE_NEXUS_USERNAME }}
           sonatype_pwd: ${{ secrets.SONATYPE_NEXUS_PASSWORD }}
           signing_key_id: ${{ secrets.SIGNING_KEY_ID }}
