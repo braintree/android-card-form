@@ -68,7 +68,7 @@ jobs:
       - name: Change README Version
         run: |
           ./gradlew -PversionParam=${{ github.event.inputs.version }} changeREADMEVersion
-      - name: Publish Drop-in
+      - name: Publish CardForm
         uses: ./.github/actions/publish_module
         with:
           module: CardForm
