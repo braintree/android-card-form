@@ -78,7 +78,7 @@ jobs:
 #          signing_key_pwd: ${{ secrets.SIGNING_KEY_PASSWORD }}
 #          signing_key_file: ${{ env.SIGNING_KEY_FILE_PATH }}
   bump_version:
-    needs: #[ publish ]
+    # needs: [ publish ]
     name: Bump Version
     runs-on: ubuntu-latest
     steps:
