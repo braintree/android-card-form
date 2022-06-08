@@ -55,15 +55,17 @@ task changeReleaseVersion {
 
 task changeREADMEVersion {
     doLast {
-        def gradleFile = new File('README.md')
-        def gradleFileText = gradleFile.text.replaceFirst("com.braintreepayments.api:drop-in:\\d+\\.\\d+\\.\\d+(-.*)?'", "com.braintreepayments.api:drop-in:" + versionParam + "'")
-        gradleFile.write(gradleFileText)
+        def readmeFile = new File('README.md')
+        def readmeFileText = readmeFile.text.replaceFirst("com.braintreepayments.api:card-form:\\d+\\.\\d+\\.\\d+(-.*)?'", "com.braintreepayments.api:card-form:" + versionParam + "'")
+        gradleFile.write(readmeFileText)
     }
 }
 
 task incrementSNAPSHOTVersion {
     doLast {
+
         def gradleFile = new File('build.gradle')
+        print("Does my file exist???" + gradleFile.exists())
         def (major, minor, patch) = versionParam.tokenize('.')
         def patchInteger = patch.toInteger()
         def newVersion = "$major.$minor.${patchInteger + 1}-SNAPSHOT"
