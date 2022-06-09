@@ -4,6 +4,6 @@ runs:
   using: "composite"
   steps:
     - run: |
-        git config user.name paypalsdk
-        git config user.email sdks@paypal.com
+        git config user.name braintreeps
+        git config user.email code@getbraintree.com
       shell: bash
