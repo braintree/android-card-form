@@ -3,15 +3,15 @@ package com.braintreepayments.cardform.view;
 import static junit.framework.TestCase.assertFalse;
 import static junit.framework.TestCase.assertTrue;
 import static junit.framework.TestCase.fail;
-
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import android.widget.ImageView;
 
-import com.braintreepayments.cardform.R;
-import com.braintreepayments.cardform.utils.CardType;
+import com.braintreepayments.api.CardType;
+import com.braintreepayments.cardform.utils.CardDescriptor;
+import com.braintreepayments.cardform.utils.CardParser;
 import com.braintreepayments.cardform.utils.SelectableCardType;
 
 import org.junit.Test;
@@ -20,6 +20,8 @@ import org.robolectric.RobolectricTestRunner;
 
 @RunWith(RobolectricTestRunner.class)
 public class SupportedCardTypesAdapterTest {
+
+    private CardParser cardParser = new CardParser();
 
     @Test
     public void setSelected_disablesNonSelectedCardTypes() {
@@ -98,6 +100,7 @@ public class SupportedCardTypesAdapterTest {
 
         sut.onBindViewHolder(viewHolder, 0);
 
-        verify(imageView).setImageResource(CardType.AMEX.getFrontResource());
+        CardDescriptor descriptor = cardParser.getDescriptor(CardType.AMEX);
+        verify(imageView).setImageResource(descriptor.getFrontResource());
     }
 }

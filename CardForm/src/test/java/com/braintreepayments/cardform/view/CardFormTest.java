@@ -1,38 +1,5 @@
 package com.braintreepayments.cardform.view;
 
-import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.Drawable;
-import android.os.Bundle;
-import android.text.Editable;
-import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
-import android.view.inputmethod.EditorInfo;
-import android.widget.CheckBox;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.TextView;
-
-import com.braintreepayments.cardform.OnCardFormFieldFocusedListener;
-import com.braintreepayments.cardform.OnCardFormValidListener;
-import com.braintreepayments.cardform.R;
-import com.braintreepayments.cardform.test.TestActivity;
-import com.braintreepayments.cardform.utils.CardType;
-import com.google.android.material.textfield.TextInputLayout;
-
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.robolectric.Robolectric;
-import org.robolectric.RobolectricTestRunner;
-import org.robolectric.RuntimeEnvironment;
-import org.robolectric.android.controller.ActivityController;
-
-import java.util.concurrent.atomic.AtomicBoolean;
-import java.util.concurrent.atomic.AtomicInteger;
-
-import androidx.appcompat.app.AppCompatActivity;
-
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
 import static com.braintreepayments.cardform.test.Assertions.assertIconHintIs;
@@ -50,6 +17,39 @@ import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.robolectric.Shadows.shadowOf;
+
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
+import android.os.Bundle;
+import android.text.Editable;
+import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
+import android.view.inputmethod.EditorInfo;
+import android.widget.CheckBox;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.braintreepayments.api.CardType;
+import com.braintreepayments.cardform.OnCardFormFieldFocusedListener;
+import com.braintreepayments.cardform.OnCardFormValidListener;
+import com.braintreepayments.cardform.R;
+import com.braintreepayments.cardform.test.TestActivity;
+import com.google.android.material.textfield.TextInputLayout;
+
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.robolectric.Robolectric;
+import org.robolectric.RobolectricTestRunner;
+import org.robolectric.RuntimeEnvironment;
+import org.robolectric.android.controller.ActivityController;
+
+import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicInteger;
 
 @RunWith(RobolectricTestRunner.class)
 public class CardFormTest {

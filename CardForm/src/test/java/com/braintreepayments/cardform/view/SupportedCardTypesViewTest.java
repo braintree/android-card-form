@@ -1,8 +1,13 @@
 package com.braintreepayments.cardform.view;
 
+import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertFalse;
+import static junit.framework.Assert.assertTrue;
+
 import android.text.SpannableString;
 
-import com.braintreepayments.cardform.utils.CardType;
+import com.braintreepayments.api.CardType;
+import com.braintreepayments.cardform.utils.CardParser;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -12,12 +17,10 @@ import org.robolectric.RuntimeEnvironment;
 import java.util.Arrays;
 import java.util.List;
 
-import static junit.framework.Assert.assertEquals;
-import static junit.framework.Assert.assertFalse;
-import static junit.framework.Assert.assertTrue;
-
 @RunWith(RobolectricTestRunner.class)
 public class SupportedCardTypesViewTest {
+
+    private CardParser cardParser = new CardParser();
 
     @Test
     public void setSupportedCardTypes_addsAllCardTypes() {
@@ -29,16 +32,16 @@ public class SupportedCardTypesViewTest {
 
         List<PaddedImageSpan> allSpans = Arrays.asList(new SpannableString(supportedCardTypesView.getText())
                 .getSpans(0, supportedCardTypesView.length(), PaddedImageSpan.class));
-        assertEquals(CardType.VISA.getFrontResource(), allSpans.get(0).getResourceId());
-        assertEquals(CardType.MASTERCARD.getFrontResource(), allSpans.get(1).getResourceId());
-        assertEquals(CardType.DISCOVER.getFrontResource(), allSpans.get(2).getResourceId());
-        assertEquals(CardType.AMEX.getFrontResource(), allSpans.get(3).getResourceId());
-        assertEquals(CardType.DINERS_CLUB.getFrontResource(), allSpans.get(4).getResourceId());
-        assertEquals(CardType.JCB.getFrontResource(), allSpans.get(5).getResourceId());
-        assertEquals(CardType.MAESTRO.getFrontResource(), allSpans.get(6).getResourceId());
-        assertEquals(CardType.UNIONPAY.getFrontResource(), allSpans.get(7).getResourceId());
-        assertEquals(CardType.HIPER.getFrontResource(), allSpans.get(8).getResourceId());
-        assertEquals(CardType.HIPERCARD.getFrontResource(), allSpans.get(9).getResourceId());
+        assertEquals(cardParser.getDescriptor(CardType.VISA).getFrontResource(), allSpans.get(0).getResourceId());
+        assertEquals(cardParser.getDescriptor(CardType.MASTERCARD).getFrontResource(), allSpans.get(1).getResourceId());
+        assertEquals(cardParser.getDescriptor(CardType.DISCOVER).getFrontResource(), allSpans.get(2).getResourceId());
+        assertEquals(cardParser.getDescriptor(CardType.AMEX).getFrontResource(), allSpans.get(3).getResourceId());
+        assertEquals(cardParser.getDescriptor(CardType.DINERS_CLUB).getFrontResource(), allSpans.get(4).getResourceId());
+        assertEquals(cardParser.getDescriptor(CardType.JCB).getFrontResource(), allSpans.get(5).getResourceId());
+        assertEquals(cardParser.getDescriptor(CardType.MAESTRO).getFrontResource(), allSpans.get(6).getResourceId());
+        assertEquals(cardParser.getDescriptor(CardType.UNIONPAY).getFrontResource(), allSpans.get(7).getResourceId());
+        assertEquals(cardParser.getDescriptor(CardType.HIPER).getFrontResource(), allSpans.get(8).getResourceId());
+        assertEquals(cardParser.getDescriptor(CardType.HIPERCARD).getFrontResource(), allSpans.get(9).getResourceId());
     }
 
     @Test

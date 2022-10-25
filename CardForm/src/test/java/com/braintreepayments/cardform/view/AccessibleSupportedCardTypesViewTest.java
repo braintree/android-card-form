@@ -7,12 +7,10 @@ import static org.mockito.Mockito.verify;
 
 import androidx.test.core.app.ApplicationProvider;
 
-import com.braintreepayments.cardform.utils.CardType;
-import com.braintreepayments.cardform.utils.SelectableCardType;
+import com.braintreepayments.api.CardType;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.ArgumentCaptor;
 import org.robolectric.RobolectricTestRunner;
 
 @RunWith(RobolectricTestRunner.class)

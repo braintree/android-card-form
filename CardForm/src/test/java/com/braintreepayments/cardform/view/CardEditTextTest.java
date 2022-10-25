@@ -1,12 +1,21 @@
 package com.braintreepayments.cardform.view;
 
+import static com.braintreepayments.cardform.test.Assertions.assertIconHintIs;
+import static com.braintreepayments.cardform.test.Assertions.assertNoHintIcon;
+import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertFalse;
+import static junit.framework.Assert.assertNotNull;
+import static junit.framework.Assert.assertTrue;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+
 import android.text.Editable;
 import android.text.method.TransformationMethod;
 
+import com.braintreepayments.api.CardType;
 import com.braintreepayments.cardform.R;
 import com.braintreepayments.cardform.test.TestActivity;
 import com.braintreepayments.cardform.utils.CardNumberTransformation;
-import com.braintreepayments.cardform.utils.CardType;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -18,15 +27,6 @@ import org.robolectric.RuntimeEnvironment;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
-import static com.braintreepayments.cardform.test.Assertions.assertIconHintIs;
-import static com.braintreepayments.cardform.test.Assertions.assertNoHintIcon;
-import static junit.framework.Assert.assertEquals;
-import static junit.framework.Assert.assertFalse;
-import static junit.framework.Assert.assertNotNull;
-import static junit.framework.Assert.assertTrue;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
 
 @RunWith(RobolectricTestRunner.class)
 public class CardEditTextTest {

@@ -1,5 +1,11 @@
 package com.braintreepayments.cardform.utils;
 
+import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertTrue;
+import static org.junit.Assert.assertFalse;
+
+import com.braintreepayments.api.CardType;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
@@ -8,12 +14,10 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Pattern;
 
-import static junit.framework.Assert.assertEquals;
-import static junit.framework.Assert.assertTrue;
-import static org.junit.Assert.assertFalse;
-
 @RunWith(RobolectricTestRunner.class)
 public class CardTypeTest {
+
+    private CardParser cardParser = new CardParser();
 
     private static final int MIN_MIN_CARD_LENGTH = 12;
     private static final int MAX_MAX_CARD_LENGTH = 19;
@@ -103,11 +107,11 @@ public class CardTypeTest {
     @Test
     public void allParametersSane() {
         for (final CardType cardType : CardType.values()) {
-            final int minCardLength = cardType.getMinCardLength();
+            final int minCardLength = cardParser.getDescriptor(cardType).getMinCardLength();
             assertTrue(String.format("%s: Min card length %s too small",
                     cardType, minCardLength), minCardLength >= MIN_MIN_CARD_LENGTH);
 
-            final int maxCardLength = cardType.getMaxCardLength();
+            final int maxCardLength = cardParser.getDescriptor(cardType).getMaxCardLength();
             assertTrue(String.format("%s: Max card length %s too large",
                     cardType, maxCardLength), maxCardLength <= MAX_MAX_CARD_LENGTH);
 
@@ -116,7 +120,7 @@ public class CardTypeTest {
                     minCardLength <= maxCardLength
             );
 
-            final int securityCodeLength = cardType.getSecurityCodeLength();
+            final int securityCodeLength = cardParser.getDescriptor(cardType).getSecurityCodeLength();
             assertTrue(String.format("%s: Unusual security code length %s",
                             cardType, securityCodeLength),
                     securityCodeLength >= MIN_SECURITY_CODE_LENGTH &&
@@ -124,12 +128,12 @@ public class CardTypeTest {
             );
 
             assertTrue(String.format("%s: No front resource declared", cardType),
-                    cardType.getFrontResource() != 0);
+                    cardParser.getDescriptor(cardType).getFrontResource() != 0);
             assertTrue(String.format("%s: No Security code resource declared", cardType),
-                    cardType.getSecurityCodeName() != 0);
+                    cardParser.getDescriptor(cardType).getSecurityCodeName() != 0);
 
             if (cardType != CardType.UNKNOWN && cardType != CardType.EMPTY) {
-                final Pattern pattern = cardType.getPattern();
+                final Pattern pattern = cardParser.getDescriptor(cardType).getPattern();
                 final String regex = pattern.toString();
                 assertTrue(String.format("%s: Pattern must start with ^", cardType),
                         regex.startsWith("^"));
@@ -144,13 +148,13 @@ public class CardTypeTest {
         for (final Map.Entry<String, CardType> entry : SAMPLE_CARDS.entrySet()) {
             final String cardNumber = entry.getKey();
             final CardType cardType = entry.getValue();
-            final CardType actualType = CardType.forCardNumber(cardNumber);
+            final CardType actualType = cardParser.parseCard(cardNumber);
 
             assertEquals(String.format("CardType.forAccountNumber failed for %s", cardNumber), cardType, actualType);
 
             if (cardType != CardType.UNKNOWN && cardType != CardType.EMPTY) {
                 assertTrue(String.format("%s: Luhn check failed for [%s]", cardType, cardNumber),
-                        CardType.isLuhnValid(cardNumber));
+                        cardParser.isLuhnValid(cardNumber));
             }
         }
     }
@@ -160,26 +164,26 @@ public class CardTypeTest {
         for (final Map.Entry<String, CardType> entry : SAMPLE_CARDS.entrySet()) {
             final String cardNumber = entry.getKey();
             final CardType cardType = entry.getValue();
-            final CardType actualType = CardType.forCardNumber(cardNumber);
+            final CardType actualType = cardParser.parseCard(cardNumber);
 
             assertEquals(String.format("CardType.forAccountNumber failed for %s", cardNumber), cardType, actualType);
 
             if (cardType != CardType.UNKNOWN && cardType != CardType.EMPTY) {
                 assertTrue(String.format("%s: Validate check failed for [%s]", cardType, cardNumber),
-                        cardType.validate(cardNumber));
+                        cardParser.validate(cardNumber));
             }
         }
     }
 
     @Test
     public void validate_whenGivenNonDigits_returnsFalse() {
-        assertFalse(CardType.UNKNOWN.validate(""));
-        assertFalse(CardType.UNKNOWN.validate("Not-A-Number"));
-        assertFalse(CardType.UNKNOWN.validate("@#$%^&"));
+        assertFalse(cardParser.validate(""));
+        assertFalse(cardParser.validate("Not-A-Number"));
+        assertFalse(cardParser.validate("@#$%^&"));
     }
 
     @Test
     public void validate_whenPatternFailsAndNoRelaxedPatternExists_returnsFalse() {
-        assertFalse(CardType.VISA.validate("9999999999999999"));
+        assertFalse(cardParser.validate("9999999999999999"));
     }
 }

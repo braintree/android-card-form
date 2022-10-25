@@ -1,14 +1,21 @@
 package com.braintreepayments.cardform.view;
 
-import com.google.android.material.textfield.TextInputLayout;
+import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertFalse;
+import static junit.framework.Assert.assertTrue;
+import static org.junit.Assert.assertSame;
+
 import android.text.Editable;
 import android.text.InputType;
 import android.text.method.PasswordTransformationMethod;
 import android.text.method.SingleLineTransformationMethod;
 
+import com.braintreepayments.api.CardType;
 import com.braintreepayments.cardform.R;
 import com.braintreepayments.cardform.test.TestActivity;
-import com.braintreepayments.cardform.utils.CardType;
+import com.braintreepayments.cardform.utils.CardDescriptor;
+import com.braintreepayments.cardform.utils.CardParser;
+import com.google.android.material.textfield.TextInputLayout;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -17,18 +24,11 @@ import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.RuntimeEnvironment;
 
-import static junit.framework.Assert.assertEquals;
-import static junit.framework.Assert.assertFalse;
-import static junit.framework.Assert.assertTrue;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertSame;
-import static org.mockito.Mockito.spy;
-import static org.mockito.Mockito.verify;
-
 @RunWith(RobolectricTestRunner.class)
 public class CvvEditTextTest {
 
     private CvvEditText mView;
+    private CardParser cardParser = new CardParser();
 
     @Before
     public void setup() {
@@ -68,7 +68,8 @@ public class CvvEditTextTest {
         for (CardType cardType : CardType.values()) {
             mView.setCardType(cardType);
 
-            assertEquals(RuntimeEnvironment.application.getString(cardType.getSecurityCodeName()),
+            CardDescriptor descriptor = cardParser.getDescriptor(cardType);
+            assertEquals(RuntimeEnvironment.application.getString(descriptor.getSecurityCodeName()),
                     mView.getTextInputLayoutParent().getHint());
         }
     }
@@ -123,8 +124,9 @@ public class CvvEditTextTest {
         for (CardType cardType : CardType.values()) {
             mView.setCardType(cardType);
 
+            CardDescriptor descriptor = cardParser.getDescriptor(cardType);
             String expectedMessage = RuntimeEnvironment.application.getString(R.string.bt_cvv_required,
-                    RuntimeEnvironment.application.getString(cardType.getSecurityCodeName()));
+                    RuntimeEnvironment.application.getString(descriptor.getSecurityCodeName()));
             assertEquals(expectedMessage, mView.getErrorMessage());
         }
     }
@@ -145,8 +147,9 @@ public class CvvEditTextTest {
         for (CardType cardType : CardType.values()) {
             mView.setCardType(cardType);
 
+            CardDescriptor descriptor = cardParser.getDescriptor(cardType);
             String expectedMessage = RuntimeEnvironment.application.getString(R.string.bt_cvv_invalid,
-                    RuntimeEnvironment.application.getString(cardType.getSecurityCodeName()));
+                    RuntimeEnvironment.application.getString(descriptor.getSecurityCodeName()));
             assertEquals(expectedMessage, mView.getErrorMessage());
         }
     }
