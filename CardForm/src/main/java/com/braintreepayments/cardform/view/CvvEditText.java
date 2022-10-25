@@ -9,11 +9,12 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.text.method.PasswordTransformationMethod;
 import android.text.method.SingleLineTransformationMethod;
-import android.text.method.TransformationMethod;
 import android.util.AttributeSet;
 
+import com.braintreepayments.api.CardType;
 import com.braintreepayments.cardform.R;
-import com.braintreepayments.cardform.utils.CardType;
+import com.braintreepayments.cardform.utils.CardDescriptor;
+import com.braintreepayments.cardform.utils.CardParser;
 
 /**
  * An {@link android.widget.EditText} that displays a CVV hint for a given Card type when focused.
@@ -23,6 +24,7 @@ public class CvvEditText extends ErrorEditText implements TextWatcher {
     private static final int DEFAULT_MAX_LENGTH = 3;
 
     private CardType mCardType;
+    private CardParser cardParser = new CardParser();
 
     public CvvEditText(Context context) {
         super(context);
@@ -55,10 +57,11 @@ public class CvvEditText extends ErrorEditText implements TextWatcher {
     public void setCardType(CardType cardType) {
         mCardType = cardType;
 
-        InputFilter[] filters = { new LengthFilter(cardType.getSecurityCodeLength()) };
+        CardDescriptor cardDescriptor = cardParser.getDescriptor(cardType);
+        InputFilter[] filters = { new LengthFilter(cardDescriptor.getSecurityCodeLength()) };
         setFilters(filters);
 
-        setFieldHint(cardType.getSecurityCodeName());
+        setFieldHint(cardDescriptor.getSecurityCodeName());
 
         invalidate();
     }
@@ -80,7 +83,8 @@ public class CvvEditText extends ErrorEditText implements TextWatcher {
             return;
         }
 
-        if (mCardType.getSecurityCodeLength() == editable.length() && getSelectionStart() == editable.length()) {
+        CardDescriptor cardDescriptor = cardParser.getDescriptor(mCardType);
+        if (cardDescriptor.getSecurityCodeLength() == editable.length() && getSelectionStart() == editable.length()) {
             validate();
 
             if (isValid()) {
@@ -100,7 +104,8 @@ public class CvvEditText extends ErrorEditText implements TextWatcher {
         if (mCardType == null) {
             securityCodeName = getContext().getString(R.string.bt_cvv);
         } else {
-            securityCodeName = getContext().getString(mCardType.getSecurityCodeName());
+            CardDescriptor cardDescriptor = cardParser.getDescriptor(mCardType);
+            securityCodeName = getContext().getString(cardDescriptor.getSecurityCodeName());
         }
 
         if (TextUtils.isEmpty(getText())) {
@@ -114,7 +119,8 @@ public class CvvEditText extends ErrorEditText implements TextWatcher {
         if (mCardType == null) {
             return DEFAULT_MAX_LENGTH;
         } else {
-            return mCardType.getSecurityCodeLength();
+            CardDescriptor cardDescriptor = cardParser.getDescriptor(mCardType);
+            return cardDescriptor.getSecurityCodeLength();
         }
     }
 

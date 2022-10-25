@@ -1,5 +1,7 @@
 package com.braintreepayments.cardform.utils;
 
+import com.braintreepayments.api.CardType;
+
 public class SelectableCardType {
 
     CardType cardType;

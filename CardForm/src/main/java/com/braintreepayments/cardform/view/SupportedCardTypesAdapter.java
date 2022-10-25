@@ -9,8 +9,10 @@ import androidx.annotation.NonNull;
 import androidx.annotation.VisibleForTesting;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.braintreepayments.api.CardType;
 import com.braintreepayments.cardform.R;
-import com.braintreepayments.cardform.utils.CardType;
+import com.braintreepayments.cardform.utils.CardDescriptor;
+import com.braintreepayments.cardform.utils.CardParser;
 import com.braintreepayments.cardform.utils.SelectableCardType;
 
 class SupportedCardTypesAdapter extends RecyclerView.Adapter<SupportedCardTypesAdapter.SupportedCardTypesViewHolder> {
@@ -19,6 +21,8 @@ class SupportedCardTypesAdapter extends RecyclerView.Adapter<SupportedCardTypesA
     private final int SEMI_TRANSPARENT = 80;
 
     private final SelectableCardType[] supportedCardTypes;
+
+    private CardParser cardParser = new CardParser();
 
     static class SupportedCardTypesViewHolder extends RecyclerView.ViewHolder {
         private final ImageView imageView;
@@ -49,7 +53,9 @@ class SupportedCardTypesAdapter extends RecyclerView.Adapter<SupportedCardTypesA
     @Override
     public void onBindViewHolder(SupportedCardTypesViewHolder viewHolder, final int position) {
         SelectableCardType selectableCardType = supportedCardTypes[position];
-        viewHolder.getImageView().setImageResource(selectableCardType.getCardType().getFrontResource());
+
+        CardDescriptor cardDescriptor = cardParser.getDescriptor(selectableCardType.getCardType());
+        viewHolder.getImageView().setImageResource(cardDescriptor.getFrontResource());
 
         viewHolder.getImageView().setContentDescription(selectableCardType.getCardType().toString());
         if (selectableCardType.isDisabled()) {

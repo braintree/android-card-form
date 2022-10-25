@@ -9,7 +9,9 @@ import android.text.SpannableString;
 import android.util.AttributeSet;
 import android.widget.TextView;
 
-import com.braintreepayments.cardform.utils.CardType;
+import com.braintreepayments.api.CardType;
+import com.braintreepayments.cardform.utils.CardDescriptor;
+import com.braintreepayments.cardform.utils.CardParser;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -23,6 +25,8 @@ import java.util.List;
 public class SupportedCardTypesView extends TextView {
 
     private List<CardType> mSupportedCardTypes = new ArrayList<>();
+
+    private CardParser cardParser = new CardParser();
 
     public SupportedCardTypesView(Context context) {
         super(context);
@@ -76,7 +80,8 @@ public class SupportedCardTypesView extends TextView {
         SpannableString spannableString = new SpannableString(new String(new char[mSupportedCardTypes.size()]));
         PaddedImageSpan span;
         for (int i = 0; i < mSupportedCardTypes.size(); i++) {
-            span = new PaddedImageSpan(getContext(), mSupportedCardTypes.get(i).getFrontResource());
+            CardDescriptor cardDescriptor = cardParser.getDescriptor(mSupportedCardTypes.get(i));
+            span = new PaddedImageSpan(getContext(), cardDescriptor.getFrontResource());
             span.setDisabled(!Arrays.asList(cardTypes).contains(mSupportedCardTypes.get(i)));
             spannableString.setSpan(span, i, i + 1, SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE);
         }

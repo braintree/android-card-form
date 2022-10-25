@@ -2,7 +2,6 @@ package com.braintreepayments.cardform.view;
 
 import android.content.Context;
 import android.graphics.Rect;
-import androidx.core.widget.TextViewCompat;
 import android.text.Editable;
 import android.text.InputFilter;
 import android.text.InputFilter.LengthFilter;
@@ -13,9 +12,13 @@ import android.text.TextWatcher;
 import android.text.method.TransformationMethod;
 import android.util.AttributeSet;
 
+import androidx.core.widget.TextViewCompat;
+
+import com.braintreepayments.api.CardType;
 import com.braintreepayments.cardform.R;
+import com.braintreepayments.cardform.utils.CardDescriptor;
 import com.braintreepayments.cardform.utils.CardNumberTransformation;
-import com.braintreepayments.cardform.utils.CardType;
+import com.braintreepayments.cardform.utils.CardParser;
 
 /**
  * An {@link android.widget.EditText} that displays Card icons based on the number entered.
@@ -31,6 +34,8 @@ public class CardEditText extends ErrorEditText implements TextWatcher {
     private CardType mCardType;
     private OnCardTypeChangedListener mOnCardTypeChangedListener;
     private TransformationMethod mSavedTranformationMethod;
+
+    private CardParser cardParser = new CardParser();
 
     public CardEditText(Context context) {
         super(context);
@@ -71,7 +76,7 @@ public class CardEditText extends ErrorEditText implements TextWatcher {
     }
 
     /**
-     * @return The {@link com.braintreepayments.cardform.utils.CardType} currently entered in
+     * @return The {@link com.braintreepayments.api.CardType} currently entered in
      * the {@link android.widget.EditText}
      */
     public CardType getCardType() {
@@ -103,8 +108,8 @@ public class CardEditText extends ErrorEditText implements TextWatcher {
     }
 
     /**
-     * Receive a callback when the {@link com.braintreepayments.cardform.utils.CardType} changes
-     * @param listener to be called when the {@link com.braintreepayments.cardform.utils.CardType}
+     * Receive a callback when the {@link com.braintreepayments.api.CardType} changes
+     * @param listener to be called when the {@link com.braintreepayments.api.CardType}
      *  changes
      */
     public void setOnCardTypeChangedListener(OnCardTypeChangedListener listener) {
@@ -119,11 +124,14 @@ public class CardEditText extends ErrorEditText implements TextWatcher {
         }
 
         updateCardType();
-        setCardIcon(mCardType.getFrontResource());
 
-        addSpans(editable, mCardType.getSpaceIndices());
+        CardDescriptor descriptor = cardParser.getDescriptor(mCardType);
 
-        if (mCardType.getMaxCardLength() == getSelectionStart()) {
+        setCardIcon(descriptor.getFrontResource());
+
+        addSpans(editable, descriptor.getSpaceIndices());
+
+        if (descriptor.getMaxCardLength() == getSelectionStart()) {
             validate();
 
             if (isValid()) {
@@ -140,7 +148,7 @@ public class CardEditText extends ErrorEditText implements TextWatcher {
 
     @Override
     public boolean isValid() {
-        return isOptional() || mCardType.validate(getText().toString());
+        return isOptional() || cardParser.validate(getText().toString());
     }
 
     @Override
@@ -167,11 +175,12 @@ public class CardEditText extends ErrorEditText implements TextWatcher {
     }
 
     private void updateCardType() {
-        CardType type = CardType.forCardNumber(getText().toString());
+        CardType type = cardParser.parseCard(getText().toString());
         if (mCardType != type) {
             mCardType = type;
 
-            InputFilter[] filters = { new LengthFilter(mCardType.getMaxCardLength()) };
+            CardDescriptor cardDescriptor = cardParser.getDescriptor(mCardType);
+            InputFilter[] filters = { new LengthFilter(cardDescriptor.getMaxCardLength()) };
             setFilters(filters);
             invalidate();
 
