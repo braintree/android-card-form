@@ -1,1 +1,2 @@
 include ':CardForm', ':Sample'
+include ':CardTypes'

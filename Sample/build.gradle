@@ -4,7 +4,6 @@ plugins {
 
 android {
     compileSdkVersion rootProject.compileSdkVersion
-    buildToolsVersion '30.0.2'
 
     defaultConfig {
         applicationId 'com.braintreepayments.sample'
@@ -14,13 +13,12 @@ android {
         versionName rootProject.versionName
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
-
-    lintOptions {
-        warning 'MissingTranslation'
-        warning 'GradleCompatible'
+    lint {
+        textOutput file('stdout')
         textReport true
-        textOutput 'stdout'
+        warning 'MissingTranslation', 'GradleCompatible'
     }
+
 }
 
 dependencies {

@@ -6,13 +6,10 @@ plugins {
 
 android {
     compileSdkVersion rootProject.compileSdkVersion
-    buildToolsVersion '30.0.2'
 
     defaultConfig {
         minSdkVersion rootProject.minSdkVersion
         targetSdkVersion rootProject.targetSdkVersion
-        versionCode rootProject.versionCode
-        versionName rootProject.versionName
     }
 
     testOptions {
@@ -21,12 +18,12 @@ android {
         }
     }
 
-    lintOptions {
-        textReport true
-        textOutput 'stdout'
-    }
 
     resourcePrefix 'bt_'
+    lint {
+        textOutput file('stdout')
+        textReport true
+    }
 }
 
 dependencies {
