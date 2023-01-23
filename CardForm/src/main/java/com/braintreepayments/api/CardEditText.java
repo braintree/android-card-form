@@ -30,6 +30,8 @@ public class CardEditText extends ErrorEditText implements TextWatcher {
     private OnCardTypeChangedListener mOnCardTypeChangedListener;
     private TransformationMethod mSavedTranformationMethod;
 
+    private CardParser cardParser = new CardParser();
+
     public CardEditText(Context context) {
         super(context);
         init();
@@ -117,11 +119,13 @@ public class CardEditText extends ErrorEditText implements TextWatcher {
         }
 
         updateCardType();
-        setCardIcon(mCardType.getFrontResource());
 
-        addSpans(editable, mCardType.getSpaceIndices());
+        CardAttributes cardAttributes = CardAttributes.forCardType(mCardType);
+        setCardIcon(cardAttributes.getFrontResource());
 
-        if (mCardType.getMaxCardLength() == getSelectionStart()) {
+        addSpans(editable, cardAttributes.getSpaceIndices());
+
+        if (cardAttributes.getMaxCardLength() == getSelectionStart()) {
             validate();
 
             if (isValid()) {
@@ -138,7 +142,7 @@ public class CardEditText extends ErrorEditText implements TextWatcher {
 
     @Override
     public boolean isValid() {
-        return isOptional() || mCardType.validate(getText().toString());
+        return isOptional() || cardParser.validate(getText().toString());
     }
 
     @Override
@@ -165,11 +169,12 @@ public class CardEditText extends ErrorEditText implements TextWatcher {
     }
 
     private void updateCardType() {
-        CardType type = CardType.forCardNumber(getText().toString());
+        CardType type = cardParser.parseCardNumber(getText().toString());
         if (mCardType != type) {
             mCardType = type;
+            CardAttributes cardAttributes = CardAttributes.forCardType(type);
 
-            InputFilter[] filters = { new LengthFilter(mCardType.getMaxCardLength()) };
+            InputFilter[] filters = { new LengthFilter(cardAttributes.getMaxCardLength()) };
             setFilters(filters);
             invalidate();
 

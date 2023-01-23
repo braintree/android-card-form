@@ -52,11 +52,12 @@ public class CvvEditText extends ErrorEditText implements TextWatcher {
      */
     public void setCardType(CardType cardType) {
         mCardType = cardType;
+        CardAttributes cardAttributes = CardAttributes.forCardType(cardType);
 
-        InputFilter[] filters = { new LengthFilter(cardType.getSecurityCodeLength()) };
+        InputFilter[] filters = { new LengthFilter(cardAttributes.getSecurityCodeLength()) };
         setFilters(filters);
 
-        setFieldHint(cardType.getSecurityCodeName());
+        setFieldHint(cardAttributes.getSecurityCodeName());
 
         invalidate();
     }
@@ -78,7 +79,8 @@ public class CvvEditText extends ErrorEditText implements TextWatcher {
             return;
         }
 
-        if (mCardType.getSecurityCodeLength() == editable.length() && getSelectionStart() == editable.length()) {
+        CardAttributes cardAttributes = CardAttributes.forCardType(mCardType);
+        if (cardAttributes.getSecurityCodeLength() == editable.length() && getSelectionStart() == editable.length()) {
             validate();
 
             if (isValid()) {
@@ -98,7 +100,8 @@ public class CvvEditText extends ErrorEditText implements TextWatcher {
         if (mCardType == null) {
             securityCodeName = getContext().getString(R.string.bt_cvv);
         } else {
-            securityCodeName = getContext().getString(mCardType.getSecurityCodeName());
+            CardAttributes cardAttributes = CardAttributes.forCardType(mCardType);
+            securityCodeName = getContext().getString(cardAttributes.getSecurityCodeName());
         }
 
         if (TextUtils.isEmpty(getText())) {
@@ -112,7 +115,8 @@ public class CvvEditText extends ErrorEditText implements TextWatcher {
         if (mCardType == null) {
             return DEFAULT_MAX_LENGTH;
         } else {
-            return mCardType.getSecurityCodeLength();
+            CardAttributes cardAttributes = CardAttributes.forCardType(mCardType);
+            return cardAttributes.getSecurityCodeLength();
         }
     }
 

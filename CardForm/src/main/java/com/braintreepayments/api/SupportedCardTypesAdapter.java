@@ -47,7 +47,8 @@ class SupportedCardTypesAdapter extends RecyclerView.Adapter<SupportedCardTypesA
     @Override
     public void onBindViewHolder(SupportedCardTypesViewHolder viewHolder, final int position) {
         SelectableCardType selectableCardType = supportedCardTypes[position];
-        viewHolder.getImageView().setImageResource(selectableCardType.getCardType().getFrontResource());
+        CardAttributes cardAttributes = CardAttributes.forCardType(selectableCardType.getCardType());
+        viewHolder.getImageView().setImageResource(cardAttributes.getFrontResource());
 
         viewHolder.getImageView().setContentDescription(selectableCardType.getCardType().toString());
         if (selectableCardType.isDisabled()) {
