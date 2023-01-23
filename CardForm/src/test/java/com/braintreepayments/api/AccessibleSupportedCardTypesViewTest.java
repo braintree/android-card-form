@@ -2,7 +2,7 @@ package com.braintreepayments.api;
 
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.TestCase.assertNull;
-import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.verify;
 
 import androidx.test.core.app.ApplicationProvider;
@@ -48,7 +48,9 @@ public class AccessibleSupportedCardTypesViewTest {
     public void setSelected_notifiesAdapter() {
         AccessibleSupportedCardTypesView sut = new AccessibleSupportedCardTypesView(ApplicationProvider.getApplicationContext());
 
-        SupportedCardTypesAdapter adapter = mock(SupportedCardTypesAdapter.class);
+        SelectableCardType selectableCardType = new SelectableCardType(CardType.VISA);
+        SupportedCardTypesAdapter adapter =
+                spy(new SupportedCardTypesAdapter(new SelectableCardType[]{selectableCardType}));
         sut.adapter = adapter;
 
         sut.setSelected(CardType.VISA);

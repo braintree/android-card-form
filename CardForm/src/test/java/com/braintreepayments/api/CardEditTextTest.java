@@ -192,7 +192,8 @@ public class CardEditTextTest {
 
     @Test
     public void doesNotCallCardTypeChangedListenerWhenSetAndCardTypeDoesNotChange() {
-        CardEditText.OnCardTypeChangedListener listener = mock(CardEditText.OnCardTypeChangedListener.class);
+        CardEditText.OnCardTypeChangedListener listener =
+            mock(CardEditText.OnCardTypeChangedListener.class);
         mView.setOnCardTypeChangedListener(listener);
 
         type("4");
