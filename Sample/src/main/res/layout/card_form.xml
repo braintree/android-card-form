@@ -27,7 +27,19 @@
                 android:id="@+id/card_form"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/bt_margin"/>
+                android:layout_margin="@dimen/bt_margin"
+                cardform:maskValidCardNumberWhenOutOfFocus="true"
+                cardform:maskSecurityCodeInput="true"
+                cardform:cvvRequired="true"
+                cardform:expirationRequired="true"
+                cardform:postalCodeRequired="true"
+                cardform:phoneNumberRequired="true"
+                cardform:phoneNumberExplanation="@string/phone_number_prompt"
+                cardform:saveCardCheckboxVisible="true"
+                cardform:saveCardCheckboxEnabled="true"
+                cardform:cardholderNameDisplay="none|optional|required"
+                cardform:submitButtonText="@string/submit_text"
+                />
 
         </LinearLayout>
 

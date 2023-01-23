@@ -35,8 +35,7 @@ import java.util.List;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentActivity;
 
-public class CardForm extends LinearLayout implements OnCardTypeChangedListener, OnFocusChangeListener, OnClickListener,
-        OnEditorActionListener, TextWatcher {
+public class CardForm extends LinearLayout implements OnCardTypeChangedListener, OnFocusChangeListener, OnClickListener, OnEditorActionListener, TextWatcher {
 
     /**
      * Hides the field.

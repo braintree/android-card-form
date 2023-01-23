@@ -19,8 +19,7 @@ public class SpaceSpan extends ReplacementSpan {
     }
 
     @Override
-    public void draw(Canvas canvas, CharSequence text, int start, int end, float x, int top, int y,
-            int bottom, Paint paint) {
+    public void draw(Canvas canvas, CharSequence text, int start, int end, float x, int top, int y, int bottom, Paint paint) {
         canvas.drawText(text.subSequence(start, end) + " ", x, y, paint);
     }
 }

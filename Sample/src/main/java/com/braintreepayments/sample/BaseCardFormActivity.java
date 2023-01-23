@@ -12,12 +12,20 @@ import com.braintreepayments.api.CardEditText;
 import com.braintreepayments.api.CardForm;
 import com.braintreepayments.api.AccessibleSupportedCardTypesView;
 
-public class BaseCardFormActivity extends AppCompatActivity implements OnCardFormSubmitListener,
-        CardEditText.OnCardTypeChangedListener {
+public class BaseCardFormActivity extends AppCompatActivity implements OnCardFormSubmitListener, CardEditText.OnCardTypeChangedListener {
 
-    private static final CardType[] SUPPORTED_CARD_TYPES = { CardType.VISA, CardType.MASTERCARD, CardType.DISCOVER,
-            CardType.AMEX, CardType.DINERS_CLUB, CardType.JCB, CardType.MAESTRO, CardType.UNIONPAY,
-            CardType.HIPER, CardType.HIPERCARD };
+    private static final CardType[] SUPPORTED_CARD_TYPES = {
+            CardType.VISA,
+            CardType.MASTERCARD,
+            CardType.DISCOVER,
+            CardType.AMEX,
+            CardType.DINERS_CLUB,
+            CardType.JCB,
+            CardType.MAESTRO,
+            CardType.UNIONPAY,
+            CardType.HIPER,
+            CardType.HIPERCARD
+    };
 
     private AccessibleSupportedCardTypesView mSupportedCardTypesView;
 
@@ -32,6 +40,7 @@ public class BaseCardFormActivity extends AppCompatActivity implements OnCardFor
         mSupportedCardTypesView.setSupportedCardTypes(SUPPORTED_CARD_TYPES);
 
         mCardForm = findViewById(R.id.card_form);
+
         mCardForm.cardRequired(true)
                 .maskCardNumber(true)
                 .maskCvv(true)
