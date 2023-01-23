@@ -18,13 +18,13 @@ android {
         }
     }
 
-    lintOptions {
-        textReport true
-        textOutput 'stdout'
-    }
 
     resourcePrefix 'bt_'
     namespace 'com.braintreepayments.api.cardform'
+    lint {
+        textOutput file('stdout')
+        textReport true
+    }
 }
 
 dependencies {
