@@ -14,13 +14,12 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
-    lintOptions {
-        warning 'MissingTranslation'
-        warning 'GradleCompatible'
-        textReport true
-        textOutput 'stdout'
-    }
     namespace 'com.braintreepayments.sample'
+    lint {
+        textOutput file('stdout')
+        textReport true
+        warning 'MissingTranslation', 'GradleCompatible'
+    }
 }
 
 dependencies {
