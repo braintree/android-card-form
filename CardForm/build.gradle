@@ -6,13 +6,10 @@ plugins {
 
 android {
     compileSdkVersion rootProject.compileSdkVersion
-    buildToolsVersion '30.0.2'
 
     defaultConfig {
         minSdkVersion rootProject.minSdkVersion
         targetSdkVersion rootProject.targetSdkVersion
-        versionCode rootProject.versionCode
-        versionName rootProject.versionName
     }
 
     testOptions {
@@ -27,6 +24,7 @@ android {
     }
 
     resourcePrefix 'bt_'
+    namespace 'com.braintreepayments.api.cardform'
 }
 
 dependencies {
