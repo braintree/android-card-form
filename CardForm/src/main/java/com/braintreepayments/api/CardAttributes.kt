@@ -17,34 +17,14 @@ import java.util.regex.Pattern
  */
 data class CardAttributes constructor(
     val cardType: CardType,
+    @DrawableRes val frontResource: Int,
+    val maxCardLength: Int,
+    val minCardLength: Int,
     val pattern: Pattern,
     val relaxedPrefixPattern: Pattern?,
-    @DrawableRes val frontResource: Int,
-    val minCardLength: Int,
-    val maxCardLength: Int,
     val securityCodeLength: Int,
     @StringRes val securityCodeName: Int,
 ) {
-
-    constructor(
-        cardType: CardType,
-        regex: String,
-        @DrawableRes frontResource: Int,
-        minCardLength: Int,
-        maxCardLength: Int,
-        securityCodeLength: Int,
-        @StringRes securityCodeName: Int,
-        relaxedPrefixPattern: String? = null,
-    ) : this(
-        cardType,
-        Pattern.compile(regex),
-        relaxedPrefixPattern?.let { Pattern.compile(it) },
-        frontResource,
-        minCardLength,
-        maxCardLength,
-        securityCodeLength,
-        securityCodeName
-    )
 
     val spaceIndices: IntArray =
         if (cardType == CardType.AMEX) AMEX_SPACE_INDICES else DEFAULT_SPACE_INDICES
@@ -67,123 +47,112 @@ data class CardAttributes constructor(
         private val cardAttributeMap = createCardAttributeMap(
             CardAttributes(
                 cardType = CardType.EMPTY,
-                regex = "^$",
+                pattern = Pattern.compile("^$"),
                 frontResource = R.drawable.bt_ic_unknown,
                 minCardLength = 12,
                 maxCardLength = 19,
                 securityCodeLength = 3,
                 securityCodeName = R.string.bt_cvv,
-                relaxedPrefixPattern = null
             ),
             CardAttributes(
                 cardType = CardType.UNKNOWN,
-                regex = "\\d+",
+                pattern = Pattern.compile("\\d+"),
                 frontResource = R.drawable.bt_ic_unknown,
                 minCardLength = 12,
                 maxCardLength = 19,
                 securityCodeLength = 3,
                 securityCodeName = R.string.bt_cvv,
-                relaxedPrefixPattern = null
             ),
             CardAttributes(
                 cardType = CardType.HIPERCARD,
-                regex = "^606282\\d*",
+                pattern = Pattern.compile("^606282\\d*"),
                 frontResource = R.drawable.bt_ic_hipercard,
                 minCardLength = 16,
                 maxCardLength = 16,
                 securityCodeLength = 3,
                 securityCodeName = R.string.bt_cvc,
-                relaxedPrefixPattern = null
             ),
             CardAttributes(
                 cardType = CardType.HIPER,
-                regex = "^637(095|568|599|609|612)\\d*",
+                pattern = Pattern.compile("^637(095|568|599|609|612)\\d*"),
                 frontResource = R.drawable.bt_ic_hiper,
                 minCardLength = 16,
                 maxCardLength = 16,
                 securityCodeLength = 3,
                 securityCodeName = R.string.bt_cvc,
-                relaxedPrefixPattern = null
             ),
             CardAttributes(
                 cardType = CardType.UNIONPAY,
-                regex = "^62\\d*",
+                pattern = Pattern.compile("^62\\d*"),
                 frontResource = R.drawable.bt_ic_unionpay,
                 minCardLength = 16,
                 maxCardLength = 19,
                 securityCodeLength = 3,
                 securityCodeName = R.string.bt_cvn,
-                relaxedPrefixPattern = null
             ),
             CardAttributes(
                 cardType = CardType.VISA,
-                regex = "^4\\d*",
+                pattern = Pattern.compile("^4\\d*"),
                 frontResource = R.drawable.bt_ic_visa,
                 minCardLength = 16,
                 maxCardLength = 16,
                 securityCodeLength = 3,
                 securityCodeName = R.string.bt_cvv,
-                relaxedPrefixPattern = null
             ),
             CardAttributes(
                 cardType = CardType.MASTERCARD,
-                regex = "^(5[1-5]|222[1-9]|22[3-9]|2[3-6]|27[0-1]|2720)\\d*",
+                pattern = Pattern.compile("^(5[1-5]|222[1-9]|22[3-9]|2[3-6]|27[0-1]|2720)\\d*"),
                 frontResource = R.drawable.bt_ic_mastercard,
                 minCardLength = 16,
                 maxCardLength = 16,
                 securityCodeLength = 3,
                 securityCodeName = R.string.bt_cvc,
-                relaxedPrefixPattern = null
             ),
             CardAttributes(
                 cardType = CardType.DISCOVER,
-                regex = "^(6011|65|64[4-9]|622)\\d*",
+                pattern = Pattern.compile("^(6011|65|64[4-9]|622)\\d*"),
                 frontResource = R.drawable.bt_ic_discover,
                 minCardLength = 16,
                 maxCardLength = 19,
                 securityCodeLength = 3,
                 securityCodeName = R.string.bt_cid,
-                relaxedPrefixPattern = null
             ),
             CardAttributes(
                 cardType = CardType.AMEX,
-                regex = "^3[47]\\d*",
+                pattern = Pattern.compile("^3[47]\\d*"),
                 frontResource = R.drawable.bt_ic_amex,
                 minCardLength = 15,
                 maxCardLength = 15,
                 securityCodeLength = 4,
                 securityCodeName = R.string.bt_cid,
-                relaxedPrefixPattern = null
             ),
             CardAttributes(
                 cardType = CardType.DINERS_CLUB,
-                regex = "^(36|38|30[0-5])\\d*",
+                pattern = Pattern.compile("^(36|38|30[0-5])\\d*"),
                 frontResource = R.drawable.bt_ic_diners_club,
                 minCardLength = 14,
                 maxCardLength = 14,
                 securityCodeLength = 3,
                 securityCodeName = R.string.bt_cvv,
-                relaxedPrefixPattern = null
             ),
             CardAttributes(
                 cardType = CardType.JCB,
-                regex = "^35\\d*",
+                pattern = Pattern.compile("^35\\d*"),
                 frontResource = R.drawable.bt_ic_jcb,
                 minCardLength = 16,
                 maxCardLength = 16,
                 securityCodeLength = 3,
                 securityCodeName = R.string.bt_cvv,
-                relaxedPrefixPattern = null
             ),
             CardAttributes(
                 cardType = CardType.MAESTRO,
-                regex = "^(5018|5020|5038|5043|5[6-9]|6020|6304|6703|6759|676[1-3])\\d*",
+                pattern = Pattern.compile("^(5018|5020|5038|5043|5[6-9]|6020|6304|6703|6759|676[1-3])\\d*"),
                 frontResource = R.drawable.bt_ic_maestro,
                 minCardLength = 12,
                 maxCardLength = 19,
                 securityCodeLength = 3,
                 securityCodeName = R.string.bt_cvc,
-                relaxedPrefixPattern = "^6\\d*"
+                relaxedPrefixPattern = Pattern.compile("^6\\d*")
             )
         )
 
