@@ -21,7 +21,7 @@ data class CardAttributes constructor(
     val maxCardLength: Int,
     val minCardLength: Int,
     val pattern: Pattern,
-    val relaxedPrefixPattern: Pattern?,
+    val relaxedPrefixPattern: Pattern? = null,
     val securityCodeLength: Int,
     @StringRes val securityCodeName: Int,
 ) {
@@ -40,29 +40,28 @@ data class CardAttributes constructor(
         private val AMEX_SPACE_INDICES = intArrayOf(4, 10)
         private val DEFAULT_SPACE_INDICES = intArrayOf(4, 8, 12)
 
-        @JvmStatic
-        fun forCardType(cardType: CardType): CardAttributes =
-            cardAttributeMap[cardType] ?: cardAttributeMap[CardType.UNKNOWN]!!
+        @JvmField
+        val EMPTY = CardAttributes(
+            cardType = CardType.EMPTY,
+            pattern = Pattern.compile("^$"),
+            frontResource = R.drawable.bt_ic_unknown,
+            minCardLength = 12,
+            maxCardLength = 19,
+            securityCodeLength = 3,
+            securityCodeName = R.string.bt_cvv,
+        )
 
-        private val cardAttributeMap = createCardAttributeMap(
-            CardAttributes(
-                cardType = CardType.EMPTY,
-                pattern = Pattern.compile("^$"),
-                frontResource = R.drawable.bt_ic_unknown,
-                minCardLength = 12,
-                maxCardLength = 19,
-                securityCodeLength = 3,
-                securityCodeName = R.string.bt_cvv,
-            ),
-            CardAttributes(
-                cardType = CardType.UNKNOWN,
-                pattern = Pattern.compile("\\d+"),
-                frontResource = R.drawable.bt_ic_unknown,
-                minCardLength = 12,
-                maxCardLength = 19,
-                securityCodeLength = 3,
-                securityCodeName = R.string.bt_cvv,
-            ),
+        val UNKNOWN = CardAttributes(
+            cardType = CardType.UNKNOWN,
+            pattern = Pattern.compile("\\d+"),
+            frontResource = R.drawable.bt_ic_unknown,
+            minCardLength = 12,
+            maxCardLength = 19,
+            securityCodeLength = 3,
+            securityCodeName = R.string.bt_cvv,
+        )
+
+        private val knownCardBrandAttributes = createCardAttributeMap(
             CardAttributes(
                 cardType = CardType.HIPERCARD,
                 pattern = Pattern.compile("^606282\\d*"),
@@ -156,6 +155,8 @@ data class CardAttributes constructor(
             )
         )
 
+        val allKnownValues = knownCardBrandAttributes.values
+
         private fun createCardAttributeMap(vararg items: CardAttributes): Map<CardType, CardAttributes> {
             val result = mutableMapOf<CardType, CardAttributes>()
             for (item in items) {
@@ -163,5 +164,9 @@ data class CardAttributes constructor(
             }
             return result
         }
+
+        @JvmStatic
+        fun forCardType(cardType: CardType): CardAttributes =
+            knownCardBrandAttributes[cardType] ?: UNKNOWN
     }
 }

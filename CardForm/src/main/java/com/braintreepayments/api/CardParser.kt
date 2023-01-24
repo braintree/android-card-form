@@ -4,10 +4,6 @@ import android.text.TextUtils
 
 class CardParser {
 
-    private val undetectableCardTypes = setOf(CardType.EMPTY, CardType.UNKNOWN)
-    private val detectableCardAttributes =
-        (CardType.values().toSet() - undetectableCardTypes).map { CardAttributes.forCardType(it) }
-
     fun parseCardAttributes(cardNumber: String): CardAttributes {
         val cardAttributes =
             findStrictCardTypeMatch(cardNumber) ?: findRelaxedCardTypeMatch(cardNumber)
@@ -24,10 +20,10 @@ class CardParser {
     fun parseCardType(cardNumber: String): CardType = parseCardAttributes(cardNumber).cardType
 
     private fun findStrictCardTypeMatch(cardNumber: String) =
-        detectableCardAttributes.find { it.matchesStrict(cardNumber) }
+        CardAttributes.allKnownValues.find { it.matchesStrict(cardNumber) }
 
     private fun findRelaxedCardTypeMatch(cardNumber: String) =
-        detectableCardAttributes.find { it.matchesRelaxed(cardNumber) }
+        CardAttributes.allKnownValues.find { it.matchesRelaxed(cardNumber) }
 
     /**
      * Performs the Luhn check on the given card number.
