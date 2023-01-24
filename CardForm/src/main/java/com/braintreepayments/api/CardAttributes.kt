@@ -60,19 +60,77 @@ data class CardAttributes constructor(
         private val AMEX_SPACE_INDICES = intArrayOf(4, 10)
         private val DEFAULT_SPACE_INDICES = intArrayOf(4, 8, 12)
 
-        @JvmField
-        val EMPTY = forCardType(CardType.EMPTY)
+        private fun createCardAttributeMap(vararg items: CardAttributes): Map<CardType, CardAttributes> {
+            val result = mutableMapOf<CardType, CardAttributes>()
+            for (item in items) {
+                result[item.cardType] = item
+            }
+            return result
+        }
 
-        @JvmField
-        val UNKNOWN = forCardType(CardType.UNKNOWN)
-
-        @JvmStatic
-        fun forCardType(cardType: CardType): CardAttributes = when (cardType) {
-            CardType.VISA -> CardAttributes(
-                cardType, "^4\\d*", R.drawable.bt_ic_visa, 16, 16, 3, R.string.bt_cvv, null
-            )
-            CardType.MASTERCARD -> CardAttributes(
-                cardType,
+        private val cardAttributeMap = createCardAttributeMap(
+            CardAttributes(
+                CardType.EMPTY,
+                "^$",
+                R.drawable.bt_ic_unknown,
+                12,
+                19,
+                3,
+                R.string.bt_cvv,
+                null
+            ),
+            CardAttributes(
+                CardType.UNKNOWN,
+                "\\d+",
+                R.drawable.bt_ic_unknown,
+                12,
+                19,
+                3,
+                R.string.bt_cvv,
+                null
+            ),
+            CardAttributes(
+                CardType.HIPERCARD,
+                "^606282\\d*",
+                R.drawable.bt_ic_hipercard,
+                16,
+                16,
+                3,
+                R.string.bt_cvc,
+                null
+            ),
+            CardAttributes(
+                CardType.HIPER,
+                "^637(095|568|599|609|612)\\d*",
+                R.drawable.bt_ic_hiper,
+                16,
+                16,
+                3,
+                R.string.bt_cvc,
+                null
+            ),
+            CardAttributes(
+                CardType.UNIONPAY,
+                "^62\\d*",
+                R.drawable.bt_ic_unionpay,
+                16,
+                19,
+                3,
+                R.string.bt_cvn,
+                null
+            ),
+            CardAttributes(
+                CardType.VISA,
+                "^4\\d*",
+                R.drawable.bt_ic_visa,
+                16,
+                16,
+                3,
+                R.string.bt_cvv,
+                null
+            ),
+            CardAttributes(
+                CardType.MASTERCARD,
                 "^(5[1-5]|222[1-9]|22[3-9]|2[3-6]|27[0-1]|2720)\\d*",
                 R.drawable.bt_ic_mastercard,
                 16,
@@ -80,9 +138,9 @@ data class CardAttributes constructor(
                 3,
                 R.string.bt_cvc,
                 null
-            )
-            CardType.DISCOVER -> CardAttributes(
-                cardType,
+            ),
+            CardAttributes(
+                CardType.DISCOVER,
                 "^(6011|65|64[4-9]|622)\\d*",
                 R.drawable.bt_ic_discover,
                 16,
@@ -90,12 +148,19 @@ data class CardAttributes constructor(
                 3,
                 R.string.bt_cid,
                 null
-            )
-            CardType.AMEX -> CardAttributes(
-                cardType, "^3[47]\\d*", R.drawable.bt_ic_amex, 15, 15, 4, R.string.bt_cid, null
-            )
-            CardType.DINERS_CLUB -> CardAttributes(
-                cardType,
+            ),
+            CardAttributes(
+                CardType.AMEX,
+                "^3[47]\\d*",
+                R.drawable.bt_ic_amex,
+                15,
+                15,
+                4,
+                R.string.bt_cid,
+                null
+            ),
+            CardAttributes(
+                CardType.DINERS_CLUB,
                 "^(36|38|30[0-5])\\d*",
                 R.drawable.bt_ic_diners_club,
                 14,
@@ -103,12 +168,19 @@ data class CardAttributes constructor(
                 3,
                 R.string.bt_cvv,
                 null
-            )
-            CardType.JCB -> CardAttributes(
-                cardType, "^35\\d*", R.drawable.bt_ic_jcb, 16, 16, 3, R.string.bt_cvv, null
-            )
-            CardType.MAESTRO -> CardAttributes(
-                cardType,
+            ),
+            CardAttributes(
+                CardType.JCB,
+                "^35\\d*",
+                R.drawable.bt_ic_jcb,
+                16,
+                16,
+                3,
+                R.string.bt_cvv,
+                null
+            ),
+            CardAttributes(
+                CardType.MAESTRO,
                 "^(5018|5020|5038|5043|5[6-9]|6020|6304|6703|6759|676[1-3])\\d*",
                 R.drawable.bt_ic_maestro,
                 12,
@@ -117,35 +189,10 @@ data class CardAttributes constructor(
                 R.string.bt_cvc,
                 "^6\\d*"
             )
-            CardType.UNIONPAY -> CardAttributes(
-                cardType, "^62\\d*", R.drawable.bt_ic_unionpay, 16, 19, 3, R.string.bt_cvn, null
-            )
-            CardType.HIPER -> CardAttributes(
-                cardType,
-                "^637(095|568|599|609|612)\\d*",
-                R.drawable.bt_ic_hiper,
-                16,
-                16,
-                3,
-                R.string.bt_cvc,
-                null
-            )
-            CardType.HIPERCARD -> CardAttributes(
-                cardType,
-                "^606282\\d*",
-                R.drawable.bt_ic_hipercard,
-                16,
-                16,
-                3,
-                R.string.bt_cvc,
-                null
-            )
-            CardType.UNKNOWN -> CardAttributes(
-                cardType, "\\d+", R.drawable.bt_ic_unknown, 12, 19, 3, R.string.bt_cvv, null
-            )
-            CardType.EMPTY -> CardAttributes(
-                cardType, "^$", R.drawable.bt_ic_unknown, 12, 19, 3, R.string.bt_cvv, null
-            )
-        }
+        )
+
+        @JvmStatic
+        fun forCardType(cardType: CardType): CardAttributes =
+            cardAttributeMap[cardType] ?: cardAttributeMap[CardType.UNKNOWN]!!
     }
 }
