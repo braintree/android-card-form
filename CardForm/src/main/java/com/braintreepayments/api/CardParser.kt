@@ -8,18 +8,20 @@ class CardParser {
     private val detectableCardAttributes =
         (CardType.values().toSet() - undetectableCardTypes).map { CardAttributes.forCardType(it) }
 
+    fun parseCardAttributes(cardNumber: String): CardAttributes {
+        val cardAttributes =
+            findStrictCardTypeMatch(cardNumber) ?: findRelaxedCardTypeMatch(cardNumber)
+
+        return cardAttributes
+            ?: (if (cardNumber.isEmpty()) CardAttributes.EMPTY else CardAttributes.UNKNOWN)
+    }
+
     /**
      * Returns the card type matching this account, or [CardType.UNKNOWN] for no match.
      *
      * A partial account type may be given, with the caveat that it may not have enough digits to match.
      */
-    fun parseCardType(cardNumber: String): CardType {
-        val cardAttributes =
-            findStrictCardTypeMatch(cardNumber) ?: findRelaxedCardTypeMatch(cardNumber)
-
-        return cardAttributes?.cardType
-            ?: (if (cardNumber.isEmpty()) CardType.EMPTY else CardType.UNKNOWN)
-    }
+    fun parseCardType(cardNumber: String): CardType = parseCardAttributes(cardNumber).cardType
 
     private fun findStrictCardTypeMatch(cardNumber: String) =
         detectableCardAttributes.find { it.matchesStrict(cardNumber) }

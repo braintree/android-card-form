@@ -24,11 +24,11 @@ public class CardEditText extends ErrorEditText implements TextWatcher {
         void onCardTypeChanged(CardType cardType);
     }
 
-    private boolean mDisplayCardIcon = true;
-    private boolean mMask = false;
-    private CardType mCardType;
-    private OnCardTypeChangedListener mOnCardTypeChangedListener;
-    private TransformationMethod mSavedTranformationMethod;
+    private boolean displayCardIcon = true;
+    private boolean mask = false;
+    private CardAttributes cardAttributes = CardAttributes.EMPTY;
+    private OnCardTypeChangedListener onCardTypeChangedListener;
+    private TransformationMethod savedTransformationMethod;
 
     private CardParser cardParser = new CardParser();
 
@@ -52,7 +52,7 @@ public class CardEditText extends ErrorEditText implements TextWatcher {
         setCardIcon(R.drawable.bt_ic_unknown);
         addTextChangedListener(this);
         updateCardType();
-        mSavedTranformationMethod = getTransformationMethod();
+        savedTransformationMethod = getTransformationMethod();
     }
 
     /**
@@ -63,9 +63,9 @@ public class CardEditText extends ErrorEditText implements TextWatcher {
      *                            type icons.
      */
     public void displayCardTypeIcon(boolean display) {
-        mDisplayCardIcon = display;
+        displayCardIcon = display;
 
-        if (!mDisplayCardIcon) {
+        if (!displayCardIcon) {
             setCardIcon(-1);
         }
     }
@@ -75,7 +75,7 @@ public class CardEditText extends ErrorEditText implements TextWatcher {
      * the {@link android.widget.EditText}
      */
     public CardType getCardType() {
-        return mCardType;
+        return cardAttributes.getCardType();
     }
 
     /**
@@ -84,7 +84,7 @@ public class CardEditText extends ErrorEditText implements TextWatcher {
      * something like "4111111111111111" to "•••• 1111".
      */
     public void setMask(boolean mask) {
-        mMask = mask;
+        this.mask = mask;
     }
 
     @Override
@@ -97,7 +97,7 @@ public class CardEditText extends ErrorEditText implements TextWatcher {
             if (getText().toString().length() > 0) {
                 setSelection(getText().toString().length());
             }
-        } else if (mMask && isValid()) {
+        } else if (mask && isValid()) {
             maskNumber();
         }
     }
@@ -108,7 +108,7 @@ public class CardEditText extends ErrorEditText implements TextWatcher {
      *  changes
      */
     public void setOnCardTypeChangedListener(OnCardTypeChangedListener listener) {
-        mOnCardTypeChangedListener = listener;
+        onCardTypeChangedListener = listener;
     }
 
     @Override
@@ -120,9 +120,7 @@ public class CardEditText extends ErrorEditText implements TextWatcher {
 
         updateCardType();
 
-        CardAttributes cardAttributes = CardAttributes.forCardType(mCardType);
         setCardIcon(cardAttributes.getFrontResource());
-
         addSpans(editable, cardAttributes.getSpaceIndices());
 
         if (cardAttributes.getMaxCardLength() == getSelectionStart()) {
@@ -134,7 +132,7 @@ public class CardEditText extends ErrorEditText implements TextWatcher {
                 unmaskNumber();
             }
         } else if (!hasFocus()) {
-            if (mMask) {
+            if (mask) {
                 maskNumber();
             }
         }
@@ -156,30 +154,30 @@ public class CardEditText extends ErrorEditText implements TextWatcher {
 
     private void maskNumber() {
         if (!(getTransformationMethod() instanceof CardNumberTransformation)) {
-            mSavedTranformationMethod = getTransformationMethod();
+            savedTransformationMethod = getTransformationMethod();
 
             setTransformationMethod(new CardNumberTransformation());
         }
     }
 
     private void unmaskNumber() {
-        if (getTransformationMethod() != mSavedTranformationMethod) {
-            setTransformationMethod(mSavedTranformationMethod);
+        if (getTransformationMethod() != savedTransformationMethod) {
+            setTransformationMethod(savedTransformationMethod);
         }
     }
 
     private void updateCardType() {
-        CardType type = cardParser.parseCardType(getText().toString());
-        if (mCardType != type) {
-            mCardType = type;
-            CardAttributes cardAttributes = CardAttributes.forCardType(type);
+        CardAttributes attrs = cardParser.parseCardAttributes(getText().toString());
+
+        if (cardAttributes.getCardType() != attrs.getCardType()) {
+            cardAttributes = attrs;
 
             InputFilter[] filters = { new LengthFilter(cardAttributes.getMaxCardLength()) };
             setFilters(filters);
             invalidate();
 
-            if (mOnCardTypeChangedListener != null) {
-                mOnCardTypeChangedListener.onCardTypeChanged(mCardType);
+            if (onCardTypeChangedListener != null) {
+                onCardTypeChangedListener.onCardTypeChanged(cardAttributes.getCardType());
             }
         }
     }
@@ -195,7 +193,7 @@ public class CardEditText extends ErrorEditText implements TextWatcher {
     }
 
     private void setCardIcon(int icon) {
-        if (!mDisplayCardIcon || getText().length() == 0) {
+        if (!displayCardIcon || getText().length() == 0) {
             TextViewCompat.setCompoundDrawablesRelativeWithIntrinsicBounds(this, 0, 0, 0, 0);
         } else {
             TextViewCompat.setCompoundDrawablesRelativeWithIntrinsicBounds(this, 0, 0, icon, 0);

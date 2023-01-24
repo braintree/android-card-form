@@ -60,6 +60,12 @@ data class CardAttributes constructor(
         private val AMEX_SPACE_INDICES = intArrayOf(4, 10)
         private val DEFAULT_SPACE_INDICES = intArrayOf(4, 8, 12)
 
+        @JvmField
+        val EMPTY = forCardType(CardType.EMPTY)
+
+        @JvmField
+        val UNKNOWN = forCardType(CardType.UNKNOWN)
+
         @JvmStatic
         fun forCardType(cardType: CardType): CardAttributes = when (cardType) {
             CardType.VISA -> CardAttributes(
