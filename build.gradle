@@ -24,9 +24,9 @@ ext["signing.secretKeyRingFile"] = System.getenv('SIGNING_KEY_FILE') ?: ''
 
 version '5.4.1-SNAPSHOT'
 ext {
-    compileSdkVersion = 32
+    compileSdkVersion = 33
     minSdkVersion = 21
-    targetSdkVersion = 32
+    targetSdkVersion = 33
     versionCode = 52
     versionName = version
 }
