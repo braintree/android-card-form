@@ -2,7 +2,10 @@ package com.braintreepayments.api
 
 import org.junit.Assert.*
 import org.junit.Test
+import org.junit.runner.RunWith
+import org.robolectric.RobolectricTestRunner
 
+@RunWith(RobolectricTestRunner::class)
 class CardParserUnitTest {
 
     private val sampleCards: Map<String, CardType> = mapOf(

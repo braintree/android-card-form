@@ -94,6 +94,6 @@ public class SupportedCardTypesAdapterTest {
 
         sut.onBindViewHolder(viewHolder, 0);
 
-        verify(imageView).setImageResource(CardType.AMEX.getFrontResource());
+        verify(imageView).setImageResource(CardAttributes.forCardType(CardType.AMEX).getFrontResource());
     }
 }

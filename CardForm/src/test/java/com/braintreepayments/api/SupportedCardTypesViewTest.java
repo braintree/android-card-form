@@ -21,22 +21,19 @@ public class SupportedCardTypesViewTest {
     public void setSupportedCardTypes_addsAllCardTypes() {
         SupportedCardTypesView supportedCardTypesView = new SupportedCardTypesView(RuntimeEnvironment.application);
 
-        supportedCardTypesView.setSupportedCardTypes(CardType.VISA, CardType.MASTERCARD, CardType.DISCOVER,
-                CardType.AMEX, CardType.DINERS_CLUB, CardType.JCB, CardType.MAESTRO, CardType.UNIONPAY,
-                CardType.HIPER, CardType.HIPERCARD);
+        supportedCardTypesView.setSupportedCardTypes(CardType.VISA, CardType.MASTERCARD, CardType.DISCOVER, CardType.AMEX, CardType.DINERS_CLUB, CardType.JCB, CardType.MAESTRO, CardType.UNIONPAY, CardType.HIPER, CardType.HIPERCARD);
 
-        List<PaddedImageSpan> allSpans = Arrays.asList(new SpannableString(supportedCardTypesView.getText())
-                .getSpans(0, supportedCardTypesView.length(), PaddedImageSpan.class));
-        assertEquals(CardType.VISA.getFrontResource(), allSpans.get(0).getResourceId());
-        assertEquals(CardType.MASTERCARD.getFrontResource(), allSpans.get(1).getResourceId());
-        assertEquals(CardType.DISCOVER.getFrontResource(), allSpans.get(2).getResourceId());
-        assertEquals(CardType.AMEX.getFrontResource(), allSpans.get(3).getResourceId());
-        assertEquals(CardType.DINERS_CLUB.getFrontResource(), allSpans.get(4).getResourceId());
-        assertEquals(CardType.JCB.getFrontResource(), allSpans.get(5).getResourceId());
-        assertEquals(CardType.MAESTRO.getFrontResource(), allSpans.get(6).getResourceId());
-        assertEquals(CardType.UNIONPAY.getFrontResource(), allSpans.get(7).getResourceId());
-        assertEquals(CardType.HIPER.getFrontResource(), allSpans.get(8).getResourceId());
-        assertEquals(CardType.HIPERCARD.getFrontResource(), allSpans.get(9).getResourceId());
+        List<PaddedImageSpan> allSpans = Arrays.asList(new SpannableString(supportedCardTypesView.getText()).getSpans(0, supportedCardTypesView.length(), PaddedImageSpan.class));
+        assertEquals(CardAttributes.forCardType(CardType.VISA).getFrontResource(), allSpans.get(0).getResourceId());
+        assertEquals(CardAttributes.forCardType(CardType.MASTERCARD).getFrontResource(), allSpans.get(1).getResourceId());
+        assertEquals(CardAttributes.forCardType(CardType.DISCOVER).getFrontResource(), allSpans.get(2).getResourceId());
+        assertEquals(CardAttributes.forCardType(CardType.AMEX).getFrontResource(), allSpans.get(3).getResourceId());
+        assertEquals(CardAttributes.forCardType(CardType.DINERS_CLUB).getFrontResource(), allSpans.get(4).getResourceId());
+        assertEquals(CardAttributes.forCardType(CardType.JCB).getFrontResource(), allSpans.get(5).getResourceId());
+        assertEquals(CardAttributes.forCardType(CardType.MAESTRO).getFrontResource(), allSpans.get(6).getResourceId());
+        assertEquals(CardAttributes.forCardType(CardType.UNIONPAY).getFrontResource(), allSpans.get(7).getResourceId());
+        assertEquals(CardAttributes.forCardType(CardType.HIPER).getFrontResource(), allSpans.get(8).getResourceId());
+        assertEquals(CardAttributes.forCardType(CardType.HIPERCARD).getFrontResource(), allSpans.get(9).getResourceId());
     }
 
     @Test
@@ -45,22 +42,18 @@ public class SupportedCardTypesViewTest {
 
         supportedCardTypesView.setSupportedCardTypes((CardType[]) null);
 
-        List<PaddedImageSpan> allSpans = Arrays.asList(new SpannableString(supportedCardTypesView.getText())
-                .getSpans(0, supportedCardTypesView.length(), PaddedImageSpan.class));
+        List<PaddedImageSpan> allSpans = Arrays.asList(new SpannableString(supportedCardTypesView.getText()).getSpans(0, supportedCardTypesView.length(), PaddedImageSpan.class));
         assertEquals(0, allSpans.size());
     }
 
     @Test
     public void setSelectedCardTypes_disablesNonSelectedCardTypes() {
         SupportedCardTypesView supportedCardTypesView = new SupportedCardTypesView(RuntimeEnvironment.application);
-        supportedCardTypesView.setSupportedCardTypes(CardType.VISA, CardType.MASTERCARD, CardType.DISCOVER,
-                CardType.AMEX, CardType.DINERS_CLUB, CardType.JCB, CardType.MAESTRO, CardType.UNIONPAY,
-                CardType.HIPER, CardType.HIPERCARD);
+        supportedCardTypesView.setSupportedCardTypes(CardType.VISA, CardType.MASTERCARD, CardType.DISCOVER, CardType.AMEX, CardType.DINERS_CLUB, CardType.JCB, CardType.MAESTRO, CardType.UNIONPAY, CardType.HIPER, CardType.HIPERCARD);
 
         supportedCardTypesView.setSelected(CardType.VISA);
 
-        List<PaddedImageSpan> allSpans = Arrays.asList(new SpannableString(supportedCardTypesView.getText())
-                .getSpans(0, supportedCardTypesView.length(), PaddedImageSpan.class));
+        List<PaddedImageSpan> allSpans = Arrays.asList(new SpannableString(supportedCardTypesView.getText()).getSpans(0, supportedCardTypesView.length(), PaddedImageSpan.class));
         assertFalse(allSpans.get(0).isDisabled());
         assertTrue(allSpans.get(1).isDisabled());
         assertTrue(allSpans.get(2).isDisabled());
@@ -76,14 +69,11 @@ public class SupportedCardTypesViewTest {
     @Test
     public void setSelectedCardTypes_handlesNull() {
         SupportedCardTypesView supportedCardTypesView = new SupportedCardTypesView(RuntimeEnvironment.application);
-        supportedCardTypesView.setSupportedCardTypes(CardType.VISA, CardType.MASTERCARD, CardType.DISCOVER,
-                CardType.AMEX, CardType.DINERS_CLUB, CardType.JCB, CardType.MAESTRO, CardType.UNIONPAY,
-                CardType.HIPER, CardType.HIPERCARD);
+        supportedCardTypesView.setSupportedCardTypes(CardType.VISA, CardType.MASTERCARD, CardType.DISCOVER, CardType.AMEX, CardType.DINERS_CLUB, CardType.JCB, CardType.MAESTRO, CardType.UNIONPAY, CardType.HIPER, CardType.HIPERCARD);
 
         supportedCardTypesView.setSelected((CardType[]) null);
 
-        List<PaddedImageSpan> allSpans = Arrays.asList(new SpannableString(supportedCardTypesView.getText())
-                .getSpans(0, supportedCardTypesView.length(), PaddedImageSpan.class));
+        List<PaddedImageSpan> allSpans = Arrays.asList(new SpannableString(supportedCardTypesView.getText()).getSpans(0, supportedCardTypesView.length(), PaddedImageSpan.class));
         assertTrue(allSpans.get(0).isDisabled());
         assertTrue(allSpans.get(1).isDisabled());
         assertTrue(allSpans.get(2).isDisabled());
