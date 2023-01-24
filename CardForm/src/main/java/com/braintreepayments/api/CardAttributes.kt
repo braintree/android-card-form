@@ -34,7 +34,7 @@ data class CardAttributes constructor(
         maxCardLength: Int,
         securityCodeLength: Int,
         @StringRes securityCodeName: Int,
-        relaxedPrefixPattern: String?,
+        relaxedPrefixPattern: String? = null,
     ) : this(
         cardType,
         Pattern.compile(regex),
@@ -60,6 +60,133 @@ data class CardAttributes constructor(
         private val AMEX_SPACE_INDICES = intArrayOf(4, 10)
         private val DEFAULT_SPACE_INDICES = intArrayOf(4, 8, 12)
 
+        @JvmStatic
+        fun forCardType(cardType: CardType): CardAttributes =
+            cardAttributeMap[cardType] ?: cardAttributeMap[CardType.UNKNOWN]!!
+
+        private val cardAttributeMap = createCardAttributeMap(
+            CardAttributes(
+                cardType = CardType.EMPTY,
+                regex = "^$",
+                frontResource = R.drawable.bt_ic_unknown,
+                minCardLength = 12,
+                maxCardLength = 19,
+                securityCodeLength = 3,
+                securityCodeName = R.string.bt_cvv,
+                relaxedPrefixPattern = null
+            ),
+            CardAttributes(
+                cardType = CardType.UNKNOWN,
+                regex = "\\d+",
+                frontResource = R.drawable.bt_ic_unknown,
+                minCardLength = 12,
+                maxCardLength = 19,
+                securityCodeLength = 3,
+                securityCodeName = R.string.bt_cvv,
+                relaxedPrefixPattern = null
+            ),
+            CardAttributes(
+                cardType = CardType.HIPERCARD,
+                regex = "^606282\\d*",
+                frontResource = R.drawable.bt_ic_hipercard,
+                minCardLength = 16,
+                maxCardLength = 16,
+                securityCodeLength = 3,
+                securityCodeName = R.string.bt_cvc,
+                relaxedPrefixPattern = null
+            ),
+            CardAttributes(
+                cardType = CardType.HIPER,
+                regex = "^637(095|568|599|609|612)\\d*",
+                frontResource = R.drawable.bt_ic_hiper,
+                minCardLength = 16,
+                maxCardLength = 16,
+                securityCodeLength = 3,
+                securityCodeName = R.string.bt_cvc,
+                relaxedPrefixPattern = null
+            ),
+            CardAttributes(
+                cardType = CardType.UNIONPAY,
+                regex = "^62\\d*",
+                frontResource = R.drawable.bt_ic_unionpay,
+                minCardLength = 16,
+                maxCardLength = 19,
+                securityCodeLength = 3,
+                securityCodeName = R.string.bt_cvn,
+                relaxedPrefixPattern = null
+            ),
+            CardAttributes(
+                cardType = CardType.VISA,
+                regex = "^4\\d*",
+                frontResource = R.drawable.bt_ic_visa,
+                minCardLength = 16,
+                maxCardLength = 16,
+                securityCodeLength = 3,
+                securityCodeName = R.string.bt_cvv,
+                relaxedPrefixPattern = null
+            ),
+            CardAttributes(
+                cardType = CardType.MASTERCARD,
+                regex = "^(5[1-5]|222[1-9]|22[3-9]|2[3-6]|27[0-1]|2720)\\d*",
+                frontResource = R.drawable.bt_ic_mastercard,
+                minCardLength = 16,
+                maxCardLength = 16,
+                securityCodeLength = 3,
+                securityCodeName = R.string.bt_cvc,
+                relaxedPrefixPattern = null
+            ),
+            CardAttributes(
+                cardType = CardType.DISCOVER,
+                regex = "^(6011|65|64[4-9]|622)\\d*",
+                frontResource = R.drawable.bt_ic_discover,
+                minCardLength = 16,
+                maxCardLength = 19,
+                securityCodeLength = 3,
+                securityCodeName = R.string.bt_cid,
+                relaxedPrefixPattern = null
+            ),
+            CardAttributes(
+                cardType = CardType.AMEX,
+                regex = "^3[47]\\d*",
+                frontResource = R.drawable.bt_ic_amex,
+                minCardLength = 15,
+                maxCardLength = 15,
+                securityCodeLength = 4,
+                securityCodeName = R.string.bt_cid,
+                relaxedPrefixPattern = null
+            ),
+            CardAttributes(
+                cardType = CardType.DINERS_CLUB,
+                regex = "^(36|38|30[0-5])\\d*",
+                frontResource = R.drawable.bt_ic_diners_club,
+                minCardLength = 14,
+                maxCardLength = 14,
+                securityCodeLength = 3,
+                securityCodeName = R.string.bt_cvv,
+                relaxedPrefixPattern = null
+            ),
+            CardAttributes(
+                cardType = CardType.JCB,
+                regex = "^35\\d*",
+                frontResource = R.drawable.bt_ic_jcb,
+                minCardLength = 16,
+                maxCardLength = 16,
+                securityCodeLength = 3,
+                securityCodeName = R.string.bt_cvv,
+                relaxedPrefixPattern = null
+            ),
+            CardAttributes(
+                cardType = CardType.MAESTRO,
+                regex = "^(5018|5020|5038|5043|5[6-9]|6020|6304|6703|6759|676[1-3])\\d*",
+                frontResource = R.drawable.bt_ic_maestro,
+                minCardLength = 12,
+                maxCardLength = 19,
+                securityCodeLength = 3,
+                securityCodeName = R.string.bt_cvc,
+                relaxedPrefixPattern = "^6\\d*"
+            )
+        )
+
         private fun createCardAttributeMap(vararg items: CardAttributes): Map<CardType, CardAttributes> {
             val result = mutableMapOf<CardType, CardAttributes>()
             for (item in items) {
@@ -67,132 +194,5 @@ data class CardAttributes constructor(
             }
             return result
         }
-
-        private val cardAttributeMap = createCardAttributeMap(
-            CardAttributes(
-                CardType.EMPTY,
-                "^$",
-                R.drawable.bt_ic_unknown,
-                12,
-                19,
-                3,
-                R.string.bt_cvv,
-                null
-            ),
-            CardAttributes(
-                CardType.UNKNOWN,
-                "\\d+",
-                R.drawable.bt_ic_unknown,
-                12,
-                19,
-                3,
-                R.string.bt_cvv,
-                null
-            ),
-            CardAttributes(
-                CardType.HIPERCARD,
-                "^606282\\d*",
-                R.drawable.bt_ic_hipercard,
-                16,
-                16,
-                3,
-                R.string.bt_cvc,
-                null
-            ),
-            CardAttributes(
-                CardType.HIPER,
-                "^637(095|568|599|609|612)\\d*",
-                R.drawable.bt_ic_hiper,
-                16,
-                16,
-                3,
-                R.string.bt_cvc,
-                null
-            ),
-            CardAttributes(
-                CardType.UNIONPAY,
-                "^62\\d*",
-                R.drawable.bt_ic_unionpay,
-                16,
-                19,
-                3,
-                R.string.bt_cvn,
-                null
-            ),
-            CardAttributes(
-                CardType.VISA,
-                "^4\\d*",
-                R.drawable.bt_ic_visa,
-                16,
-                16,
-                3,
-                R.string.bt_cvv,
-                null
-            ),
-            CardAttributes(
-                CardType.MASTERCARD,
-                "^(5[1-5]|222[1-9]|22[3-9]|2[3-6]|27[0-1]|2720)\\d*",
-                R.drawable.bt_ic_mastercard,
-                16,
-                16,
-                3,
-                R.string.bt_cvc,
-                null
-            ),
-            CardAttributes(
-                CardType.DISCOVER,
-                "^(6011|65|64[4-9]|622)\\d*",
-                R.drawable.bt_ic_discover,
-                16,
-                19,
-                3,
-                R.string.bt_cid,
-                null
-            ),
-            CardAttributes(
-                CardType.AMEX,
-                "^3[47]\\d*",
-                R.drawable.bt_ic_amex,
-                15,
-                15,
-                4,
-                R.string.bt_cid,
-                null
-            ),
-            CardAttributes(
-                CardType.DINERS_CLUB,
-                "^(36|38|30[0-5])\\d*",
-                R.drawable.bt_ic_diners_club,
-                14,
-                14,
-                3,
-                R.string.bt_cvv,
-                null
-            ),
-            CardAttributes(
-                CardType.JCB,
-                "^35\\d*",
-                R.drawable.bt_ic_jcb,
-                16,
-                16,
-                3,
-                R.string.bt_cvv,
-                null
-            ),
-            CardAttributes(
-                CardType.MAESTRO,
-                "^(5018|5020|5038|5043|5[6-9]|6020|6304|6703|6759|676[1-3])\\d*",
-                R.drawable.bt_ic_maestro,
-                12,
-                19,
-                3,
-                R.string.bt_cvc,
-                "^6\\d*"
-            )
-        )
-
-        @JvmStatic
-        fun forCardType(cardType: CardType): CardAttributes =
-            cardAttributeMap[cardType] ?: cardAttributeMap[CardType.UNKNOWN]!!
     }
 }
