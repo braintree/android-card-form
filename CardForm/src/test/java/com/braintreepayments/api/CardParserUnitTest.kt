@@ -89,7 +89,7 @@ class CardParserUnitTest {
     fun sampleCardsAreLuhnValid() {
         val sut = CardParser()
         for ((cardNumber, cardType) in sampleCards) {
-            val actualType: CardType = sut.parseCardNumber(cardNumber)
+            val actualType: CardType = sut.parseCardType(cardNumber)
             assertEquals(
                 String.format("CardType.forAccountNumber failed for %s", cardNumber),
                 cardType,
@@ -108,7 +108,7 @@ class CardParserUnitTest {
     fun validateSampleCards() {
         val sut = CardParser()
         for ((cardNumber, cardType) in sampleCards) {
-            val actualType: CardType = sut.parseCardNumber(cardNumber)
+            val actualType: CardType = sut.parseCardType(cardNumber)
             assertEquals(
                 String.format("CardType.forAccountNumber failed for %s", cardNumber),
                 cardType,

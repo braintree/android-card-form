@@ -169,7 +169,7 @@ public class CardEditText extends ErrorEditText implements TextWatcher {
     }
 
     private void updateCardType() {
-        CardType type = cardParser.parseCardNumber(getText().toString());
+        CardType type = cardParser.parseCardType(getText().toString());
         if (mCardType != type) {
             mCardType = type;
             CardAttributes cardAttributes = CardAttributes.forCardType(type);
