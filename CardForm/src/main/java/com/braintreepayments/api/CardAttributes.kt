@@ -15,7 +15,7 @@ import java.util.regex.Pattern
  * @property maxCardLength max length of a card for this {@link CardType}
  * @property spaceIndices the locations where spaces should be inserted when formatting the card in a user friendly way. Only for display purposes.
  */
-data class CardAttributes constructor(
+internal data class CardAttributes constructor(
     val cardType: CardType,
     @DrawableRes val frontResource: Int,
     val maxCardLength: Int,

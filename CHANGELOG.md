@@ -2,6 +2,8 @@
 
 ## unreleased
   * Move all classes to `com.braintreepayments.api` package
+  * Remove Jetifier now that AndroidX is fully supported
+  * Make `CardType` a pure enum and make card parsing logic internal
 
 ## 5.4.0
   * Update Visa card icon
