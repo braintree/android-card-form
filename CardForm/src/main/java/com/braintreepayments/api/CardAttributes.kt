@@ -155,7 +155,7 @@ data class CardAttributes constructor(
             )
         )
 
-        val allKnownValues = knownCardBrandAttributes.values
+        val allKnownCardBrands = knownCardBrandAttributes.values
 
         private fun createCardAttributeMap(vararg items: CardAttributes): Map<CardType, CardAttributes> {
             val result = mutableMapOf<CardType, CardAttributes>()

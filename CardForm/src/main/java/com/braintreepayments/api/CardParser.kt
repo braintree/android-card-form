@@ -20,10 +20,10 @@ class CardParser {
     fun parseCardType(cardNumber: String): CardType = parseCardAttributes(cardNumber).cardType
 
     private fun findStrictCardTypeMatch(cardNumber: String) =
-        CardAttributes.allKnownValues.find { it.matchesStrict(cardNumber) }
+        CardAttributes.allKnownCardBrands.find { it.matchesStrict(cardNumber) }
 
     private fun findRelaxedCardTypeMatch(cardNumber: String) =
-        CardAttributes.allKnownValues.find { it.matchesRelaxed(cardNumber) }
+        CardAttributes.allKnownCardBrands.find { it.matchesRelaxed(cardNumber) }
 
     /**
      * Performs the Luhn check on the given card number.
