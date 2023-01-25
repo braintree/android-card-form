@@ -29,7 +29,6 @@ data class CardAttributes constructor(
     val spaceIndices: IntArray =
         if (cardType == CardType.AMEX) AMEX_SPACE_INDICES else DEFAULT_SPACE_INDICES
 
-    // TODO: investigate possible redundant regex matching now that parsing is de-coupled from the CardType
     fun matches(cardNumber: String) = matchesStrict(cardNumber) || matchesRelaxed(cardNumber)
     fun matchesStrict(cardNumber: String) = pattern.matcher(cardNumber).matches()
     fun matchesRelaxed(cardNumber: String) =
