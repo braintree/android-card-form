@@ -1,6 +1,7 @@
 # Android Card Form Release Notes
 
 ## unreleased
+  * Bump `compileSdkVersion` and `targetSdkVersion` to API level 33
   * Move all classes to `com.braintreepayments.api` package
   * Remove Jetifier now that AndroidX is fully supported
   * Make `CardType` a pure enum and make card parsing logic internal
