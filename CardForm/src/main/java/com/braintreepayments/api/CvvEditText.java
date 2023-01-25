@@ -20,7 +20,7 @@ public class CvvEditText extends ErrorEditText implements TextWatcher {
 
     private static final int DEFAULT_MAX_LENGTH = 3;
 
-    private CardType mCardType;
+    private CardAttributes cardAttributes;
 
     public CvvEditText(Context context) {
         super(context);
@@ -51,8 +51,7 @@ public class CvvEditText extends ErrorEditText implements TextWatcher {
      * @param cardType Type of card represented by the current value of card number input.
      */
     public void setCardType(CardType cardType) {
-        mCardType = cardType;
-        CardAttributes cardAttributes = CardAttributes.forCardType(cardType);
+        cardAttributes = CardAttributes.forCardType(cardType);
 
         InputFilter[] filters = { new LengthFilter(cardAttributes.getSecurityCodeLength()) };
         setFilters(filters);
@@ -75,11 +74,10 @@ public class CvvEditText extends ErrorEditText implements TextWatcher {
 
     @Override
     public void afterTextChanged(Editable editable) {
-        if (mCardType == null) {
+        if (cardAttributes == null) {
             return;
         }
 
-        CardAttributes cardAttributes = CardAttributes.forCardType(mCardType);
         if (cardAttributes.getSecurityCodeLength() == editable.length() && getSelectionStart() == editable.length()) {
             validate();
 
@@ -97,10 +95,9 @@ public class CvvEditText extends ErrorEditText implements TextWatcher {
     @Override
     public String getErrorMessage() {
         String securityCodeName;
-        if (mCardType == null) {
+        if (cardAttributes == null) {
             securityCodeName = getContext().getString(R.string.bt_cvv);
         } else {
-            CardAttributes cardAttributes = CardAttributes.forCardType(mCardType);
             securityCodeName = getContext().getString(cardAttributes.getSecurityCodeName());
         }
 
@@ -112,10 +109,9 @@ public class CvvEditText extends ErrorEditText implements TextWatcher {
     }
 
     private int getSecurityCodeLength() {
-        if (mCardType == null) {
+        if (cardAttributes == null) {
             return DEFAULT_MAX_LENGTH;
         } else {
-            CardAttributes cardAttributes = CardAttributes.forCardType(mCardType);
             return cardAttributes.getSecurityCodeLength();
         }
     }
