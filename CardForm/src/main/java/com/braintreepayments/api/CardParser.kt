@@ -2,7 +2,7 @@ package com.braintreepayments.api
 
 import android.text.TextUtils
 
-class CardParser {
+internal class CardParser {
 
     fun parseCardAttributes(cardNumber: String): CardAttributes {
         val cardAttributes =
@@ -40,12 +40,12 @@ class CardParser {
         var evenSum = 0
         for (i in 0 until len) {
             val c = reversed[i]
-            require(Character.isDigit(c)) { String.format("Not a digit: '%s'", c) }
-            val digit = c.digitToIntOrNull() ?: -1
+            val digit =
+                requireNotNull(c.digitToIntOrNull()) { String.format("Not a digit: '%s'", c) }
             if (i % 2 == 0) {
                 oddSum += digit
             } else {
-                evenSum += digit / 5 + 2 * digit % 10
+                evenSum += digit / 5 + (2 * digit) % 10
             }
         }
         return (oddSum + evenSum) % 10 == 0
@@ -59,9 +59,7 @@ class CardParser {
         if (TextUtils.isEmpty(cardNumber) || !TextUtils.isDigitsOnly(cardNumber)) {
             return false
         }
-        val cardType = parseCardType(cardNumber)
-        val cardAttributes = CardAttributes.forCardType(cardType)
-
+        val cardAttributes = parseCardAttributes(cardNumber)
         val isValidLength = cardAttributes.run {
             (minCardLength..maxCardLength).contains(cardNumber.length)
         }
