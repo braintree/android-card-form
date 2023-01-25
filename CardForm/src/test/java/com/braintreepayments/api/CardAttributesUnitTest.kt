@@ -4,7 +4,7 @@ import org.junit.Assert.assertTrue
 import org.junit.Test
 
 // TODO: Consider refactoring and converting to a parameterized test to get better coverage
-// since each card brand has it's own cvv requirements, etc.
+// since each card brand has its own cvv requirements, etc.
 class CardAttributesUnitTest {
 
     companion object {
