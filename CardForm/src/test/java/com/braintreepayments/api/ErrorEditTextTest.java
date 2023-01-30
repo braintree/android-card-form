@@ -1,9 +1,17 @@
 package com.braintreepayments.api;
 
-import com.google.android.material.textfield.TextInputLayout;
+import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertFalse;
+import static junit.framework.Assert.assertNotNull;
+import static junit.framework.Assert.assertNull;
+import static junit.framework.Assert.assertTrue;
+
+import androidx.test.core.app.ApplicationProvider;
 
 import com.braintreepayments.api.cardform.R;
 import com.braintreepayments.api.test.TestActivity;
+import com.braintreepayments.api.test.TestApplication;
+import com.google.android.material.textfield.TextInputLayout;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -11,21 +19,17 @@ import org.junit.runner.RunWith;
 import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.RuntimeEnvironment;
-
-import static junit.framework.Assert.assertEquals;
-import static junit.framework.Assert.assertFalse;
-import static junit.framework.Assert.assertNotNull;
-import static junit.framework.Assert.assertNull;
-import static junit.framework.Assert.assertTrue;
+import org.robolectric.annotation.Config;
 
 @RunWith(RobolectricTestRunner.class)
+@Config(application = TestApplication.class)
 public class ErrorEditTextTest {
 
     private ErrorEditText mView;
 
     @Before
     public void setup() {
-        mView = new ErrorEditText(RuntimeEnvironment.application);
+        mView = new ErrorEditText(ApplicationProvider.getApplicationContext());
     }
 
     @Test

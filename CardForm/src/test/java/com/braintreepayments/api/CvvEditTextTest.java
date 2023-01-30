@@ -64,7 +64,8 @@ public class CvvEditTextTest {
         for (CardType cardType : CardType.values()) {
             mView.setCardType(cardType);
 
-            assertEquals(RuntimeEnvironment.application.getString(cardType.getSecurityCodeName()),
+            CardAttributes cardAttributes = CardAttributes.forCardType(cardType);
+            assertEquals(RuntimeEnvironment.application.getString(cardAttributes.getSecurityCodeName()),
                     mView.getTextInputLayoutParent().getHint());
         }
     }
@@ -119,8 +120,9 @@ public class CvvEditTextTest {
         for (CardType cardType : CardType.values()) {
             mView.setCardType(cardType);
 
+            CardAttributes cardAttributes = CardAttributes.forCardType(cardType);
             String expectedMessage = RuntimeEnvironment.application.getString(R.string.bt_cvv_required,
-                    RuntimeEnvironment.application.getString(cardType.getSecurityCodeName()));
+                    RuntimeEnvironment.application.getString(cardAttributes.getSecurityCodeName()));
             assertEquals(expectedMessage, mView.getErrorMessage());
         }
     }
@@ -141,8 +143,9 @@ public class CvvEditTextTest {
         for (CardType cardType : CardType.values()) {
             mView.setCardType(cardType);
 
+            CardAttributes cardAttributes = CardAttributes.forCardType(cardType);
             String expectedMessage = RuntimeEnvironment.application.getString(R.string.bt_cvv_invalid,
-                    RuntimeEnvironment.application.getString(cardType.getSecurityCodeName()));
+                    RuntimeEnvironment.application.getString(cardAttributes.getSecurityCodeName()));
             assertEquals(expectedMessage, mView.getErrorMessage());
         }
     }

@@ -20,7 +20,7 @@ public class CvvEditText extends ErrorEditText implements TextWatcher {
 
     private static final int DEFAULT_MAX_LENGTH = 3;
 
-    private CardType mCardType;
+    private CardAttributes cardAttributes;
 
     public CvvEditText(Context context) {
         super(context);
@@ -51,12 +51,12 @@ public class CvvEditText extends ErrorEditText implements TextWatcher {
      * @param cardType Type of card represented by the current value of card number input.
      */
     public void setCardType(CardType cardType) {
-        mCardType = cardType;
+        cardAttributes = CardAttributes.forCardType(cardType);
 
-        InputFilter[] filters = { new LengthFilter(cardType.getSecurityCodeLength()) };
+        InputFilter[] filters = { new LengthFilter(cardAttributes.getSecurityCodeLength()) };
         setFilters(filters);
 
-        setFieldHint(cardType.getSecurityCodeName());
+        setFieldHint(cardAttributes.getSecurityCodeName());
 
         invalidate();
     }
@@ -74,11 +74,11 @@ public class CvvEditText extends ErrorEditText implements TextWatcher {
 
     @Override
     public void afterTextChanged(Editable editable) {
-        if (mCardType == null) {
+        if (cardAttributes == null) {
             return;
         }
 
-        if (mCardType.getSecurityCodeLength() == editable.length() && getSelectionStart() == editable.length()) {
+        if (cardAttributes.getSecurityCodeLength() == editable.length() && getSelectionStart() == editable.length()) {
             validate();
 
             if (isValid()) {
@@ -95,10 +95,10 @@ public class CvvEditText extends ErrorEditText implements TextWatcher {
     @Override
     public String getErrorMessage() {
         String securityCodeName;
-        if (mCardType == null) {
+        if (cardAttributes == null) {
             securityCodeName = getContext().getString(R.string.bt_cvv);
         } else {
-            securityCodeName = getContext().getString(mCardType.getSecurityCodeName());
+            securityCodeName = getContext().getString(cardAttributes.getSecurityCodeName());
         }
 
         if (TextUtils.isEmpty(getText())) {
@@ -109,10 +109,10 @@ public class CvvEditText extends ErrorEditText implements TextWatcher {
     }
 
     private int getSecurityCodeLength() {
-        if (mCardType == null) {
+        if (cardAttributes == null) {
             return DEFAULT_MAX_LENGTH;
         } else {
-            return mCardType.getSecurityCodeLength();
+            return cardAttributes.getSecurityCodeLength();
         }
     }
 
