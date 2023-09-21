@@ -1,7 +1,5 @@
 plugins {
     id 'com.android.library'
-    id 'de.marcphilipp.nexus-publish'
-    id 'signing'
 }
 
 android {
@@ -42,82 +40,13 @@ dependencies {
 
 // region signing and publishing
 
-task javadocs(type: Javadoc) {
-    source = android.sourceSets.main.java.srcDirs
-    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
-    failOnError false
-}
+project.ext.name = "card-form"
+project.ext.pom_name = "card-form"
+project.ext.group_id = "com.braintreepayments"
+project.ext.version = rootProject.version
+project.ext.pom_desc = "A ready-made card form layout that can be included in your Android app, making it easy to accept credit and debit cards."
 
-task javadocsJar(type: Jar, dependsOn: javadocs) {
-    archiveClassifier.set('javadoc')
-    from javadocs.destinationDir
-}
+apply from: rootProject.file("gradle/gradle-publish.gradle")
 
-task sourcesJar(type: Jar) {
-    archiveClassifier.set('sources')
-    from android.sourceSets.main.java.srcDirs
-}
-
-artifacts {
-    archives javadocsJar
-    archives sourcesJar
-}
-
-signing {
-    required {
-        !version.endsWith("SNAPSHOT") && !version.endsWith("DEVELOPMENT")
-    }
-    sign publishing.publications
-}
-
-nexusPublishing {
-    // give nexus sonatype more time to initialize the staging repository
-    clientTimeout = Duration.ofMinutes(3)
-    repositories {
-        sonatype()
-    }
-}
-
-afterEvaluate {
-    publishing {
-        publications {
-            release(MavenPublication) {
-                from components.release
-
-                groupId = 'com.braintreepayments'
-                artifactId = 'card-form'
-                version = rootProject.versionName
-
-                pom {
-                    name = 'card-form'
-                    packaging = 'aar'
-                    description = 'A ready-made card form layout that can be included in your Android app, making it easy to accept credit and debit cards.'
-                    url = 'https://github.com/braintree/android-card-form'
-
-                    scm {
-                        url = 'scm:git@github.com:braintree/android-card-form.git'
-                        connection = 'scm:git@github.com:braintree/android-card-form.git'
-                        developerConnection = 'scm:git@github.com:braintree/android-card-form.git'
-                    }
-
-                    developers {
-                        developer {
-                            id = 'devs'
-                            name = 'Braintree Payments'
-                        }
-                    }
-
-                    licenses {
-                        license {
-                            name = 'MIT'
-                            url = 'http://opensource.org/licenses/MIT'
-                            distribution = 'repo'
-                        }
-                    }
-                }
-            }
-        }
-    }
-}
 
 // endregion
