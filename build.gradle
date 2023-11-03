@@ -1,10 +1,10 @@
 buildscript {
     repositories {
         google()
-        jcenter()
         maven {
             url = "https://plugins.gradle.org/m2/"
         }
+        mavenCentral()
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:7.2.2'
@@ -23,9 +23,9 @@ ext["signing.secretKeyRingFile"] = System.getenv('SIGNING_KEY_FILE') ?: ''
 
 version '5.4.1-SNAPSHOT'
 ext {
-    compileSdkVersion = 30
+    compileSdkVersion = 34
     minSdkVersion = 21
-    targetSdkVersion = 30
+    targetSdkVersion = 34
     versionCode = 52
     versionName = version
 }
@@ -33,7 +33,7 @@ ext {
 allprojects {
     repositories {
         google()
-        jcenter()
+        mavenCentral()
     }
 }
 
