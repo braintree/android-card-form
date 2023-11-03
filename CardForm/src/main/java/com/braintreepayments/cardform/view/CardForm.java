@@ -30,6 +30,8 @@ import com.braintreepayments.cardform.R;
 import com.braintreepayments.cardform.utils.CardType;
 import com.braintreepayments.cardform.utils.ViewUtils;
 import com.braintreepayments.cardform.view.CardEditText.OnCardTypeChangedListener;
+import com.google.android.material.textfield.TextInputLayout;
+import com.google.android.material.textview.MaterialTextView;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -112,19 +114,15 @@ public class CardForm extends LinearLayout implements OnCardTypeChangedListener,
         init();
     }
 
-    @TargetApi(VERSION_CODES.LOLLIPOP)
-    public CardForm(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-        super(context, attrs, defStyleAttr, defStyleRes);
-        init();
-    }
-
     private void init() {
         setVisibility(GONE);
         setOrientation(VERTICAL);
 
         inflate(getContext(), R.layout.bt_card_form_fields, this);
 
-//        mCardNumberIcon = findViewById(R.id.bt_card_form_card_number_icon);
+//        mCardNumberIcon = findViewById(R.id.bt_card_form_text_input);
+//        TextInputLayout cardText = findViewById(R.id.bt_card_form_text_input);
+//        cardText.setStartIconDrawable(R.drawable.bt_ic_mobile_number);
         mCardNumber = findViewById(R.id.bt_card_form_card_number);
         mExpiration = findViewById(R.id.bt_card_form_expiration);
         mCvv = findViewById(R.id.bt_card_form_cvv);
@@ -284,21 +282,11 @@ public class CardForm extends LinearLayout implements OnCardTypeChangedListener,
                 WindowManager.LayoutParams.FLAG_SECURE);
 
         boolean cardHolderNameVisible = mCardholderNameStatus != FIELD_DISABLED;
-        boolean isDarkBackground = ViewUtils.isDarkBackground(activity);
-//        mCardholderNameIcon.setImageResource(isDarkBackground ? R.drawable.bt_ic_cardholder_name_dark: R.drawable.bt_ic_cardholder_name);
-//        mCardNumberIcon.setImageResource(isDarkBackground ? R.drawable.bt_ic_card_dark : R.drawable.bt_ic_card);
-//        mPostalCodeIcon.setImageResource(isDarkBackground ? R.drawable.bt_ic_postal_code_dark : R.drawable.bt_ic_postal_code);
-//        mMobileNumberIcon.setImageResource(isDarkBackground? R.drawable.bt_ic_mobile_number_dark : R.drawable.bt_ic_mobile_number);
-
-//        setViewVisibility(mCardholderNameIcon,  cardHolderNameVisible);
         setFieldVisibility(mCardholderName, cardHolderNameVisible);
-//        setViewVisibility(mCardNumberIcon, mCardNumberRequired);
         setFieldVisibility(mCardNumber, mCardNumberRequired);
         setFieldVisibility(mExpiration, mExpirationRequired);
         setFieldVisibility(mCvv, mCvvRequired);
-//        setViewVisibility(mPostalCodeIcon, mPostalCodeRequired);
         setFieldVisibility(mPostalCode, mPostalCodeRequired);
-//        setViewVisibility(mMobileNumberIcon, mMobileNumberRequired);
         setFieldVisibility(mCountryCode, mMobileNumberRequired);
         setFieldVisibility(mMobileNumber, mMobileNumberRequired);
         setViewVisibility(mMobileNumberExplanation, mMobileNumberRequired);

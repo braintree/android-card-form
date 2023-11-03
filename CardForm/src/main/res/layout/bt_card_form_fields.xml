@@ -16,6 +16,7 @@
         style="@style/bt_field_container">
 
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/bt_card_form_text_input"
             style="@style/bt_text_input_layout"
             tools:ignore="RtlCompat"
             app:startIconDrawable="@drawable/bt_ic_card"
