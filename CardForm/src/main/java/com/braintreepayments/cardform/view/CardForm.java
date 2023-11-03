@@ -124,15 +124,15 @@ public class CardForm extends LinearLayout implements OnCardTypeChangedListener,
 
         inflate(getContext(), R.layout.bt_card_form_fields, this);
 
-        mCardNumberIcon = findViewById(R.id.bt_card_form_card_number_icon);
+//        mCardNumberIcon = findViewById(R.id.bt_card_form_card_number_icon);
         mCardNumber = findViewById(R.id.bt_card_form_card_number);
         mExpiration = findViewById(R.id.bt_card_form_expiration);
         mCvv = findViewById(R.id.bt_card_form_cvv);
         mCardholderName = findViewById(R.id.bt_card_form_cardholder_name);
-        mCardholderNameIcon = findViewById(R.id.bt_card_form_cardholder_name_icon);
-        mPostalCodeIcon = findViewById(R.id.bt_card_form_postal_code_icon);
+//        mCardholderNameIcon = findViewById(R.id.bt_card_form_cardholder_name_icon);
+//        mPostalCodeIcon = findViewById(R.id.bt_card_form_postal_code_icon);
         mPostalCode = findViewById(R.id.bt_card_form_postal_code);
-        mMobileNumberIcon = findViewById(R.id.bt_card_form_mobile_number_icon);
+//        mMobileNumberIcon = findViewById(R.id.bt_card_form_mobile_number_icon);
         mCountryCode = findViewById(R.id.bt_card_form_country_code);
         mMobileNumber = findViewById(R.id.bt_card_form_mobile_number);
         mMobileNumberExplanation = findViewById(R.id.bt_card_form_mobile_number_explanation);
@@ -285,20 +285,20 @@ public class CardForm extends LinearLayout implements OnCardTypeChangedListener,
 
         boolean cardHolderNameVisible = mCardholderNameStatus != FIELD_DISABLED;
         boolean isDarkBackground = ViewUtils.isDarkBackground(activity);
-        mCardholderNameIcon.setImageResource(isDarkBackground ? R.drawable.bt_ic_cardholder_name_dark: R.drawable.bt_ic_cardholder_name);
-        mCardNumberIcon.setImageResource(isDarkBackground ? R.drawable.bt_ic_card_dark : R.drawable.bt_ic_card);
-        mPostalCodeIcon.setImageResource(isDarkBackground ? R.drawable.bt_ic_postal_code_dark : R.drawable.bt_ic_postal_code);
-        mMobileNumberIcon.setImageResource(isDarkBackground? R.drawable.bt_ic_mobile_number_dark : R.drawable.bt_ic_mobile_number);
+//        mCardholderNameIcon.setImageResource(isDarkBackground ? R.drawable.bt_ic_cardholder_name_dark: R.drawable.bt_ic_cardholder_name);
+//        mCardNumberIcon.setImageResource(isDarkBackground ? R.drawable.bt_ic_card_dark : R.drawable.bt_ic_card);
+//        mPostalCodeIcon.setImageResource(isDarkBackground ? R.drawable.bt_ic_postal_code_dark : R.drawable.bt_ic_postal_code);
+//        mMobileNumberIcon.setImageResource(isDarkBackground? R.drawable.bt_ic_mobile_number_dark : R.drawable.bt_ic_mobile_number);
 
-        setViewVisibility(mCardholderNameIcon,  cardHolderNameVisible);
+//        setViewVisibility(mCardholderNameIcon,  cardHolderNameVisible);
         setFieldVisibility(mCardholderName, cardHolderNameVisible);
-        setViewVisibility(mCardNumberIcon, mCardNumberRequired);
+//        setViewVisibility(mCardNumberIcon, mCardNumberRequired);
         setFieldVisibility(mCardNumber, mCardNumberRequired);
         setFieldVisibility(mExpiration, mExpirationRequired);
         setFieldVisibility(mCvv, mCvvRequired);
-        setViewVisibility(mPostalCodeIcon, mPostalCodeRequired);
+//        setViewVisibility(mPostalCodeIcon, mPostalCodeRequired);
         setFieldVisibility(mPostalCode, mPostalCodeRequired);
-        setViewVisibility(mMobileNumberIcon, mMobileNumberRequired);
+//        setViewVisibility(mMobileNumberIcon, mMobileNumberRequired);
         setFieldVisibility(mCountryCode, mMobileNumberRequired);
         setFieldVisibility(mMobileNumber, mMobileNumberRequired);
         setViewVisibility(mMobileNumberExplanation, mMobileNumberRequired);
