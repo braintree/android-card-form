@@ -8,23 +8,23 @@
         android:supportsRtl="true"
         android:name=".SampleApplication"
         android:label="@string/app_name"
-        android:theme="@android:style/Theme.Holo.Light"
+        android:theme="@style/Theme.MaterialComponents.DayNight"
         android:icon="@mipmap/ic_launcher">
 
         <activity android:name=".SampleActivity"
-            android:theme="@style/Theme.AppCompat"
-            android:label="@string/app_name">
+            android:label="@string/app_name"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
-        <activity android:name=".LightThemeActivity"
-            android:theme="@style/LightTheme" />
+        <activity android:name=".DefaultThemeActivity"
+            android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar" />
 
-        <activity android:name=".DarkThemeActivity"
-            android:theme="@style/DarkTheme" />
+        <activity android:name=".CustomThemeActivity"
+            android:theme="@style/LightTheme" />
     </application>
 
 </manifest>

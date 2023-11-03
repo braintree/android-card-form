@@ -30,12 +30,15 @@ import com.braintreepayments.cardform.R;
 import com.braintreepayments.cardform.utils.CardType;
 import com.braintreepayments.cardform.utils.ViewUtils;
 import com.braintreepayments.cardform.view.CardEditText.OnCardTypeChangedListener;
+import com.google.android.material.textfield.TextInputLayout;
+import com.google.android.material.textview.MaterialTextView;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.util.ArrayList;
 import java.util.List;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentActivity;
 
@@ -56,6 +59,22 @@ public class CardForm extends LinearLayout implements OnCardTypeChangedListener,
      * Shows the field, and require the field value to be non empty when validating the card form.
      */
     public static final int FIELD_REQUIRED = 2;
+    private CardType[] mSupportedCardTypes;
+
+    public CardForm supportedCardTypesVisible(boolean supportedCardTypesVisible) {
+        if (supportedCardTypesVisible) {
+            mSupportedCardTypesView.setVisibility(View.VISIBLE);
+        } else {
+            mSupportedCardTypesView.setVisibility(View.GONE);
+        }
+        return this;
+    }
+
+    public CardForm setSupportedCardTypes(@Nullable CardType[] cardTypes) {
+        mSupportedCardTypes = cardTypes;
+        mSupportedCardTypesView.setSupportedCardTypes(cardTypes);
+        return this;
+    }
 
     /**
      * The statuses a field can be.
@@ -79,6 +98,8 @@ public class CardForm extends LinearLayout implements OnCardTypeChangedListener,
     private MobileNumberEditText mMobileNumber;
     private TextView mMobileNumberExplanation;
     private InitialValueCheckBox mSaveCardCheckBox;
+
+    private AccessibleSupportedCardTypesView mSupportedCardTypesView;
 
     private boolean mCardNumberRequired;
     private boolean mExpirationRequired;
@@ -112,27 +133,25 @@ public class CardForm extends LinearLayout implements OnCardTypeChangedListener,
         init();
     }
 
-    @TargetApi(VERSION_CODES.LOLLIPOP)
-    public CardForm(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-        super(context, attrs, defStyleAttr, defStyleRes);
-        init();
-    }
-
     private void init() {
         setVisibility(GONE);
         setOrientation(VERTICAL);
 
         inflate(getContext(), R.layout.bt_card_form_fields, this);
 
-        mCardNumberIcon = findViewById(R.id.bt_card_form_card_number_icon);
+        mSupportedCardTypesView = findViewById(R.id.supported_card_types);
+
+//        mCardNumberIcon = findViewById(R.id.bt_card_form_text_input);
+//        TextInputLayout cardText = findViewById(R.id.bt_card_form_text_input);
+//        cardText.setStartIconDrawable(R.drawable.bt_ic_mobile_number);
         mCardNumber = findViewById(R.id.bt_card_form_card_number);
         mExpiration = findViewById(R.id.bt_card_form_expiration);
         mCvv = findViewById(R.id.bt_card_form_cvv);
         mCardholderName = findViewById(R.id.bt_card_form_cardholder_name);
-        mCardholderNameIcon = findViewById(R.id.bt_card_form_cardholder_name_icon);
-        mPostalCodeIcon = findViewById(R.id.bt_card_form_postal_code_icon);
+//        mCardholderNameIcon = findViewById(R.id.bt_card_form_cardholder_name_icon);
+//        mPostalCodeIcon = findViewById(R.id.bt_card_form_postal_code_icon);
         mPostalCode = findViewById(R.id.bt_card_form_postal_code);
-        mMobileNumberIcon = findViewById(R.id.bt_card_form_mobile_number_icon);
+//        mMobileNumberIcon = findViewById(R.id.bt_card_form_mobile_number_icon);
         mCountryCode = findViewById(R.id.bt_card_form_country_code);
         mMobileNumber = findViewById(R.id.bt_card_form_mobile_number);
         mMobileNumberExplanation = findViewById(R.id.bt_card_form_mobile_number_explanation);
@@ -284,21 +303,11 @@ public class CardForm extends LinearLayout implements OnCardTypeChangedListener,
                 WindowManager.LayoutParams.FLAG_SECURE);
 
         boolean cardHolderNameVisible = mCardholderNameStatus != FIELD_DISABLED;
-        boolean isDarkBackground = ViewUtils.isDarkBackground(activity);
-        mCardholderNameIcon.setImageResource(isDarkBackground ? R.drawable.bt_ic_cardholder_name_dark: R.drawable.bt_ic_cardholder_name);
-        mCardNumberIcon.setImageResource(isDarkBackground ? R.drawable.bt_ic_card_dark : R.drawable.bt_ic_card);
-        mPostalCodeIcon.setImageResource(isDarkBackground ? R.drawable.bt_ic_postal_code_dark : R.drawable.bt_ic_postal_code);
-        mMobileNumberIcon.setImageResource(isDarkBackground? R.drawable.bt_ic_mobile_number_dark : R.drawable.bt_ic_mobile_number);
-
-        setViewVisibility(mCardholderNameIcon,  cardHolderNameVisible);
         setFieldVisibility(mCardholderName, cardHolderNameVisible);
-        setViewVisibility(mCardNumberIcon, mCardNumberRequired);
         setFieldVisibility(mCardNumber, mCardNumberRequired);
         setFieldVisibility(mExpiration, mExpirationRequired);
         setFieldVisibility(mCvv, mCvvRequired);
-        setViewVisibility(mPostalCodeIcon, mPostalCodeRequired);
         setFieldVisibility(mPostalCode, mPostalCodeRequired);
-        setViewVisibility(mMobileNumberIcon, mMobileNumberRequired);
         setFieldVisibility(mCountryCode, mMobileNumberRequired);
         setFieldVisibility(mMobileNumber, mMobileNumberRequired);
         setViewVisibility(mMobileNumberExplanation, mMobileNumberRequired);
@@ -715,6 +724,14 @@ public class CardForm extends LinearLayout implements OnCardTypeChangedListener,
 
         if (mOnCardTypeChangedListener != null) {
             mOnCardTypeChangedListener.onCardTypeChanged(cardType);
+        }
+
+        if (mSupportedCardTypesView.getVisibility() == View.VISIBLE) {
+            if (cardType == CardType.EMPTY) {
+                mSupportedCardTypesView.setSupportedCardTypes(mSupportedCardTypes);
+            } else {
+                mSupportedCardTypesView.setSelected(cardType);
+            }
         }
     }
 

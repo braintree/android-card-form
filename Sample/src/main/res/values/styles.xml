@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="LightTheme" parent="Theme.AppCompat.Light">
+    <style name="LightTheme" parent="Theme.Material3.Dark">
         <!--   color for the app bar -->
         <item name="colorPrimary">@color/light_theme_primary</item>
         <!--   darker variant for the status bar and contextual app bars -->

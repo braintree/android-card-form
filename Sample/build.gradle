@@ -26,13 +26,13 @@ android {
 dependencies {
     implementation project(':CardForm')
 
-    implementation 'androidx.appcompat:appcompat:1.0.0'
+    implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'com.facebook.stetho:stetho:1.5.0'
-    implementation 'com.google.android.material:material:1.0.0'
-    implementation 'com.squareup.leakcanary:leakcanary-android:1.4'
+    implementation 'com.google.android.material:material:1.10.0'
+    implementation 'com.squareup.leakcanary:leakcanary-android:2.12'
 
-    androidTestImplementation 'androidx.test:core:1.0.0'
-    androidTestImplementation 'androidx.test:rules:1.1.0'
-    androidTestImplementation 'androidx.test:runner:1.1.0'
+    androidTestImplementation 'androidx.test:core:1.5.0'
+    androidTestImplementation 'androidx.test:rules:1.5.0'
+    androidTestImplementation 'androidx.test:runner:1.5.2'
     androidTestImplementation 'com.braintreepayments:device-automator:1.0.0'
 }

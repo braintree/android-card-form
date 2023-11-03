@@ -15,11 +15,9 @@ import com.braintreepayments.cardform.view.AccessibleSupportedCardTypesView;
 public class BaseCardFormActivity extends AppCompatActivity implements OnCardFormSubmitListener,
         CardEditText.OnCardTypeChangedListener {
 
-    private static final CardType[] SUPPORTED_CARD_TYPES = { CardType.VISA, CardType.MASTERCARD, CardType.DISCOVER,
+    static final CardType[] SUPPORTED_CARD_TYPES = { CardType.VISA, CardType.MASTERCARD, CardType.DISCOVER,
             CardType.AMEX, CardType.DINERS_CLUB, CardType.JCB, CardType.MAESTRO, CardType.UNIONPAY,
             CardType.HIPER, CardType.HIPERCARD };
-
-    private AccessibleSupportedCardTypesView mSupportedCardTypesView;
 
     protected CardForm mCardForm;
 
@@ -27,9 +25,6 @@ public class BaseCardFormActivity extends AppCompatActivity implements OnCardFor
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.card_form);
-
-        mSupportedCardTypesView = findViewById(R.id.supported_card_types);
-        mSupportedCardTypesView.setSupportedCardTypes(SUPPORTED_CARD_TYPES);
 
         mCardForm = findViewById(R.id.card_form);
         mCardForm.cardRequired(true)
@@ -44,6 +39,8 @@ public class BaseCardFormActivity extends AppCompatActivity implements OnCardFor
                 .cardholderName(CardForm.FIELD_REQUIRED)
                 .mobileNumberExplanation("Make sure SMS is enabled for this mobile number")
                 .actionLabel(getString(R.string.purchase))
+                .supportedCardTypesVisible(true)
+                .setSupportedCardTypes(SUPPORTED_CARD_TYPES)
                 .setup(this);
         mCardForm.setOnCardFormSubmitListener(this);
         mCardForm.setOnCardTypeChangedListener(this);
@@ -55,11 +52,6 @@ public class BaseCardFormActivity extends AppCompatActivity implements OnCardFor
 
     @Override
     public void onCardTypeChanged(CardType cardType) {
-        if (cardType == CardType.EMPTY) {
-            mSupportedCardTypesView.setSupportedCardTypes(SUPPORTED_CARD_TYPES);
-        } else {
-            mSupportedCardTypesView.setSelected(cardType);
-        }
     }
 
     @Override
