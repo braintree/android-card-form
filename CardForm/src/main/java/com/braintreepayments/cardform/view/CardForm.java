@@ -38,6 +38,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.util.ArrayList;
 import java.util.List;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentActivity;
 
@@ -58,6 +59,22 @@ public class CardForm extends LinearLayout implements OnCardTypeChangedListener,
      * Shows the field, and require the field value to be non empty when validating the card form.
      */
     public static final int FIELD_REQUIRED = 2;
+    private CardType[] mSupportedCardTypes;
+
+    public CardForm supportedCardTypesVisible(boolean supportedCardTypesVisible) {
+        if (supportedCardTypesVisible) {
+            mSupportedCardTypesView.setVisibility(View.VISIBLE);
+        } else {
+            mSupportedCardTypesView.setVisibility(View.GONE);
+        }
+        return this;
+    }
+
+    public CardForm setSupportedCardTypes(@Nullable CardType[] cardTypes) {
+        mSupportedCardTypes = cardTypes;
+        mSupportedCardTypesView.setSupportedCardTypes(cardTypes);
+        return this;
+    }
 
     /**
      * The statuses a field can be.
@@ -81,6 +98,8 @@ public class CardForm extends LinearLayout implements OnCardTypeChangedListener,
     private MobileNumberEditText mMobileNumber;
     private TextView mMobileNumberExplanation;
     private InitialValueCheckBox mSaveCardCheckBox;
+
+    private AccessibleSupportedCardTypesView mSupportedCardTypesView;
 
     private boolean mCardNumberRequired;
     private boolean mExpirationRequired;
@@ -119,6 +138,8 @@ public class CardForm extends LinearLayout implements OnCardTypeChangedListener,
         setOrientation(VERTICAL);
 
         inflate(getContext(), R.layout.bt_card_form_fields, this);
+
+        mSupportedCardTypesView = findViewById(R.id.supported_card_types);
 
 //        mCardNumberIcon = findViewById(R.id.bt_card_form_text_input);
 //        TextInputLayout cardText = findViewById(R.id.bt_card_form_text_input);
@@ -703,6 +724,14 @@ public class CardForm extends LinearLayout implements OnCardTypeChangedListener,
 
         if (mOnCardTypeChangedListener != null) {
             mOnCardTypeChangedListener.onCardTypeChanged(cardType);
+        }
+
+        if (mSupportedCardTypesView.getVisibility() == View.VISIBLE) {
+            if (cardType == CardType.EMPTY) {
+                mSupportedCardTypesView.setSupportedCardTypes(mSupportedCardTypes);
+            } else {
+                mSupportedCardTypesView.setSelected(cardType);
+            }
         }
     }
 
