@@ -43,7 +43,8 @@ public class AccessibleSupportedCardTypesView extends RecyclerView {
      */
     public void setSupportedCardTypes(@Nullable CardType... cardTypes) {
         FlexboxLayoutManager layoutManager = new FlexboxLayoutManager(getContext(), FlexDirection.ROW);
-        layoutManager.setJustifyContent(JustifyContent.CENTER);
+        layoutManager.setJustifyContent(JustifyContent.FLEX_START);
+        layoutManager.setMaxLine(1);
         setLayoutManager(layoutManager);
 
         if (cardTypes == null) {

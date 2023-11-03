@@ -8,11 +8,10 @@
         android:supportsRtl="true"
         android:name=".SampleApplication"
         android:label="@string/app_name"
-        android:theme="@android:style/Theme.Holo.Light"
+        android:theme="@style/Theme.AppCompat"
         android:icon="@mipmap/ic_launcher">
 
         <activity android:name=".SampleActivity"
-            android:theme="@style/Theme.AppCompat"
             android:label="@string/app_name"
             android:exported="true">
             <intent-filter>
@@ -22,10 +21,10 @@
         </activity>
 
         <activity android:name=".LightThemeActivity"
-            android:theme="@style/LightTheme" />
+            android:theme="@style/Theme.MaterialComponents.Light" />
 
         <activity android:name=".DarkThemeActivity"
-            android:theme="@style/DarkTheme" />
+            android:theme="@style/Theme.MaterialComponents.DayNight" />
     </application>
 
 </manifest>
