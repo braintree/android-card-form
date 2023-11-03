@@ -15,7 +15,8 @@ public class CardFormTest {
 
     @Test(timeout = 60000)
     public void cardForm_hasAllFields() {
-        ActivityScenario<LightThemeActivity> scenario = ActivityScenario.launch(LightThemeActivity.class);
+        ActivityScenario<DefaultThemeActivity> scenario = ActivityScenario.launch(
+                DefaultThemeActivity.class);
         onDevice(withText("Cardholder Name")).check(visible(true));
         onDevice(withText("Card Number")).check(visible(true));
         onDevice(withText("Expiration Date")).check(visible(true));

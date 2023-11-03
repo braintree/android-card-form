@@ -20,11 +20,11 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".LightThemeActivity"
-            android:theme="@style/Theme.MaterialComponents.Light" />
+        <activity android:name=".DefaultThemeActivity"
+            android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar" />
 
-        <activity android:name=".DarkThemeActivity"
-            android:theme="@style/Theme.MaterialComponents.DayNight" />
+        <activity android:name=".CustomThemeActivity"
+            android:theme="@style/LightTheme" />
     </application>
 
 </manifest>

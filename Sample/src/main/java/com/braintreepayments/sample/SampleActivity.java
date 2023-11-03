@@ -28,11 +28,11 @@ public class SampleActivity extends AppCompatActivity {
 
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.material_light_theme_form:
-                startActivity(new Intent(this, LightThemeActivity.class));
+            case R.id.material_default_theme_form:
+                startActivity(new Intent(this, DefaultThemeActivity.class));
                 break;
-            case R.id.material_dark_theme_form:
-                startActivity(new Intent(this, DarkThemeActivity.class));
+            case R.id.material_custom_theme_form:
+                startActivity(new Intent(this, CustomThemeActivity.class));
                 break;
             case R.id.vibrate_permission_enabled:
                 enableVibratePermission();
