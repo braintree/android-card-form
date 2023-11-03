@@ -23,6 +23,14 @@
         android:textAllCaps="true"
         android:onClick="onClick" />
 
+    <Button
+        android:id="@+id/bottom_sheet_form"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/bottom_sheet_form"
+        android:textAllCaps="true"
+        android:onClick="onClick" />
+
     <CheckBox
         android:id="@+id/vibrate_permission_enabled"
         android:text="Vibrate Permission Granted"
