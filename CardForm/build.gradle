@@ -5,14 +5,12 @@ plugins {
 }
 
 android {
-    compileSdkVersion rootProject.compileSdkVersion
-    buildToolsVersion '30.0.2'
+    namespace "com.braintreepayments.cardform"
+    compileSdk rootProject.compileSdkVersion
 
     defaultConfig {
         minSdkVersion rootProject.minSdkVersion
         targetSdkVersion rootProject.targetSdkVersion
-        versionCode rootProject.versionCode
-        versionName rootProject.versionName
     }
 
     testOptions {
@@ -30,9 +28,9 @@ android {
 }
 
 dependencies {
-    implementation 'com.google.android.material:material:1.0.0'
+    implementation 'com.google.android.material:material:1.12.0'
     implementation 'com.google.android.flexbox:flexbox:3.0.0'
-    implementation 'androidx.recyclerview:recyclerview:1.2.1'
+    implementation 'androidx.recyclerview:recyclerview:1.3.2'
 
     testImplementation 'junit:junit:4.12'
     testImplementation 'org.mockito:mockito-core:2.8.9'
@@ -78,46 +76,46 @@ nexusPublishing {
     }
 }
 
-afterEvaluate {
-    publishing {
-        publications {
-            release(MavenPublication) {
-                from components.release
-
-                groupId = 'com.braintreepayments'
-                artifactId = 'card-form'
-                version = rootProject.versionName
-
-                pom {
-                    name = 'card-form'
-                    packaging = 'aar'
-                    description = 'A ready-made card form layout that can be included in your Android app, making it easy to accept credit and debit cards.'
-                    url = 'https://github.com/braintree/android-card-form'
-
-                    scm {
-                        url = 'scm:git@github.com:braintree/android-card-form.git'
-                        connection = 'scm:git@github.com:braintree/android-card-form.git'
-                        developerConnection = 'scm:git@github.com:braintree/android-card-form.git'
-                    }
-
-                    developers {
-                        developer {
-                            id = 'devs'
-                            name = 'Braintree Payments'
-                        }
-                    }
-
-                    licenses {
-                        license {
-                            name = 'MIT'
-                            url = 'http://opensource.org/licenses/MIT'
-                            distribution = 'repo'
-                        }
-                    }
-                }
-            }
-        }
-    }
-}
+//afterEvaluate {
+//    publishing {
+//        publications {
+//            release(MavenPublication) {
+//                from components.release
+//
+//                groupId = 'com.braintreepayments'
+//                artifactId = 'card-form'
+//                version = rootProject.versionName
+//
+//                pom {
+//                    name = 'card-form'
+//                    packaging = 'aar'
+//                    description = 'A ready-made card form layout that can be included in your Android app, making it easy to accept credit and debit cards.'
+//                    url = 'https://github.com/braintree/android-card-form'
+//
+//                    scm {
+//                        url = 'scm:git@github.com:braintree/android-card-form.git'
+//                        connection = 'scm:git@github.com:braintree/android-card-form.git'
+//                        developerConnection = 'scm:git@github.com:braintree/android-card-form.git'
+//                    }
+//
+//                    developers {
+//                        developer {
+//                            id = 'devs'
+//                            name = 'Braintree Payments'
+//                        }
+//                    }
+//
+//                    licenses {
+//                        license {
+//                            name = 'MIT'
+//                            url = 'http://opensource.org/licenses/MIT'
+//                            distribution = 'repo'
+//                        }
+//                    }
+//                }
+//            }
+//        }
+//    }
+//}
 
 // endregion

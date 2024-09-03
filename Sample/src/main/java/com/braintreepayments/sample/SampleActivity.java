@@ -4,10 +4,15 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
+
 import android.view.View;
 import android.widget.CheckBox;
 
@@ -24,20 +29,29 @@ public class SampleActivity extends AppCompatActivity {
         mVibrateEnabledCheckbox = findViewById(R.id.vibrate_permission_enabled);
 
         updateVibrateEnabledCheckbox();
+
+        // Support Edge-to-Edge layout in Android 15
+        // Ref: https://developer.android.com/develop/ui/views/layout/edge-to-edge#cutout-insets
+        View navHostView = findViewById(R.id.content);
+        ViewCompat.setOnApplyWindowInsetsListener(navHostView, (v, insets) -> {
+            @WindowInsetsCompat.Type.InsetsType int insetTypeMask =
+                    WindowInsetsCompat.Type.systemBars()
+                            | WindowInsetsCompat.Type.displayCutout()
+                            | WindowInsetsCompat.Type.systemGestures();
+            Insets bars = insets.getInsets(insetTypeMask);
+            v.setPadding(bars.left, bars.top, bars.right, bars.bottom);
+            return WindowInsetsCompat.CONSUMED;
+        });
     }
 
     public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.material_light_theme_form:
-                startActivity(new Intent(this, LightThemeActivity.class));
-                break;
-            case R.id.material_dark_theme_form:
-                startActivity(new Intent(this, DarkThemeActivity.class));
-                break;
-            case R.id.vibrate_permission_enabled:
-                enableVibratePermission();
-            default:
-                break;
+        int viewId = v.getId();
+        if (viewId == R.id.material_light_theme_form) {
+            startActivity(new Intent(this, LightThemeActivity.class));
+        } else if (viewId == R.id.material_dark_theme_form) {
+            startActivity(new Intent(this, DarkThemeActivity.class));
+        } else if (viewId == R.id.vibrate_permission_enabled) {
+            enableVibratePermission();
         }
     }
 

@@ -1,10 +1,14 @@
 package com.braintreepayments.sample;
 
 import android.os.Bundle;
+import android.view.View;
 import android.view.WindowManager;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
 
 import com.braintreepayments.cardform.OnCardFormSubmitListener;
 import com.braintreepayments.cardform.utils.CardType;
@@ -51,6 +55,19 @@ public class BaseCardFormActivity extends AppCompatActivity implements OnCardFor
         // Warning: this is for development purposes only and should never be done outside of this example app.
         // Failure to set FLAG_SECURE exposes your app to screenshots allowing other apps to steal card information.
         getWindow().clearFlags(WindowManager.LayoutParams.FLAG_SECURE);
+
+        // Support Edge-to-Edge layout in Android 15
+        // Ref: https://developer.android.com/develop/ui/views/layout/edge-to-edge#cutout-insets
+        View navHostView = findViewById(R.id.content);
+        ViewCompat.setOnApplyWindowInsetsListener(navHostView, (v, insets) -> {
+            @WindowInsetsCompat.Type.InsetsType int insetTypeMask =
+                    WindowInsetsCompat.Type.systemBars()
+                            | WindowInsetsCompat.Type.displayCutout()
+                            | WindowInsetsCompat.Type.systemGestures();
+            Insets bars = insets.getInsets(insetTypeMask);
+            v.setPadding(bars.left, bars.top, bars.right, bars.bottom);
+            return WindowInsetsCompat.CONSUMED;
+        });
     }
 
     @Override
