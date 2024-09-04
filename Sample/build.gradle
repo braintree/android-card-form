@@ -3,7 +3,8 @@ plugins {
 }
 
 android {
-    compileSdkVersion rootProject.compileSdkVersion
+    compileSdk rootProject.compileSdkVersion
+    namespace "com.braintreepayments.sample"
 
     defaultConfig {
         applicationId 'com.braintreepayments.sample'

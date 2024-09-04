@@ -5,13 +5,12 @@ plugins {
 }
 
 android {
-    compileSdkVersion rootProject.compileSdkVersion
+    compileSdk rootProject.compileSdkVersion
+    namespace "com.braintreepayments.cardform"
 
     defaultConfig {
         minSdkVersion rootProject.minSdkVersion
         targetSdkVersion rootProject.targetSdkVersion
-        versionCode rootProject.versionCode
-        versionName rootProject.versionName
     }
 
     testOptions {
@@ -77,46 +76,46 @@ nexusPublishing {
     }
 }
 
-afterEvaluate {
-    publishing {
-        publications {
-            release(MavenPublication) {
-                from components.release
-
-                groupId = 'com.braintreepayments'
-                artifactId = 'card-form'
-                version = rootProject.versionName
-
-                pom {
-                    name = 'card-form'
-                    packaging = 'aar'
-                    description = 'A ready-made card form layout that can be included in your Android app, making it easy to accept credit and debit cards.'
-                    url = 'https://github.com/braintree/android-card-form'
-
-                    scm {
-                        url = 'scm:git@github.com:braintree/android-card-form.git'
-                        connection = 'scm:git@github.com:braintree/android-card-form.git'
-                        developerConnection = 'scm:git@github.com:braintree/android-card-form.git'
-                    }
-
-                    developers {
-                        developer {
-                            id = 'devs'
-                            name = 'Braintree Payments'
-                        }
-                    }
-
-                    licenses {
-                        license {
-                            name = 'MIT'
-                            url = 'http://opensource.org/licenses/MIT'
-                            distribution = 'repo'
-                        }
-                    }
-                }
-            }
-        }
-    }
-}
+//afterEvaluate {
+//    publishing {
+//        publications {
+//            release(MavenPublication) {
+//                from components.release
+//
+//                groupId = 'com.braintreepayments'
+//                artifactId = 'card-form'
+//                version = rootProject.versionName
+//
+//                pom {
+//                    name = 'card-form'
+//                    packaging = 'aar'
+//                    description = 'A ready-made card form layout that can be included in your Android app, making it easy to accept credit and debit cards.'
+//                    url = 'https://github.com/braintree/android-card-form'
+//
+//                    scm {
+//                        url = 'scm:git@github.com:braintree/android-card-form.git'
+//                        connection = 'scm:git@github.com:braintree/android-card-form.git'
+//                        developerConnection = 'scm:git@github.com:braintree/android-card-form.git'
+//                    }
+//
+//                    developers {
+//                        developer {
+//                            id = 'devs'
+//                            name = 'Braintree Payments'
+//                        }
+//                    }
+//
+//                    licenses {
+//                        license {
+//                            name = 'MIT'
+//                            url = 'http://opensource.org/licenses/MIT'
+//                            distribution = 'repo'
+//                        }
+//                    }
+//                }
+//            }
+//        }
+//    }
+//}
 
 // endregion

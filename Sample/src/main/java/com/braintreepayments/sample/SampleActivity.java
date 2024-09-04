@@ -27,17 +27,13 @@ public class SampleActivity extends AppCompatActivity {
     }
 
     public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.material_light_theme_form:
-                startActivity(new Intent(this, LightThemeActivity.class));
-                break;
-            case R.id.material_dark_theme_form:
-                startActivity(new Intent(this, DarkThemeActivity.class));
-                break;
-            case R.id.vibrate_permission_enabled:
-                enableVibratePermission();
-            default:
-                break;
+        int viewId = v.getId();
+        if (viewId == R.id.material_light_theme_form) {
+            startActivity(new Intent(this, LightThemeActivity.class));
+        } else if (viewId == R.id.material_dark_theme_form) {
+            startActivity(new Intent(this, DarkThemeActivity.class));
+        } else if (viewId == R.id.vibrate_permission_enabled) {
+            enableVibratePermission();
         }
     }
 
