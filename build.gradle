@@ -1,25 +1,19 @@
 buildscript {
     repositories {
-        mavenCentral()
         google()
+        mavenCentral()
         maven {
             url = "https://plugins.gradle.org/m2/"
         }
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:8.5.2'
-        classpath 'de.marcphilipp.gradle:nexus-publish-plugin:0.4.0'
-        classpath 'io.codearte.gradle.nexus:gradle-nexus-staging-plugin:0.21.2'
     }
 }
 
 plugins {
-    id 'io.codearte.nexus-staging' version '0.21.2'
+    id 'io.github.gradle-nexus.publish-plugin' version '1.1.0'
 }
-
-ext["signing.keyId"] = System.getenv('SIGNING_KEY_ID') ?: ''
-ext["signing.password"] = System.getenv('SIGNING_KEY_PASSWORD') ?: ''
-ext["signing.secretKeyRingFile"] = System.getenv('SIGNING_KEY_FILE') ?: ''
 
 version '5.4.1-SNAPSHOT'
 ext {
@@ -37,12 +31,20 @@ allprojects {
     }
 }
 
-nexusStaging {
+nexusPublishing {
     packageGroup = "com.braintreepayments"
-    // give nexus sonatype more time to close the staging repository
-    delayBetweenRetriesInMillis = 20000
-    username = System.env['SONATYPE_USERNAME']
-    password = System.env['SONATYPE_PASSWORD']
+
+    repositories {
+        sonatype {
+            username = System.getenv('SONATYPE_USERNAME') ?: ''
+            password = System.getenv('SONATYPE_PASSWORD') ?: ''
+        }
+    }
+
+    transitionCheckOptions {
+        // give nexus sonatype more time to close the staging repository
+        delayBetween.set(Duration.ofSeconds(20))
+    }
 }
 
 task changeReleaseVersion {
