@@ -6,6 +6,11 @@ ext["signing.password"] = System.getenv('SIGNING_KEY_PASSWORD') ?: ''
 ext["signing.secretKeyRingFile"] = System.getenv('SIGNING_KEY_FILE') ?: ''
 
 android {
+    publishing {
+        singleVariant("release") {
+            withSourcesJar()
+        }
+    }
     signingConfigs {
         release {
             storeFile file(System.env['KEYSTORE_FILE'] ?: 'debug.keystore')
@@ -16,49 +21,49 @@ android {
     }
 }
 
-afterEvaluate {
-    publishing {
-        publications {
-            release(MavenPublication) {
-                groupId project.ext.group_id
-                version project.ext.version
-                artifactId project.ext.name
-                from components.release
+publishing {
+    publications {
+        release(MavenPublication) {
+            groupId project.ext.group_id
+            version project.ext.version
+            artifactId project.ext.name
 
-                pom {
-                    name = project.ext.pom_name ?: ''
-                    packaging = POM_PACKAGING
-                    description = project.ext.pom_desc ?: ''
-                    url = POM_URL
-                    licenses {
-                        license {
-                            name = POM_LICENSE_NAME
-                            url = POM_LICENSE_URL
-                            distribution = POM_LICENSE_DISTRIBUTION
-                        }
+            afterEvaluate {
+                from components.release
+            }
+
+            pom {
+                name = project.ext.pom_name ?: ''
+                packaging = POM_PACKAGING
+                description = project.ext.pom_desc ?: ''
+                url = POM_URL
+                licenses {
+                    license {
+                        name = POM_LICENSE_NAME
+                        url = POM_LICENSE_URL
+                        distribution = POM_LICENSE_DISTRIBUTION
                     }
-                    developers {
-                        developer {
-                            id = POM_DEVELOPER_ID
-                            name = POM_DEVELOPER_NAME
-                            email = POM_DEVELOPER_EMAIL
-                        }
+                }
+                developers {
+                    developer {
+                        id = POM_DEVELOPER_ID
+                        name = POM_DEVELOPER_NAME
+                        email = POM_DEVELOPER_EMAIL
                     }
-                    scm {
-                        connection = POM_SCM_CONNECTION
-                        developerConnection = POM_SCM_DEV_CONNECTION
-                        url = POM_SCM_URL
-                    }
+                }
+                scm {
+                    connection = POM_SCM_CONNECTION
+                    developerConnection = POM_SCM_DEV_CONNECTION
+                    url = POM_SCM_URL
                 }
             }
         }
     }
 
     def isCiEnvironment = System.getenv('CI')
-
     signing {
         required { isCiEnvironment }
-        if(isCiEnvironment) {
+        if (isCiEnvironment) {
             sign publishing.publications
             sign configurations.archives
         }
