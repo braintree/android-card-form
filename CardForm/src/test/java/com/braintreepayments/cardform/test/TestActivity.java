@@ -11,9 +11,8 @@ public class TestActivity extends AppCompatActivity  {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
         setTheme(androidx.appcompat.R.style.Theme_AppCompat);
+        super.onCreate(savedInstanceState);
 
         CardForm cardForm = new CardForm(this);
         cardForm.setId(android.R.id.custom);
