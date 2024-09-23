@@ -1,5 +1,8 @@
 # Android Card Form Release Notes
 
+## unreleased
+  * Bump `compileSdkVersion` and `targetSdkVersion` to API level 35
+
 ## 5.4.0
   * Update Visa card icon
 
