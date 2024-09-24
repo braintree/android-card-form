@@ -25,6 +25,11 @@ android {
         textOutput 'stdout'
     }
 
+    compileOptions {
+        sourceCompatibility versions.javaSourceCompatibility
+        targetCompatibility versions.javaTargetCompatibility
+    }
+
     resourcePrefix 'bt_'
 }
 

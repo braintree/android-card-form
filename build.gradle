@@ -6,6 +6,13 @@ buildscript {
             url = "https://plugins.gradle.org/m2/"
         }
     }
+
+    def targetJavaVersion = JavaVersion.VERSION_17
+    ext.versions = [
+            "javaSourceCompatibility": targetJavaVersion,
+            "javaTargetCompatibility": targetJavaVersion,
+    ]
+
     dependencies {
         classpath 'com.android.tools.build:gradle:8.5.2'
     }
