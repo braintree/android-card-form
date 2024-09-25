@@ -2,6 +2,7 @@
 
 ## unreleased
   * Bump `compileSdkVersion` and `targetSdkVersion` to API level 35
+  * Set targetCompatibility and sourceCompatability to Java 17
 
 ## 5.4.0
   * Update Visa card icon
