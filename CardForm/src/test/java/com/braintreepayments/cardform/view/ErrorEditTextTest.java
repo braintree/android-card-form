@@ -21,18 +21,18 @@ import static junit.framework.Assert.assertTrue;
 @RunWith(RobolectricTestRunner.class)
 public class ErrorEditTextTest {
 
+    private TestActivity mActivity;
     private ErrorEditText mView;
 
     @Before
     public void setup() {
-        mView = new ErrorEditText(RuntimeEnvironment.application);
+        mActivity = Robolectric.setupActivity(TestActivity.class);
+        mView = new ErrorEditText(mActivity);
     }
 
     @Test
     public void setFieldHint_setsHintWhenParentViewIsATextInputLayout() {
-        mView = (CardEditText) Robolectric.setupActivity(TestActivity.class)
-                .findViewById(R.id.bt_card_form_card_number);
-
+        mView = mActivity.findViewById(R.id.bt_card_form_card_number);
         mView.setFieldHint(R.string.bt_form_hint_cvv);
 
         assertEquals("CVV", ((TextInputLayout) mView.getParent().getParent()).getHint());
@@ -41,9 +41,7 @@ public class ErrorEditTextTest {
 
     @Test
     public void setFieldHint_setsHintStringWhenParentViewIsATextInputLayout() {
-        mView = (CardEditText) Robolectric.setupActivity(TestActivity.class)
-                .findViewById(R.id.bt_card_form_card_number);
-
+        mView = mActivity.findViewById(R.id.bt_card_form_card_number);
         mView.setFieldHint("CVV");
 
         assertEquals("CVV", ((TextInputLayout) mView.getParent().getParent()).getHint());
@@ -99,9 +97,7 @@ public class ErrorEditTextTest {
 
     @Test
     public void setError_setsErrorWhenParentViewIsATextInputLayout() {
-        mView = (CardEditText) Robolectric.setupActivity(TestActivity.class)
-                .findViewById(R.id.bt_card_form_card_number);
-
+        mView = mActivity.findViewById(R.id.bt_card_form_card_number);
         mView.setError("Error");
 
         assertEquals("Error", ((TextInputLayout) mView.getParent().getParent()).getError());
@@ -126,7 +122,7 @@ public class ErrorEditTextTest {
 
     @Test
     public void validate_showsErrorMessage() {
-        mView = new ErrorEditText(RuntimeEnvironment.application) {
+        mView = new ErrorEditText(mActivity) {
             @Override
             public boolean isValid() {
                 return false;
@@ -145,7 +141,7 @@ public class ErrorEditTextTest {
 
     @Test
     public void validate_doesNotShowErrorMessageIfOptional() {
-        mView = new ErrorEditText(RuntimeEnvironment.application) {
+        mView = new ErrorEditText(mActivity) {
             @Override
             public boolean isValid() {
                 return false;
@@ -165,8 +161,7 @@ public class ErrorEditTextTest {
 
     @Test
     public void getTextInputLayoutParent_returnsTextInputLayout() {
-        mView = (CardEditText) Robolectric.setupActivity(TestActivity.class)
-                .findViewById(R.id.bt_card_form_card_number);
+        mView = mActivity.findViewById(R.id.bt_card_form_card_number);
 
         assertNotNull(mView.getTextInputLayoutParent());
     }

@@ -1,29 +1,31 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.braintreepayments.sample">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
     <uses-permission android:name="android.permission.VIBRATE" />
 
     <application
-        android:allowBackup="true"
-        android:supportsRtl="true"
         android:name=".SampleApplication"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@android:style/Theme.Holo.Light"
-        android:icon="@mipmap/ic_launcher">
+        android:supportsRtl="true"
+        android:theme="@style/Theme.AppCompat.NoActionBar">
 
-        <activity android:name=".SampleActivity"
-            android:theme="@style/Theme.AppCompat"
-            android:label="@string/app_name">
+        <activity
+            android:name=".SampleActivity"
+            android:exported="true"
+            android:theme="@style/Theme.AppCompat.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
-        <activity android:name=".LightThemeActivity"
+        <activity
+            android:name=".LightThemeActivity"
             android:theme="@style/LightTheme" />
 
-        <activity android:name=".DarkThemeActivity"
+        <activity
+            android:name=".DarkThemeActivity"
             android:theme="@style/DarkTheme" />
     </application>
 

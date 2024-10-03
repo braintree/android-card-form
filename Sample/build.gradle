@@ -3,8 +3,8 @@ plugins {
 }
 
 android {
-    compileSdkVersion rootProject.compileSdkVersion
-    buildToolsVersion '30.0.2'
+    compileSdk rootProject.compileSdkVersion
+    namespace "com.braintreepayments.sample"
 
     defaultConfig {
         applicationId 'com.braintreepayments.sample'
@@ -26,13 +26,12 @@ android {
 dependencies {
     implementation project(':CardForm')
 
-    implementation 'androidx.appcompat:appcompat:1.0.0'
+    implementation 'androidx.appcompat:appcompat:1.7.0'
     implementation 'com.facebook.stetho:stetho:1.5.0'
-    implementation 'com.google.android.material:material:1.0.0'
-    implementation 'com.squareup.leakcanary:leakcanary-android:1.4'
+    implementation 'com.google.android.material:material:1.12.0'
 
-    androidTestImplementation 'androidx.test:core:1.0.0'
-    androidTestImplementation 'androidx.test:rules:1.1.0'
-    androidTestImplementation 'androidx.test:runner:1.1.0'
+    androidTestImplementation 'androidx.test:core:1.6.1'
+    androidTestImplementation 'androidx.test:rules:1.6.1'
+    androidTestImplementation 'androidx.test:runner:1.6.2'
     androidTestImplementation 'com.braintreepayments:device-automator:1.0.0'
 }

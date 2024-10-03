@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="LightTheme" parent="Theme.AppCompat.Light">
+    <style name="LightTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!--   color for the app bar -->
         <item name="colorPrimary">@color/light_theme_primary</item>
         <!--   darker variant for the status bar and contextual app bars -->
@@ -9,7 +9,7 @@
         <item name="colorAccent">@color/light_theme_accent</item>
     </style>
 
-    <style name="DarkTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="DarkTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!--   color for the app bar -->
         <item name="colorPrimary">@color/dark_theme_primary</item>
         <!--   darker variant for the status bar and contextual app bars -->

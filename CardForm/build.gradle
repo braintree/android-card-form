@@ -1,23 +1,22 @@
 plugins {
     id 'com.android.library'
-    id 'de.marcphilipp.nexus-publish'
-    id 'signing'
 }
 
 android {
-    compileSdkVersion rootProject.compileSdkVersion
-    buildToolsVersion '30.0.2'
+    compileSdk rootProject.compileSdkVersion
+    namespace "com.braintreepayments.cardform"
 
     defaultConfig {
         minSdkVersion rootProject.minSdkVersion
         targetSdkVersion rootProject.targetSdkVersion
-        versionCode rootProject.versionCode
-        versionName rootProject.versionName
     }
 
     testOptions {
         unitTests {
-            includeAndroidResources true
+            includeAndroidResources = true
+            all {
+                jvmArgs '-noverify'
+            }
         }
     }
 
@@ -26,18 +25,23 @@ android {
         textOutput 'stdout'
     }
 
+    compileOptions {
+        sourceCompatibility versions.javaSourceCompatibility
+        targetCompatibility versions.javaTargetCompatibility
+    }
+
     resourcePrefix 'bt_'
 }
 
 dependencies {
-    implementation 'com.google.android.material:material:1.0.0'
+    implementation 'com.google.android.material:material:1.3.0'
     implementation 'com.google.android.flexbox:flexbox:3.0.0'
-    implementation 'androidx.recyclerview:recyclerview:1.2.1'
+    implementation 'androidx.recyclerview:recyclerview:1.3.2'
 
-    testImplementation 'junit:junit:4.12'
-    testImplementation 'org.mockito:mockito-core:2.8.9'
-    testImplementation 'org.robolectric:robolectric:4.3'
-    testImplementation 'androidx.test:core:1.4.0'
+    testImplementation 'junit:junit:4.13.2'
+    testImplementation 'org.mockito:mockito-core:5.7.0'
+    testImplementation 'org.robolectric:robolectric:4.13'
+    testImplementation 'androidx.test:core:1.6.1'
 }
 
 // region signing and publishing
@@ -63,61 +67,12 @@ artifacts {
     archives sourcesJar
 }
 
-signing {
-    required {
-        !version.endsWith("SNAPSHOT") && !version.endsWith("DEVELOPMENT")
-    }
-    sign publishing.publications
-}
+project.ext.name = "card-form"
+project.ext.pom_name = "card-form"
+project.ext.group_id = "com.braintreepayments"
+project.ext.version = rootProject.version
+project.ext.pom_desc = "A ready-made card form layout that can be included in your Android app, making it easy to accept credit and debit cards."
 
-nexusPublishing {
-    // give nexus sonatype more time to initialize the staging repository
-    clientTimeout = Duration.ofMinutes(3)
-    repositories {
-        sonatype()
-    }
-}
-
-afterEvaluate {
-    publishing {
-        publications {
-            release(MavenPublication) {
-                from components.release
-
-                groupId = 'com.braintreepayments'
-                artifactId = 'card-form'
-                version = rootProject.versionName
-
-                pom {
-                    name = 'card-form'
-                    packaging = 'aar'
-                    description = 'A ready-made card form layout that can be included in your Android app, making it easy to accept credit and debit cards.'
-                    url = 'https://github.com/braintree/android-card-form'
-
-                    scm {
-                        url = 'scm:git@github.com:braintree/android-card-form.git'
-                        connection = 'scm:git@github.com:braintree/android-card-form.git'
-                        developerConnection = 'scm:git@github.com:braintree/android-card-form.git'
-                    }
-
-                    developers {
-                        developer {
-                            id = 'devs'
-                            name = 'Braintree Payments'
-                        }
-                    }
-
-                    licenses {
-                        license {
-                            name = 'MIT'
-                            url = 'http://opensource.org/licenses/MIT'
-                            distribution = 'repo'
-                        }
-                    }
-                }
-            }
-        }
-    }
-}
+apply from: rootProject.file("gradle/gradle-publish.gradle")
 
 // endregion
