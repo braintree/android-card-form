@@ -8,8 +8,36 @@ on:
 env:
   SIGNING_KEY_FILE_PATH: /home/runner/secretKey.gpg
 jobs:
+  validate_version:
+    name: Validate Version Input
+    runs-on: ubuntu-latest
+    steps:
+      - name: Validate version input
+        env:
+          INPUT_VERSION: ${{ github.event.inputs.version }}
+        run: |
+          set -euo pipefail
+
+          # Validate version format: x.x.x or x.x.x-betax (e.g., 4.0.0, 4.0.0-beta1)
+          # Uses bash regex to avoid a grep subprocess and (0|[1-9][0-9]*) to prevent leading zeros.
+          PATTERN='^(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)(-beta[0-9]+)?$'
+          if ! [[ "${INPUT_VERSION}" =~ $PATTERN ]]; then
+            echo "::error::Invalid version format: ${INPUT_VERSION}"
+            echo "::error::Version must be x.x.x or x.x.x-betax (e.g., 4.0.0 or 4.0.0-beta1)"
+            exit 1
+          fi
+
+          # Check length to prevent excessively long inputs
+          if [ ${#INPUT_VERSION} -gt 50 ]; then
+            echo "::error::Version string exceeds maximum length of 50 characters"
+            exit 1
+          fi
+
+          echo "Version validated: ${INPUT_VERSION}"
+
   #First we build
   build_aar:
+    needs: [ validate_version ]
     name: Build
     runs-on: ubuntu-latest
     steps:
@@ -33,6 +61,7 @@ jobs:
           SIGNING_KEY_PASSWORD: ${{ secrets.SIGNING_KEY_PASSWORD }}
           SIGNING_KEY_FILE: ${{ env.SIGNING_KEY_FILE_PATH }}
   unit_test:
+    needs: [ validate_version ]
     name: Unit Tests
     runs-on: ubuntu-latest
     steps:
@@ -88,6 +117,7 @@ jobs:
         uses: ./.github/actions/set_github_user
       - name: Update Version
         run: |
+          set -euo pipefail
           ./gradlew -PversionParam=${{ github.event.inputs.version }} changeReleaseVersion
           ./gradlew -PversionParam=${{ github.event.inputs.version }} changeREADMEVersion
           git commit -am 'Release ${{ github.event.inputs.version }}'
